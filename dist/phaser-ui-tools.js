@@ -330,7 +330,8 @@ uiWidgets.Scrollbar.prototype = {
     
     scrollUp: function () {
         "use strict";
-        if (this.bar.y !== this.track.y && !this.barMoving) {
+        // Prevents users from moving the bar while it's moving.
+		if (this.bar.y !== this.track.y && !this.barMoving) {
 			var testPosition = this.bar.y - this.bar.height;
 			var moveToY = null;
 			this.barMoving = true;
@@ -386,52 +387,56 @@ uiWidgets.Scrollbar.prototype = {
 
 	scrollLeft: function () {
         "use strict";
-        var testPosition = this.bar.x - this.bar.width;
-        var moveToX = null;
-		
-        // Ensure the bar can't move above the track.
-        if (testPosition <= this.track.x) {
-            moveToX = this.track.x;
-        } else {
-			moveToX = this.bar.x - this.bar.width;
-        }
+        if (this.bar.x !== this.track.x && !this.barMoving) {
+			var testPosition = this.bar.x - this.bar.width;
+			var moveToX = null;
 
-		var left = this.game.add.tween(this.bar).to(
-			{x: moveToX},
-			this.tweenTiming,
-			this.tweenEasing,
-			true
-		);
-		
-		this.mousePointer = {"x": this.bar.x, "y": this.bar.y};
-		this.trackClicked = true;
-		left.onUpdateCallback(this.moveContent, this);
-		left.onComplete.add(this.enableBarInput, this);
+			// Ensure the bar can't move above the track.
+			if (testPosition <= this.track.x) {
+				moveToX = this.track.x;
+			} else {
+				moveToX = this.bar.x - this.bar.width;
+			}
+
+			var left = this.game.add.tween(this.bar).to(
+				{x: moveToX},
+				this.tweenTiming,
+				this.tweenEasing,
+				true
+			);
+
+			this.mousePointer = {"x": this.bar.x, "y": this.bar.y};
+			this.trackClicked = true;
+			left.onUpdateCallback(this.moveContent, this);
+			left.onComplete.add(this.enableBarInput, this);
+		}
     },
 	
 	scrollRight: function () {
         "use strict";
-		var testPosition = this.bar.x + this.bar.width * 2;
-		var moveToX = null;
+		if (this.bar.x + this.bar.width !== this.track.x + this.track.width && !this.barMoving) {
+			var testPosition = this.bar.x + this.bar.width * 2;
+			var moveToX = null;
 
-		// Ensure the bar can't move below the track.
-        if (testPosition >= this.track.x + this.track.width) {
-            moveToX = this.track.x + this.track.width - this.bar.width;
-        } else {
-			moveToX = this.bar.x + this.bar.width;
-        }
+			// Ensure the bar can't move below the track.
+			if (testPosition >= this.track.x + this.track.width) {
+				moveToX = this.track.x + this.track.width - this.bar.width;
+			} else {
+				moveToX = this.bar.x + this.bar.width;
+			}
 
-		var right = this.game.add.tween(this.bar).to(
-			{x: moveToX},
-			this.tweenTiming,
-			this.tweenEasing,
-			true
-		);
-		
-		this.mousePointer = {"x": this.bar.x, "y": this.bar.y};
-		this.trackClicked = true;
-		right.onUpdateCallback(this.moveContent, this);
-		right.onComplete.add(this.enableBarInput, this);
+			var right = this.game.add.tween(this.bar).to(
+				{x: moveToX},
+				this.tweenTiming,
+				this.tweenEasing,
+				true
+			);
+
+			this.mousePointer = {"x": this.bar.x, "y": this.bar.y};
+			this.trackClicked = true;
+			right.onUpdateCallback(this.moveContent, this);
+			right.onComplete.add(this.enableBarInput, this);
+		}
     },
 	
 	enableBarInput: function () {
