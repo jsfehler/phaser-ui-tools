@@ -8,6 +8,9 @@ It should look something like:
 <script src="lib/phaser-ui-tools.min.js"></script>
 ```
 
+### Documentation
+https://jsfehler.github.io/phaser-ui-tools/
+
 ### References
 Scrollbar math:
 http://csdgn.org/article/scrollbar
