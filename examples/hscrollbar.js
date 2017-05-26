@@ -1,4 +1,4 @@
-var game = new Phaser.Game(800, 600, Phaser.AUTO, 'hscrollbar', { preload: preload, create: create });
+var game = new Phaser.Game(400, 300, Phaser.AUTO, 'hscrollbar', { preload: preload, create: create });
 
 function preload() {
 	game.load.image("dummyButton", "assets/horizontal/sprite.png");
@@ -7,9 +7,8 @@ function preload() {
 }
 
 function create() {
-	
 	// Create a viewport. A "window" with a limited area of view.
-	var viewport = new uiWidgets.Viewport(game, 75, 75, 260, 64);
+	var viewport = new uiWidgets.Viewport(game, 75, 75, 260, 128);
 	
 	// Create a row. Anything added to a row is placed next to the previous thing added.
 	var row = new uiWidgets.Row(game);
