@@ -4,13 +4,13 @@ var uiWidgets = uiWidgets || {};
 
 
 /** 
- * A container for other objects with a limited viewable area. 
+ * A container for other objects with a limited viewable area. Uses a mask to hide children outside of the specified x/y/width/height area.
  * @constructor
- * @param game
- * @param x
- * @param y
- * @param width
- * @param height
+ * @param {Object} game - Current game instance.
+ * @param {number} x - The x coordinate on screen where the viewport will be placed.
+ * @param {number} y - The y coordinate on screen where the viewport will be placed.
+ * @param width {number} - The width of the viewport.
+ * @param height {number} - The height of the viewport.
  */
 uiWidgets.Viewport = function (game, x, y, width, height) {
     "use strict";
@@ -38,6 +38,7 @@ uiWidgets.Viewport = function (game, x, y, width, height) {
 uiWidgets.Viewport.prototype = Object.create(Phaser.Group.prototype);
 uiWidgets.Viewport.constructor = uiWidgets.Viewport;
 
+/** Adds a new object into the Viewport. */
 uiWidgets.Viewport.prototype.addNode = function (node) {
 	"use strict";
 	this.add(node);

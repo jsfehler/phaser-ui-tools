@@ -5,8 +5,8 @@ var uiWidgets = uiWidgets || {};
 /** 
  * Group that places new child nodes directly under the previous child.
  * @constructor
- * @param {Object} game
- * @param context
+ * @param {Object} game - Current game instance.
+ * @param {Object }context - The context this object is called in.
  */
 uiWidgets.Column = function (game, context) {
 	"use strict";

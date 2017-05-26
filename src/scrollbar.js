@@ -4,7 +4,7 @@ var uiWidgets = uiWidgets || {};
 
 
 /**
- * Creates a bar that moves along a track. The bar is resized relative to the size of the track and size of the content to be scrolled.
+ * Creates a bar that moves along a track. The bar is resized relative to the size of the track and size of the content to be scrolled. Content outside the viewport has input disabled.
  * @constructor
  * @param {Object} game - Current game instance.
  * @param {Object} content - Anything that you want to move via the scrollbar.
@@ -31,6 +31,7 @@ uiWidgets.Scrollbar = function (game, content, draggable, vertical, keyboard, tr
 	this.barImage = barImage;
 	
 	// Padding between content and scrollbar.
+	// TODO: Don't hard-code this value.
 	var padding = 10;
 	
 	if (this.vertical) {
@@ -81,6 +82,7 @@ uiWidgets.Scrollbar.prototype = {
 		}
 	},
 	
+	/** Allows the bar to scroll when the track is clicked. */
 	enableTrackClick: function () {
 		"use strict";
 		this.track.inputEnabled = true;
@@ -204,6 +206,7 @@ uiWidgets.Scrollbar.prototype = {
         this.bar.y = this.barDefaultY;
     },
     
+	/** For Vertical Scrollbars. Scrolls the content up by one window. */
     scrollUp: function () {
         "use strict";
         // Prevents users from moving the bar while it's moving.
@@ -233,6 +236,7 @@ uiWidgets.Scrollbar.prototype = {
 		}
     },
     
+	/** For Vertical Scrollbars. Scrolls the content down by one window. */
     scrollDown: function () {
         "use strict";
 		if (this.bar.y + this.bar.height !== this.track.y + this.track.height && !this.barMoving) {
@@ -260,7 +264,8 @@ uiWidgets.Scrollbar.prototype = {
 			down.onComplete.add(this.enableBarInput, this);
 		}
     },
-
+	
+	/** For Horizontal Scrollbars. Scrolls the content left by one window. */
 	scrollLeft: function () {
         "use strict";
         if (this.bar.x !== this.track.x && !this.barMoving) {
@@ -290,6 +295,7 @@ uiWidgets.Scrollbar.prototype = {
 		}
     },
 	
+	/** For Horizontal Scrollbars. Scrolls the content right by one window. */
 	scrollRight: function () {
         "use strict";
 		if (this.bar.x + this.bar.width !== this.track.x + this.track.width && !this.barMoving) {
@@ -325,6 +331,7 @@ uiWidgets.Scrollbar.prototype = {
 		this.bar.inputEnabled = true;
 	},
 	
+	/** If the scrollbar is draggable, this function is called when the track is clicked. */
     clickTrack: function (sprite, pointer) {
         "use strict";
         
@@ -365,6 +372,7 @@ uiWidgets.Scrollbar.prototype = {
 		return this.trackScrollAreaSize * windowPositionRatio;
 	},
 	
+	/** This function is called when the mouse is clicked on the bar. Causes the content to move relative to the bar's position on the track. */
     moveContent: function () {
         "use strict";
 		var gripPositionOnTrack = this.getBarPosition();
