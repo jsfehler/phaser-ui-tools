@@ -3,7 +3,15 @@ var Phaser;
 var uiWidgets = uiWidgets || {};
 
 
-/** A container for other objects with a limited viewable area. */
+/** 
+ * A container for other objects with a limited viewable area. 
+ * @constructor
+ * @param game
+ * @param x
+ * @param y
+ * @param width
+ * @param height
+ */
 uiWidgets.Viewport = function (game, x, y, width, height) {
     "use strict";
     Phaser.Group.call(this, game);

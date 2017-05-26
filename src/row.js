@@ -2,7 +2,12 @@ var Phaser;
 
 var uiWidgets = uiWidgets || {};
 
-/** Group that places new child nodes directly next to the previous child.*/
+/** 
+ * Group that places new child nodes directly next to the previous child.
+ * @constructor
+ * @param {Object} game
+ * @param context
+*/
 uiWidgets.Row = function (game, context) {
 	"use strict";
 	Phaser.Group.call(this, game);

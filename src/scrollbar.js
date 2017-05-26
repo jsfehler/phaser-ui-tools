@@ -1,14 +1,19 @@
-// Reference: http://csdgn.org/article/scrollbar
-
 var Phaser;
 
 var uiWidgets = uiWidgets || {};
 
 
-/** Creates a bar that moves along a track. The bar is resized relative to the size of the track and size of the content to be scrolled.
-* The bar is vertical by default, but can be set horizontal by setting vertical to false.
-* The scrollable content is anything that you want to move via the scrollbar.
-*/
+/**
+ * Creates a bar that moves along a track. The bar is resized relative to the size of the track and size of the content to be scrolled.
+ * @constructor
+ * @param game
+ * @param content - Anything that you want to move via the scrollbar.
+ * @param {boolean} draggable
+ * @param {boolean} vertical - Determines if the scrollbar should be vertical or horizontal.
+ * @param {boolean} keyboard
+ * @param trackImage
+ * @param barImage
+ */
 uiWidgets.Scrollbar = function (game, content, draggable, vertical, keyboard, trackImage, barImage) {
     "use strict";
     // Reference to the game.

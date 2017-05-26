@@ -3,7 +3,15 @@ var Phaser;
 var uiWidgets = uiWidgets || {};
 
 
-/** Sprite with text on top of it. */
+/** 
+ * Sprite with text on top of it.
+ * @constructor
+ * @param {Object} game - The game the button is in.
+ * @param {string} image - The image to create a sprite with.
+ * @param {string} label - The text to place on top of the sprite.
+ * @param {number} x - The x coordinate on screen where the textSprite will be placed.
+ * @param {number} y - The y coordinate on screen where the textSprite will be placed.
+ */
 uiWidgets.textSprite = function (game, image, label, x, y) {
     "use strict";
     Phaser.Sprite.call(this, game, x, y, image);
@@ -21,7 +29,17 @@ uiWidgets.textSprite.prototype = Object.create(Phaser.Sprite.prototype);
 uiWidgets.textSprite.constructor = uiWidgets.textSprite;
   
 
-/** Button with text on top of it. */
+/** 
+ * Button with text on top of it. 
+ * @constructor
+ * @param {Object} game - The game the button is in.
+ * @param {string} image - The image to create a sprite with.
+ * @param {string} label - The text to place on top of the sprite.
+ * @param {number} x - The x coordinate on screen where the textSprite will be placed.
+ * @param {number} y - The y coordinate on screen where the textSprite will be placed.
+ * @param callback - Callback to use when the button is clicked.
+ * @param callbackContext - The context is the callback is called in.
+ */
 uiWidgets.textButton = function (game, image, label, x, y, callback, callbackContext) {
     "use strict";
     Phaser.Button.call(this, game, x, y, image, callback, callbackContext);
