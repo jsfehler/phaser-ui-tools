@@ -266,6 +266,8 @@ uiWidgets.Scrollbar.prototype = {
         if (this.bar.x !== this.track.x && !this.barMoving) {
 			var testPosition = this.bar.x - this.bar.width;
 			var moveToX = null;
+			this.barMoving = true;
+			this.bar.inputEnabled = false;
 
 			// Ensure the bar can't move above the track.
 			if (testPosition <= this.track.x) {
@@ -293,7 +295,9 @@ uiWidgets.Scrollbar.prototype = {
 		if (this.bar.x + this.bar.width !== this.track.x + this.track.width && !this.barMoving) {
 			var testPosition = this.bar.x + this.bar.width * 2;
 			var moveToX = null;
-
+			this.barMoving = true;
+			this.bar.inputEnabled = false;
+			
 			// Ensure the bar can't move below the track.
 			if (testPosition >= this.track.x + this.track.width) {
 				moveToX = this.track.x + this.track.width - this.bar.width;
