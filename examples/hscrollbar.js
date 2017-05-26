@@ -7,11 +7,17 @@ function preload() {
 }
 
 function create() {
-
+	
+	// Create a viewport. A "window" with a limited area of view.
 	var viewport = new uiWidgets.Viewport(game, 75, 75, 260, 64);
+	
+	// Create a row. Anything added to a row is placed next to the previous thing added.
 	var row = new uiWidgets.Row(game);
+	
+	// Put the row inside the viewport.
 	viewport.addNode(row);
 
+	// Add things to the row.
 	var dummy_sprite_a = this.game.add.sprite(0, 0, "dummyButton");
 	var dummy_sprite_b = this.game.add.sprite(0, 0, "dummyButton");
 	var dummy_sprite_c = this.game.add.sprite(0, 0, "dummyButton");
@@ -32,6 +38,7 @@ function create() {
 	row.addNode(dummy_sprite_h);
 	row.addNode(dummy_sprite_i);
 
+	// Create a scrollbar for the viewport.
 	var scrollbar = new uiWidgets.Scrollbar(
 		game,
 		viewport,
