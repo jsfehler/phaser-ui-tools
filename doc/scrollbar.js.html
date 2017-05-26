@@ -78,20 +78,17 @@ var uiWidgets = uiWidgets || {};
 /**
  * Creates a bar that moves along a track. The bar is resized relative to the size of the track and size of the content to be scrolled.
  * @constructor
- * @param game
- * @param content - Anything that you want to move via the scrollbar.
- * @param {boolean} draggable
+ * @param {Object} game - Current game instance.
+ * @param {Object} content - Anything that you want to move via the scrollbar.
+ * @param {boolean} draggable - Determines if the scrollbar responds to mouse clicks.
  * @param {boolean} vertical - Determines if the scrollbar should be vertical or horizontal.
- * @param {boolean} keyboard
- * @param trackImage
- * @param barImage
+ * @param {boolean} keyboard - Determines if the scrollbar responds to keyboard input.
+ * @param {string} trackImage - The image key to use for the track.
+ * @param {string} barImage - The image key to use for the bar. Will be automatically resized to fit.
  */
 uiWidgets.Scrollbar = function (game, content, draggable, vertical, keyboard, trackImage, barImage) {
     "use strict";
-    // Reference to the game.
 	this.game = game;
-	
-	// The content to be scrolled.
     this.content = content;
 	
     this.vertical = vertical || false;
