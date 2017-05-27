@@ -1,4 +1,4 @@
-var game = new Phaser.Game(800, 600, Phaser.AUTO, 'vscrollbar', { preload: preload, create: create });
+var game = new Phaser.Game(600, 400, Phaser.AUTO, 'vscrollbar', { preload: preload, create: create });
 
 function preload() {
 	game.load.image("dummyButton", "assets/vertical/sprite.png");
