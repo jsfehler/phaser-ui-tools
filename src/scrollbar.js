@@ -162,7 +162,7 @@ uiWidgets.Scrollbar.prototype = {
 			this.bar.width = barSize;
 		}
 
-		//-- Enable mouse dragging --//
+		//-- Enable mouse dragging on the bar. --//
         if (this.draggable) {
             this.bar.inputEnabled = true;
             this.bar.input.enableDrag();
@@ -325,6 +325,7 @@ uiWidgets.Scrollbar.prototype = {
 		}
     },
 	
+	/** When called, ensures the bar can be moved. Must be called once the bar has finished scrolling. */
 	enableBarInput: function () {
 		this.trackClicked = false;
 		this.barMoving = false;
@@ -354,7 +355,7 @@ uiWidgets.Scrollbar.prototype = {
     
 	saveMousePosition: function (sprite, pointer) {
 		"use strict";
-		// If the bar is draggable, record where the mouse clicked down.
+		// Record where the mouse clicked down.
 		this.mousePointer = {"x": pointer.x, "y": pointer.y};
 	},
 	
@@ -372,7 +373,7 @@ uiWidgets.Scrollbar.prototype = {
 		return this.trackScrollAreaSize * windowPositionRatio;
 	},
 	
-	/** This function is called when the mouse is clicked on the bar. Causes the content to move relative to the bar's position on the track. */
+	/** This function is called when bar needs to move. Causes the content to move relative to the bar's position on the track. */
     moveContent: function () {
         "use strict";
 		var gripPositionOnTrack = this.getBarPosition();
