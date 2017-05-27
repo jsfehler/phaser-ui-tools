@@ -85,8 +85,10 @@ var uiWidgets = uiWidgets || {};
  * @param {boolean} keyboard - Determines if the scrollbar responds to keyboard input.
  * @param {string} trackImage - The image key to use for the track.
  * @param {string} barImage - The image key to use for the bar. Will be automatically resized to fit.
+ * @param {number} padding - Distance in pixels between the scrollbar and viewport.
+ * @param {Object} tweenParams - Dictionary with the duration and easing function for the scrolling tween.
  */
-uiWidgets.Scrollbar = function (game, content, draggable, vertical, keyboard, trackImage, barImage) {
+uiWidgets.Scrollbar = function (game, content, draggable, vertical, keyboard, trackImage, barImage, padding, tweenParams) {
     "use strict";
 	this.game = game;
     this.content = content;
@@ -103,8 +105,7 @@ uiWidgets.Scrollbar = function (game, content, draggable, vertical, keyboard, tr
 	this.barImage = barImage;
 	
 	// Padding between content and scrollbar.
-	// TODO: Don't hard-code this value.
-	var padding = 10;
+	padding = padding || 0;
 	
 	if (this.vertical) {
 		this.x = this.content.x + this.content.width + padding;
@@ -118,9 +119,8 @@ uiWidgets.Scrollbar = function (game, content, draggable, vertical, keyboard, tr
 	this.minBarSize = 44;
 	
 	// Animation
-    this.tweenTiming = 300;
-    this.tweenEasing = Phaser.Easing.Quadratic.Out;
-
+	this.tweenParams = tweenParams || {'duration': 300, 'ease': Phaser.Easing.Quadratic.Out};
+	
 	// Flag switched on when the track is clicked, switched off after the bar movement is finished.
 	this.trackClicked = false;
 	this.barMoving = false;
@@ -181,8 +181,8 @@ uiWidgets.Scrollbar.prototype = {
 			1,
 			0
         );
-		
-		var verticalAttributes = {
+		var verticalAttributes, horizontalAttributes;
+		verticalAttributes = {
 			"barDefaultX": this.track.x + (this.track.width / 2) - (this.bar.width / 2),
 			"barDefaultY": this.track.y,
 			"viewportSize": this.content.area.height,
@@ -190,7 +190,7 @@ uiWidgets.Scrollbar.prototype = {
 			"barMaxSize": this.track.height
 		};
 		
-		var horizontalAttributes = {
+		horizontalAttributes = {
 			"barDefaultX": this.track.x,
 			"barDefaultY": this.track.y + (this.track.height / 2) - (this.bar.height / 2),
 			"viewportSize": this.content.area.width,
@@ -278,6 +278,23 @@ uiWidgets.Scrollbar.prototype = {
         this.bar.y = this.barDefaultY;
     },
     
+	/** Creates the tween for moving the bar to a new position. */
+	_addScrollTween: function (properties) {
+		"use strict";
+		var newTween;
+		newTween = this.game.add.tween(this.bar).to(
+			properties,
+			this.tweenParams.duration,
+			this.tweenParams.ease,
+			true
+		);
+
+		this.mousePointer = {"x": this.bar.x, "y": this.bar.y};
+		this.trackClicked = true;
+		newTween.onUpdateCallback(this.moveContent, this);
+		newTween.onComplete.add(this.enableBarInput, this);	
+	},
+	
 	/** For Vertical Scrollbars. Scrolls the content up by one window. */
     scrollUp: function () {
         "use strict";
@@ -294,17 +311,7 @@ uiWidgets.Scrollbar.prototype = {
 				moveToY = this.bar.y - this.bar.height;
 			}
 
-			var up = this.game.add.tween(this.bar).to(
-				{y: moveToY},
-				this.tweenTiming,
-				this.tweenEasing,
-				true
-			);
-
-			this.mousePointer = {"x": this.bar.x, "y": this.bar.y};
-			this.trackClicked = true;
-			up.onUpdateCallback(this.moveContent, this);
-			up.onComplete.add(this.enableBarInput, this);
+			this._addScrollTween({y: moveToY});
 		}
     },
     
@@ -323,17 +330,7 @@ uiWidgets.Scrollbar.prototype = {
 				moveToY = this.bar.y + this.bar.height;
 			}
 
-			var down = this.game.add.tween(this.bar).to(
-				{y: moveToY},
-				this.tweenTiming,
-				this.tweenEasing,
-				true
-			);
-
-			this.mousePointer = {"x": this.bar.x, "y": this.bar.y};
-			this.trackClicked = true;
-			down.onUpdateCallback(this.moveContent, this);
-			down.onComplete.add(this.enableBarInput, this);
+			this._addScrollTween({y: moveToY});
 		}
     },
 	
@@ -353,17 +350,7 @@ uiWidgets.Scrollbar.prototype = {
 				moveToX = this.bar.x - this.bar.width;
 			}
 
-			var left = this.game.add.tween(this.bar).to(
-				{x: moveToX},
-				this.tweenTiming,
-				this.tweenEasing,
-				true
-			);
-
-			this.mousePointer = {"x": this.bar.x, "y": this.bar.y};
-			this.trackClicked = true;
-			left.onUpdateCallback(this.moveContent, this);
-			left.onComplete.add(this.enableBarInput, this);
+			this._addScrollTween({x: moveToX});
 		}
     },
 	
@@ -383,17 +370,7 @@ uiWidgets.Scrollbar.prototype = {
 				moveToX = this.bar.x + this.bar.width;
 			}
 
-			var right = this.game.add.tween(this.bar).to(
-				{x: moveToX},
-				this.tweenTiming,
-				this.tweenEasing,
-				true
-			);
-
-			this.mousePointer = {"x": this.bar.x, "y": this.bar.y};
-			this.trackClicked = true;
-			right.onUpdateCallback(this.moveContent, this);
-			right.onComplete.add(this.enableBarInput, this);
+			this._addScrollTween({x: moveToX});
 		}
     },
 	

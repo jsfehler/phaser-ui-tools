@@ -45,6 +45,8 @@ function create() {
 		false,
 		true,
 		"track",
-		"bar"
+		"bar",
+		10,
+		{'duration': 300, 'ease': Phaser.Easing.Quadratic.Out}
 	);
 }
