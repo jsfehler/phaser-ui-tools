@@ -401,12 +401,12 @@ uiWidgets.Scrollbar.prototype = {
 		
 		this.mousePointer = newMousePointer;
 		
-		// Only update when the new position is inside the track
+		// Maximum value for the mouse position. Only update when the new position is inside the track.
 		var maxValue;
 		if (this.vertical) {
-			maxValue = this.track.height;
+			maxValue = this.track.height + this.track.y;
 		} else {
-			maxValue = this.track.width;
+			maxValue = this.track.width + this.track.x;
 		}
 		
 		var mousePositionDelta;
@@ -415,17 +415,16 @@ uiWidgets.Scrollbar.prototype = {
 		} else {
 			mousePositionDelta = 0;
 		}
-
+		
 		var newGripPosition = gripPositionOnTrack + mousePositionDelta;
 
 		// Don't let the content scroll above or below the track's size
-
 		if (newGripPosition > 0) {
 			newGripPosition = 0;
 		} else if (newGripPosition <= -this.trackScrollAreaSize) {
 			newGripPosition = -this.trackScrollAreaSize;
 		}
-
+		
 		// When the scrollbar is at the top or bottom, prevent a mouse movement that
 		// doesn't move the scrollbar from moving the content.
 		if (this.vertical) {
@@ -441,7 +440,7 @@ uiWidgets.Scrollbar.prototype = {
 				newGripPosition = -this.trackScrollAreaSize;
 			}
 		}
-
+		
 		var newGripPositionRatio = newGripPosition / this.trackScrollAreaSize;
 
 		// If the scrollable area is less than the size of the scrollbar, the bar and track will be the same size.
@@ -451,8 +450,8 @@ uiWidgets.Scrollbar.prototype = {
 		}
 
 		var newContentPosition = newGripPositionRatio * this.windowScrollAreaSize;
-		
-		// Needs an offset for where the viewport is on screen.
+
+		// Set the content's new position. Uses an offset for where the viewport is on screen.
 		if (this.vertical) {
 			this.content.y = newContentPosition + this.content.area.y;
 		} else {
@@ -465,6 +464,7 @@ uiWidgets.Scrollbar.prototype = {
     }
 };
 
+// TODO: This should probably be part of the viewport's logic, not the scrollbar.
 // Whenever the content is moved, disable input for all objets outside the viewport.
 var disableOutOfBounds = function (content, context, vertical) {
 	"use strict";

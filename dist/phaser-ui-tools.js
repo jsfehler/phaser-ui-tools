@@ -283,7 +283,7 @@ uiWidgets.Scrollbar.prototype = {
 			this.bar.width = barSize;
 		}
 
-		//-- Enable mouse dragging --//
+		//-- Enable mouse dragging on the bar. --//
         if (this.draggable) {
             this.bar.inputEnabled = true;
             this.bar.input.enableDrag();
@@ -446,6 +446,7 @@ uiWidgets.Scrollbar.prototype = {
 		}
     },
 	
+	/** When called, ensures the bar can be moved. Must be called once the bar has finished scrolling. */
 	enableBarInput: function () {
 		this.trackClicked = false;
 		this.barMoving = false;
@@ -475,7 +476,7 @@ uiWidgets.Scrollbar.prototype = {
     
 	saveMousePosition: function (sprite, pointer) {
 		"use strict";
-		// If the bar is draggable, record where the mouse clicked down.
+		// Record where the mouse clicked down.
 		this.mousePointer = {"x": pointer.x, "y": pointer.y};
 	},
 	
@@ -493,7 +494,7 @@ uiWidgets.Scrollbar.prototype = {
 		return this.trackScrollAreaSize * windowPositionRatio;
 	},
 	
-	/** This function is called when the mouse is clicked on the bar. Causes the content to move relative to the bar's position on the track. */
+	/** This function is called when bar needs to move. Causes the content to move relative to the bar's position on the track. */
     moveContent: function () {
         "use strict";
 		var gripPositionOnTrack = this.getBarPosition();
@@ -521,12 +522,12 @@ uiWidgets.Scrollbar.prototype = {
 		
 		this.mousePointer = newMousePointer;
 		
-		// Only update when the new position is inside the track
+		// Maximum value for the mouse position. Only update when the new position is inside the track.
 		var maxValue;
 		if (this.vertical) {
-			maxValue = this.track.height;
+			maxValue = this.track.height + this.track.y;
 		} else {
-			maxValue = this.track.width;
+			maxValue = this.track.width + this.track.x;
 		}
 		
 		var mousePositionDelta;
@@ -535,17 +536,16 @@ uiWidgets.Scrollbar.prototype = {
 		} else {
 			mousePositionDelta = 0;
 		}
-
+		
 		var newGripPosition = gripPositionOnTrack + mousePositionDelta;
 
 		// Don't let the content scroll above or below the track's size
-
 		if (newGripPosition > 0) {
 			newGripPosition = 0;
 		} else if (newGripPosition <= -this.trackScrollAreaSize) {
 			newGripPosition = -this.trackScrollAreaSize;
 		}
-
+		
 		// When the scrollbar is at the top or bottom, prevent a mouse movement that
 		// doesn't move the scrollbar from moving the content.
 		if (this.vertical) {
@@ -561,7 +561,7 @@ uiWidgets.Scrollbar.prototype = {
 				newGripPosition = -this.trackScrollAreaSize;
 			}
 		}
-
+		
 		var newGripPositionRatio = newGripPosition / this.trackScrollAreaSize;
 
 		// If the scrollable area is less than the size of the scrollbar, the bar and track will be the same size.
@@ -571,8 +571,8 @@ uiWidgets.Scrollbar.prototype = {
 		}
 
 		var newContentPosition = newGripPositionRatio * this.windowScrollAreaSize;
-		
-		// Needs an offset for where the viewport is on screen.
+
+		// Set the content's new position. Uses an offset for where the viewport is on screen.
 		if (this.vertical) {
 			this.content.y = newContentPosition + this.content.area.y;
 		} else {
@@ -585,6 +585,7 @@ uiWidgets.Scrollbar.prototype = {
     }
 };
 
+// TODO: This should probably be part of the viewport's logic, not the scrollbar.
 // Whenever the content is moved, disable input for all objets outside the viewport.
 var disableOutOfBounds = function (content, context, vertical) {
 	"use strict";
