@@ -62,14 +62,13 @@ uiWidgets.Scrollbar = function (game, content, draggable, vertical, keyboard, tr
 uiWidgets.Scrollbar.prototype = {
     /** Enables keyboard input for the scrollbar */
 	enableKeyboard: function () {
-        "use strict";
+		"use strict";
 		this.upKey = this.game.input.keyboard.addKey(Phaser.Keyboard.UP);
 		this.downKey = this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
 		this.leftKey = this.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
 		this.rightKey = this.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
 		
 		if (this.vertical) {
-            
             this.upKey.onDown.add(this.scrollUp, this);
             this.downKey.onDown.add(this.scrollDown, this);
 			this.leftKey.onDown.add(this.scrollUp, this);
@@ -100,10 +99,10 @@ uiWidgets.Scrollbar.prototype = {
 		}
 		
         // Bar sprite.
-        this.bar = this.game.add.button(
-            this.track.x,
-            this.track.y,
-            this.barImage,
+		this.bar = this.game.add.button(
+			this.track.x,
+			this.track.y,
+			this.barImage,
 			this.moveContent,
 			this,
 			1,
