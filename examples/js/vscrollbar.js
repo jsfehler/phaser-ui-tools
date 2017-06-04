@@ -44,5 +44,4 @@ function create() {
 		10,
 		{'duration': 300, 'ease': Phaser.Easing.Quadratic.Out}
 	);
-	
 }
