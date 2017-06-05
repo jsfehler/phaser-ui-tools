@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>DocStrap Class: textSprite</title>
+	<title>DocStrap Class: ValueRange</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -65,13 +65,13 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: textSprite</h1>
+	<h1 class="page-title">Class: ValueRange</h1>
 <section>
 
 <header>
     
         <h2>
-        textSprite
+        ValueRange
         </h2>
         
     
@@ -84,7 +84,7 @@
         
 <hr>
 <dt>
-    <h4 class="name" id="textSprite"><span class="type-signature"></span>new textSprite(game, image, label, style, x, y)</h4>
+    <h4 class="name" id="ValueRange"><span class="type-signature"></span>new ValueRange(step, minValue, maxValue)</h4>
     
     
 </dt>
@@ -92,7 +92,7 @@
 
     
     <div class="description">
-        <p>Sprite with text added as a child.</p>
+        <p>Used by the scrollbar to hold the bar's values.</p>
     </div>
     
 
@@ -127,103 +127,7 @@
 
         <tr>
             
-                <td class="name"><code>game</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Current game instance.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>image</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The image to create a sprite with.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>label</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The text to place on top of the sprite.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>style</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The style properties to be set on the Text.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>x</code></td>
+                <td class="name"><code>step</code></td>
             
 
             <td class="type">
@@ -240,14 +144,14 @@
 
             
 
-            <td class="description last"><p>The x coordinate on screen where the textSprite will be placed.</p></td>
+            <td class="description last"><p>The amount the bar is changed by.</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>y</code></td>
+                <td class="name"><code>minValue</code></td>
             
 
             <td class="type">
@@ -264,7 +168,31 @@
 
             
 
-            <td class="description last"><p>The y coordinate on screen where the textSprite will be placed.</p></td>
+            <td class="description last"><p>The minimum value the bar can have.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>maxValue</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The maximum value the bar can have.</p></td>
         </tr>
 
     
@@ -308,8 +236,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="buttons.js.html">buttons.js</a>,
-				 <a href="buttons.js.html#sunlight-1-line-16">line 16</a>
+				<a href="scrollbar.js.html">scrollbar.js</a>,
+				 <a href="scrollbar.js.html#sunlight-1-line-12">line 12</a>
 			</li>
 		</ul>
 	</dd>

@@ -43,3 +43,37 @@ uiWidgets.Viewport.prototype.addNode = function (node) {
 	"use strict";
 	this.add(node);
 };
+
+
+/** Disable input for all objets outside the viewport's visible area. */
+uiWidgets.Viewport.prototype.disableOutOfBounds = function (children, context, vertical) {
+	"use strict";
+	var child, location, contentLocation, trueCoords;
+	
+	// Makes sure the recursive function stops when there's no children.
+	if (children !== undefined) {
+		for (var i = 0; i < children.length; i++) {
+			child = children[i];
+
+			child.inputEnabled = true;
+
+			// An object's x/y is relative to it's parent.
+			// The world gives an x/y relative to the whole game.
+			trueCoords = child.world || child;
+			
+			if (vertical) {
+				location = trueCoords.y;
+				contentLocation = context.content.area.y;
+			} else {
+				location = trueCoords.x;
+				contentLocation = context.content.area.x;
+			}
+
+			if (location < contentLocation) {
+				child.inputEnabled = false;
+			}
+
+			this.disableOutOfBounds(child.children, context, vertical);
+		}
+	}
+};

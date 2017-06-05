@@ -2,6 +2,27 @@ var Phaser;
 
 var uiWidgets = uiWidgets || {};
 
+/** 
+ * Used by the scrollbar to hold the bar's values.
+ * @constructor
+ * @param {number} step - The amount the bar is changed by.
+ * @param {number} minValue - The minimum value the bar can have.
+ * @param {number} maxValue - The maximum value the bar can have.
+ */
+uiWidgets.ValueRange = function (step, minValue, maxValue) {
+	"use strict";
+	this.step = step;
+	this.minValue = minValue;
+	this.maxValue = maxValue;
+	
+	this.ratio = step / maxValue;
+	
+	// The ratio between the step and max can't be greater than 1.
+	// ie: There can't be more steps than the max value.
+	if (this.ratio > 1) {
+		this.ratio = 1;
+	}
+};
 
 /**
  * Creates a bar that moves along a track. The bar is resized relative to the size of the track and size of the content to be scrolled. Content outside the viewport has input disabled.
@@ -139,16 +160,11 @@ uiWidgets.Scrollbar.prototype = {
         this.bar.x = this.barDefaultX;
         this.bar.y = this.barDefaultY;
 		
-		var windowContentRatio = attributes.viewportSize / attributes.containerSize;
-
+		this.valueRange = new uiWidgets.ValueRange(attributes.viewportSize, attributes.barDefaultY, attributes.containerSize);
+	
 		//-- Set Bar Size --//
-		// Prevents bar from being larger than the track.
-		if (windowContentRatio > 1) {
-			windowContentRatio = 1;
-		}
+		var barSize = attributes.barMaxSize * this.valueRange.ratio;
 		
-		var barSize = attributes.barMaxSize * windowContentRatio;
-
 		// Prevents bar from becoming microscopic.
 		if (barSize < this.minBarSize) {
 			barSize = this.minBarSize;
@@ -189,7 +205,7 @@ uiWidgets.Scrollbar.prototype = {
 		}
 		
 		// Determine the distance the window can scroll over
-		this.windowScrollAreaSize = attributes.containerSize - attributes.viewportSize;
+		this.windowScrollAreaSize = this.valueRange.maxValue - this.valueRange.step;
 		
 		// Determine the distance the bar can scroll over
 		if (this.vertical) {
@@ -227,7 +243,8 @@ uiWidgets.Scrollbar.prototype = {
         "use strict";
         // Prevents users from moving the bar while it's moving.
 		if (this.bar.y !== this.track.y && !this.barMoving) {
-			var testPosition = this.bar.y - this.bar.height;
+			var slice = (this.track.height * this.valueRange.ratio);
+			var testPosition = this.bar.y - slice;
 			var moveToY = null;
 			this.barMoving = true;
 			
@@ -235,7 +252,7 @@ uiWidgets.Scrollbar.prototype = {
 			if (testPosition <= this.track.y) {
 				moveToY = this.track.y;
 			} else {
-				moveToY = this.bar.y - this.bar.height;
+				moveToY = this.bar.y - slice;
 			}
 
 			this._addScrollTween({y: moveToY});
@@ -246,7 +263,8 @@ uiWidgets.Scrollbar.prototype = {
     scrollDown: function () {
         "use strict";
 		if (this.bar.y + this.bar.height !== this.track.y + this.track.height && !this.barMoving) {
-			var testPosition = this.bar.y + this.bar.height * 2;
+			var slice = (this.track.height * this.valueRange.ratio);
+			var testPosition = this.bar.y + (slice * 2);
 			var moveToY = null;
 			this.barMoving = true;
 			this.bar.inputEnabled = false;
@@ -254,7 +272,7 @@ uiWidgets.Scrollbar.prototype = {
 			if (testPosition >= this.track.y + this.track.height) {
 				moveToY = this.track.y + this.track.height - this.bar.height;
 			} else {
-				moveToY = this.bar.y + this.bar.height;
+				moveToY = this.bar.y + slice;
 			}
 
 			this._addScrollTween({y: moveToY});
@@ -265,7 +283,8 @@ uiWidgets.Scrollbar.prototype = {
 	scrollLeft: function () {
         "use strict";
         if (this.bar.x !== this.track.x && !this.barMoving) {
-			var testPosition = this.bar.x - this.bar.width;
+			var slice = (this.track.width * this.valueRange.ratio);
+			var testPosition = this.bar.x - slice;
 			var moveToX = null;
 			this.barMoving = true;
 			this.bar.inputEnabled = false;
@@ -274,7 +293,7 @@ uiWidgets.Scrollbar.prototype = {
 			if (testPosition <= this.track.x) {
 				moveToX = this.track.x;
 			} else {
-				moveToX = this.bar.x - this.bar.width;
+				moveToX = this.bar.x - slice;
 			}
 
 			this._addScrollTween({x: moveToX});
@@ -285,7 +304,9 @@ uiWidgets.Scrollbar.prototype = {
 	scrollRight: function () {
         "use strict";
 		if (this.bar.x + this.bar.width !== this.track.x + this.track.width && !this.barMoving) {
-			var testPosition = this.bar.x + this.bar.width * 2;
+			var slice = (this.track.width * this.valueRange.ratio);
+			
+			var testPosition = this.bar.x + slice * 2;
 			var moveToX = null;
 			this.barMoving = true;
 			this.bar.inputEnabled = false;
@@ -294,7 +315,7 @@ uiWidgets.Scrollbar.prototype = {
 			if (testPosition >= this.track.x + this.track.width) {
 				moveToX = this.track.x + this.track.width - this.bar.width;
 			} else {
-				moveToX = this.bar.x + this.bar.width;
+				moveToX = this.bar.x + slice;
 			}
 
 			this._addScrollTween({x: moveToX});
@@ -426,7 +447,7 @@ uiWidgets.Scrollbar.prototype = {
 		}
 
 		var newContentPosition = newGripPositionRatio * this.windowScrollAreaSize;
-
+		
 		// Set the content's new position. Uses an offset for where the viewport is on screen.
 		if (this.vertical) {
 			this.content.y = newContentPosition + this.content.area.y;
@@ -435,41 +456,6 @@ uiWidgets.Scrollbar.prototype = {
 			
 		}
 
-		disableOutOfBounds(this.content.children, this, this.vertical);
-		
+		this.content.disableOutOfBounds(this.content.children, this, this.vertical);		
     }
-};
-
-// TODO: This should probably be part of the viewport's logic, not the scrollbar.
-// Whenever the content is moved, disable input for all objets outside the viewport.
-var disableOutOfBounds = function (content, context, vertical) {
-	"use strict";
-	// Makes sure the recursive function stops when there's no children.
-	if (content !== undefined) {
-		for (var i=0; i < content.length; i++) {
-				var child = content[i];
-
-				child.inputEnabled = true;
-
-				// An object's x/y is relative to it's parent.
-				// The world gives an x/y relative to the whole game.
-				var trueCoords = child.world || child;	
-
-				var location, contentLocation;
-				if (vertical) {
-					location = trueCoords.y;
-					contentLocation = context.content.area.y;
-				} else {
-					location = trueCoords.x;
-					contentLocation = context.content.area.x;
-				}
-			
-				if (location < contentLocation) {
-					child.inputEnabled = false;
-				}
-			
-				disableOutOfBounds(child.children, context, vertical);
-
-		}
-	}
 };
