@@ -46,7 +46,9 @@ function create() {
 		true,
 		"track",
 		"bar",
-		10,
 		{'duration': 300, 'ease': Phaser.Easing.Quadratic.Out}
 	);
+	
+	// Place scrollbar below viewport.
+	scrollbar.alignTo(viewport, Phaser.BOTTOM_LEFT, 0, 10);
 }
