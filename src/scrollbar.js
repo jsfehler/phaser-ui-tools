@@ -161,7 +161,7 @@ uiWidgets.Scrollbar.prototype = {
         this.bar.y = this.barDefaultY;
 		
 		this.valueRange = new uiWidgets.ValueRange(attributes.viewportSize, attributes.barDefaultY, attributes.containerSize);
-	
+
 		//-- Set Bar Size --//
 		var barSize = attributes.barMaxSize * this.valueRange.ratio;
 		
@@ -224,6 +224,9 @@ uiWidgets.Scrollbar.prototype = {
 	/** Creates the tween for moving the bar to a new position. */
 	_addScrollTween: function (properties) {
 		"use strict";
+		this.mousePointer = {"x": this.bar.x, "y": this.bar.y};
+		this.trackClicked = true;
+
 		var newTween;
 		newTween = this.game.add.tween(this.bar).to(
 			properties,
@@ -232,10 +235,8 @@ uiWidgets.Scrollbar.prototype = {
 			true
 		);
 
-		this.mousePointer = {"x": this.bar.x, "y": this.bar.y};
-		this.trackClicked = true;
 		newTween.onUpdateCallback(this.moveContent, this);
-		newTween.onComplete.add(this.enableBarInput, this);	
+		newTween.onComplete.add(this.enableBarInput, this);
 	},
 	
 	/** For Vertical Scrollbars. Scrolls the content up by one window. */
@@ -306,7 +307,7 @@ uiWidgets.Scrollbar.prototype = {
 		if (this.bar.x + this.bar.width !== this.track.x + this.track.width && !this.barMoving) {
 			var slice = (this.track.width * this.valueRange.ratio);
 			
-			var testPosition = this.bar.x + slice * 2;
+			var testPosition = this.bar.x + (slice * 2);
 			var moveToX = null;
 			this.barMoving = true;
 			this.bar.inputEnabled = false;
@@ -324,6 +325,7 @@ uiWidgets.Scrollbar.prototype = {
 	
 	/** When called, ensures the bar can be moved. Must be called once the bar has finished scrolling. */
 	enableBarInput: function () {
+		"use strict";
 		this.trackClicked = false;
 		this.barMoving = false;
 		this.bar.inputEnabled = true;
@@ -370,12 +372,13 @@ uiWidgets.Scrollbar.prototype = {
 		return this.trackScrollAreaSize * windowPositionRatio;
 	},
 	
-	/** This function is called when bar needs to move. Causes the content to move relative to the bar's position on the track. */
-    moveContent: function () {
-        "use strict";
-		var gripPositionOnTrack = this.getBarPosition();
-
-		var oldMousePosition, newMousePosition, newMousePointer;
+	getMouseDelta: function () {
+		"use strict";
+		var oldMousePosition,
+			newMousePosition,
+			newMousePointer,
+			maxValue,
+			mousePositionDelta;
 		
 		if (this.vertical) {
 			oldMousePosition = this.mousePointer.y;
@@ -399,20 +402,25 @@ uiWidgets.Scrollbar.prototype = {
 		this.mousePointer = newMousePointer;
 		
 		// Maximum value for the mouse position. Only update when the new position is inside the track.
-		var maxValue;
 		if (this.vertical) {
 			maxValue = this.track.height + this.track.y;
 		} else {
 			maxValue = this.track.width + this.track.x;
 		}
-		
-		var mousePositionDelta;
+
 		if (newMousePosition < maxValue) {
 			mousePositionDelta = oldMousePosition - newMousePosition;
 		} else {
 			mousePositionDelta = 0;
 		}
 		
+		return mousePositionDelta;
+	},
+
+	getGripPositionRatio: function () {
+		"use strict";
+		var gripPositionOnTrack = this.getBarPosition();
+		var mousePositionDelta = this.getMouseDelta();
 		var newGripPosition = gripPositionOnTrack + mousePositionDelta;
 
 		// Don't let the content scroll above or below the track's size
@@ -421,7 +429,7 @@ uiWidgets.Scrollbar.prototype = {
 		} else if (newGripPosition <= -this.trackScrollAreaSize) {
 			newGripPosition = -this.trackScrollAreaSize;
 		}
-		
+
 		// When the scrollbar is at the top or bottom, prevent a mouse movement that
 		// doesn't move the scrollbar from moving the content.
 		if (this.vertical) {
@@ -437,7 +445,7 @@ uiWidgets.Scrollbar.prototype = {
 				newGripPosition = -this.trackScrollAreaSize;
 			}
 		}
-		
+
 		var newGripPositionRatio = newGripPosition / this.trackScrollAreaSize;
 
 		// If the scrollable area is less than the size of the scrollbar, the bar and track will be the same size.
@@ -445,6 +453,15 @@ uiWidgets.Scrollbar.prototype = {
 		if (isNaN(newGripPositionRatio)) {
 			newGripPositionRatio = 0;
 		}
+
+		return newGripPositionRatio;
+
+	},
+	
+	/** Called when the scrollbar needs to move the viewport. Causes the content to move relative to the bar's position on the track. */
+    moveContent: function () {
+        "use strict";
+		var newGripPositionRatio = this.getGripPositionRatio();
 
 		var newContentPosition = newGripPositionRatio * this.windowScrollAreaSize;
 		
@@ -456,6 +473,6 @@ uiWidgets.Scrollbar.prototype = {
 			
 		}
 
-		this.content.disableOutOfBounds(this.content.children, this, this.vertical);		
+		this.content.disableOutOfBounds(this.content.children, this, this.vertical);
     }
 };
