@@ -63,10 +63,10 @@ uiWidgets.Viewport.prototype.disableOutOfBounds = function (children, context, v
 			
 			if (vertical) {
 				location = trueCoords.y;
-				contentLocation = context.content.area.y;
+				contentLocation = context.viewport.area.y;
 			} else {
 				location = trueCoords.x;
-				contentLocation = context.content.area.x;
+				contentLocation = context.viewport.area.x;
 			}
 
 			if (location < contentLocation) {

@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>DocStrap Source: buttons.js</title>
+	<title>DocStrap Source: ranges.js</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -65,7 +65,7 @@
 		<div id="main">
 			
 
-		<h1 class="page-title">Source: buttons.js</h1>
+		<h1 class="page-title">Source: ranges.js</h1>
     
 <section>
     <article>
@@ -74,57 +74,104 @@
 
 var uiWidgets = uiWidgets || {};
 
-
 /** 
- * Sprite with text added as a child.
+ * Used by a ValueBar to hold the bar's values.
  * @constructor
- * @param {Object} game - Current game instance.
- * @param {string} image - The image to create a sprite with.
- * @param {string} label - The text to place on top of the sprite.
- * @param {Object} style - The style properties to be set on the Text.
- * @param {number} x - The x coordinate on screen where the textSprite will be placed.
- * @param {number} y - The y coordinate on screen where the textSprite will be placed.
+ * @param {number} step - The amount the bar is changed by.
+ * @param {number} startValue - The initial value for the bar.
+ * @param {number} maxValue - The maximum value the bar can have.
  */
-uiWidgets.textSprite = function (game, image, label, style, x, y) {
-    "use strict";
-    Phaser.Sprite.call(this, game, x, y, image);
-    game.add.existing(this);
+uiWidgets.ValueRange = function (step, startValue, maxValue) {
+	"use strict";
+	this.step = step;
+	this.startValue = startValue;
+	this.maxValue = maxValue + step;
+	
+	this.ratio = step / maxValue;
+	
+	// The ratio between the step and max can't be greater than 1.
+	// ie: There can't be more steps than the max value.
+	if (this.ratio > 1) {
+		this.ratio = 1;
+	}
 
-    this.text = this.game.add.text(0, 0, label, style);
-    this.text.anchor.set(0.5, 0.5);
-    
-    this.addChild(this.text);
+	this.currentValue = startValue;
+
 };
 
-uiWidgets.textSprite.prototype = Object.create(Phaser.Sprite.prototype);
-uiWidgets.textSprite.constructor = uiWidgets.textSprite;
-  
 
-/** 
- * Phaser Button with text added as a child.  
- * @constructor
- * @param {Object} game - Current game instance.
- * @param {string} image - The image to create a sprite with.
- * @param {string} label - The text to place on top of the sprite.
- * @param {Object} style - The style properties to be set on the Text.
- * @param {number} x - The x coordinate on screen where the textSprite will be placed.
- * @param {number} y - The y coordinate on screen where the textSprite will be placed.
- * @param callback - Callback to use when the button is clicked.
- * @param callbackContext {Object} - The context the callback is called in.
+/** Adjusts the current value for the bar.
+ * @param {number} newValue - The new current value.
  */
-uiWidgets.textButton = function (game, image, label, style, x, y, callback, callbackContext) {
-    "use strict";
-    Phaser.Button.call(this, game, x, y, image, callback, callbackContext);
-    game.add.existing(this);
-
-    this.text = this.game.add.text(0, 0, label, style);
-    this.text.anchor.set(0.5, 0.5);
-    
-    this.addChild(this.text);
+uiWidgets.ValueRange.prototype.adjustValue = function (newValue) {
+	"use strict";
+	this.currentValue = newValue;
 };
 
-uiWidgets.textButton.prototype = Object.create(Phaser.Button.prototype);
-uiWidgets.textButton.constructor = uiWidgets.textButton;
+
+/** Returns the bar's current value. */
+uiWidgets.ValueRange.prototype.getCurrentValue = function () {
+	"use strict";
+	return this.currentValue;
+};
+
+
+/** 
+ * Used by a Scrollbar to hold the values and adjust a viewport's position.
+ * @constructor
+ * @param {Object} viewport - The viewport to adjust.
+ * @param {boolean} vertical - If the viewport is vertical or horizontal.
+ */
+uiWidgets.ViewportRange = function (viewport, vertical) {
+	"use strict";
+	this.viewport = viewport;
+	this.vertical = vertical;
+
+	if (vertical) {
+		this.step = viewport.area.height;
+		this.maxValue = viewport.height;
+	} else {
+		this.step = viewport.area.width;
+		this.maxValue = viewport.width;
+	}
+
+	this.ratio = this.step / this.maxValue;
+
+	// The ratio between the step and max can't be greater than 1.
+	// ie: There can't be more steps than the max value.
+	if (this.ratio > 1) {
+		this.ratio = 1;
+	}
+
+};
+
+
+/** Adjusts the viewport's position. */
+uiWidgets.ViewportRange.prototype.adjustValue = function (newValue) {
+	"use strict";
+	// Set the content's new position. Uses an offset for where the viewport is on screen.
+	if (this.vertical) {
+		this.viewport.y = newValue + this.viewport.area.y;
+	} else {
+		this.viewport.x = newValue + this.viewport.area.x;
+	}
+	
+	this.viewport.disableOutOfBounds(this.viewport.children, this, this.vertical);
+	
+};
+
+uiWidgets.ViewportRange.prototype.getCurrentValue = function () {
+	"use strict";
+	var currentValue;
+	if (this.vertical) {
+		// y - an offset for where the viewport is on screen.
+		currentValue = this.viewport.y - this.viewport.area.y;
+	} else {
+		currentValue = this.viewport.x - this.viewport.area.x;
+	}
+	
+	return currentValue;
+};
 </pre>
     </article>
 </section>

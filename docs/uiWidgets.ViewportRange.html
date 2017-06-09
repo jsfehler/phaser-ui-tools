@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>DocStrap Source: buttons.js</title>
+	<title>DocStrap Class: ViewportRange</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -60,75 +60,303 @@
 <div class="row">
 
 	
-	<div class="col-md-12">
+	<div class="col-md-8">
 	
 		<div id="main">
 			
 
-		<h1 class="page-title">Source: buttons.js</h1>
-    
+	<h1 class="page-title">Class: ViewportRange</h1>
 <section>
-    <article>
-        <pre
-            class="sunlight-highlight-javascript linenums">var Phaser;
 
-var uiWidgets = uiWidgets || {};
-
-
-/** 
- * Sprite with text added as a child.
- * @constructor
- * @param {Object} game - Current game instance.
- * @param {string} image - The image to create a sprite with.
- * @param {string} label - The text to place on top of the sprite.
- * @param {Object} style - The style properties to be set on the Text.
- * @param {number} x - The x coordinate on screen where the textSprite will be placed.
- * @param {number} y - The y coordinate on screen where the textSprite will be placed.
- */
-uiWidgets.textSprite = function (game, image, label, style, x, y) {
-    "use strict";
-    Phaser.Sprite.call(this, game, x, y, image);
-    game.add.existing(this);
-
-    this.text = this.game.add.text(0, 0, label, style);
-    this.text.anchor.set(0.5, 0.5);
+<header>
     
-    this.addChild(this.text);
-};
-
-uiWidgets.textSprite.prototype = Object.create(Phaser.Sprite.prototype);
-uiWidgets.textSprite.constructor = uiWidgets.textSprite;
-  
-
-/** 
- * Phaser Button with text added as a child.  
- * @constructor
- * @param {Object} game - Current game instance.
- * @param {string} image - The image to create a sprite with.
- * @param {string} label - The text to place on top of the sprite.
- * @param {Object} style - The style properties to be set on the Text.
- * @param {number} x - The x coordinate on screen where the textSprite will be placed.
- * @param {number} y - The y coordinate on screen where the textSprite will be placed.
- * @param callback - Callback to use when the button is clicked.
- * @param callbackContext {Object} - The context the callback is called in.
- */
-uiWidgets.textButton = function (game, image, label, style, x, y, callback, callbackContext) {
-    "use strict";
-    Phaser.Button.call(this, game, x, y, image, callback, callbackContext);
-    game.add.existing(this);
-
-    this.text = this.game.add.text(0, 0, label, style);
-    this.text.anchor.set(0.5, 0.5);
+        <h2>
+        ViewportRange
+        </h2>
+        
     
-    this.addChild(this.text);
-};
+</header>
 
-uiWidgets.textButton.prototype = Object.create(Phaser.Button.prototype);
-uiWidgets.textButton.constructor = uiWidgets.textButton;
-</pre>
-    </article>
+
+<article>
+    <div class="container-overview">
+    
+        
+<hr>
+<dt>
+    <h4 class="name" id="ViewportRange"><span class="type-signature"></span>new ViewportRange(viewport, vertical)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Used by a Scrollbar to hold the values and adjust a viewport's position.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>viewport</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The viewport to adjust.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>vertical</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>If the viewport is vertical or horizontal.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="ranges.js.html">ranges.js</a>,
+				 <a href="ranges.js.html#sunlight-1-line-53">line 53</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        <dl>
+            
+<hr>
+<dt>
+    <h4 class="name" id="adjustValue"><span class="type-signature"></span>adjustValue()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Adjusts the viewport's position.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="ranges.js.html">ranges.js</a>,
+				 <a href="ranges.js.html#sunlight-1-line-78">line 78</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        </dl>
+    
+
+    
+
+    
+</article>
+
 </section>
-
 
 
 
@@ -138,6 +366,10 @@ uiWidgets.textButton.constructor = uiWidgets.textButton;
 
 	<div class="clearfix"></div>
 
+	
+		<div class="col-md-3">
+			<div id="toc" class="col-md-3 hidden-xs hidden-sm hidden-md"></div>
+		</div>
 	
 
 </div>

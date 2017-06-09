@@ -33,7 +33,7 @@
 			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="uiWidgets.Column.html">uiWidgets.Column</a></li><li><a href="uiWidgets.Row.html">uiWidgets.Row</a></li><li><a href="uiWidgets.Scrollbar.html">uiWidgets.Scrollbar</a></li><li><a href="uiWidgets.textButton.html">uiWidgets.textButton</a></li><li><a href="uiWidgets.textSprite.html">uiWidgets.textSprite</a></li><li><a href="uiWidgets.ValueRange.html">uiWidgets.ValueRange</a></li><li><a href="uiWidgets.Viewport.html">uiWidgets.Viewport</a></li>
+					<li><a href="uiWidgets.Column.html">uiWidgets.Column</a></li><li><a href="uiWidgets.Row.html">uiWidgets.Row</a></li><li><a href="uiWidgets.Scrollbar.html">uiWidgets.Scrollbar</a></li><li><a href="uiWidgets.textButton.html">uiWidgets.textButton</a></li><li><a href="uiWidgets.textSprite.html">uiWidgets.textSprite</a></li><li><a href="uiWidgets.ValueBar.html">uiWidgets.ValueBar</a></li><li><a href="uiWidgets.ValueRange.html">uiWidgets.ValueRange</a></li><li><a href="uiWidgets.Viewport.html">uiWidgets.Viewport</a></li><li><a href="uiWidgets.ViewportRange.html">uiWidgets.ViewportRange</a></li>
 				</ul>
 			</li>
 			
@@ -84,7 +84,7 @@
         
 <hr>
 <dt>
-    <h4 class="name" id="ValueRange"><span class="type-signature"></span>new ValueRange(step, minValue, maxValue)</h4>
+    <h4 class="name" id="ValueRange"><span class="type-signature"></span>new ValueRange(step, startValue, maxValue)</h4>
     
     
 </dt>
@@ -92,7 +92,7 @@
 
     
     <div class="description">
-        <p>Used by the scrollbar to hold the bar's values.</p>
+        <p>Used by a ValueBar to hold the bar's values.</p>
     </div>
     
 
@@ -151,7 +151,7 @@
 
         <tr>
             
-                <td class="name"><code>minValue</code></td>
+                <td class="name"><code>startValue</code></td>
             
 
             <td class="type">
@@ -168,7 +168,7 @@
 
             
 
-            <td class="description last"><p>The minimum value the bar can have.</p></td>
+            <td class="description last"><p>The initial value for the bar.</p></td>
         </tr>
 
     
@@ -236,8 +236,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="scrollbar.js.html">scrollbar.js</a>,
-				 <a href="scrollbar.js.html#sunlight-1-line-12">line 12</a>
+				<a href="ranges.js.html">ranges.js</a>,
+				 <a href="ranges.js.html#sunlight-1-line-12">line 12</a>
 			</li>
 		</ul>
 	</dd>
@@ -281,6 +281,236 @@
 
     
 
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        <dl>
+            
+<hr>
+<dt>
+    <h4 class="name" id="adjustValue"><span class="type-signature"></span>adjustValue(newValue)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Adjusts the current value for the bar.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>newValue</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The new current value.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="ranges.js.html">ranges.js</a>,
+				 <a href="ranges.js.html#sunlight-1-line-34">line 34</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getCurrentValue"><span class="type-signature"></span>getCurrentValue()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Returns the bar's current value.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="ranges.js.html">ranges.js</a>,
+				 <a href="ranges.js.html#sunlight-1-line-41">line 41</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        </dl>
     
 
     
@@ -334,7 +564,7 @@
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a>
 	
-		on Tue Jun 6th 2017
+		on Sun Jun 18th 2017
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>DocStrap Class: textSprite</title>
+	<title>DocStrap Class: ValueBar</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -65,13 +65,13 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: textSprite</h1>
+	<h1 class="page-title">Class: ValueBar</h1>
 <section>
 
 <header>
     
         <h2>
-        textSprite
+        ValueBar
         </h2>
         
     
@@ -84,7 +84,7 @@
         
 <hr>
 <dt>
-    <h4 class="name" id="textSprite"><span class="type-signature"></span>new textSprite(game, image, label, style, x, y)</h4>
+    <h4 class="name" id="ValueBar"><span class="type-signature"></span>new ValueBar()</h4>
     
     
 </dt>
@@ -92,7 +92,7 @@
 
     
     <div class="description">
-        <p>Sprite with text added as a child.</p>
+        <p>Bar that adjusts a number.</p>
     </div>
     
 
@@ -101,176 +101,6 @@
     
 
     
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>game</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Current game instance.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>image</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The image to create a sprite with.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>label</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The text to place on top of the sprite.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>style</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The style properties to be set on the Text.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>x</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The x coordinate on screen where the textSprite will be placed.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>y</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The y coordinate on screen where the textSprite will be placed.</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
     
 
     
@@ -308,8 +138,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="buttons.js.html">buttons.js</a>,
-				 <a href="buttons.js.html#sunlight-1-line-16">line 16</a>
+				<a href="scrollbar.js.html">scrollbar.js</a>,
+				 <a href="scrollbar.js.html#sunlight-1-line-472">line 472</a>
 			</li>
 		</ul>
 	</dd>
@@ -353,6 +183,714 @@
 
     
 
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        <dl>
+            
+<hr>
+<dt>
+    <h4 class="name" id="addScrollTween"><span class="type-signature"></span>addScrollTween()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Creates the tween for moving the bar to a new position.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="scrollbar.js.html">scrollbar.js</a>,
+				 <a href="scrollbar.js.html#sunlight-1-line-583">line 583</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="enableBarDrag"><span class="type-signature"></span>enableBarDrag()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Enables clicking and dragging on the bar.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="scrollbar.js.html">scrollbar.js</a>,
+				 <a href="scrollbar.js.html#sunlight-1-line-558">line 558</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="scrollDown"><span class="type-signature"></span>scrollDown()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>For Vertical Scrollbars. Scrolls down by one step.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="scrollbar.js.html">scrollbar.js</a>,
+				 <a href="scrollbar.js.html#sunlight-1-line-617">line 617</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="scrollLeft"><span class="type-signature"></span>scrollLeft()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>For Horizontal Scrollbars. Scrolls left by one step.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="scrollbar.js.html">scrollbar.js</a>,
+				 <a href="scrollbar.js.html#sunlight-1-line-631">line 631</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="scrollRight"><span class="type-signature"></span>scrollRight()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>For Horizontal Scrollbars. Scrolls right by one step.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="scrollbar.js.html">scrollbar.js</a>,
+				 <a href="scrollbar.js.html#sunlight-1-line-645">line 645</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="scrollUp"><span class="type-signature"></span>scrollUp()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>For Vertical Scrollbars. Scrolls up by one step.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="scrollbar.js.html">scrollbar.js</a>,
+				 <a href="scrollbar.js.html#sunlight-1-line-603">line 603</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="setInitialBarPosition"><span class="type-signature"></span>setInitialBarPosition()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Ensure the bar starts off where it should be, according to the bar's logical position.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="scrollbar.js.html">scrollbar.js</a>,
+				 <a href="scrollbar.js.html#sunlight-1-line-543">line 543</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="setTrackScrollAreaSize"><span class="type-signature"></span>setTrackScrollAreaSize()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Determine the distance the bar can scroll over</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="scrollbar.js.html">scrollbar.js</a>,
+				 <a href="scrollbar.js.html#sunlight-1-line-532">line 532</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        </dl>
     
 
     
