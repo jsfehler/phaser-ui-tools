@@ -25,6 +25,12 @@ uiWidgets.ValueRange = function (step, startValue, maxValue) {
 
 	this.currentValue = startValue;
 
+	// List of every possible step. Used for snapping into position by the ValueBar.
+	this.steps = [];
+	for (var i = 0; i < this.maxValue; i += step) {
+		this.steps.push(i);
+	}
+
 };
 
 

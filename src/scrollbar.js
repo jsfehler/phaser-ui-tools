@@ -559,6 +559,7 @@ uiWidgets.ValueBar.prototype.enableBarDrag = function () {
 	"use strict";
 	this.bar.inputEnabled = true;
 	this.bar.input.enableDrag();
+	this.bar.events.onInputUp.add(this.snapToClosestPosition, this);
 	this.bar.events.onInputDown.add(this.saveMousePosition, this);
 	this.bar.events.onDragUpdate.add(this.moveContent, this);
 
@@ -577,6 +578,27 @@ uiWidgets.ValueBar.prototype.enableBarDrag = function () {
 			this.bar.height
 		);
 	}
+};
+
+/** On mouse up, forces the value to equal the closest step. */
+uiWidgets.ValueBar.prototype.snapToClosestPosition = function () {
+	"use strict";
+	var currentValue = this.valueRange.getCurrentValue();
+	
+	var diff = Math.abs(currentValue - this.valueRange.steps[0]);
+	var currentPosition = this.valueRange.steps[0];
+	
+	for (var i = 0; i < this.valueRange.steps.length; i++) {
+		var newdiff = Math.abs(currentValue - this.valueRange.steps[i]);
+		if (newdiff < diff) {
+			diff = newdiff;
+			currentPosition = this.valueRange.steps[i];
+		}
+	}
+	
+	this.valueRange.adjustValue(currentPosition);
+	this.moveContent();
+	this.setInitialBarPosition();
 };
 
 /** Creates the tween for moving the bar to a new position. */
