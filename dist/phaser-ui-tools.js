@@ -692,7 +692,7 @@ uiWidgets.Scrollbar.prototype.moveContent = function () {
  * Bar that adjusts a number. 
  * @constructor
  */
-uiWidgets.ValueBar = function (game, xy, step, startValue, maxValue, draggable, vertical, keyboard, trackImage, barImage, tweenParams) {
+uiWidgets.ValueBar = function (game, xy, values, draggable, vertical, keyboard, trackImage, barImage, tweenParams) {
 	"use strict";
     Phaser.Group.call(this, game);
     game.add.existing(this);
@@ -701,7 +701,7 @@ uiWidgets.ValueBar = function (game, xy, step, startValue, maxValue, draggable, 
     this.x = xy.x;
 	this.y = xy.y;
 	
-	this.valueRange = new uiWidgets.ValueRange(step, startValue, maxValue);
+	this.valueRange = new uiWidgets.ValueRange(values.step, values.startValue, values.maxValue);
 
     this.vertical = vertical || false;
     this.draggable = draggable || false;
@@ -811,7 +811,7 @@ uiWidgets.ValueBar.prototype.addScrollTween = function (properties) {
 	var newTween;
 	newTween = this.game.add.tween(this.bar).to(
 		properties,
-		100,
+		this.tweenParams.duration,
 		this.tweenParams.ease,
 		true
 	);

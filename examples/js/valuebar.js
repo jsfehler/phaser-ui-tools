@@ -16,9 +16,7 @@ function create() {
 	valuebar0 = new uiWidgets.ValueBar(
 		game,
 		{"x": 50, "y": 10},
-		1,
-		0,
-		100,
+		{"step": 1, "startValue": 0, maxValue: 100},
 		true,
 		false,
 		true,
@@ -37,9 +35,7 @@ function create() {
 	valuebar50 = new uiWidgets.ValueBar(
 		game,
 		{"x": 50, "y": 150},
-		25,
-		50,
-		100,
+		{"step": 25, "startValue": 50, maxValue: 100},
 		true,
 		false,
 		true,
