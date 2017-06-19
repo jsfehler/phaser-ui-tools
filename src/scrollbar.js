@@ -340,16 +340,16 @@ uiWidgets.Scrollbar.prototype.clickTrack = function (sprite, pointer) {
 
 	if (this.vertical) {
 		// Don't register mouse clicks on the bar itself.
-		if (this.game.input.mousePointer.y > this.bar.y + this.bar.height) {
+		if (this.game.input.mousePointer.y > this.bar.y + this.bar.height + this.y) {
 			this.scrollDown();
-		} else if (this.game.input.mousePointer.y < this.bar.y + this.bar.height) {
+		} else if (this.game.input.mousePointer.y < this.bar.y + this.y) {
 			this.scrollUp();
 		}
 	} else {
 		// Don't register mouse clicks on the bar itself.
-		if (this.game.input.mousePointer.x > this.bar.x + this.bar.width) {
+		if (this.game.input.mousePointer.x > this.bar.x + this.bar.width + this.x) {
 			this.scrollRight();
-		} else if (this.game.input.mousePointer.x < this.bar.x + this.bar.width) {
+		} else if (this.game.input.mousePointer.x < (this.bar.x + this.x)) {
 			this.scrollLeft();
 		}
 	}
