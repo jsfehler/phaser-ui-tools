@@ -1,76 +1,233 @@
-<!DOCTYPE html>
+var Phaser;
 
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width">
-	<title>DocStrap Source: scrollbar.js</title>
-
-	<!--[if lt IE 9]>
-	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
-	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
-
-	<link type="text/css" rel="stylesheet" href="styles/site.cosmo.css">
-
-</head>
-
-<body>
-
-<div class="navbar navbar-default navbar-fixed-top navbar-inverse">
-<div class="container">
-	<div class="navbar-header">
-		<a class="navbar-brand" href="index.html">DocStrap</a>
-		<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-        </button>
-	</div>
-	<div class="navbar-collapse collapse" id="topNavigation">
-		<ul class="nav navbar-nav">
-			
-			<li class="dropdown">
-				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
-				<ul class="dropdown-menu ">
-					<li><a href="uiWidgets.Column.html">uiWidgets.Column</a></li><li><a href="uiWidgets.Row.html">uiWidgets.Row</a></li><li><a href="uiWidgets.Scrollbar.html">uiWidgets.Scrollbar</a></li><li><a href="uiWidgets.textButton.html">uiWidgets.textButton</a></li><li><a href="uiWidgets.textSprite.html">uiWidgets.textSprite</a></li><li><a href="uiWidgets.ValueBar.html">uiWidgets.ValueBar</a></li><li><a href="uiWidgets.ValueRange.html">uiWidgets.ValueRange</a></li><li><a href="uiWidgets.Viewport.html">uiWidgets.Viewport</a></li><li><a href="uiWidgets.ViewportRange.html">uiWidgets.ViewportRange</a></li>
-				</ul>
-			</li>
-			
-		</ul>
-        
-            <div class="col-sm-3 col-md-3">
-                <form class="navbar-form" role="search">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
-                        <div class="input-group-btn">
-                            <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        
-	</div>
-
-</div>
-</div>
+var uiWidgets = uiWidgets || {};
 
 
-<div class="container" id="toc-content">
-<div class="row">
+/** 
+ * Sprite with text added as a child.
+ * @constructor
+ * @param {Object} game - Current game instance.
+ * @param {string} image - The image to create a sprite with.
+ * @param {string} label - The text to place on top of the sprite.
+ * @param {Object} style - The style properties to be set on the Text.
+ * @param {number} x - The x coordinate on screen where the textSprite will be placed.
+ * @param {number} y - The y coordinate on screen where the textSprite will be placed.
+ */
+uiWidgets.textSprite = function (game, image, label, style, x, y) {
+    "use strict";
+    Phaser.Sprite.call(this, game, x, y, image);
+    game.add.existing(this);
 
-	
-	<div class="col-md-12">
-	
-		<div id="main">
-			
-
-		<h1 class="page-title">Source: scrollbar.js</h1>
+    this.text = this.game.add.text(0, 0, label, style);
+    this.text.anchor.set(0.5, 0.5);
     
-<section>
-    <article>
-        <pre
-            class="sunlight-highlight-javascript linenums">var Phaser;
+    this.addChild(this.text);
+};
+
+uiWidgets.textSprite.prototype = Object.create(Phaser.Sprite.prototype);
+uiWidgets.textSprite.constructor = uiWidgets.textSprite;
+  
+
+/** 
+ * Phaser Button with text added as a child.  
+ * @constructor
+ * @param {Object} game - Current game instance.
+ * @param {string} image - The image to create a sprite with.
+ * @param {string} label - The text to place on top of the sprite.
+ * @param {Object} style - The style properties to be set on the Text.
+ * @param {number} x - The x coordinate on screen where the textSprite will be placed.
+ * @param {number} y - The y coordinate on screen where the textSprite will be placed.
+ * @param callback - Callback to use when the button is clicked.
+ * @param callbackContext {Object} - The context the callback is called in.
+ */
+uiWidgets.textButton = function (game, image, label, style, x, y, callback, callbackContext) {
+    "use strict";
+    Phaser.Button.call(this, game, x, y, image, callback, callbackContext);
+    game.add.existing(this);
+
+    this.text = this.game.add.text(0, 0, label, style);
+    this.text.anchor.set(0.5, 0.5);
+    
+    this.addChild(this.text);
+};
+
+uiWidgets.textButton.prototype = Object.create(Phaser.Button.prototype);
+uiWidgets.textButton.constructor = uiWidgets.textButton;
+;var Phaser;
+
+var uiWidgets = uiWidgets || {};
+
+/** 
+ * Group that places new child nodes directly under the previous child.
+ * @constructor
+ * @param {Object} game - Current game instance.
+ * @param {Object }context - The context this object is called in.
+ */
+uiWidgets.Column = function (game, context) {
+	"use strict";
+	Phaser.Group.call(this, game);
+    game.add.existing(this);
+	
+	this.game = game;
+    this.context = context;
+
+};
+
+uiWidgets.Column.prototype = Object.create(Phaser.Group.prototype);
+uiWidgets.Column.constructor = uiWidgets.Column;
+
+/** Adds a new object into the Column, then aligns it under the previous object. */
+uiWidgets.Column.prototype.addNode = function (node) {
+	"use strict";
+	this.add(node);
+	var previousNode = this.children[this.children.length - 2];
+	
+	if (previousNode !== undefined) {
+		node.alignTo(previousNode, Phaser.BOTTOM_CENTER);
+	}
+};
+;var Phaser;
+
+var uiWidgets = uiWidgets || {};
+
+/** 
+ * Used by a ValueBar to hold the bar's values.
+ * @constructor
+ * @param {number} step - The amount the bar is changed by.
+ * @param {number} startValue - The initial value for the bar.
+ * @param {number} maxValue - The maximum value the bar can have.
+ */
+uiWidgets.ValueRange = function (step, startValue, maxValue) {
+	"use strict";
+	this.step = step;
+	this.startValue = startValue;
+	this.maxValue = maxValue + step;
+	
+	this.ratio = step / maxValue;
+	
+	// The ratio between the step and max can't be greater than 1.
+	// ie: There can't be more steps than the max value.
+	if (this.ratio > 1) {
+		this.ratio = 1;
+	}
+
+	this.currentValue = startValue;
+
+	// List of every possible step. Used for snapping into position by the ValueBar.
+	this.steps = [];
+	for (var i = 0; i < this.maxValue; i += step) {
+		this.steps.push(i);
+	}
+
+};
+
+
+/** Adjusts the current value for the bar.
+ * @param {number} newValue - The new current value.
+ */
+uiWidgets.ValueRange.prototype.adjustValue = function (newValue) {
+	"use strict";
+	this.currentValue = newValue;
+};
+
+
+/** Returns the bar's current value. */
+uiWidgets.ValueRange.prototype.getCurrentValue = function () {
+	"use strict";
+	return this.currentValue;
+};
+
+
+/** 
+ * Used by a Scrollbar to hold the values and adjust a viewport's position.
+ * @constructor
+ * @param {Object} viewport - The viewport to adjust.
+ * @param {boolean} vertical - If the viewport is vertical or horizontal.
+ */
+uiWidgets.ViewportRange = function (viewport, vertical) {
+	"use strict";
+	this.viewport = viewport;
+	this.vertical = vertical;
+
+	if (vertical) {
+		this.step = viewport.area.height;
+		this.maxValue = viewport.height;
+	} else {
+		this.step = viewport.area.width;
+		this.maxValue = viewport.width;
+	}
+
+	this.ratio = this.step / this.maxValue;
+
+	// The ratio between the step and max can't be greater than 1.
+	// ie: There can't be more steps than the max value.
+	if (this.ratio > 1) {
+		this.ratio = 1;
+	}
+
+};
+
+
+/** Adjusts the viewport's position. */
+uiWidgets.ViewportRange.prototype.adjustValue = function (newValue) {
+	"use strict";
+	// Set the content's new position. Uses an offset for where the viewport is on screen.
+	if (this.vertical) {
+		this.viewport.y = newValue + this.viewport.area.y;
+	} else {
+		this.viewport.x = newValue + this.viewport.area.x;
+	}
+	
+	this.viewport.disableOutOfBounds(this.viewport.children, this, this.vertical);
+	
+};
+
+uiWidgets.ViewportRange.prototype.getCurrentValue = function () {
+	"use strict";
+	var currentValue;
+	if (this.vertical) {
+		// y - an offset for where the viewport is on screen.
+		currentValue = this.viewport.y - this.viewport.area.y;
+	} else {
+		currentValue = this.viewport.x - this.viewport.area.x;
+	}
+	
+	return currentValue;
+};
+;var Phaser;
+
+var uiWidgets = uiWidgets || {};
+
+/** 
+ * Group that places new child nodes directly next to the previous child.
+ * @constructor
+ * @param {Object} game - Current game instance.
+ * @param {Object }context - The context this object is called in.
+*/
+uiWidgets.Row = function (game, context) {
+	"use strict";
+	Phaser.Group.call(this, game);
+    game.add.existing(this);
+	
+	this.game = game;
+    this.context = context;
+
+};
+
+uiWidgets.Row.prototype = Object.create(Phaser.Group.prototype);
+uiWidgets.Row.constructor = uiWidgets.Row;
+
+/** Adds a new object into the Row, then aligns it next to the previous object. */
+uiWidgets.Row.prototype.addNode = function (node) {
+	"use strict";
+	this.add(node);
+	var previousNode = this.children[this.children.length - 2];
+	
+	if (previousNode !== undefined) {
+		node.alignTo(previousNode, Phaser.RIGHT_CENTER);
+	}
+};
+;var Phaser;
 
 var uiWidgets = uiWidgets || {};
 
@@ -192,7 +349,7 @@ uiWidgets.Scrollbar.prototype.resizeBar = function () {
 	}
 
 	// Prevents bar from becoming microscopic.
-	if (barSize &lt; this.minBarSize) {
+	if (barSize < this.minBarSize) {
 		barSize = this.minBarSize;
 	}
 
@@ -323,13 +480,13 @@ uiWidgets.Scrollbar.prototype.addScrollTween = function (properties) {
 uiWidgets.Scrollbar.prototype.scrollUp = function () {
 	"use strict";
 	// Prevents users from moving the bar while it's moving.
-	if (this.bar.y !== this.track.y &amp;&amp; !this.barMoving) {
+	if (this.bar.y !== this.track.y && !this.barMoving) {
 		var testPosition = this.bar.y - this.vslice;
 		var moveToY = null;
 		this.barMoving = true;
 
 		// Ensure the bar can't move above the track.
-		if (testPosition &lt;= this.track.y) {
+		if (testPosition <= this.track.y) {
 			moveToY = this.track.y;
 		} else {
 			moveToY = this.bar.y - this.vslice;
@@ -342,7 +499,7 @@ uiWidgets.Scrollbar.prototype.scrollUp = function () {
 /** For Vertical Scrollbars. Scrolls down by one step. */
 uiWidgets.Scrollbar.prototype.scrollDown = function () {
 	"use strict";
-	if (this.bar.y + this.bar.height !== this.track.y + this.track.height &amp;&amp; !this.barMoving) {
+	if (this.bar.y + this.bar.height !== this.track.y + this.track.height && !this.barMoving) {
 		var testPosition = this.bar.y + (this.vslice * 2);
 		var moveToY = null;
 		this.barMoving = true;
@@ -361,14 +518,14 @@ uiWidgets.Scrollbar.prototype.scrollDown = function () {
 /** For Horizontal Scrollbars. Scrolls left by one step. */
 uiWidgets.Scrollbar.prototype.scrollLeft = function () {
 	"use strict";
-	if (this.bar.x !== this.track.x &amp;&amp; !this.barMoving) {
+	if (this.bar.x !== this.track.x && !this.barMoving) {
 		var testPosition = this.bar.x - this.hslice;
 		var moveToX = null;
 		this.barMoving = true;
 		this.bar.inputEnabled = false;
 
 		// Ensure the bar can't move above the track.
-		if (testPosition &lt;= this.track.x) {
+		if (testPosition <= this.track.x) {
 			moveToX = this.track.x;
 		} else {
 			moveToX = this.bar.x - this.hslice;
@@ -381,7 +538,7 @@ uiWidgets.Scrollbar.prototype.scrollLeft = function () {
 /** For Horizontal Scrollbars. Scrolls right by one step. */
 uiWidgets.Scrollbar.prototype.scrollRight = function () {
 	"use strict";
-	if (this.bar.x + this.bar.width !== this.track.x + this.track.width &amp;&amp; !this.barMoving) {
+	if (this.bar.x + this.bar.width !== this.track.x + this.track.width && !this.barMoving) {
 		var testPosition = this.bar.x + (this.hslice * 2);
 		var moveToX = null;
 		this.barMoving = true;
@@ -414,14 +571,14 @@ uiWidgets.Scrollbar.prototype.clickTrack = function (sprite, pointer) {
 		// Don't register mouse clicks on the bar itself.
 		if (this.game.input.mousePointer.y > this.bar.y + this.bar.height + this.y) {
 			this.scrollDown();
-		} else if (this.game.input.mousePointer.y &lt; this.bar.y + this.y) {
+		} else if (this.game.input.mousePointer.y < this.bar.y + this.y) {
 			this.scrollUp();
 		}
 	} else {
 		// Don't register mouse clicks on the bar itself.
 		if (this.game.input.mousePointer.x > this.bar.x + this.bar.width + this.x) {
 			this.scrollRight();
-		} else if (this.game.input.mousePointer.x &lt; (this.bar.x + this.x)) {
+		} else if (this.game.input.mousePointer.x < (this.bar.x + this.x)) {
 			this.scrollLeft();
 		}
 	}
@@ -476,7 +633,7 @@ uiWidgets.Scrollbar.prototype.getMouseDelta = function () {
 		maxValue = this.track.width + this.x;
 	}
 	
-	if (newMousePosition &lt; maxValue) {
+	if (newMousePosition < maxValue) {
 		mousePositionDelta = oldMousePosition - newMousePosition;
 	} else {
 		mousePositionDelta = 0;
@@ -495,20 +652,20 @@ uiWidgets.Scrollbar.prototype.getGripPositionRatio = function () {
 	// Don't let the content scroll above or below the track's size
 	if (newGripPosition > 0) {
 		newGripPosition = 0;
-	} else if (newGripPosition &lt;= -this.trackScrollAreaSize) {
+	} else if (newGripPosition <= -this.trackScrollAreaSize) {
 		newGripPosition = -this.trackScrollAreaSize;
 	}
 
 	// When the scrollbar is at the top or bottom, prevent a mouse movement that
 	// doesn't move the scrollbar from moving the content.
 	if (this.vertical) {
-		if (this.bar.y &lt;= this.track.y) {
+		if (this.bar.y <= this.track.y) {
 			newGripPosition = 0;
 		} else if (this.bar.y + this.bar.height >= this.track.y + this.track.height) {
 			newGripPosition = -this.trackScrollAreaSize;
 		}
 	} else {
-		if (this.bar.x &lt;= this.track.x) {
+		if (this.bar.x <= this.track.x) {
 			newGripPosition = 0;
 		} else if (this.bar.x + this.bar.width >= this.track.x + this.track.width) {
 			newGripPosition = -this.trackScrollAreaSize;
@@ -660,9 +817,9 @@ uiWidgets.ValueBar.prototype.snapToClosestPosition = function () {
 	var diff = Math.abs(currentValue - this.valueRange.steps[0]);
 	var currentPosition = this.valueRange.steps[0];
 	
-	for (var i = 0; i &lt; this.valueRange.steps.length; i++) {
+	for (var i = 0; i < this.valueRange.steps.length; i++) {
 		var newdiff = Math.abs(currentValue - this.valueRange.steps[i]);
-		if (newdiff &lt; diff) {
+		if (newdiff < diff) {
 			diff = newdiff;
 			currentPosition = this.valueRange.steps[i];
 		}
@@ -697,7 +854,7 @@ uiWidgets.ValueBar.prototype.addScrollTween = function (properties) {
 uiWidgets.ValueBar.prototype.scrollUp = function () {
 	"use strict";
 	// Prevents users from moving the bar while it's moving.
-	if (this.bar.y !== this.track.y &amp;&amp; !this.barMoving) {
+	if (this.bar.y !== this.track.y && !this.barMoving) {
 		var moveToY = null;
 		this.barMoving = true;
 
@@ -710,7 +867,7 @@ uiWidgets.ValueBar.prototype.scrollUp = function () {
 /** For Vertical Scrollbars. Scrolls down by one step. */
 uiWidgets.ValueBar.prototype.scrollDown = function () {
 	"use strict";
-	if (this.bar.y + this.bar.height !== this.track.y + this.track.height &amp;&amp; !this.barMoving) {
+	if (this.bar.y + this.bar.height !== this.track.y + this.track.height && !this.barMoving) {
 		var moveToY = null;
 		this.barMoving = true;
 		this.bar.inputEnabled = false;
@@ -724,7 +881,7 @@ uiWidgets.ValueBar.prototype.scrollDown = function () {
 /** For Horizontal Scrollbars. Scrolls left by one step. */
 uiWidgets.ValueBar.prototype.scrollLeft = function () {
 	"use strict";
-	if (this.bar.x !== this.track.x &amp;&amp; !this.barMoving) {
+	if (this.bar.x !== this.track.x && !this.barMoving) {
 		var moveToX = null;
 		this.barMoving = true;
 		this.bar.inputEnabled = false;
@@ -738,7 +895,7 @@ uiWidgets.ValueBar.prototype.scrollLeft = function () {
 /** For Horizontal Scrollbars. Scrolls right by one step. */
 uiWidgets.ValueBar.prototype.scrollRight = function () {
 	"use strict";
-	if (this.bar.x + this.bar.width !== this.track.x + this.track.width &amp;&amp; !this.barMoving) {
+	if (this.bar.x + this.bar.width !== this.track.x + this.track.width && !this.barMoving) {
 		var moveToX = null;
 		this.barMoving = true;
 		this.bar.inputEnabled = false;
@@ -756,7 +913,7 @@ uiWidgets.ValueBar.prototype.getGripPositionRatio = function () {
 
 	var newGripPosition = gripPositionOnTrack - mousePositionDelta;
 	// Don't let the content scroll above or below the track's size
-	if (newGripPosition &lt; 0) {
+	if (newGripPosition < 0) {
 		newGripPosition = 0;
 	} else if (newGripPosition >= this.trackScrollAreaSize) {
 		newGripPosition = this.trackScrollAreaSize;
@@ -765,13 +922,13 @@ uiWidgets.ValueBar.prototype.getGripPositionRatio = function () {
 	// When the scrollbar is at the top or bottom, prevent a mouse movement that
 	// doesn't move the scrollbar from moving the content.
 	if (this.vertical) {
-		if (this.bar.y &lt;= this.track.y) {
+		if (this.bar.y <= this.track.y) {
 			newGripPosition = 0;
 		} else if (this.bar.y + this.bar.height >= this.track.y + this.track.height) {
 			newGripPosition = this.trackScrollAreaSize;
 		}
 	} else {
-		if (this.bar.x &lt;= this.track.x) {
+		if (this.bar.x <= this.track.x) {
 			newGripPosition = 0;
 		} else if (this.bar.x + this.bar.width >= this.track.x + this.track.width) {
 			newGripPosition = this.trackScrollAreaSize;
@@ -788,140 +945,82 @@ uiWidgets.ValueBar.prototype.getGripPositionRatio = function () {
 
 	return newGripPositionRatio;
 
-};</pre>
-    </article>
-</section>
+};;var Phaser;
+
+var uiWidgets = uiWidgets || {};
 
 
+/** 
+ * A container for other objects with a limited viewable area. Uses a mask to hide children outside of the specified x/y/width/height area.
+ * @constructor
+ * @param {Object} game - Current game instance.
+ * @param {number} x - The x coordinate on screen where the viewport will be placed.
+ * @param {number} y - The y coordinate on screen where the viewport will be placed.
+ * @param width {number} - The width of the viewport.
+ * @param height {number} - The height of the viewport.
+ */
+uiWidgets.Viewport = function (game, x, y, width, height) {
+    "use strict";
+    Phaser.Group.call(this, game);
+    game.add.existing(this);
+
+	this.x = x;
+	this.y = y;
+
+	// Viewport size and position, distinct from the total window size.
+	this.area = {
+		"x": x,
+		"y": y,
+		"width": width,
+		"height": height
+	};
+
+	// Adding the mask attribute to a group hides objects outside the mask.
+	this.mask = this.game.add.graphics(this.area.x, this.area.y);
+	this.mask.beginFill(0x0000ff);
+	this.mask.drawRect(0, 0, width, height);
+	this.mask.endFill();
+};
+
+uiWidgets.Viewport.prototype = Object.create(Phaser.Group.prototype);
+uiWidgets.Viewport.constructor = uiWidgets.Viewport;
+
+/** Adds a new object into the Viewport. */
+uiWidgets.Viewport.prototype.addNode = function (node) {
+	"use strict";
+	this.add(node);
+};
 
 
-
-		</div>
-	</div>
-
-	<div class="clearfix"></div>
-
+/** Disable input for all objets outside the viewport's visible area. */
+uiWidgets.Viewport.prototype.disableOutOfBounds = function (children, context, vertical) {
+	"use strict";
+	var child, location, contentLocation, trueCoords;
 	
+	// Makes sure the recursive function stops when there's no children.
+	if (children !== undefined) {
+		for (var i = 0; i < children.length; i++) {
+			child = children[i];
 
-</div>
-</div>
+			child.inputEnabled = true;
 
+			// An object's x/y is relative to it's parent.
+			// The world gives an x/y relative to the whole game.
+			trueCoords = child.world || child;
+			
+			if (vertical) {
+				location = trueCoords.y;
+				contentLocation = context.viewport.area.y;
+			} else {
+				location = trueCoords.x;
+				contentLocation = context.viewport.area.x;
+			}
 
-    <div class="modal fade" id="searchResults">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Search results</h4>
-          </div>
-          <div class="modal-body"></div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div>
+			if (location < contentLocation) {
+				child.inputEnabled = false;
+			}
 
-
-<footer>
-
-
-	<span class="copyright">
-	DocStrap Copyright © 2012-2015 The contributors to the JSDoc3 and DocStrap projects.
-	</span>
-
-<span class="jsdoc-message">
-	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a>
-	
-		on Mon Jun 19th 2017
-	
-	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
-</span>
-</footer>
-
-<script src="scripts/docstrap.lib.js"></script>
-<script src="scripts/toc.js"></script>
-
-    <script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
-
-
-<script>
-$( function () {
-	$( "[id*='$']" ).each( function () {
-		var $this = $( this );
-
-		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
-	} );
-
-	$( ".tutorial-section pre, .readme-section pre, pre.prettyprint.source" ).each( function () {
-		var $this = $( this );
-
-		var example = $this.find( "code" );
-		exampleText = example.html();
-		var lang = /{@lang (.*?)}/.exec( exampleText );
-		if ( lang && lang[1] ) {
-			exampleText = exampleText.replace( lang[0], "" );
-			example.html( exampleText );
-			lang = lang[1];
-		} else {
-			var langClassMatch = example.parent()[0].className.match(/lang\-(\S+)/);
-			lang = langClassMatch ? langClassMatch[1] : "javascript";
+			this.disableOutOfBounds(child.children, context, vertical);
 		}
-
-		if ( lang ) {
-
-			$this
-			.addClass( "sunlight-highlight-" + lang )
-			.addClass( "linenums" )
-			.html( example.html() );
-
-		}
-	} );
-
-	Sunlight.highlightAll( {
-		lineNumbers : true,
-		showMenu : true,
-		enableDoclinks : true
-	} );
-
-	$.catchAnchorLinks( {
-        navbarOffset: 10
-	} );
-	$( "#toc" ).toc( {
-		anchorName  : function ( i, heading, prefix ) {
-			return $( heading ).attr( "id" ) || ( prefix + i );
-		},
-		selectors   : "#toc-content h1,#toc-content h2,#toc-content h3,#toc-content h4",
-		showAndHide : false,
-		smoothScrolling: true
-	} );
-
-	$( "#main span[id^='toc']" ).addClass( "toc-shim" );
-	$( '.dropdown-toggle' ).dropdown();
-
-    $( "table" ).each( function () {
-      var $this = $( this );
-      $this.addClass('table');
-    } );
-
-} );
-</script>
-
-
-
-<!--Navigation and Symbol Display-->
-
-
-<!--Google Analytics-->
-
-
-
-    <script type="text/javascript">
-        $(document).ready(function() {
-            SearcherDisplay.init();
-        });
-    </script>
-
-
-</body>
-</html>
+	}
+};
