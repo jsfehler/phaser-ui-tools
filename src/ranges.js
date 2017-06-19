@@ -2,6 +2,37 @@ var Phaser;
 
 var uiWidgets = uiWidgets || {};
 
+
+/** Used by a QuantityBar to hold the bar's values.
+ * @constructor
+ */
+uiWidgets.QuantityRange = function (bar, startValue, maxValue) {
+	"use strict";
+	this.bar = bar;
+	this.startValue = startValue;
+	this.maxValue = maxValue;
+	
+	this.currentValue = startValue;
+};
+
+
+/** Returns the current ratio for how big the bar is compared to the track. */
+uiWidgets.QuantityRange.prototype.getRatio = function () {
+	"use strict";
+	var ratio = this.currentValue / this.maxValue;
+	return ratio;
+	//var inverse = 1 - ratio;
+	//return inverse;
+};
+
+
+/** Returns the bar's current value. */
+uiWidgets.QuantityRange.prototype.getCurrentValue = function () {
+	"use strict";
+	return this.currentValue;
+};
+
+
 /** 
  * Used by a ValueBar to hold the bar's values.
  * @constructor
