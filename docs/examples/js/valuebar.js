@@ -1,7 +1,7 @@
 var game = new Phaser.Game(600, 400, Phaser.AUTO, 'valuebar', { preload: preload, create: create, update: update });
 
 function preload() {
-	game.load.image("track", "assets/valuebar/track_s.png");
+	game.load.image("track", "assets/valuebar/track.png");
 	game.load.spritesheet('bar', 'assets/valuebar/bar.png', 32, 32);
 }
 
