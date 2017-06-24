@@ -3,16 +3,22 @@ var game = new Phaser.Game(600, 400, Phaser.AUTO, 'quantitybar', { preload: prel
 function preload() {
 	game.load.image("track", "assets/quantitybar/horizontal/track.png");
 	game.load.spritesheet('bar', 'assets/quantitybar/horizontal/bar.png', 260, 32);
-	
+
 	game.load.image("vtrack", "assets/quantitybar/vertical/track.png");
-	game.load.spritesheet('vbar', 'assets/quantitybar/vertical/bar.png', 32, 260);	
-	
+	game.load.spritesheet('vbar', 'assets/quantitybar/vertical/bar.png', 32, 260);
+
 	game.load.image("add", "assets/quantitybar/add.png");
 	game.load.image("subtract", "assets/quantitybar/subtract.png");
-
 }
 
-var healthbar, healthbarText;
+var healthbar,
+	healthbarText,
+	vhealthbar,
+	vhealthbarText,
+	decreaseHealth,
+	increaseHealth,
+	vdecreaseHealth,
+	vincreaseHealth;
 
 function create() {
 
@@ -33,10 +39,10 @@ function create() {
         align: "center"
     });
 
-	var lessHealth = game.add.button(150, 50, 'subtract', decreaseHealth, this)
-	var moreHealth = game.add.button(200, 50, 'add', increaseHealth, this)
+	var lessHealth = game.add.button(150, 50, 'subtract', decreaseHealth, this);
+	var moreHealth = game.add.button(200, 50, 'add', increaseHealth, this);
 
-	// Create a quantitybar starting at 50.
+	// Create a vertical quantitybar starting at 50.
 	vhealthbar = new uiWidgets.QuantityBar(
 		game,
 		{"x": 50, "y": 130},
@@ -45,17 +51,16 @@ function create() {
 		"vtrack",
 		"vbar",
 		{'duration': 400, 'ease': Phaser.Easing.Quadratic.Out}
-	);	
-	
+	);
 
 	vhealthbarText = game.add.text(150, 150, vhealthbar.valueRange.minValue, {
         font: "65px Arial",
         fill: "#ff0044",
         align: "center"
-    });	
-	
-	var vlessHealth = game.add.button(150, 250, 'subtract', vdecreaseHealth, this)
-	var vmoreHealth = game.add.button(200, 250, 'add', vincreaseHealth, this)
+    });
+
+	var vlessHealth = game.add.button(150, 250, 'subtract', vdecreaseHealth, this);
+	var vmoreHealth = game.add.button(200, 250, 'add', vincreaseHealth, this);
 	
 }
 
