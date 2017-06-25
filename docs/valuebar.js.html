@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>DocStrap Source: quantitybar.js</title>
+	<title>DocStrap Source: valuebar.js</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -65,7 +65,7 @@
 		<div id="main">
 			
 
-		<h1 class="page-title">Source: quantitybar.js</h1>
+		<h1 class="page-title">Source: valuebar.js</h1>
     
 <section>
     <article>
@@ -75,19 +75,20 @@
 var uiWidgets = uiWidgets || {};
 
 /** 
- * Bar that adjusts the size of a static sprite based on a value.
+ * Bar that adjusts a number.
  * This is done by masking the sprite and then resizing the mask.
  * @constructor
  * @param {Object} game - Current game instance.
  * @param {Object} xy -  Dictionary with the values for the bar's x and y position.
  * @param {Object} values - The numerical values for the bar.
+ * @param {boolean} draggable - Determines if the scrollbar responds to mouse clicks.
  * @param {boolean} vertical - Determines if the bar should be vertical or horizontal.
- * @param {boolean} reverse - Determines the direction the bar moves when adjusted.
+ * @param {boolean} keyboard - Determines if the scrollbar responds to keyboard input.
  * @param {string} trackImage - The image key to use for the track.
  * @param {string} barImage - The image key to use for the bar. Will be automatically resized to fit.
  * @param {Object} tweenParams - Dictionary with the duration and easing function for the scrolling tween.
  */
-uiWidgets.QuantityBar = function (game, xy, values, vertical, reverse, trackImage, barImage, tweenParams) {
+uiWidgets.ValueBar = function (game, xy, values, draggable, vertical, keyboard, trackImage, barImage, tweenParams) {
 	"use strict";
     Phaser.Group.call(this, game);
     game.add.existing(this);
@@ -96,24 +97,41 @@ uiWidgets.QuantityBar = function (game, xy, values, vertical, reverse, trackImag
     this.x = xy.x;
 	this.y = xy.y;
 	
-	this.valueRange = new uiWidgets.QuantityRange(this, values.startValue, values.maxValue);
+	this.valueRange = new uiWidgets.ValueRange(values.step, values.startValue, values.maxValue);
 
     this.vertical = vertical || false;
-	this.reverse = reverse || false;
-	
+    this.draggable = draggable || false;
+	keyboard = keyboard || false;
+
+	if (keyboard) {
+		this.enableKeyboard();
+	}
+
 	this.trackImage = trackImage;
 	this.barImage = barImage;
 
 	this.tweenParams = tweenParams || {'duration': 300, 'ease': Phaser.Easing.Quadratic.Out};
 
+	// Flag switched on when the track is clicked, switched off after the bar movement is finished.
+	this.trackClicked = false;
+	this.barMoving = false;
+
+	// Records mouse pointer when clicking the bar.
+	this.mousePointer = null;
+
 	// The track is the static area the bar will move along.
 	this.track = this.game.add.sprite(0, 0, this.trackImage);
 	this.add(this.track);
 
-	// The bar is a static image taking up the width of the track.
+	// If the bar is draggable, clicking the track will move the bar up or down.
+	if (this.draggable) {
+		this.enableTrackClick();
+	}
+
+	// The bar is the part that moves, controlling the value of the scrollbar.
 	this.bar = this.game.add.button(
-		0,
-		0,
+		this.x,
+		this.y,
 		this.barImage,
 		this.moveContent,
 		this,
@@ -121,140 +139,202 @@ uiWidgets.QuantityBar = function (game, xy, values, vertical, reverse, trackImag
 		0
 	);
 	this.add(this.bar);
-	
+
 	this.create();
 };
 
-uiWidgets.QuantityBar.prototype = Object.create(uiWidgets.Bar.prototype);
-uiWidgets.QuantityBar.constructor = uiWidgets.QuantityBar;
+uiWidgets.ValueBar.prototype = Object.create(uiWidgets.Scrollbar.prototype);
+uiWidgets.ValueBar.constructor = uiWidgets.ValueBar;
 
-/** Sets the bar's mask. */
-uiWidgets.QuantityBar.prototype.setMask = function () {
+/** Determine the distance the bar can scroll over */
+uiWidgets.ValueBar.prototype.setTrackScrollAreaSize = function () {
 	"use strict";
-	if (this.bar.mask !== null) {
-		this.bar.mask.destroy();
-		this.bar.mask = null;
-	}
-	this.bar.mask = this.game.add.graphics(this.maskX, this.maskY);
-	this.bar.mask.beginFill(0x0000ff);
-	this.bar.mask.drawRect(0, 0, this.maskW, this.maskH);
-	this.bar.mask.endFill();
-};
 
-uiWidgets.QuantityBar.prototype.getBarPosition = function () {
-	"use strict";
-	var windowPositionRatio = this.valueRange.getRatio() / this.windowScrollAreaSize;
-	return this.trackScrollAreaSize * windowPositionRatio;
-};
-
-
-uiWidgets.QuantityBar.prototype.create = function () {
-	"use strict";
-	this.centerStaticAxis();
-	
-	// Values for the bar's mask.
-	this.maskW = this.bar.width;
-	this.maskH = this.bar.height;
-	this.maskX = this.bar.x + this.x;
-	this.maskY = this.bar.y + this.y;
-	
-	// Resizes the bar.
 	if (this.vertical) {
-		this.maskH = this.getBarSize();
+		this.trackScrollAreaSize = this.track.height;
 	} else {
-		this.maskW = this.getBarSize();
+		this.trackScrollAreaSize = this.track.width;
 	}
+};
 
-	this.setMask();
+/** Ensure the bar starts off where it should be, according to the bar's logical position. */
+uiWidgets.ValueBar.prototype.setInitialBarPosition = function () {
+	"use strict";
+	var gripPositionOnTrack = this.getBarPosition();
+	
+	// Make sure the bar is physically where it should be.
+	// The bar should always be in centered on it's current position.
+	if (this.vertical) {
+		this.bar.y = gripPositionOnTrack + this.track.y - (this.bar.height / 2);
+	} else {
+		this.bar.x = gripPositionOnTrack + this.track.x - (this.bar.width / 2);
+	}
+	
+};
 
-	if (this.reverse) {
-		if (this.vertical) {
-			this.bar.mask.y = this.bar.y + this.y + this.getBarFraction();
-		} else {
-			this.bar.mask.x = this.bar.x + this.x + this.getBarFraction();
+/** Enables clicking and dragging on the bar. */
+uiWidgets.ValueBar.prototype.enableBarDrag = function () {
+	"use strict";
+	this.bar.inputEnabled = true;
+	this.bar.input.enableDrag();
+	this.bar.events.onInputUp.add(this.snapToClosestPosition, this);
+	this.bar.events.onInputDown.add(this.saveMousePosition, this);
+	this.bar.events.onDragUpdate.add(this.moveContent, this);
+
+	if (this.vertical) {
+		this.setDraggableArea(
+			this.track.x - ((this.bar.width - this.track.width) / 2),
+			this.track.y,
+			this.bar.width,
+			this.track.height + this.bar.height
+		);
+	} else {
+		this.setDraggableArea(
+			this.track.x - (this.bar.width / 2),
+			this.track.y - ((this.bar.height - this.track.height) / 2),
+			this.track.width + this.bar.width,
+			this.bar.height
+		);
+	}
+};
+
+/** On mouse up, forces the value to equal the closest step. */
+uiWidgets.ValueBar.prototype.snapToClosestPosition = function () {
+	"use strict";
+	var currentValue = this.valueRange.getCurrentValue();
+	
+	var diff = Math.abs(currentValue - this.valueRange.steps[0]);
+	var currentPosition = this.valueRange.steps[0];
+	
+	for (var i = 0; i &lt; this.valueRange.steps.length; i++) {
+		var newdiff = Math.abs(currentValue - this.valueRange.steps[i]);
+		if (newdiff &lt; diff) {
+			diff = newdiff;
+			currentPosition = this.valueRange.steps[i];
 		}
 	}
-
-	// Determine the distance the window can scroll over
-	this.windowScrollAreaSize = this.valueRange.maxValue;
-
-	// Represents one fraction of the track.
-	this.vslice = (this.track.height * this.valueRange.getRatio());
-	this.hslice = (this.track.width * this.valueRange.getRatio());
 	
-	this.setTrackScrollAreaSize();
+	this.valueRange.adjustValue(currentPosition);
+	this.moveContent();
+	this.setInitialBarPosition();
 };
 
-/** Creates the tween for adjusting the size of the mask. */
-uiWidgets.QuantityBar.prototype.addScrollTweenMask = function (properties) {
+/** Creates the tween for moving the bar to a new position. */
+uiWidgets.ValueBar.prototype.addScrollTween = function (properties) {
 	"use strict";
+	this.mousePointer = {"x": this.bar.x, "y": this.bar.y};
+	this.trackClicked = true;
 
 	var newTween;
-	newTween = this.game.add.tween(this.bar.mask).to(
+	newTween = this.game.add.tween(this.bar).to(
 		properties,
 		this.tweenParams.duration,
 		this.tweenParams.ease,
 		true
 	);
+
+	// Only update the values once the bar has finished moving.
+	newTween.onComplete.add(this.moveContent, this);
+	newTween.onComplete.add(this.enableBarInput, this);
 };
 
-uiWidgets.QuantityBar.prototype.adjustValue = function (newValue) {
+
+/** For Vertical Scrollbars. Scrolls up by one step. */
+uiWidgets.ValueBar.prototype.scrollUp = function () {
 	"use strict";
-	this.valueRange.currentValue += newValue;
+	// Prevents users from moving the bar while it's moving.
+	if (this.bar.y !== this.track.y &amp;&amp; !this.barMoving) {
+		var moveToY = null;
+		this.barMoving = true;
 
-	var tween;
+		moveToY = this.bar.y - this.vslice;
 
-	var barSize = this.getBarSize();
-	
-	if (this.reverse) {
-		if (this.vertical) {
-			tween = {height: barSize, y: this.bar.y + this.y + this.getBarFraction()};
-		} else {
-			tween = {width: barSize, x: this.bar.x + this.x + this.getBarFraction()};
-		}
-	} else {
-		if (this.vertical) {
-			tween = {height: barSize};
-		} else {
-			tween = {width: barSize};
-		}
+		this.addScrollTween({y: moveToY});
 	}
-	
-	this.addScrollTweenMask(tween);
 };
 
-uiWidgets.QuantityBar.prototype.getBarFraction = function () {
+/** For Vertical Scrollbars. Scrolls down by one step. */
+uiWidgets.ValueBar.prototype.scrollDown = function () {
 	"use strict";
-	var fraction;
+	if (this.bar.y + this.bar.height !== this.track.y + this.track.height &amp;&amp; !this.barMoving) {
+		var moveToY = null;
+		this.barMoving = true;
+		this.bar.inputEnabled = false;
+
+		moveToY = this.bar.y + this.vslice;
+
+		this.addScrollTween({y: moveToY});
+	}
+};
+
+/** For Horizontal Scrollbars. Scrolls left by one step. */
+uiWidgets.ValueBar.prototype.scrollLeft = function () {
+	"use strict";
+	if (this.bar.x !== this.track.x &amp;&amp; !this.barMoving) {
+		var moveToX = null;
+		this.barMoving = true;
+		this.bar.inputEnabled = false;
+
+		moveToX = this.bar.x - this.hslice;
+
+		this.addScrollTween({x: moveToX});
+	}
+};
+
+/** For Horizontal Scrollbars. Scrolls right by one step. */
+uiWidgets.ValueBar.prototype.scrollRight = function () {
+	"use strict";
+	if (this.bar.x + this.bar.width !== this.track.x + this.track.width &amp;&amp; !this.barMoving) {
+		var moveToX = null;
+		this.barMoving = true;
+		this.bar.inputEnabled = false;
+
+		moveToX = this.bar.x + this.hslice;
+
+		this.addScrollTween({x: moveToX});
+	}
+};
+
+uiWidgets.ValueBar.prototype.getGripPositionRatio = function () {
+	"use strict";
+	var gripPositionOnTrack = this.getBarPosition();
+	var mousePositionDelta = this.getMouseDelta();
+
+	var newGripPosition = gripPositionOnTrack - mousePositionDelta;
+	// Don't let the content scroll above or below the track's size
+	if (newGripPosition &lt; 0) {
+		newGripPosition = 0;
+	} else if (newGripPosition >= this.trackScrollAreaSize) {
+		newGripPosition = this.trackScrollAreaSize;
+	}
+
+	// When the scrollbar is at the top or bottom, prevent a mouse movement that
+	// doesn't move the scrollbar from moving the content.
 	if (this.vertical) {
-		fraction = this.track.height * this.valueRange.getRatio();
-	} else {
-		fraction = this.track.width * this.valueRange.getRatio();
-	}
-
-	return fraction;
-};
-
-/** Given a ratio between total content size and viewport size,
- * return an appropriate percentage of the track. 
- */
-uiWidgets.QuantityBar.prototype.getBarSize = function () {
-	"use strict";
-
-	var barSize;
-	if (this.reverse) {
-		if (this.vertical) {
-			barSize = this.track.height - this.valueRange.getRatio();
-		} else {
-			barSize = this.track.width - this.valueRange.getRatio();
+		if (this.bar.y &lt;= this.track.y) {
+			newGripPosition = 0;
+		} else if (this.bar.y + this.bar.height >= this.track.y + this.track.height) {
+			newGripPosition = this.trackScrollAreaSize;
 		}
-		
 	} else {
-		barSize = this.getBarFraction();
+		if (this.bar.x &lt;= this.track.x) {
+			newGripPosition = 0;
+		} else if (this.bar.x + this.bar.width >= this.track.x + this.track.width) {
+			newGripPosition = this.trackScrollAreaSize;
+		}
 	}
-		
-	return barSize;
-};</pre>
+
+	var newGripPositionRatio = newGripPosition / this.trackScrollAreaSize;
+
+	// If the scrollable area is less than the size of the scrollbar, the bar and track will be the same size.
+	// In this scenario, a divide by zero occurs. Capture that and turn it into zero.
+	if (isNaN(newGripPositionRatio)) {
+		newGripPositionRatio = 0;
+	}
+
+	return newGripPositionRatio;
+};
+</pre>
     </article>
 </section>
 

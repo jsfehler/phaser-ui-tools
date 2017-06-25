@@ -84,7 +84,7 @@
         
 <hr>
 <dt>
-    <h4 class="name" id="ValueBar"><span class="type-signature"></span>new ValueBar()</h4>
+    <h4 class="name" id="ValueBar"><span class="type-signature"></span>new ValueBar(game, xy, values, draggable, vertical, keyboard, trackImage, barImage, tweenParams)</h4>
     
     
 </dt>
@@ -92,7 +92,7 @@
 
     
     <div class="description">
-        <p>Bar that adjusts a number.</p>
+        <p>Bar that adjusts a number.<br>This is done by masking the sprite and then resizing the mask.</p>
     </div>
     
 
@@ -101,6 +101,248 @@
     
 
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>game</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Current game instance.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>xy</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Dictionary with the values for the bar's x and y position.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>values</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The numerical values for the bar.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>draggable</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Determines if the scrollbar responds to mouse clicks.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>vertical</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Determines if the bar should be vertical or horizontal.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>keyboard</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Determines if the scrollbar responds to keyboard input.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>trackImage</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The image key to use for the track.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>barImage</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The image key to use for the bar. Will be automatically resized to fit.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>tweenParams</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Dictionary with the duration and easing function for the scrolling tween.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
     
 
     
@@ -138,8 +380,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="scrollbar.js.html">scrollbar.js</a>,
-				 <a href="scrollbar.js.html#sunlight-1-line-451">line 451</a>
+				<a href="valuebar.js.html">valuebar.js</a>,
+				 <a href="valuebar.js.html#sunlight-1-line-19">line 19</a>
 			</li>
 		</ul>
 	</dd>
@@ -244,8 +486,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="scrollbar.js.html">scrollbar.js</a>,
-				 <a href="scrollbar.js.html#sunlight-1-line-584">line 584</a>
+				<a href="valuebar.js.html">valuebar.js</a>,
+				 <a href="valuebar.js.html#sunlight-1-line-151">line 151</a>
 			</li>
 		</ul>
 	</dd>
@@ -332,8 +574,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="scrollbar.js.html">scrollbar.js</a>,
-				 <a href="scrollbar.js.html#sunlight-1-line-537">line 537</a>
+				<a href="valuebar.js.html">valuebar.js</a>,
+				 <a href="valuebar.js.html#sunlight-1-line-104">line 104</a>
 			</li>
 		</ul>
 	</dd>
@@ -420,8 +662,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="scrollbar.js.html">scrollbar.js</a>,
-				 <a href="scrollbar.js.html#sunlight-1-line-618">line 618</a>
+				<a href="valuebar.js.html">valuebar.js</a>,
+				 <a href="valuebar.js.html#sunlight-1-line-185">line 185</a>
 			</li>
 		</ul>
 	</dd>
@@ -508,8 +750,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="scrollbar.js.html">scrollbar.js</a>,
-				 <a href="scrollbar.js.html#sunlight-1-line-632">line 632</a>
+				<a href="valuebar.js.html">valuebar.js</a>,
+				 <a href="valuebar.js.html#sunlight-1-line-199">line 199</a>
 			</li>
 		</ul>
 	</dd>
@@ -596,8 +838,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="scrollbar.js.html">scrollbar.js</a>,
-				 <a href="scrollbar.js.html#sunlight-1-line-646">line 646</a>
+				<a href="valuebar.js.html">valuebar.js</a>,
+				 <a href="valuebar.js.html#sunlight-1-line-213">line 213</a>
 			</li>
 		</ul>
 	</dd>
@@ -684,8 +926,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="scrollbar.js.html">scrollbar.js</a>,
-				 <a href="scrollbar.js.html#sunlight-1-line-604">line 604</a>
+				<a href="valuebar.js.html">valuebar.js</a>,
+				 <a href="valuebar.js.html#sunlight-1-line-171">line 171</a>
 			</li>
 		</ul>
 	</dd>
@@ -772,8 +1014,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="scrollbar.js.html">scrollbar.js</a>,
-				 <a href="scrollbar.js.html#sunlight-1-line-522">line 522</a>
+				<a href="valuebar.js.html">valuebar.js</a>,
+				 <a href="valuebar.js.html#sunlight-1-line-89">line 89</a>
 			</li>
 		</ul>
 	</dd>
@@ -860,8 +1102,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="scrollbar.js.html">scrollbar.js</a>,
-				 <a href="scrollbar.js.html#sunlight-1-line-511">line 511</a>
+				<a href="valuebar.js.html">valuebar.js</a>,
+				 <a href="valuebar.js.html#sunlight-1-line-78">line 78</a>
 			</li>
 		</ul>
 	</dd>
@@ -948,8 +1190,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="scrollbar.js.html">scrollbar.js</a>,
-				 <a href="scrollbar.js.html#sunlight-1-line-563">line 563</a>
+				<a href="valuebar.js.html">valuebar.js</a>,
+				 <a href="valuebar.js.html#sunlight-1-line-130">line 130</a>
 			</li>
 		</ul>
 	</dd>
@@ -1032,7 +1274,7 @@
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a>
 	
-		on Sat Jun 24th 2017
+		on Sun Jun 25th 2017
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

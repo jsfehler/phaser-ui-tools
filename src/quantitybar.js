@@ -3,13 +3,14 @@ var Phaser;
 var uiWidgets = uiWidgets || {};
 
 /** 
- * Bar that adjusts the size of a static bar based on a value.
- * This is done by masking a sprite and resizing the mask.
+ * Bar that adjusts the size of a static sprite based on a value.
+ * This is done by masking the sprite and then resizing the mask.
  * @constructor
  * @param {Object} game - Current game instance.
  * @param {Object} xy -  Dictionary with the values for the bar's x and y position.
- *
- *
+ * @param {Object} values - The numerical values for the bar.
+ * @param {boolean} vertical - Determines if the bar should be vertical or horizontal.
+ * @param {boolean} reverse - Determines the direction the bar moves when adjusted.
  * @param {string} trackImage - The image key to use for the track.
  * @param {string} barImage - The image key to use for the bar. Will be automatically resized to fit.
  * @param {Object} tweenParams - Dictionary with the duration and easing function for the scrolling tween.
@@ -31,7 +32,6 @@ uiWidgets.QuantityBar = function (game, xy, values, vertical, reverse, trackImag
 	this.trackImage = trackImage;
 	this.barImage = barImage;
 
-	// Animation
 	this.tweenParams = tweenParams || {'duration': 300, 'ease': Phaser.Easing.Quadratic.Out};
 
 	// The track is the static area the bar will move along.

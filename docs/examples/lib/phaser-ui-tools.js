@@ -121,13 +121,14 @@ uiWidgets.Column.prototype.addNode = function (node) {
 var uiWidgets = uiWidgets || {};
 
 /** 
- * Bar that adjusts the size of a static bar based on a value.
- * This is done by masking a sprite and resizing the mask.
+ * Bar that adjusts the size of a static sprite based on a value.
+ * This is done by masking the sprite and then resizing the mask.
  * @constructor
  * @param {Object} game - Current game instance.
  * @param {Object} xy -  Dictionary with the values for the bar's x and y position.
- *
- *
+ * @param {Object} values - The numerical values for the bar.
+ * @param {boolean} vertical - Determines if the bar should be vertical or horizontal.
+ * @param {boolean} reverse - Determines the direction the bar moves when adjusted.
  * @param {string} trackImage - The image key to use for the track.
  * @param {string} barImage - The image key to use for the bar. Will be automatically resized to fit.
  * @param {Object} tweenParams - Dictionary with the duration and easing function for the scrolling tween.
@@ -149,7 +150,6 @@ uiWidgets.QuantityBar = function (game, xy, values, vertical, reverse, trackImag
 	this.trackImage = trackImage;
 	this.barImage = barImage;
 
-	// Animation
 	this.tweenParams = tweenParams || {'duration': 300, 'ease': Phaser.Easing.Quadratic.Out};
 
 	// The track is the static area the bar will move along.
@@ -264,7 +264,7 @@ uiWidgets.QuantityBar.prototype.adjustValue = function (newValue) {
 		} else {
 			tween = {width: barSize};
 		}
-}
+	}
 	
 	this.addScrollTweenMask(tween);
 };
@@ -293,7 +293,7 @@ uiWidgets.QuantityBar.prototype.getBarSize = function () {
 			barSize = this.track.height - this.valueRange.getRatio();
 		} else {
 			barSize = this.track.width - this.valueRange.getRatio();
-		}	
+		}
 		
 	} else {
 		barSize = this.getBarFraction();
@@ -477,7 +477,7 @@ uiWidgets.Row.prototype.addNode = function (node) {
 var uiWidgets = uiWidgets || {};
 
 /**
- * Creates a bar that moves along a track. The bar is resized relative to the size of the track and size of the content to be scrolled. Content outside the viewport has input disabled.
+ * A bar that moves along a track. The bar is resized relative to the size of the track and size of the content to be scrolled. Content outside the viewport has input disabled.
  * @constructor
  * @param {Object} game - Current game instance.
  * @param {Object} content - Anything that you want to move via the scrollbar.
@@ -512,7 +512,6 @@ uiWidgets.Scrollbar = function (game, content, draggable, vertical, keyboard, tr
 	// The smallest pixel size allowed for the bar.
 	this.minBarSize = 44;
 
-	// Animation
 	this.tweenParams = tweenParams || {'duration': 300, 'ease': Phaser.Easing.Quadratic.Out};
 
 	// Flag switched on when the track is clicked, switched off after the bar movement is finished.
@@ -917,10 +916,23 @@ uiWidgets.Scrollbar.prototype.moveContent = function () {
 	
 	this.valueRange.adjustValue(newContentPosition);
 };
+;var Phaser;
+
+var uiWidgets = uiWidgets || {};
 
 /** 
- * Bar that adjusts a number. 
+ * Bar that adjusts a number.
+ * This is done by masking the sprite and then resizing the mask.
  * @constructor
+ * @param {Object} game - Current game instance.
+ * @param {Object} xy -  Dictionary with the values for the bar's x and y position.
+ * @param {Object} values - The numerical values for the bar.
+ * @param {boolean} draggable - Determines if the scrollbar responds to mouse clicks.
+ * @param {boolean} vertical - Determines if the bar should be vertical or horizontal.
+ * @param {boolean} keyboard - Determines if the scrollbar responds to keyboard input.
+ * @param {string} trackImage - The image key to use for the track.
+ * @param {string} barImage - The image key to use for the bar. Will be automatically resized to fit.
+ * @param {Object} tweenParams - Dictionary with the duration and easing function for the scrolling tween.
  */
 uiWidgets.ValueBar = function (game, xy, values, draggable, vertical, keyboard, trackImage, barImage, tweenParams) {
 	"use strict";
@@ -944,7 +956,6 @@ uiWidgets.ValueBar = function (game, xy, values, draggable, vertical, keyboard, 
 	this.trackImage = trackImage;
 	this.barImage = barImage;
 
-	// Animation
 	this.tweenParams = tweenParams || {'duration': 300, 'ease': Phaser.Easing.Quadratic.Out};
 
 	// Flag switched on when the track is clicked, switched off after the bar movement is finished.
@@ -957,9 +968,9 @@ uiWidgets.ValueBar = function (game, xy, values, draggable, vertical, keyboard, 
 	// The track is the static area the bar will move along.
 	this.track = this.game.add.sprite(0, 0, this.trackImage);
 	this.add(this.track);
-	
+
+	// If the bar is draggable, clicking the track will move the bar up or down.
 	if (this.draggable) {
-		// If the bar is draggable, clicking the track will move the bar up or down.
 		this.enableTrackClick();
 	}
 
@@ -1168,7 +1179,6 @@ uiWidgets.ValueBar.prototype.getGripPositionRatio = function () {
 	}
 
 	return newGripPositionRatio;
-
 };
 ;var Phaser;
 
