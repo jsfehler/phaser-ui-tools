@@ -12,7 +12,6 @@ var uiWidgets = uiWidgets || {};
  * @param {boolean} keyboard - Determines if the scrollbar responds to keyboard input.
  * @param {string} trackImage - The image key to use for the track.
  * @param {string} barImage - The image key to use for the bar. Will be automatically resized to fit.
- * @param {number} padding - Distance in pixels between the scrollbar and viewport.
  * @param {Object} tweenParams - Dictionary with the duration and easing function for the scrolling tween.
  */
 uiWidgets.Scrollbar = function (game, content, draggable, vertical, keyboard, trackImage, barImage, tweenParams) {
@@ -75,7 +74,7 @@ uiWidgets.Scrollbar = function (game, content, draggable, vertical, keyboard, tr
 	this.create();
 };
 
-uiWidgets.Scrollbar.prototype = Object.create(Phaser.Group.prototype);
+uiWidgets.Scrollbar.prototype = Object.create(uiWidgets.Bar.prototype);
 uiWidgets.Scrollbar.constructor = uiWidgets.Scrollbar;
 
 /** Enables keyboard input for the scrollbar */
@@ -158,17 +157,6 @@ uiWidgets.Scrollbar.prototype.enableBarDrag = function () {
 	}
 };
 
-/** Determine the distance the bar can scroll over */
-uiWidgets.Scrollbar.prototype.setTrackScrollAreaSize = function () {
-	"use strict";
-
-	if (this.vertical) {
-		this.trackScrollAreaSize = this.track.height - this.vslice;
-	} else {
-		this.trackScrollAreaSize = this.track.width - this.hslice;
-	}
-};
-	
 uiWidgets.Scrollbar.prototype.create = function () {
 	"use strict";
 	this.centerStaticAxis();
@@ -218,16 +206,6 @@ uiWidgets.Scrollbar.prototype.setInitialBarPosition = function () {
 		this.bar.x = gripPositionOnTrack + this.track.x;
 	}
 	
-};
-
-/** Sets position for the bar's non-moving axis. Centers it inside the track. */
-uiWidgets.Scrollbar.prototype.centerStaticAxis = function () {
-	"use strict";
-	if (this.vertical) {
-		this.bar.x = this.track.x + (this.track.width / 2) - (this.bar.width / 2);
-	} else {
-		this.bar.y = this.track.y + (this.track.height / 2) - (this.bar.height / 2);
-	}
 };
 
 /** Creates the tween for moving the bar to a new position. */
@@ -717,154 +695,4 @@ uiWidgets.ValueBar.prototype.getGripPositionRatio = function () {
 
 	return newGripPositionRatio;
 
-};
-
-
-/** 
- * Bar that adjusts the size of a static bar based on a value.
- * @constructor
- */
-uiWidgets.QuantityBar = function (game, xy, values, vertical, trackImage, barImage, tweenParams) {
-	"use strict";
-    Phaser.Group.call(this, game);
-    game.add.existing(this);
-
-	this.game = game;
-    this.x = xy.x;
-	this.y = xy.y;
-	
-	this.valueRange = new uiWidgets.QuantityRange(this, values.startValue, values.maxValue);
-
-    this.vertical = vertical || false;
-
-	this.trackImage = trackImage;
-	this.barImage = barImage;
-
-	// Animation
-	this.tweenParams = tweenParams || {'duration': 300, 'ease': Phaser.Easing.Quadratic.Out};
-
-	// Flag switched on when the track is clicked, switched off after the bar movement is finished.
-	this.trackClicked = false;
-	this.barMoving = false;
-
-	// Records mouse pointer when clicking the bar.
-	this.mousePointer = null;
-
-	// The track is the static area the bar will move along.
-	this.track = this.game.add.sprite(0, 0, this.trackImage);
-	this.add(this.track);
-
-	// The bar is a static image taking up the width of the track.
-	this.bar = this.game.add.button(
-		0,
-		0,
-		this.barImage,
-		this.moveContent,
-		this,
-		1,
-		0
-	);
-	this.add(this.bar);
-	
-	this.create();
-};
-
-uiWidgets.QuantityBar.prototype = Object.create(uiWidgets.ValueBar.prototype);
-uiWidgets.QuantityBar.constructor = uiWidgets.QuantityBar;
-
-/** Sets the bar's mask. */
-uiWidgets.QuantityBar.prototype.setMask = function () {
-	
-	if (this.bar.mask !== null) {
-		this.bar.mask.destroy();
-		this.bar.mask = null;
-	}
-	this.bar.mask = this.game.add.graphics(this.maskX, this.maskY);
-	this.bar.mask.beginFill(0x0000ff);
-	this.bar.mask.drawRect(0, 0, this.maskW, this.maskH);
-	this.bar.mask.endFill();
-};
-
-uiWidgets.QuantityBar.prototype.getBarPosition = function () {
-	"use strict";
-	var currentValue = this.valueRange.getRatio();
-	var windowPositionRatio = currentValue / this.windowScrollAreaSize;
-	return this.trackScrollAreaSize * windowPositionRatio;
-};
-
-
-uiWidgets.QuantityBar.prototype.create = function () {
-	"use strict";
-	this.centerStaticAxis();
-	
-	// Values for the bar's mask.
-	this.maskW = this.bar.width;
-	this.maskH = this.bar.height;
-	this.maskX = this.bar.x + this.x;
-	this.maskY = this.bar.y + this.y;
-	this.resizeMask();
-	this.setMask();
-
-	
-	// Determine the distance the window can scroll over
-	this.windowScrollAreaSize = this.valueRange.maxValue;
-
-	// Represents one fraction of the track.
-	this.vslice = (this.track.height * this.valueRange.getRatio());
-	this.hslice = (this.track.width * this.valueRange.getRatio());
-	
-	this.setTrackScrollAreaSize();
-
-	// Initial position for the bar.
-	this.mousePointer = {"x": this.bar.x, "y": this.bar.y};
-};
-
-/** Creates the tween for adjusting the size of the mask. */
-uiWidgets.QuantityBar.prototype.addScrollTweenMask = function (properties) {
-	"use strict";
-
-	var newTween;
-	newTween = this.game.add.tween(this.bar.mask).to(
-		properties,
-		this.tweenParams.duration,
-		this.tweenParams.ease,
-		true
-	);
-};
-
-uiWidgets.QuantityBar.prototype.adjustValue = function (newValue) {
-	"use strict";
-	this.valueRange.currentValue += newValue;
-	
-	var tween;
-	
-	if (this.vertical) {
-		tween = {height: this.track.height * this.valueRange.getRatio()};
-	} else {
-		tween = {width: this.track.width * this.valueRange.getRatio()};
-	}
-	
-	this.addScrollTweenMask(tween);	
-};
-
-/** Given a ration between total content size and viewport size,
- * resize the bar sprite to the appropriate percentage of the track. 
- */
-uiWidgets.QuantityBar.prototype.resizeMask = function () {
-	"use strict";
-
-	var barSize;
-	if (this.vertical) {
-		barSize = this.track.height * this.valueRange.getRatio();
-	} else {
-		barSize = this.track.width * this.valueRange.getRatio();
-	}
-
-	// Resizes the bar.
-	if (this.vertical) {
-		this.maskH = barSize;
-	} else {
-		this.maskW = barSize;
-	}
-	
 };

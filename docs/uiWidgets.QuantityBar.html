@@ -84,7 +84,7 @@
         
 <hr>
 <dt>
-    <h4 class="name" id="QuantityBar"><span class="type-signature"></span>new QuantityBar()</h4>
+    <h4 class="name" id="QuantityBar"><span class="type-signature"></span>new QuantityBar(game, xy, trackImage, barImage, tweenParams)</h4>
     
     
 </dt>
@@ -92,7 +92,7 @@
 
     
     <div class="description">
-        <p>Bar that adjusts the size of a static bar based on a value.</p>
+        <p>Bar that adjusts the size of a static bar based on a value.<br>This is done by masking a sprite and resizing the mask.</p>
     </div>
     
 
@@ -101,6 +101,152 @@
     
 
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>game</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Current game instance.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>xy</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Dictionary with the values for the bar's x and y position.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>trackImage</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The image key to use for the track.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>barImage</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The image key to use for the bar. Will be automatically resized to fit.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>tweenParams</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Dictionary with the duration and easing function for the scrolling tween.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
     
 
     
@@ -138,8 +284,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="scrollbar.js.html">scrollbar.js</a>,
-				 <a href="scrollbar.js.html#sunlight-1-line-727">line 727</a>
+				<a href="quantitybar.js.html">quantitybar.js</a>,
+				 <a href="quantitybar.js.html#sunlight-1-line-17">line 17</a>
 			</li>
 		</ul>
 	</dd>
@@ -244,8 +390,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="scrollbar.js.html">scrollbar.js</a>,
-				 <a href="scrollbar.js.html#sunlight-1-line-823">line 823</a>
+				<a href="quantitybar.js.html">quantitybar.js</a>,
+				 <a href="quantitybar.js.html#sunlight-1-line-117">line 117</a>
 			</li>
 		</ul>
 	</dd>
@@ -278,7 +424,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="resizeMask"><span class="type-signature"></span>resizeMask()</h4>
+    <h4 class="name" id="getBarSize"><span class="type-signature"></span>getBarSize()</h4>
     
     
 </dt>
@@ -286,7 +432,7 @@
 
     
     <div class="description">
-        <p>Given a ration between total content size and viewport size,<br>resize the bar sprite to the appropriate percentage of the track.</p>
+        <p>Given a ratio between total content size and viewport size,<br>return an appropriate percentage of the track.</p>
     </div>
     
 
@@ -332,8 +478,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="scrollbar.js.html">scrollbar.js</a>,
-				 <a href="scrollbar.js.html#sunlight-1-line-853">line 853</a>
+				<a href="quantitybar.js.html">quantitybar.js</a>,
+				 <a href="quantitybar.js.html#sunlight-1-line-169">line 169</a>
 			</li>
 		</ul>
 	</dd>
@@ -420,8 +566,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="scrollbar.js.html">scrollbar.js</a>,
-				 <a href="scrollbar.js.html#sunlight-1-line-776">line 776</a>
+				<a href="quantitybar.js.html">quantitybar.js</a>,
+				 <a href="quantitybar.js.html#sunlight-1-line-60">line 60</a>
 			</li>
 		</ul>
 	</dd>
