@@ -1,4 +1,4 @@
-var game = new Phaser.Game(800, 400, Phaser.AUTO, 'quantitybar', { preload: preload, create: create, update: update });
+var game = new Phaser.Game(600, 400, Phaser.AUTO, 'quantitybar', { preload: preload, create: create, update: update });
 
 function preload() {
 	game.load.image("track", "assets/quantitybar/horizontal/track.png");
@@ -48,13 +48,13 @@ function create() {
         align: "center"
     });
 
-	var lessHealth = game.add.button(150, 50, 'subtract', decreaseHealth, this);
-	var moreHealth = game.add.button(200, 50, 'add', increaseHealth, this);
+	var lessHealth = game.add.button(150, 10, 'subtract', decreaseHealth, this);
+	var moreHealth = game.add.button(200, 10, 'add', increaseHealth, this);
 
 	// Create a reverse quantitybar starting at 50.
 	rhealthbar = new uiWidgets.QuantityBar(
 		game,
-		{"x": 400, "y": 10},
+		{"x": 350, "y": 10},
 		{"startValue": 30, maxValue: 100},
 		false,
 		true,
@@ -69,13 +69,13 @@ function create() {
         align: "center"
     });
 
-	var rlessHealth = game.add.button(450, 50, 'subtract', rdecreaseHealth, this);
-	var rmoreHealth = game.add.button(500, 50, 'add', rincreaseHealth, this);
+	var rlessHealth = game.add.button(450, 10, 'subtract', rdecreaseHealth, this);
+	var rmoreHealth = game.add.button(500, 10, 'add', rincreaseHealth, this);
 	
 	// Create a vertical quantitybar starting at 50.
 	vhealthbar = new uiWidgets.QuantityBar(
 		game,
-		{"x": 50, "y": 130},
+		{"x": 30, "y": 130},
 		{"startValue": 32, maxValue: 100},
 		true,
 		false,
@@ -84,14 +84,14 @@ function create() {
 		{'duration': 400, 'ease': Phaser.Easing.Quadratic.Out}
 	);
 
-	vhealthbarText = game.add.text(150, 150, vhealthbar.valueRange.minValue, {
+	vhealthbarText = game.add.text(100, 150, vhealthbar.valueRange.minValue, {
         font: "65px Arial",
         fill: "#ff0044",
         align: "center"
     });
 
-	var vlessHealth = game.add.button(150, 250, 'subtract', vdecreaseHealth, this);
-	var vmoreHealth = game.add.button(200, 250, 'add', vincreaseHealth, this);
+	var vlessHealth = game.add.button(100, 250, 'subtract', vdecreaseHealth, this);
+	var vmoreHealth = game.add.button(150, 250, 'add', vincreaseHealth, this);
 	
 	// Create a reverse vertical quantitybar starting at 50.
 	rvhealthbar = new uiWidgets.QuantityBar(
@@ -105,14 +105,14 @@ function create() {
 		{'duration': 400, 'ease': Phaser.Easing.Quadratic.Out}
 	);
 
-	rvhealthbarText = game.add.text(250, 150, rvhealthbar.valueRange.minValue, {
+	rvhealthbarText = game.add.text(300, 150, rvhealthbar.valueRange.minValue, {
         font: "65px Arial",
         fill: "#ff0044",
         align: "center"
     });
 
-	var vlessHealth = game.add.button(250, 250, 'subtract', rvdecreaseHealth, this);
-	var vmoreHealth = game.add.button(300, 250, 'add', rvincreaseHealth, this);
+	var vlessHealth = game.add.button(300, 250, 'subtract', rvdecreaseHealth, this);
+	var vmoreHealth = game.add.button(350, 250, 'add', rvincreaseHealth, this);
 	
 }
 
