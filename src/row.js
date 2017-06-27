@@ -6,16 +6,15 @@ var uiWidgets = uiWidgets || {};
  * Group that places new child nodes directly next to the previous child.
  * @constructor
  * @param {Object} game - Current game instance.
- * @param {Object }context - The context this object is called in.
+ * @param {Object} context - The context this object is called in.
 */
 uiWidgets.Row = function (game, context) {
 	"use strict";
 	Phaser.Group.call(this, game);
-    game.add.existing(this);
-	
-	this.game = game;
-    this.context = context;
+	game.add.existing(this);
 
+	this.game = game;
+	this.context = context;
 };
 
 uiWidgets.Row.prototype = Object.create(Phaser.Group.prototype);

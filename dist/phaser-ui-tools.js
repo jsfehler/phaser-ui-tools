@@ -91,16 +91,15 @@ var uiWidgets = uiWidgets || {};
  * Group that places new child nodes directly under the previous child.
  * @constructor
  * @param {Object} game - Current game instance.
- * @param {Object }context - The context this object is called in.
+ * @param {Object} context - The context this object is called in.
  */
 uiWidgets.Column = function (game, context) {
 	"use strict";
 	Phaser.Group.call(this, game);
-    game.add.existing(this);
-	
-	this.game = game;
-    this.context = context;
+	game.add.existing(this);
 
+	this.game = game;
+	this.context = context;
 };
 
 uiWidgets.Column.prototype = Object.create(Phaser.Group.prototype);
@@ -134,41 +133,41 @@ var uiWidgets = uiWidgets || {};
  * @param {Object} tweenParams - Dictionary with the duration and easing function for the scrolling tween.
  */
 uiWidgets.QuantityBar = function (game, xy, values, vertical, reverse, trackImage, barImage, tweenParams) {
-	"use strict";
+    "use strict";
     Phaser.Group.call(this, game);
     game.add.existing(this);
 
-	this.game = game;
+    this.game = game;
     this.x = xy.x;
-	this.y = xy.y;
-	
-	this.valueRange = new uiWidgets.QuantityRange(this, values.startValue, values.maxValue);
+    this.y = xy.y;
+
+    this.valueRange = new uiWidgets.QuantityRange(this, values.startValue, values.maxValue);
 
     this.vertical = vertical || false;
-	this.reverse = reverse || false;
-	
-	this.trackImage = trackImage;
-	this.barImage = barImage;
+    this.reverse = reverse || false;
 
-	this.tweenParams = tweenParams || {'duration': 300, 'ease': Phaser.Easing.Quadratic.Out};
+    this.trackImage = trackImage;
+    this.barImage = barImage;
 
-	// The track is the static area the bar will move along.
-	this.track = this.game.add.sprite(0, 0, this.trackImage);
-	this.add(this.track);
+    this.tweenParams = tweenParams || {'duration': 300, 'ease': Phaser.Easing.Quadratic.Out};
 
-	// The bar is a static image taking up the width of the track.
-	this.bar = this.game.add.button(
-		0,
-		0,
-		this.barImage,
-		this.moveContent,
-		this,
-		1,
-		0
-	);
-	this.add(this.bar);
-	
-	this.create();
+    // The track is the static area the bar will move along.
+    this.track = this.game.add.sprite(0, 0, this.trackImage);
+    this.add(this.track);
+
+    // The bar is a static image taking up the width of the track.
+    this.bar = this.game.add.button(
+        0,
+        0,
+        this.barImage,
+        this.moveContent,
+        this,
+        1,
+        0
+    );
+    this.add(this.bar);
+
+    this.create();
 };
 
 uiWidgets.QuantityBar.prototype = Object.create(uiWidgets.Bar.prototype);
@@ -176,130 +175,129 @@ uiWidgets.QuantityBar.constructor = uiWidgets.QuantityBar;
 
 /** Sets the bar's mask. */
 uiWidgets.QuantityBar.prototype.setMask = function () {
-	"use strict";
-	if (this.bar.mask !== null) {
-		this.bar.mask.destroy();
-		this.bar.mask = null;
-	}
-	this.bar.mask = this.game.add.graphics(this.maskX, this.maskY);
-	this.bar.mask.beginFill(0x0000ff);
-	this.bar.mask.drawRect(0, 0, this.maskW, this.maskH);
-	this.bar.mask.endFill();
+    "use strict";
+    if (this.bar.mask !== null) {
+        this.bar.mask.destroy();
+        this.bar.mask = null;
+    }
+    this.bar.mask = this.game.add.graphics(this.maskX, this.maskY);
+    this.bar.mask.beginFill(0x0000ff);
+    this.bar.mask.drawRect(0, 0, this.maskW, this.maskH);
+    this.bar.mask.endFill();
 };
 
 uiWidgets.QuantityBar.prototype.getBarPosition = function () {
-	"use strict";
-	var windowPositionRatio = this.valueRange.getRatio() / this.windowScrollAreaSize;
-	return this.trackScrollAreaSize * windowPositionRatio;
+    "use strict";
+    var windowPositionRatio = this.valueRange.getRatio() / this.windowScrollAreaSize;
+    return this.trackScrollAreaSize * windowPositionRatio;
 };
 
 
 uiWidgets.QuantityBar.prototype.create = function () {
-	"use strict";
-	this.centerStaticAxis();
-	
-	// Values for the bar's mask.
-	this.maskW = this.bar.width;
-	this.maskH = this.bar.height;
-	this.maskX = this.bar.x + this.x;
-	this.maskY = this.bar.y + this.y;
-	
-	// Resizes the bar.
-	if (this.vertical) {
-		this.maskH = this.getBarSize();
-	} else {
-		this.maskW = this.getBarSize();
-	}
+    "use strict";
+    this.centerStaticAxis();
 
-	this.setMask();
+    // Values for the bar's mask.
+    this.maskW = this.bar.width;
+    this.maskH = this.bar.height;
+    this.maskX = this.bar.x + this.x;
+    this.maskY = this.bar.y + this.y;
 
-	if (this.reverse) {
-		if (this.vertical) {
-			this.bar.mask.y = this.bar.y + this.y + this.getBarFraction();
-		} else {
-			this.bar.mask.x = this.bar.x + this.x + this.getBarFraction();
-		}
-	}
+    // Resizes the bar.
+    if (this.vertical) {
+        this.maskH = this.getBarSize();
+    } else {
+        this.maskW = this.getBarSize();
+    }
 
-	// Determine the distance the window can scroll over
-	this.windowScrollAreaSize = this.valueRange.maxValue;
+    this.setMask();
 
-	// Represents one fraction of the track.
-	this.vslice = (this.track.height * this.valueRange.getRatio());
-	this.hslice = (this.track.width * this.valueRange.getRatio());
-	
-	this.setTrackScrollAreaSize();
+    if (this.reverse) {
+        if (this.vertical) {
+            this.bar.mask.y = this.bar.y + this.y + this.getBarFraction();
+        } else {
+            this.bar.mask.x = this.bar.x + this.x + this.getBarFraction();
+        }
+    }
+
+    // Determine the distance the window can scroll over
+    this.windowScrollAreaSize = this.valueRange.maxValue;
+
+    // Represents one fraction of the track.
+    this.vslice = (this.track.height * this.valueRange.getRatio());
+    this.hslice = (this.track.width * this.valueRange.getRatio());
+
+    this.setTrackScrollAreaSize();
 };
 
 /** Creates the tween for adjusting the size of the mask. */
 uiWidgets.QuantityBar.prototype.addScrollTweenMask = function (properties) {
-	"use strict";
+    "use strict";
 
-	var newTween;
-	newTween = this.game.add.tween(this.bar.mask).to(
-		properties,
-		this.tweenParams.duration,
-		this.tweenParams.ease,
-		true
-	);
+    var newTween;
+    newTween = this.game.add.tween(this.bar.mask).to(
+        properties,
+        this.tweenParams.duration,
+        this.tweenParams.ease,
+        true
+    );
 };
 
 uiWidgets.QuantityBar.prototype.adjustValue = function (newValue) {
-	"use strict";
-	this.valueRange.currentValue += newValue;
+    "use strict";
+    this.valueRange.currentValue += newValue;
 
-	var tween;
+    var tween;
 
-	var barSize = this.getBarSize();
-	
-	if (this.reverse) {
-		if (this.vertical) {
-			tween = {height: barSize, y: this.bar.y + this.y + this.getBarFraction()};
-		} else {
-			tween = {width: barSize, x: this.bar.x + this.x + this.getBarFraction()};
-		}
-	} else {
-		if (this.vertical) {
-			tween = {height: barSize};
-		} else {
-			tween = {width: barSize};
-		}
-	}
-	
-	this.addScrollTweenMask(tween);
+    var barSize = this.getBarSize();
+
+    if (this.reverse) {
+        if (this.vertical) {
+            tween = {height: barSize, y: this.bar.y + this.y + this.getBarFraction()};
+        } else {
+            tween = {width: barSize, x: this.bar.x + this.x + this.getBarFraction()};
+        }
+    } else {
+        if (this.vertical) {
+            tween = {height: barSize};
+        } else {
+            tween = {width: barSize};
+        }
+    }
+
+    this.addScrollTweenMask(tween);
 };
 
 uiWidgets.QuantityBar.prototype.getBarFraction = function () {
-	"use strict";
-	var fraction;
-	if (this.vertical) {
-		fraction = this.track.height * this.valueRange.getRatio();
-	} else {
-		fraction = this.track.width * this.valueRange.getRatio();
-	}
+    "use strict";
+    var fraction;
+    if (this.vertical) {
+        fraction = this.track.height * this.valueRange.getRatio();
+    } else {
+        fraction = this.track.width * this.valueRange.getRatio();
+    }
 
-	return fraction;
+    return fraction;
 };
 
 /** Given a ratio between total content size and viewport size,
  * return an appropriate percentage of the track. 
  */
 uiWidgets.QuantityBar.prototype.getBarSize = function () {
-	"use strict";
+    "use strict";
+    var barSize;
+    if (this.reverse) {
+        if (this.vertical) {
+            barSize = this.track.height - this.valueRange.getRatio();
+        } else {
+            barSize = this.track.width - this.valueRange.getRatio();
+        }
 
-	var barSize;
-	if (this.reverse) {
-		if (this.vertical) {
-			barSize = this.track.height - this.valueRange.getRatio();
-		} else {
-			barSize = this.track.width - this.valueRange.getRatio();
-		}
-		
-	} else {
-		barSize = this.getBarFraction();
-	}
-		
-	return barSize;
+    } else {
+        barSize = this.getBarFraction();
+    }
+
+    return barSize;
 };;var Phaser;
 
 var uiWidgets = uiWidgets || {};
@@ -313,7 +311,7 @@ uiWidgets.QuantityRange = function (bar, startValue, maxValue) {
 	this.bar = bar;
 	this.startValue = startValue;
 	this.maxValue = maxValue;
-	
+
 	this.currentValue = startValue;
 };
 
@@ -323,8 +321,6 @@ uiWidgets.QuantityRange.prototype.getRatio = function () {
 	"use strict";
 	var ratio = this.currentValue / this.maxValue;
 	return ratio;
-	//var inverse = 1 - ratio;
-	//return inverse;
 };
 
 
@@ -347,9 +343,9 @@ uiWidgets.ValueRange = function (step, startValue, maxValue) {
 	this.step = step;
 	this.startValue = startValue;
 	this.maxValue = maxValue + step;
-	
+
 	this.ratio = step / maxValue;
-	
+
 	// The ratio between the step and max can't be greater than 1.
 	// ie: There can't be more steps than the max value.
 	if (this.ratio > 1) {
@@ -409,9 +405,7 @@ uiWidgets.ViewportRange = function (viewport, vertical) {
 	if (this.ratio > 1) {
 		this.ratio = 1;
 	}
-
 };
-
 
 /** Adjusts the viewport's position. */
 uiWidgets.ViewportRange.prototype.adjustValue = function (newValue) {
@@ -422,9 +416,8 @@ uiWidgets.ViewportRange.prototype.adjustValue = function (newValue) {
 	} else {
 		this.viewport.x = newValue + this.viewport.area.x;
 	}
-	
+
 	this.viewport.disableOutOfBounds(this.viewport.children, this, this.vertical);
-	
 };
 
 uiWidgets.ViewportRange.prototype.getCurrentValue = function () {
@@ -436,7 +429,7 @@ uiWidgets.ViewportRange.prototype.getCurrentValue = function () {
 	} else {
 		currentValue = this.viewport.x - this.viewport.area.x;
 	}
-	
+
 	return currentValue;
 };
 ;var Phaser;
@@ -447,16 +440,15 @@ var uiWidgets = uiWidgets || {};
  * Group that places new child nodes directly next to the previous child.
  * @constructor
  * @param {Object} game - Current game instance.
- * @param {Object }context - The context this object is called in.
+ * @param {Object} context - The context this object is called in.
 */
 uiWidgets.Row = function (game, context) {
 	"use strict";
 	Phaser.Group.call(this, game);
-    game.add.existing(this);
-	
-	this.game = game;
-    this.context = context;
+	game.add.existing(this);
 
+	this.game = game;
+	this.context = context;
 };
 
 uiWidgets.Row.prototype = Object.create(Phaser.Group.prototype);
@@ -935,58 +927,58 @@ var uiWidgets = uiWidgets || {};
  * @param {Object} tweenParams - Dictionary with the duration and easing function for the scrolling tween.
  */
 uiWidgets.ValueBar = function (game, xy, values, draggable, vertical, keyboard, trackImage, barImage, tweenParams) {
-	"use strict";
+    "use strict";
     Phaser.Group.call(this, game);
     game.add.existing(this);
 
-	this.game = game;
+    this.game = game;
     this.x = xy.x;
-	this.y = xy.y;
-	
-	this.valueRange = new uiWidgets.ValueRange(values.step, values.startValue, values.maxValue);
+    this.y = xy.y;
+
+    this.valueRange = new uiWidgets.ValueRange(values.step, values.startValue, values.maxValue);
 
     this.vertical = vertical || false;
     this.draggable = draggable || false;
-	keyboard = keyboard || false;
+    keyboard = keyboard || false;
 
-	if (keyboard) {
-		this.enableKeyboard();
-	}
+    if (keyboard) {
+        this.enableKeyboard();
+    }
 
-	this.trackImage = trackImage;
-	this.barImage = barImage;
+    this.trackImage = trackImage;
+    this.barImage = barImage;
 
-	this.tweenParams = tweenParams || {'duration': 300, 'ease': Phaser.Easing.Quadratic.Out};
+    this.tweenParams = tweenParams || {'duration': 300, 'ease': Phaser.Easing.Quadratic.Out};
 
-	// Flag switched on when the track is clicked, switched off after the bar movement is finished.
-	this.trackClicked = false;
-	this.barMoving = false;
+    // Flag switched on when the track is clicked, switched off after the bar movement is finished.
+    this.trackClicked = false;
+    this.barMoving = false;
 
-	// Records mouse pointer when clicking the bar.
-	this.mousePointer = null;
+    // Records mouse pointer when clicking the bar.
+    this.mousePointer = null;
 
-	// The track is the static area the bar will move along.
-	this.track = this.game.add.sprite(0, 0, this.trackImage);
-	this.add(this.track);
+    // The track is the static area the bar will move along.
+    this.track = this.game.add.sprite(0, 0, this.trackImage);
+    this.add(this.track);
 
-	// If the bar is draggable, clicking the track will move the bar up or down.
-	if (this.draggable) {
-		this.enableTrackClick();
-	}
+    // If the bar is draggable, clicking the track will move the bar up or down.
+    if (this.draggable) {
+        this.enableTrackClick();
+    }
 
-	// The bar is the part that moves, controlling the value of the scrollbar.
-	this.bar = this.game.add.button(
-		this.x,
-		this.y,
-		this.barImage,
-		this.moveContent,
-		this,
-		1,
-		0
-	);
-	this.add(this.bar);
+    // The bar is the part that moves, controlling the value of the scrollbar.
+    this.bar = this.game.add.button(
+        this.x,
+        this.y,
+        this.barImage,
+        this.moveContent,
+        this,
+        1,
+        0
+    );
+    this.add(this.bar);
 
-	this.create();
+    this.create();
 };
 
 uiWidgets.ValueBar.prototype = Object.create(uiWidgets.Scrollbar.prototype);
@@ -995,7 +987,6 @@ uiWidgets.ValueBar.constructor = uiWidgets.ValueBar;
 /** Determine the distance the bar can scroll over */
 uiWidgets.ValueBar.prototype.setTrackScrollAreaSize = function () {
 	"use strict";
-
 	if (this.vertical) {
 		this.trackScrollAreaSize = this.track.height;
 	} else {
@@ -1101,16 +1092,16 @@ uiWidgets.ValueBar.prototype.scrollUp = function () {
 
 /** For Vertical Scrollbars. Scrolls down by one step. */
 uiWidgets.ValueBar.prototype.scrollDown = function () {
-	"use strict";
-	if (this.bar.y + this.bar.height !== this.track.y + this.track.height && !this.barMoving) {
-		var moveToY = null;
-		this.barMoving = true;
-		this.bar.inputEnabled = false;
+    "use strict";
+    if (this.bar.y + this.bar.height !== this.track.y + this.track.height && !this.barMoving) {
+        var moveToY = null;
+        this.barMoving = true;
+        this.bar.inputEnabled = false;
 
-		moveToY = this.bar.y + this.vslice;
+        moveToY = this.bar.y + this.vslice;
 
-		this.addScrollTween({y: moveToY});
-	}
+        this.addScrollTween({y: moveToY});
+    }
 };
 
 /** For Horizontal Scrollbars. Scrolls left by one step. */
@@ -1129,56 +1120,56 @@ uiWidgets.ValueBar.prototype.scrollLeft = function () {
 
 /** For Horizontal Scrollbars. Scrolls right by one step. */
 uiWidgets.ValueBar.prototype.scrollRight = function () {
-	"use strict";
-	if (this.bar.x + this.bar.width !== this.track.x + this.track.width && !this.barMoving) {
-		var moveToX = null;
-		this.barMoving = true;
-		this.bar.inputEnabled = false;
+    "use strict";
+    if (this.bar.x + this.bar.width !== this.track.x + this.track.width && !this.barMoving) {
+        var moveToX = null;
+        this.barMoving = true;
+        this.bar.inputEnabled = false;
 
-		moveToX = this.bar.x + this.hslice;
+        moveToX = this.bar.x + this.hslice;
 
-		this.addScrollTween({x: moveToX});
-	}
+        this.addScrollTween({x: moveToX});
+    }
 };
 
 uiWidgets.ValueBar.prototype.getGripPositionRatio = function () {
-	"use strict";
-	var gripPositionOnTrack = this.getBarPosition();
-	var mousePositionDelta = this.getMouseDelta();
+    "use strict";
+    var gripPositionOnTrack = this.getBarPosition();
+    var mousePositionDelta = this.getMouseDelta();
 
-	var newGripPosition = gripPositionOnTrack - mousePositionDelta;
-	// Don't let the content scroll above or below the track's size
-	if (newGripPosition < 0) {
-		newGripPosition = 0;
-	} else if (newGripPosition >= this.trackScrollAreaSize) {
-		newGripPosition = this.trackScrollAreaSize;
-	}
+    var newGripPosition = gripPositionOnTrack - mousePositionDelta;
+    // Don't let the content scroll above or below the track's size
+    if (newGripPosition < 0) {
+        newGripPosition = 0;
+    } else if (newGripPosition >= this.trackScrollAreaSize) {
+        newGripPosition = this.trackScrollAreaSize;
+    }
 
-	// When the scrollbar is at the top or bottom, prevent a mouse movement that
-	// doesn't move the scrollbar from moving the content.
-	if (this.vertical) {
-		if (this.bar.y <= this.track.y) {
-			newGripPosition = 0;
-		} else if (this.bar.y + this.bar.height >= this.track.y + this.track.height) {
-			newGripPosition = this.trackScrollAreaSize;
-		}
-	} else {
-		if (this.bar.x <= this.track.x) {
-			newGripPosition = 0;
-		} else if (this.bar.x + this.bar.width >= this.track.x + this.track.width) {
-			newGripPosition = this.trackScrollAreaSize;
-		}
-	}
+    // When the scrollbar is at the top or bottom, prevent a mouse movement that
+    // doesn't move the scrollbar from moving the content.
+    if (this.vertical) {
+        if (this.bar.y <= this.track.y) {
+            newGripPosition = 0;
+        } else if (this.bar.y + this.bar.height >= this.track.y + this.track.height) {
+            newGripPosition = this.trackScrollAreaSize;
+        }
+    } else {
+        if (this.bar.x <= this.track.x) {
+            newGripPosition = 0;
+        } else if (this.bar.x + this.bar.width >= this.track.x + this.track.width) {
+            newGripPosition = this.trackScrollAreaSize;
+        }
+    }
 
-	var newGripPositionRatio = newGripPosition / this.trackScrollAreaSize;
+    var newGripPositionRatio = newGripPosition / this.trackScrollAreaSize;
 
-	// If the scrollable area is less than the size of the scrollbar, the bar and track will be the same size.
-	// In this scenario, a divide by zero occurs. Capture that and turn it into zero.
-	if (isNaN(newGripPositionRatio)) {
-		newGripPositionRatio = 0;
-	}
+    // If the scrollable area is less than the size of the scrollbar, the bar and track will be the same size.
+    // In this scenario, a divide by zero occurs. Capture that and turn it into zero.
+    if (isNaN(newGripPositionRatio)) {
+        newGripPositionRatio = 0;
+    }
 
-	return newGripPositionRatio;
+    return newGripPositionRatio;
 };
 ;var Phaser;
 
@@ -1191,30 +1182,30 @@ var uiWidgets = uiWidgets || {};
  * @param {Object} game - Current game instance.
  * @param {number} x - The x coordinate on screen where the viewport will be placed.
  * @param {number} y - The y coordinate on screen where the viewport will be placed.
- * @param width {number} - The width of the viewport.
- * @param height {number} - The height of the viewport.
+ * @param {number} width - The width of the viewport.
+ * @param {number} height - The height of the viewport.
  */
 uiWidgets.Viewport = function (game, x, y, width, height) {
     "use strict";
     Phaser.Group.call(this, game);
     game.add.existing(this);
 
-	this.x = x;
-	this.y = y;
+    this.x = x;
+    this.y = y;
 
-	// Viewport size and position, distinct from the total window size.
-	this.area = {
-		"x": x,
-		"y": y,
-		"width": width,
-		"height": height
-	};
+    // Viewport size and position, distinct from the total window size.
+    this.area = {
+        "x": x,
+        "y": y,
+        "width": width,
+        "height": height
+    };
 
-	// Adding the mask attribute to a group hides objects outside the mask.
-	this.mask = this.game.add.graphics(this.area.x, this.area.y);
-	this.mask.beginFill(0x0000ff);
-	this.mask.drawRect(0, 0, width, height);
-	this.mask.endFill();
+    // Adding the mask attribute to a group hides objects outside the mask.
+    this.mask = this.game.add.graphics(this.area.x, this.area.y);
+    this.mask.beginFill(0x0000ff);
+    this.mask.drawRect(0, 0, width, height);
+    this.mask.endFill();
 };
 
 uiWidgets.Viewport.prototype = Object.create(Phaser.Group.prototype);
@@ -1222,40 +1213,39 @@ uiWidgets.Viewport.constructor = uiWidgets.Viewport;
 
 /** Adds a new object into the Viewport. */
 uiWidgets.Viewport.prototype.addNode = function (node) {
-	"use strict";
-	this.add(node);
+    "use strict";
+    this.add(node);
 };
 
 
 /** Disable input for all objets outside the viewport's visible area. */
 uiWidgets.Viewport.prototype.disableOutOfBounds = function (children, context, vertical) {
-	"use strict";
-	var child, location, contentLocation, trueCoords;
-	
-	// Makes sure the recursive function stops when there's no children.
-	if (children !== undefined) {
-		for (var i = 0; i < children.length; i++) {
-			child = children[i];
+    "use strict";
+    var child, location, contentLocation, trueCoords;
 
-			child.inputEnabled = true;
+    // Makes sure the recursive function stops when there's no children.
+    if (children !== undefined) {
+        for (var i = 0; i < children.length; i++) {
+            child = children[i];
+            child.inputEnabled = true;
 
-			// An object's x/y is relative to it's parent.
-			// The world gives an x/y relative to the whole game.
-			trueCoords = child.world || child;
-			
-			if (vertical) {
-				location = trueCoords.y;
-				contentLocation = context.viewport.area.y;
-			} else {
-				location = trueCoords.x;
-				contentLocation = context.viewport.area.x;
-			}
+            // An object's x/y is relative to it's parent.
+            // The world gives an x/y relative to the whole game.
+            trueCoords = child.world || child;
 
-			if (location < contentLocation) {
-				child.inputEnabled = false;
-			}
+            if (vertical) {
+                location = trueCoords.y;
+                contentLocation = context.viewport.area.y;
+            } else {
+                location = trueCoords.x;
+                contentLocation = context.viewport.area.x;
+            }
 
-			this.disableOutOfBounds(child.children, context, vertical);
-		}
-	}
+            if (location < contentLocation) {
+                child.inputEnabled = false;
+            }
+
+            this.disableOutOfBounds(child.children, context, vertical);
+        }
+    }
 };

@@ -11,7 +11,7 @@ uiWidgets.QuantityRange = function (bar, startValue, maxValue) {
 	this.bar = bar;
 	this.startValue = startValue;
 	this.maxValue = maxValue;
-	
+
 	this.currentValue = startValue;
 };
 
@@ -21,8 +21,6 @@ uiWidgets.QuantityRange.prototype.getRatio = function () {
 	"use strict";
 	var ratio = this.currentValue / this.maxValue;
 	return ratio;
-	//var inverse = 1 - ratio;
-	//return inverse;
 };
 
 
@@ -45,9 +43,9 @@ uiWidgets.ValueRange = function (step, startValue, maxValue) {
 	this.step = step;
 	this.startValue = startValue;
 	this.maxValue = maxValue + step;
-	
+
 	this.ratio = step / maxValue;
-	
+
 	// The ratio between the step and max can't be greater than 1.
 	// ie: There can't be more steps than the max value.
 	if (this.ratio > 1) {
@@ -107,9 +105,7 @@ uiWidgets.ViewportRange = function (viewport, vertical) {
 	if (this.ratio > 1) {
 		this.ratio = 1;
 	}
-
 };
-
 
 /** Adjusts the viewport's position. */
 uiWidgets.ViewportRange.prototype.adjustValue = function (newValue) {
@@ -120,9 +116,8 @@ uiWidgets.ViewportRange.prototype.adjustValue = function (newValue) {
 	} else {
 		this.viewport.x = newValue + this.viewport.area.x;
 	}
-	
+
 	this.viewport.disableOutOfBounds(this.viewport.children, this, this.vertical);
-	
 };
 
 uiWidgets.ViewportRange.prototype.getCurrentValue = function () {
@@ -134,6 +129,6 @@ uiWidgets.ViewportRange.prototype.getCurrentValue = function () {
 	} else {
 		currentValue = this.viewport.x - this.viewport.area.x;
 	}
-	
+
 	return currentValue;
 };
