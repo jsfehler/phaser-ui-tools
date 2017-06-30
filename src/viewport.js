@@ -3,8 +3,9 @@ var Phaser;
 var uiWidgets = uiWidgets || {};
 
 
-/** 
+/**
  * A container for other objects with a limited viewable area. Uses a mask to hide children outside of the specified x/y/width/height area.
+ * Content outside the viewport has their input disabled.
  * @constructor
  * @param {Object} game - Current game instance.
  * @param {number} x - The x coordinate on screen where the viewport will be placed.

@@ -3,7 +3,7 @@ var Phaser;
 var uiWidgets = uiWidgets || {};
 
 
-/** 
+/**
  * Sprite with text added as a child.
  * @constructor
  * @param {Object} game - Current game instance.
@@ -20,16 +20,16 @@ uiWidgets.textSprite = function (game, image, label, style, x, y) {
 
     this.text = this.game.add.text(0, 0, label, style);
     this.text.anchor.set(0.5, 0.5);
-    
+
     this.addChild(this.text);
 };
 
 uiWidgets.textSprite.prototype = Object.create(Phaser.Sprite.prototype);
 uiWidgets.textSprite.constructor = uiWidgets.textSprite;
-  
 
-/** 
- * Phaser Button with text added as a child.  
+
+/**
+ * Phaser Button with text added as a child.
  * @constructor
  * @param {Object} game - Current game instance.
  * @param {string} image - The image to create a sprite with.
@@ -37,8 +37,8 @@ uiWidgets.textSprite.constructor = uiWidgets.textSprite;
  * @param {Object} style - The style properties to be set on the Text.
  * @param {number} x - The x coordinate on screen where the textSprite will be placed.
  * @param {number} y - The y coordinate on screen where the textSprite will be placed.
- * @param callback - Callback to use when the button is clicked.
- * @param callbackContext {Object} - The context the callback is called in.
+ * @param {Object} callback - Callback to use when the button is clicked.
+ * @param {Object} callbackContext - The context the callback is called in.
  */
 uiWidgets.textButton = function (game, image, label, style, x, y, callback, callbackContext) {
     "use strict";
@@ -47,7 +47,7 @@ uiWidgets.textButton = function (game, image, label, style, x, y, callback, call
 
     this.text = this.game.add.text(0, 0, label, style);
     this.text.anchor.set(0.5, 0.5);
-    
+
     this.addChild(this.text);
 };
 
