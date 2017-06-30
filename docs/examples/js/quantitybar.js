@@ -124,33 +124,33 @@ function update() {
 }
 
 function increaseHealth() {
-	healthbar.adjustValue(10);
+	healthbar.adjustBar(10);
 }
 
 function decreaseHealth() {
-	healthbar.adjustValue(-10);
+	healthbar.adjustBar(-10);
 }
 
 function vincreaseHealth() {
-	vhealthbar.adjustValue(1);
+	vhealthbar.adjustBar(1);
 }
 
 function vdecreaseHealth() {
-	vhealthbar.adjustValue(-1);
+	vhealthbar.adjustBar(-1);
 }
 
 function rincreaseHealth() {
-	rhealthbar.adjustValue(10);
+	rhealthbar.adjustBar(10);
 }
 
 function rdecreaseHealth() {
-	rhealthbar.adjustValue(-10);
+	rhealthbar.adjustBar(-10);
 }
 
 function rvincreaseHealth() {
-	rvhealthbar.adjustValue(10);
+	rvhealthbar.adjustBar(10);
 }
 
 function rvdecreaseHealth() {
-	rvhealthbar.adjustValue(-10);
+	rvhealthbar.adjustBar(-10);
 }

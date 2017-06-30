@@ -126,7 +126,7 @@ uiWidgets.QuantityBar.prototype.addScrollTweenMask = function (properties) {
     );
 };
 
-uiWidgets.QuantityBar.prototype.adjustValue = function (newValue) {
+uiWidgets.QuantityBar.prototype.adjustBar = function (newValue) {
     "use strict";
     this.valueRange.currentValue += newValue;
 

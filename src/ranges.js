@@ -5,6 +5,9 @@ var uiWidgets = uiWidgets || {};
 
 /** Used by a QuantityBar to hold the bar's values.
  * @constructor
+ * @param {number} bar - The QuantityBar object that uses the range.
+ * @param {number} startValue - The initial value for the bar.
+ * @param {number} maxValue - The maximum value the bar can have.
  */
 uiWidgets.QuantityRange = function (bar, startValue, maxValue) {
 	"use strict";
@@ -16,13 +19,12 @@ uiWidgets.QuantityRange = function (bar, startValue, maxValue) {
 };
 
 
-/** Returns the current ratio for how big the bar is compared to the track. */
+/** Returns the current ratio for how large the bar is compared to the track. */
 uiWidgets.QuantityRange.prototype.getRatio = function () {
 	"use strict";
 	var ratio = this.currentValue / this.maxValue;
 	return ratio;
 };
-
 
 /** Returns the bar's current value. */
 uiWidgets.QuantityRange.prototype.getCurrentValue = function () {
