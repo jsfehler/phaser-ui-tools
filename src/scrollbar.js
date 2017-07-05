@@ -70,10 +70,24 @@ uiWidgets.Scrollbar = function (game, content, draggable, vertical, keyboard, tr
 
     this.resizeBar();
 
+    this.verticalDraggableArea = {
+        "x": this.track.x - ((this.bar.width - this.track.width) / 2),
+        "y": this.track.y,
+        "w": this.bar.width,
+        "h": this.track.height
+    };
+
+    this.horizontalDraggableArea = {
+        "x": this.track.x,
+        "y": this.track.y - ((this.bar.height - this.track.height) / 2),
+        "w": this.track.width,
+        "h": this.bar.height
+    };
+
     this.create();
 };
 
-uiWidgets.Scrollbar.prototype = Object.create(uiWidgets.Bar.prototype);
+uiWidgets.Scrollbar.prototype = Object.create(uiWidgets.DraggableBar.prototype);
 uiWidgets.Scrollbar.constructor = uiWidgets.Scrollbar;
 
 /** Enables keyboard input for the scrollbar */
@@ -131,31 +145,6 @@ uiWidgets.Scrollbar.prototype.resizeBar = function () {
 
 };
 
-/** Enables clicking and dragging on the bar. */
-uiWidgets.Scrollbar.prototype.enableBarDrag = function () {
-    "use strict";
-    this.bar.inputEnabled = true;
-    this.bar.input.enableDrag();
-    this.bar.events.onInputDown.add(this.saveMousePosition, this);
-    this.bar.events.onDragUpdate.add(this.moveContent, this);
-
-    if (this.vertical) {
-        this.setDraggableArea(
-        this.track.x - ((this.bar.width - this.track.width) / 2),
-        this.track.y,
-        this.bar.width,
-        this.track.height
-    );
-    } else {
-        this.setDraggableArea(
-        this.track.x,
-        this.track.y - ((this.bar.height - this.track.height) / 2),
-        this.track.width,
-        this.bar.height
-    );
-    }
-};
-
 uiWidgets.Scrollbar.prototype.create = function () {
     "use strict";
     this.centerStaticAxis();
@@ -178,19 +167,6 @@ uiWidgets.Scrollbar.prototype.create = function () {
 
     this.setInitialBarPosition();
 
-};
-
-/** Sets size of the bar's draggable area. */
-uiWidgets.Scrollbar.prototype.setDraggableArea = function (x, y, w, h) {
-    "use strict";
-    // Limit the bar's draggable area to within the track.
-    if (this.vertical) {
-        this.bar.input.allowHorizontalDrag = false;
-    } else {
-        this.bar.input.allowVerticalDrag = false;
-    }
-
-    this.bar.input.boundsRect = new Phaser.Rectangle(x, y, w, h);
 };
 
 /** Ensure the bar starts off where it should be, according to the bar's logical position. */
@@ -302,14 +278,6 @@ uiWidgets.Scrollbar.prototype.scrollRight = function () {
 
         this.addScrollTween({x: moveToX});
     }
-};
-
-/** When called, ensures the bar can be moved. Must be called once the bar has finished scrolling. */
-uiWidgets.Scrollbar.prototype.enableBarInput = function () {
-    "use strict";
-    this.trackClicked = false;
-    this.barMoving = false;
-    this.bar.inputEnabled = true;
 };
 
 /** If the scrollbar is draggable, this function is called when the track is clicked. */

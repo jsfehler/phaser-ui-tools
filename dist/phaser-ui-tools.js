@@ -3,9 +3,8 @@ var Phaser;
 var uiWidgets = uiWidgets || {};
 
 
-uiWidgets.Bar = function () {};
-
 /** Base object for all Bars. */
+uiWidgets.Bar = function () {};
 uiWidgets.Bar.prototype = Object.create(Phaser.Group.prototype);
 uiWidgets.Bar.constructor = uiWidgets.Bar;
 
@@ -28,6 +27,49 @@ uiWidgets.Bar.prototype.centerStaticAxis = function () {
     } else {
         this.bar.y = this.track.y + (this.track.height / 2) - (this.bar.height / 2);
     }
+};
+
+
+/** Base object for Bars that can be dragged with a mouse. */
+uiWidgets.DraggableBar = function () {};
+uiWidgets.DraggableBar.prototype = Object.create(uiWidgets.Bar.prototype);
+uiWidgets.DraggableBar.constructor = uiWidgets.DraggableBar;
+
+/** When called, ensures the bar can be moved. Must be called once the bar has finished scrolling. */
+uiWidgets.DraggableBar.prototype.enableBarInput = function () {
+    "use strict";
+    this.trackClicked = false;
+    this.barMoving = false;
+    this.bar.inputEnabled = true;
+};
+
+/** Enables clicking and dragging on the bar. */
+uiWidgets.DraggableBar.prototype.enableBarDrag = function () {
+    "use strict";
+    this.bar.inputEnabled = true;
+    this.bar.input.enableDrag();
+    if (this.snapping) {
+        this.bar.events.onInputUp.add(this.snapToClosestPosition, this);
+    }
+    this.bar.events.onInputDown.add(this.saveMousePosition, this);
+    this.bar.events.onDragUpdate.add(this.moveContent, this);
+
+    var draggableArea;
+
+    if (this.vertical) {
+        this.bar.input.allowHorizontalDrag = false;
+        draggableArea = this.verticalDraggableArea;
+    } else {
+        this.bar.input.allowVerticalDrag = false;
+        draggableArea = this.horizontalDraggableArea;
+    }
+
+    this.bar.input.boundsRect = new Phaser.Rectangle(
+        draggableArea.x,
+        draggableArea.y,
+        draggableArea.w,
+        draggableArea.h)
+    ;
 };
 ;var Phaser;
 
@@ -539,10 +581,24 @@ uiWidgets.Scrollbar = function (game, content, draggable, vertical, keyboard, tr
 
     this.resizeBar();
 
+    this.verticalDraggableArea = {
+        "x": this.track.x - ((this.bar.width - this.track.width) / 2),
+        "y": this.track.y,
+        "w": this.bar.width,
+        "h": this.track.height
+    };
+
+    this.horizontalDraggableArea = {
+        "x": this.track.x,
+        "y": this.track.y - ((this.bar.height - this.track.height) / 2),
+        "w": this.track.width,
+        "h": this.bar.height
+    };
+
     this.create();
 };
 
-uiWidgets.Scrollbar.prototype = Object.create(uiWidgets.Bar.prototype);
+uiWidgets.Scrollbar.prototype = Object.create(uiWidgets.DraggableBar.prototype);
 uiWidgets.Scrollbar.constructor = uiWidgets.Scrollbar;
 
 /** Enables keyboard input for the scrollbar */
@@ -600,31 +656,6 @@ uiWidgets.Scrollbar.prototype.resizeBar = function () {
 
 };
 
-/** Enables clicking and dragging on the bar. */
-uiWidgets.Scrollbar.prototype.enableBarDrag = function () {
-    "use strict";
-    this.bar.inputEnabled = true;
-    this.bar.input.enableDrag();
-    this.bar.events.onInputDown.add(this.saveMousePosition, this);
-    this.bar.events.onDragUpdate.add(this.moveContent, this);
-
-    if (this.vertical) {
-        this.setDraggableArea(
-        this.track.x - ((this.bar.width - this.track.width) / 2),
-        this.track.y,
-        this.bar.width,
-        this.track.height
-    );
-    } else {
-        this.setDraggableArea(
-        this.track.x,
-        this.track.y - ((this.bar.height - this.track.height) / 2),
-        this.track.width,
-        this.bar.height
-    );
-    }
-};
-
 uiWidgets.Scrollbar.prototype.create = function () {
     "use strict";
     this.centerStaticAxis();
@@ -647,19 +678,6 @@ uiWidgets.Scrollbar.prototype.create = function () {
 
     this.setInitialBarPosition();
 
-};
-
-/** Sets size of the bar's draggable area. */
-uiWidgets.Scrollbar.prototype.setDraggableArea = function (x, y, w, h) {
-    "use strict";
-    // Limit the bar's draggable area to within the track.
-    if (this.vertical) {
-        this.bar.input.allowHorizontalDrag = false;
-    } else {
-        this.bar.input.allowVerticalDrag = false;
-    }
-
-    this.bar.input.boundsRect = new Phaser.Rectangle(x, y, w, h);
 };
 
 /** Ensure the bar starts off where it should be, according to the bar's logical position. */
@@ -771,14 +789,6 @@ uiWidgets.Scrollbar.prototype.scrollRight = function () {
 
         this.addScrollTween({x: moveToX});
     }
-};
-
-/** When called, ensures the bar can be moved. Must be called once the bar has finished scrolling. */
-uiWidgets.Scrollbar.prototype.enableBarInput = function () {
-    "use strict";
-    this.trackClicked = false;
-    this.barMoving = false;
-    this.bar.inputEnabled = true;
 };
 
 /** If the scrollbar is draggable, this function is called when the track is clicked. */
@@ -979,7 +989,24 @@ uiWidgets.ValueBar = function (game, xy, values, draggable, vertical, keyboard, 
         1,
         0
     );
+
+    this.snapping = true;
+
     this.add(this.bar);
+
+    this.verticalDraggableArea = {
+        "x": this.track.x - ((this.bar.width - this.track.width) / 2),
+        "y": this.track.y,
+        "w": this.bar.width,
+        "h": this.track.height + this.bar.height
+    };
+
+    this.horizontalDraggableArea = {
+        "x": this.track.x - (this.bar.width / 2),
+        "y": this.track.y - ((this.bar.height - this.track.height) / 2),
+        "w": this.track.width + this.bar.width,
+        "h": this.bar.height
+    };
 
     this.create();
 };
@@ -1011,49 +1038,31 @@ uiWidgets.ValueBar.prototype.setInitialBarPosition = function () {
 
 };
 
-/** Enables clicking and dragging on the bar. */
-uiWidgets.ValueBar.prototype.enableBarDrag = function () {
-	"use strict";
-    this.bar.inputEnabled = true;
-    this.bar.input.enableDrag();
-    this.bar.events.onInputUp.add(this.snapToClosestPosition, this);
-    this.bar.events.onInputDown.add(this.saveMousePosition, this);
-    this.bar.events.onDragUpdate.add(this.moveContent, this);
-
-    if (this.vertical) {
-        this.setDraggableArea(
-            this.track.x - ((this.bar.width - this.track.width) / 2),
-            this.track.y,
-            this.bar.width,
-            this.track.height + this.bar.height
-    	);
-    } else {
-        this.setDraggableArea(
-            this.track.x - (this.bar.width / 2),
-            this.track.y - ((this.bar.height - this.track.height) / 2),
-            this.track.width + this.bar.width,
-            this.bar.height
-        );
-    }
-};
-
-/** On mouse up, forces the value to equal the closest step. */
-uiWidgets.ValueBar.prototype.snapToClosestPosition = function () {
+/** Returns the closest valid value.*/
+uiWidgets.ValueBar.prototype.getClosestPosition = function () {
     "use strict";
     var currentValue = this.valueRange.getCurrentValue();
 
     var diff = Math.abs(currentValue - this.valueRange.steps[0]);
-    var currentPosition = this.valueRange.steps[0];
+    var closestPosition = this.valueRange.steps[0];
 
     for (var i = 0; i < this.valueRange.steps.length; i++) {
         var newdiff = Math.abs(currentValue - this.valueRange.steps[i]);
         if (newdiff < diff) {
             diff = newdiff;
-            currentPosition = this.valueRange.steps[i];
+            closestPosition = this.valueRange.steps[i];
         }
     }
 
-    this.valueRange.adjustValue(currentPosition);
+    return closestPosition;
+};
+
+/** On mouse up, forces the value to equal the closest step. */
+uiWidgets.ValueBar.prototype.snapToClosestPosition = function () {
+    "use strict";
+    var closestPosition = this.getClosestPosition();
+
+    this.valueRange.adjustValue(closestPosition);
     this.moveContent();
     this.setInitialBarPosition();
 };
@@ -1083,10 +1092,16 @@ uiWidgets.ValueBar.prototype.scrollUp = function () {
     "use strict";
     // Prevents users from moving the bar while it's moving.
     if (this.bar.y !== this.track.y && !this.barMoving) {
+        var testPosition = this.bar.y - this.vslice;
         var moveToY = null;
         this.barMoving = true;
 
-        moveToY = this.bar.y - this.vslice;
+        // Ensure the bar can't move above the track.
+        if (testPosition <= this.track.y) {
+            moveToY = this.track.y;
+        } else {
+            moveToY = this.bar.y - this.vslice;
+        }
 
         this.addScrollTween({y: moveToY});
     }
@@ -1096,11 +1111,17 @@ uiWidgets.ValueBar.prototype.scrollUp = function () {
 uiWidgets.ValueBar.prototype.scrollDown = function () {
     "use strict";
     if (this.bar.y + this.bar.height !== this.track.y + this.track.height && !this.barMoving) {
+        var testPosition = this.bar.y + (this.vslice * 2);
         var moveToY = null;
         this.barMoving = true;
         this.bar.inputEnabled = false;
 
-        moveToY = this.bar.y + this.vslice;
+        // Ensure the bar can't move below the track.
+        if (testPosition >= this.track.y + this.track.height) {
+            moveToY = this.track.y + this.track.height - (this.bar.height / 2);
+        } else {
+            moveToY = this.bar.y + this.vslice;
+        }
 
         this.addScrollTween({y: moveToY});
     }
@@ -1110,11 +1131,17 @@ uiWidgets.ValueBar.prototype.scrollDown = function () {
 uiWidgets.ValueBar.prototype.scrollLeft = function () {
     "use strict";
     if (this.bar.x !== this.track.x && !this.barMoving) {
+        var testPosition = this.bar.x - this.hslice;
         var moveToX = null;
         this.barMoving = true;
         this.bar.inputEnabled = false;
 
-        moveToX = this.bar.x - this.hslice;
+        // Ensure the bar can't move above the track.
+        if (testPosition <= this.track.x) {
+            moveToX = this.track.x - (this.bar.width / 2);
+        } else {
+            moveToX = this.bar.x - this.hslice;
+        }
 
         this.addScrollTween({x: moveToX});
     }
@@ -1124,11 +1151,17 @@ uiWidgets.ValueBar.prototype.scrollLeft = function () {
 uiWidgets.ValueBar.prototype.scrollRight = function () {
     "use strict";
     if (this.bar.x + this.bar.width !== this.track.x + this.track.width && !this.barMoving) {
+        var testPosition = this.bar.x + (this.hslice * 2);
         var moveToX = null;
         this.barMoving = true;
         this.bar.inputEnabled = false;
 
-        moveToX = this.bar.x + this.hslice;
+        // Ensure the bar can't move below the track.
+        if (testPosition >= this.track.x + this.track.width) {
+            moveToX = this.track.x + this.track.width - (this.bar.width / 2);
+        } else {
+            moveToX = this.bar.x + this.hslice;
+        }
 
         this.addScrollTween({x: moveToX});
     }
