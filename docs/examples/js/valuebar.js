@@ -3,12 +3,16 @@ var game = new Phaser.Game(600, 400, Phaser.AUTO, 'valuebar', { preload: preload
 function preload() {
 	game.load.image("track", "assets/valuebar/track.png");
 	game.load.spritesheet('bar', 'assets/valuebar/bar.png', 32, 32);
+
+    game.load.image("vtrack", "assets/valuebar/vtrack.png");
 }
 
 var valuebar0;
 var valuebar50;
+var vvaluebar50;
 var valuebar0_text;
 var valuebar50_text;
+var vvaluebar50_text;
 
 function create() {
 
@@ -24,13 +28,13 @@ function create() {
 		"bar",
 		{'duration': 100, 'ease': Phaser.Easing.Quadratic.Out}
 	);
-	
+
 	valuebar0_text = game.add.text(50, 50, valuebar0.valueRange.minValue, {
         font: "65px Arial",
         fill: "#ff0044",
         align: "center"
     });
-	
+
 	// Create a valuebar starting at 50.
 	valuebar50 = new uiWidgets.ValueBar(
 		game,
@@ -43,16 +47,36 @@ function create() {
 		"bar",
 		{'duration': 100, 'ease': Phaser.Easing.Quadratic.Out}
 	);
-	
+
 	valuebar50_text = game.add.text(50, 200, valuebar50.valueRange.minValue, {
         font: "65px Arial",
         fill: "#ff0044",
         align: "center"
     });
-	
+
+    // Create a vertical valuebar starting at 50.
+	vvaluebar50 = new uiWidgets.ValueBar(
+		game,
+		{"x": 350, "y": 50},
+		{"step": 25, "startValue": 50, maxValue: 100},
+		true,
+		true,
+		true,
+		"vtrack",
+		"bar",
+		{'duration': 100, 'ease': Phaser.Easing.Quadratic.Out}
+	);
+
+	vvaluebar50_text = game.add.text(400, 200, valuebar50.valueRange.minValue, {
+        font: "65px Arial",
+        fill: "#ff0044",
+        align: "center"
+    });
+
 }
 
 function update() {
 	valuebar0_text.setText(valuebar0.valueRange.getCurrentValue());
 	valuebar50_text.setText(valuebar50.valueRange.getCurrentValue());
+    vvaluebar50_text.setText(vvaluebar50.valueRange.getCurrentValue());
 }
