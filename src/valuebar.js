@@ -66,7 +66,24 @@ uiWidgets.ValueBar = function (game, xy, values, draggable, vertical, keyboard, 
         1,
         0
     );
+
+    this.snapping = true;
+
     this.add(this.bar);
+
+    this.verticalDraggableArea = {
+        "x": this.track.x - ((this.bar.width - this.track.width) / 2),
+        "y": this.track.y,
+        "w": this.bar.width,
+        "h": this.track.height + this.bar.height
+    };
+
+    this.horizontalDraggableArea = {
+        "x": this.track.x - (this.bar.width / 2),
+        "y": this.track.y - ((this.bar.height - this.track.height) / 2),
+        "w": this.track.width + this.bar.width,
+        "h": this.bar.height
+    };
 
     this.create();
 };
@@ -98,49 +115,31 @@ uiWidgets.ValueBar.prototype.setInitialBarPosition = function () {
 
 };
 
-/** Enables clicking and dragging on the bar. */
-uiWidgets.ValueBar.prototype.enableBarDrag = function () {
-	"use strict";
-    this.bar.inputEnabled = true;
-    this.bar.input.enableDrag();
-    this.bar.events.onInputUp.add(this.snapToClosestPosition, this);
-    this.bar.events.onInputDown.add(this.saveMousePosition, this);
-    this.bar.events.onDragUpdate.add(this.moveContent, this);
-
-    if (this.vertical) {
-        this.setDraggableArea(
-            this.track.x - ((this.bar.width - this.track.width) / 2),
-            this.track.y,
-            this.bar.width,
-            this.track.height + this.bar.height
-    	);
-    } else {
-        this.setDraggableArea(
-            this.track.x - (this.bar.width / 2),
-            this.track.y - ((this.bar.height - this.track.height) / 2),
-            this.track.width + this.bar.width,
-            this.bar.height
-        );
-    }
-};
-
-/** On mouse up, forces the value to equal the closest step. */
-uiWidgets.ValueBar.prototype.snapToClosestPosition = function () {
+/** Returns the closest valid value.*/
+uiWidgets.ValueBar.prototype.getClosestPosition = function () {
     "use strict";
     var currentValue = this.valueRange.getCurrentValue();
 
     var diff = Math.abs(currentValue - this.valueRange.steps[0]);
-    var currentPosition = this.valueRange.steps[0];
+    var closestPosition = this.valueRange.steps[0];
 
     for (var i = 0; i < this.valueRange.steps.length; i++) {
         var newdiff = Math.abs(currentValue - this.valueRange.steps[i]);
         if (newdiff < diff) {
             diff = newdiff;
-            currentPosition = this.valueRange.steps[i];
+            closestPosition = this.valueRange.steps[i];
         }
     }
 
-    this.valueRange.adjustValue(currentPosition);
+    return closestPosition;
+};
+
+/** On mouse up, forces the value to equal the closest step. */
+uiWidgets.ValueBar.prototype.snapToClosestPosition = function () {
+    "use strict";
+    var closestPosition = this.getClosestPosition();
+
+    this.valueRange.adjustValue(closestPosition);
     this.moveContent();
     this.setInitialBarPosition();
 };
@@ -170,10 +169,16 @@ uiWidgets.ValueBar.prototype.scrollUp = function () {
     "use strict";
     // Prevents users from moving the bar while it's moving.
     if (this.bar.y !== this.track.y && !this.barMoving) {
+        var testPosition = this.bar.y - this.vslice;
         var moveToY = null;
         this.barMoving = true;
 
-        moveToY = this.bar.y - this.vslice;
+        // Ensure the bar can't move above the track.
+        if (testPosition <= this.track.y) {
+            moveToY = this.track.y;
+        } else {
+            moveToY = this.bar.y - this.vslice;
+        }
 
         this.addScrollTween({y: moveToY});
     }
@@ -183,11 +188,17 @@ uiWidgets.ValueBar.prototype.scrollUp = function () {
 uiWidgets.ValueBar.prototype.scrollDown = function () {
     "use strict";
     if (this.bar.y + this.bar.height !== this.track.y + this.track.height && !this.barMoving) {
+        var testPosition = this.bar.y + (this.vslice * 2);
         var moveToY = null;
         this.barMoving = true;
         this.bar.inputEnabled = false;
 
-        moveToY = this.bar.y + this.vslice;
+        // Ensure the bar can't move below the track.
+        if (testPosition >= this.track.y + this.track.height) {
+            moveToY = this.track.y + this.track.height - (this.bar.height / 2);
+        } else {
+            moveToY = this.bar.y + this.vslice;
+        }
 
         this.addScrollTween({y: moveToY});
     }
@@ -197,11 +208,17 @@ uiWidgets.ValueBar.prototype.scrollDown = function () {
 uiWidgets.ValueBar.prototype.scrollLeft = function () {
     "use strict";
     if (this.bar.x !== this.track.x && !this.barMoving) {
+        var testPosition = this.bar.x - this.hslice;
         var moveToX = null;
         this.barMoving = true;
         this.bar.inputEnabled = false;
 
-        moveToX = this.bar.x - this.hslice;
+        // Ensure the bar can't move above the track.
+        if (testPosition <= this.track.x) {
+            moveToX = this.track.x - (this.bar.width / 2);
+        } else {
+            moveToX = this.bar.x - this.hslice;
+        }
 
         this.addScrollTween({x: moveToX});
     }
@@ -211,11 +228,17 @@ uiWidgets.ValueBar.prototype.scrollLeft = function () {
 uiWidgets.ValueBar.prototype.scrollRight = function () {
     "use strict";
     if (this.bar.x + this.bar.width !== this.track.x + this.track.width && !this.barMoving) {
+        var testPosition = this.bar.x + (this.hslice * 2);
         var moveToX = null;
         this.barMoving = true;
         this.bar.inputEnabled = false;
 
-        moveToX = this.bar.x + this.hslice;
+        // Ensure the bar can't move below the track.
+        if (testPosition >= this.track.x + this.track.width) {
+            moveToX = this.track.x + this.track.width - (this.bar.width / 2);
+        } else {
+            moveToX = this.bar.x + this.hslice;
+        }
 
         this.addScrollTween({x: moveToX});
     }
