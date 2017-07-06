@@ -996,7 +996,7 @@ uiWidgets.ValueBar = function (game, xy, values, draggable, vertical, keyboard, 
 
     this.verticalDraggableArea = {
         "x": this.track.x - ((this.bar.width - this.track.width) / 2),
-        "y": this.track.y,
+        "y": this.track.y - (this.bar.height / 2),
         "w": this.bar.width,
         "h": this.track.height + this.bar.height
     };
@@ -1098,7 +1098,7 @@ uiWidgets.ValueBar.prototype.scrollUp = function () {
 
         // Ensure the bar can't move above the track.
         if (testPosition <= this.track.y) {
-            moveToY = this.track.y;
+            moveToY = this.track.y - (this.bar.height / 2);
         } else {
             moveToY = this.bar.y - this.vslice;
         }

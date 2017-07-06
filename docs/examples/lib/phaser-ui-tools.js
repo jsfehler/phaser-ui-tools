@@ -162,7 +162,7 @@ uiWidgets.Column.prototype.addNode = function (node) {
 
 var uiWidgets = uiWidgets || {};
 
-/** 
+/**
  * Bar that adjusts the size of a static sprite based on a value.
  * This is done by masking the sprite and then resizing the mask.
  * @constructor
@@ -324,7 +324,7 @@ uiWidgets.QuantityBar.prototype.getBarFraction = function () {
 };
 
 /** Given a ratio between total content size and viewport size,
- * return an appropriate percentage of the track. 
+ * return an appropriate percentage of the track.
  */
 uiWidgets.QuantityBar.prototype.getBarSize = function () {
     "use strict";
@@ -376,7 +376,7 @@ uiWidgets.QuantityRange.prototype.getCurrentValue = function () {
 };
 
 
-/** 
+/**
  * Used by a ValueBar to hold the bar's values.
  * @constructor
  * @param {number} step - The amount the bar is changed by.
@@ -424,7 +424,7 @@ uiWidgets.ValueRange.prototype.getCurrentValue = function () {
 };
 
 
-/** 
+/**
  * Used by a Scrollbar to hold the values and adjust a viewport's position.
  * @constructor
  * @param {Object} viewport - The viewport to adjust.
@@ -996,7 +996,7 @@ uiWidgets.ValueBar = function (game, xy, values, draggable, vertical, keyboard, 
 
     this.verticalDraggableArea = {
         "x": this.track.x - ((this.bar.width - this.track.width) / 2),
-        "y": this.track.y,
+        "y": this.track.y - (this.bar.height / 2),
         "w": this.bar.width,
         "h": this.track.height + this.bar.height
     };
@@ -1098,7 +1098,7 @@ uiWidgets.ValueBar.prototype.scrollUp = function () {
 
         // Ensure the bar can't move above the track.
         if (testPosition <= this.track.y) {
-            moveToY = this.track.y;
+            moveToY = this.track.y - (this.bar.height / 2);
         } else {
             moveToY = this.bar.y - this.vslice;
         }
