@@ -35,6 +35,13 @@ uiWidgets.DraggableBar = function () {};
 uiWidgets.DraggableBar.prototype = Object.create(uiWidgets.Bar.prototype);
 uiWidgets.DraggableBar.constructor = uiWidgets.DraggableBar;
 
+/** Allows the bar to scroll when the track is clicked. */
+uiWidgets.DraggableBar.prototype.enableTrackClick = function () {
+    "use strict";
+    this.track.inputEnabled = true;
+    this.track.events.onInputDown.add(this.clickTrack, this);
+};
+
 /** When called, ensures the bar can be moved. Must be called once the bar has finished scrolling. */
 uiWidgets.DraggableBar.prototype.enableBarInput = function () {
     "use strict";

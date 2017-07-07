@@ -84,6 +84,11 @@ uiWidgets.Scrollbar = function (game, content, draggable, vertical, keyboard, tr
         "h": this.bar.height
     };
 
+    this.minY = this.track.y;
+    this.maxY = this.track.y + this.track.height - this.bar.height;
+    this.minX = this.track.x;
+    this.maxX = this.track.x + this.track.width - this.bar.width;
+
     this.create();
 };
 
@@ -109,13 +114,6 @@ uiWidgets.Scrollbar.prototype.enableKeyboard = function () {
         this.leftKey.onDown.add(this.scrollLeft, this);
         this.rightKey.onDown.add(this.scrollRight, this);
     }
-};
-
-/** Allows the bar to scroll when the track is clicked. */
-uiWidgets.Scrollbar.prototype.enableTrackClick = function () {
-    "use strict";
-    this.track.inputEnabled = true;
-    this.track.events.onInputDown.add(this.clickTrack, this);
 };
 
 /** Given a ration between total content size and viewport size,
@@ -166,7 +164,6 @@ uiWidgets.Scrollbar.prototype.create = function () {
     this.mousePointer = {"x": this.bar.x, "y": this.bar.y};
 
     this.setInitialBarPosition();
-
 };
 
 /** Ensure the bar starts off where it should be, according to the bar's logical position. */
@@ -212,7 +209,7 @@ uiWidgets.Scrollbar.prototype.scrollUp = function () {
 
         // Ensure the bar can't move above the track.
         if (testPosition <= this.track.y) {
-            moveToY = this.track.y;
+            moveToY = this.minY;
         } else {
             moveToY = this.bar.y - this.vslice;
         }
@@ -229,9 +226,10 @@ uiWidgets.Scrollbar.prototype.scrollDown = function () {
         var moveToY = null;
         this.barMoving = true;
         this.bar.inputEnabled = false;
+
         // Ensure the bar can't move below the track.
         if (testPosition >= this.track.y + this.track.height) {
-            moveToY = this.track.y + this.track.height - this.bar.height;
+            moveToY = this.maxY;
         } else {
             moveToY = this.bar.y + this.vslice;
         }
@@ -251,7 +249,7 @@ uiWidgets.Scrollbar.prototype.scrollLeft = function () {
 
         // Ensure the bar can't move above the track.
         if (testPosition <= this.track.x) {
-            moveToX = this.track.x;
+            moveToX = this.minX;
         } else {
             moveToX = this.bar.x - this.hslice;
         }
@@ -271,7 +269,7 @@ uiWidgets.Scrollbar.prototype.scrollRight = function () {
 
         // Ensure the bar can't move below the track.
         if (testPosition >= this.track.x + this.track.width) {
-            moveToX = this.track.x + this.track.width - this.bar.width;
+            moveToX = this.maxX;
         } else {
             moveToX = this.bar.x + this.hslice;
         }
