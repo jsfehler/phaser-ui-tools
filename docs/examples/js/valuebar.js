@@ -3,8 +3,8 @@ var game = new Phaser.Game(600, 400, Phaser.AUTO, 'valuebar', { preload: preload
 function preload() {
 	game.load.image("track", "assets/valuebar/track.png");
 	game.load.spritesheet('bar', 'assets/valuebar/bar.png', 32, 32);
-
     game.load.image("vtrack", "assets/valuebar/vtrack.png");
+    game.load.image("alphaImage", "assets/valuebar/alpha.png");
 }
 
 var valuebar0;
@@ -13,6 +13,7 @@ var vvaluebar50;
 var valuebar0_text;
 var valuebar50_text;
 var vvaluebar50_text;
+var alphaImage;
 
 function create() {
 
@@ -73,10 +74,14 @@ function create() {
         align: "center"
     });
 
+    alphaImage = game.add.sprite(500, 100, "alphaImage");
+
 }
 
 function update() {
 	valuebar0_text.setText(valuebar0.valueRange.getCurrentValue());
 	valuebar50_text.setText(valuebar50.valueRange.getCurrentValue());
     vvaluebar50_text.setText(vvaluebar50.valueRange.getCurrentValue());
+
+    alphaImage.alpha = vvaluebar50.valueRange.getCurrentValue() / 100;
 }
