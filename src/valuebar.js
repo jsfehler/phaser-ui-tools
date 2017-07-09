@@ -149,23 +149,12 @@ uiWidgets.ValueBar.prototype.snapToClosestPosition = function () {
     this.setInitialBarPosition();
 };
 
-/** Creates the tween for moving the bar to a new position. */
-uiWidgets.ValueBar.prototype.addScrollTween = function (properties) {
+/** Called after a scroll tween is added. Adds the necessary events to the tween. */
+uiWidgets.ValueBar.prototype.addScrollTweenEvents = function (tween) {
     "use strict";
-    this.mousePointer = {"x": this.bar.x, "y": this.bar.y};
-    this.trackClicked = true;
-
-    var newTween;
-    newTween = this.game.add.tween(this.bar).to(
-        properties,
-        this.tweenParams.duration,
-        this.tweenParams.ease,
-        true
-    );
-
     // Only update the values once the bar has finished moving.
-    newTween.onComplete.add(this.moveContent, this);
-    newTween.onComplete.add(this.enableBarInput, this);
+    tween.onComplete.add(this.moveContent, this);
+    tween.onComplete.add(this.enableBarInput, this);
 };
 
 uiWidgets.ValueBar.prototype.getGripPositionRatio = function () {

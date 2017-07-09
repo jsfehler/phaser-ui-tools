@@ -35,6 +35,27 @@ uiWidgets.DraggableBar = function () {};
 uiWidgets.DraggableBar.prototype = Object.create(uiWidgets.Bar.prototype);
 uiWidgets.DraggableBar.constructor = uiWidgets.DraggableBar;
 
+/** Enables keyboard input for the scrollbar */
+uiWidgets.DraggableBar.prototype.enableKeyboard = function () {
+    "use strict";
+    this.upKey = this.game.input.keyboard.addKey(Phaser.Keyboard.UP);
+    this.downKey = this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
+    this.leftKey = this.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
+    this.rightKey = this.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
+
+    if (this.vertical) {
+        this.upKey.onDown.add(this.scrollUp, this);
+        this.downKey.onDown.add(this.scrollDown, this);
+        this.leftKey.onDown.add(this.scrollUp, this);
+        this.rightKey.onDown.add(this.scrollDown, this);
+    } else {
+        this.upKey.onDown.add(this.scrollLeft, this);
+        this.downKey.onDown.add(this.scrollRight, this);
+        this.leftKey.onDown.add(this.scrollLeft, this);
+        this.rightKey.onDown.add(this.scrollRight, this);
+    }
+};
+
 /** Allows the bar to scroll when the track is clicked. */
 uiWidgets.DraggableBar.prototype.enableTrackClick = function () {
     "use strict";
@@ -613,27 +634,6 @@ uiWidgets.Scrollbar = function (game, content, draggable, vertical, keyboard, tr
 uiWidgets.Scrollbar.prototype = Object.create(uiWidgets.DraggableBar.prototype);
 uiWidgets.Scrollbar.constructor = uiWidgets.Scrollbar;
 
-/** Enables keyboard input for the scrollbar */
-uiWidgets.Scrollbar.prototype.enableKeyboard = function () {
-    "use strict";
-    this.upKey = this.game.input.keyboard.addKey(Phaser.Keyboard.UP);
-    this.downKey = this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
-    this.leftKey = this.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
-    this.rightKey = this.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
-
-    if (this.vertical) {
-        this.upKey.onDown.add(this.scrollUp, this);
-        this.downKey.onDown.add(this.scrollDown, this);
-        this.leftKey.onDown.add(this.scrollUp, this);
-        this.rightKey.onDown.add(this.scrollDown, this);
-    } else {
-        this.upKey.onDown.add(this.scrollLeft, this);
-        this.downKey.onDown.add(this.scrollRight, this);
-        this.leftKey.onDown.add(this.scrollLeft, this);
-        this.rightKey.onDown.add(this.scrollRight, this);
-    }
-};
-
 /** Given a ration between total content size and viewport size,
  * resize the bar sprite to the appropriate percentage of the track.
  */
@@ -712,8 +712,15 @@ uiWidgets.Scrollbar.prototype.addScrollTween = function (properties) {
         true
     );
 
-    newTween.onUpdateCallback(this.moveContent, this);
-    newTween.onComplete.add(this.enableBarInput, this);
+    this.addScrollTweenEvents(newTween);
+};
+
+/** Called after a scroll tween is added. Adds the necessary events to the tween. */
+uiWidgets.Scrollbar.prototype.addScrollTweenEvents = function (tween) {
+    "use strict";
+    // Update the values as the bar moves.
+    tween.onUpdateCallback(this.moveContent, this);
+    tween.onComplete.add(this.enableBarInput, this);
 };
 
 /** For Vertical Scrollbars. Scrolls up by one step. */
@@ -1014,7 +1021,7 @@ uiWidgets.ValueBar = function (game, xy, values, draggable, vertical, keyboard, 
     };
 
     this.minY = this.track.y - (this.bar.height / 2);
-    this.maxY =  this.track.y + this.track.height - (this.bar.height / 2);
+    this.maxY = this.track.y + this.track.height - (this.bar.height / 2);
     this.minX = this.track.x - (this.bar.width / 2);
     this.maxX = this.track.x + this.track.width - (this.bar.width / 2);
 
@@ -1077,23 +1084,12 @@ uiWidgets.ValueBar.prototype.snapToClosestPosition = function () {
     this.setInitialBarPosition();
 };
 
-/** Creates the tween for moving the bar to a new position. */
-uiWidgets.ValueBar.prototype.addScrollTween = function (properties) {
+/** Called after a scroll tween is added. Adds the necessary events to the tween. */
+uiWidgets.ValueBar.prototype.addScrollTweenEvents = function (tween) {
     "use strict";
-    this.mousePointer = {"x": this.bar.x, "y": this.bar.y};
-    this.trackClicked = true;
-
-    var newTween;
-    newTween = this.game.add.tween(this.bar).to(
-        properties,
-        this.tweenParams.duration,
-        this.tweenParams.ease,
-        true
-    );
-
     // Only update the values once the bar has finished moving.
-    newTween.onComplete.add(this.moveContent, this);
-    newTween.onComplete.add(this.enableBarInput, this);
+    tween.onComplete.add(this.moveContent, this);
+    tween.onComplete.add(this.enableBarInput, this);
 };
 
 uiWidgets.ValueBar.prototype.getGripPositionRatio = function () {

@@ -173,8 +173,15 @@ uiWidgets.Scrollbar.prototype.addScrollTween = function (properties) {
         true
     );
 
-    newTween.onUpdateCallback(this.moveContent, this);
-    newTween.onComplete.add(this.enableBarInput, this);
+    this.addScrollTweenEvents(newTween);
+};
+
+/** Called after a scroll tween is added. Adds the necessary events to the tween. */
+uiWidgets.Scrollbar.prototype.addScrollTweenEvents = function (tween) {
+    "use strict";
+    // Update the values as the bar moves.
+    tween.onUpdateCallback(this.moveContent, this);
+    tween.onComplete.add(this.enableBarInput, this);
 };
 
 /** For Vertical Scrollbars. Scrolls up by one step. */
