@@ -95,27 +95,6 @@ uiWidgets.Scrollbar = function (game, content, draggable, vertical, keyboard, tr
 uiWidgets.Scrollbar.prototype = Object.create(uiWidgets.DraggableBar.prototype);
 uiWidgets.Scrollbar.constructor = uiWidgets.Scrollbar;
 
-/** Enables keyboard input for the scrollbar */
-uiWidgets.Scrollbar.prototype.enableKeyboard = function () {
-    "use strict";
-    this.upKey = this.game.input.keyboard.addKey(Phaser.Keyboard.UP);
-    this.downKey = this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
-    this.leftKey = this.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
-    this.rightKey = this.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
-
-    if (this.vertical) {
-        this.upKey.onDown.add(this.scrollUp, this);
-        this.downKey.onDown.add(this.scrollDown, this);
-        this.leftKey.onDown.add(this.scrollUp, this);
-        this.rightKey.onDown.add(this.scrollDown, this);
-    } else {
-        this.upKey.onDown.add(this.scrollLeft, this);
-        this.downKey.onDown.add(this.scrollRight, this);
-        this.leftKey.onDown.add(this.scrollLeft, this);
-        this.rightKey.onDown.add(this.scrollRight, this);
-    }
-};
-
 /** Given a ration between total content size and viewport size,
  * resize the bar sprite to the appropriate percentage of the track.
  */
