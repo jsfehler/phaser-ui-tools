@@ -1,5 +1,3 @@
-var Phaser;
-
 var uiWidgets = uiWidgets || {};
 
 
@@ -33,7 +31,7 @@ uiWidgets.QuantityRange.prototype.getCurrentValue = function () {
 };
 
 
-/** 
+/**
  * Used by a ValueBar to hold the bar's values.
  * @constructor
  * @param {number} step - The amount the bar is changed by.
@@ -81,7 +79,7 @@ uiWidgets.ValueRange.prototype.getCurrentValue = function () {
 };
 
 
-/** 
+/**
  * Used by a Scrollbar to hold the values and adjust a viewport's position.
  * @constructor
  * @param {Object} viewport - The viewport to adjust.

@@ -1,8 +1,6 @@
-var Phaser;
-
 var uiWidgets = uiWidgets || {};
 
-/** 
+/**
  * Bar that adjusts the size of a static sprite based on a value.
  * This is done by masking the sprite and then resizing the mask.
  * @constructor
@@ -164,7 +162,7 @@ uiWidgets.QuantityBar.prototype.getBarFraction = function () {
 };
 
 /** Given a ratio between total content size and viewport size,
- * return an appropriate percentage of the track. 
+ * return an appropriate percentage of the track.
  */
 uiWidgets.QuantityBar.prototype.getBarSize = function () {
     "use strict";

@@ -1,5 +1,3 @@
-var Phaser;
-
 var uiWidgets = uiWidgets || {};
 
 /**
