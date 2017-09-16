@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>DocStrap Class: textButton</title>
+	<title>DocStrap Class: Wheel3D</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -72,13 +72,13 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: textButton</h1>
+	<h1 class="page-title">Class: Wheel3D</h1>
 <section>
 
 <header>
     
         <h2>
-        textButton
+        Wheel3D
         </h2>
         
     
@@ -91,7 +91,7 @@
         
 <hr>
 <dt>
-    <h4 class="name" id="textButton"><span class="type-signature"></span>new textButton(game, image, label, style, x, y, callback, callbackContext)</h4>
+    <h4 class="name" id="Wheel3D"><span class="type-signature"></span>new Wheel3D(game, sprites, firstPlace, zoom, axis, rotations, visibleRange)</h4>
     
     
 </dt>
@@ -99,7 +99,7 @@
 
     
     <div class="description">
-        <p>Phaser Button with text added as a child.</p>
+        <p>A Wheel of sprites where each item's position is projected in 3D space.<br>The number of points is automatically determined by the number of items.</p>
     </div>
     
 
@@ -151,20 +151,20 @@
 
             
 
-            <td class="description last"><p>Current game instance.</p></td>
+            <td class="description last"><p>Reference to current game instance.</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>image</code></td>
+                <td class="name"><code>sprites</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">array</span>
 
 
 
@@ -175,62 +175,14 @@
 
             
 
-            <td class="description last"><p>The image to create a sprite with.</p></td>
+            <td class="description last"><p>List of sprites to use in the wheel.</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>label</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The text to place on top of the sprite.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>style</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The style properties to be set on the Text.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>x</code></td>
+                <td class="name"><code>firstPlace</code></td>
             
 
             <td class="type">
@@ -247,14 +199,14 @@
 
             
 
-            <td class="description last"><p>The x coordinate on screen where the textSprite will be placed.</p></td>
+            <td class="description last"><p>Determines which position on the wheel is the active one.</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>y</code></td>
+                <td class="name"><code>zoom</code></td>
             
 
             <td class="type">
@@ -271,20 +223,20 @@
 
             
 
-            <td class="description last"><p>The y coordinate on screen where the textSprite will be placed.</p></td>
+            <td class="description last"><p>Determines how far to project the points.</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>callback</code></td>
+                <td class="name"><code>axis</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type">string</span>
 
 
 
@@ -295,20 +247,20 @@
 
             
 
-            <td class="description last"><p>Callback to use when the button is clicked.</p></td>
+            <td class="description last"><p>The axis the wheel3D places items around.</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>callbackContext</code></td>
+                <td class="name"><code>rotations</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type">array</span>
 
 
 
@@ -319,7 +271,31 @@
 
             
 
-            <td class="description last"><p>The context the callback is called in.</p></td>
+            <td class="description last"><p>Axis and angle to rotate the entire wheel after the initial projection.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>visibleRange</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">array</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Determines which items on the wheel should be visible. If none provided, assumes all items should be visible.</p></td>
         </tr>
 
     
@@ -363,8 +339,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="buttons.js.html">buttons.js</a>,
-				 <a href="buttons.js.html#sunlight-1-line-41">line 41</a>
+				<a href="wheel3D.js.html">wheel3D.js</a>,
+				 <a href="wheel3D.js.html#sunlight-1-line-109">line 109</a>
 			</li>
 		</ul>
 	</dd>
@@ -408,6 +384,626 @@
 
     
 
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        <dl>
+            
+<hr>
+<dt>
+    <h4 class="name" id="enableMoving"><span class="type-signature"></span>enableMoving()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Once the buttons have finished their move animation, allow them to move again.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="wheel3D.js.html">wheel3D.js</a>,
+				 <a href="wheel3D.js.html#sunlight-1-line-317">line 317</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="moveBack"><span class="type-signature"></span>moveBack()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Move the wheel backwards.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="wheel3D.js.html">wheel3D.js</a>,
+				 <a href="wheel3D.js.html#sunlight-1-line-199">line 199</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="moveForward"><span class="type-signature"></span>moveForward()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Move the wheel forward.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="wheel3D.js.html">wheel3D.js</a>,
+				 <a href="wheel3D.js.html#sunlight-1-line-218">line 218</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="onComplete"><span class="type-signature"></span>onComplete()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Called after movement is finished.<br>Override with behaviour of your choice.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="wheel3D.js.html">wheel3D.js</a>,
+				 <a href="wheel3D.js.html#sunlight-1-line-312">line 312</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="project"><span class="type-signature"></span>project()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Project every item in the wheel to it's physical location.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="wheel3D.js.html">wheel3D.js</a>,
+				 <a href="wheel3D.js.html#sunlight-1-line-237">line 237</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="resetAngle"><span class="type-signature"></span>resetAngle()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Make sure rotation can't go past 360 in either direction.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="wheel3D.js.html">wheel3D.js</a>,
+				 <a href="wheel3D.js.html#sunlight-1-line-338">line 338</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="updatePosition"><span class="type-signature"></span>updatePosition()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Move all the WheelItem's position by 1.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="wheel3D.js.html">wheel3D.js</a>,
+				 <a href="wheel3D.js.html#sunlight-1-line-323">line 323</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        </dl>
     
 
     
