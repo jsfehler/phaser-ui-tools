@@ -158,10 +158,13 @@ uiWidgets.textButton.constructor = uiWidgets.textButton;
  * @param {Object} game - Current game instance.
  * @param {Object} context - The context this object is called in.
  */
-uiWidgets.Column = function (game, context) {
+uiWidgets.Column = function (game, x, y, context) {
     "use strict";
     Phaser.Group.call(this, game);
     game.add.existing(this);
+
+    this.x = x;
+    this.y = y;
 
     this.game = game;
     this.context = context;
@@ -170,14 +173,19 @@ uiWidgets.Column = function (game, context) {
 uiWidgets.Column.prototype = Object.create(Phaser.Group.prototype);
 uiWidgets.Column.constructor = uiWidgets.Column;
 
-/** Adds a new object into the Column, then aligns it under the previous object. */
-uiWidgets.Column.prototype.addNode = function (node) {
+/** Adds a new object into the Column, then aligns it under the previous object.
+ * @param {Object} node - The sprite to add to the column.
+ * @param {Number} alignment - The alignment relative to the previous child.
+ */
+uiWidgets.Column.prototype.addNode = function (node, alignment) {
     "use strict";
+    alignment = alignment || Phaser.BOTTOM_CENTER;
+
     this.add(node);
     var previousNode = this.children[this.children.length - 2];
 
     if (previousNode !== undefined) {
-        node.alignTo(previousNode, Phaser.BOTTOM_CENTER);
+        node.alignTo(previousNode, alignment);
     }
 };
 ;var uiWidgets = uiWidgets || {};
@@ -503,11 +511,14 @@ uiWidgets.ViewportRange.prototype.getCurrentValue = function () {
  * @constructor
  * @param {Object} game - Current game instance.
  * @param {Object} context - The context this object is called in.
-*/
-uiWidgets.Row = function (game, context) {
+ */
+uiWidgets.Row = function (game, x, y, context) {
     "use strict";
     Phaser.Group.call(this, game);
     game.add.existing(this);
+
+    this.x = x;
+    this.y = y;
 
     this.game = game;
     this.context = context;
@@ -516,14 +527,19 @@ uiWidgets.Row = function (game, context) {
 uiWidgets.Row.prototype = Object.create(Phaser.Group.prototype);
 uiWidgets.Row.constructor = uiWidgets.Row;
 
-/** Adds a new object into the Row, then aligns it next to the previous object. */
-uiWidgets.Row.prototype.addNode = function (node) {
+/** Adds a new object into the Row, then aligns it next to the previous object.
+ * @param {Object} node - The sprite to add to the row.
+ * @param {Number} alignment - The alignment relative to the previous child.
+ */
+uiWidgets.Row.prototype.addNode = function (node, alignment) {
     "use strict";
+    alignment = alignment || Phaser.RIGHT_CENTER;
+
     this.add(node);
     var previousNode = this.children[this.children.length - 2];
 
     if (previousNode !== undefined) {
-        node.alignTo(previousNode, Phaser.RIGHT_CENTER);
+        node.alignTo(previousNode, alignment);
     }
 };
 ;var uiWidgets = uiWidgets || {};
