@@ -21,13 +21,18 @@ uiWidgets.Row = function (game, x, y, context) {
 uiWidgets.Row.prototype = Object.create(Phaser.Group.prototype);
 uiWidgets.Row.constructor = uiWidgets.Row;
 
-/** Adds a new object into the Row, then aligns it next to the previous object. */
-uiWidgets.Row.prototype.addNode = function (node) {
+/** Adds a new object into the Row, then aligns it next to the previous object.
+ * @param {Object} node - The sprite to add to the row.
+ * @param {Number} alignment - The alignment relative to the previous child.
+ */
+uiWidgets.Row.prototype.addNode = function (node, alignment) {
     "use strict";
+    alignment = alignment || Phaser.RIGHT_CENTER;
+
     this.add(node);
     var previousNode = this.children[this.children.length - 2];
 
     if (previousNode !== undefined) {
-        node.alignTo(previousNode, Phaser.RIGHT_CENTER);
+        node.alignTo(previousNode, alignment);
     }
 };

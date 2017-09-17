@@ -21,13 +21,18 @@ uiWidgets.Column = function (game, x, y, context) {
 uiWidgets.Column.prototype = Object.create(Phaser.Group.prototype);
 uiWidgets.Column.constructor = uiWidgets.Column;
 
-/** Adds a new object into the Column, then aligns it under the previous object. */
-uiWidgets.Column.prototype.addNode = function (node) {
+/** Adds a new object into the Column, then aligns it under the previous object.
+ * @param {Object} node - The sprite to add to the column.
+ * @param {Number} alignment - The alignment relative to the previous child.
+ */
+uiWidgets.Column.prototype.addNode = function (node, alignment) {
     "use strict";
+    alignment = alignment || Phaser.BOTTOM_CENTER;
+
     this.add(node);
     var previousNode = this.children[this.children.length - 2];
 
     if (previousNode !== undefined) {
-        node.alignTo(previousNode, Phaser.BOTTOM_CENTER);
+        node.alignTo(previousNode, alignment);
     }
 };
