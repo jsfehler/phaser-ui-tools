@@ -111,7 +111,9 @@ uiWidgets.QuantityBar.prototype.create = function () {
     this.setTrackScrollAreaSize();
 };
 
-/** Creates the tween for adjusting the size of the mask. */
+/** Creates the tween for adjusting the size of the mask.
+ * @param {Object} properties - Values for the tween's movement.
+ */
 uiWidgets.QuantityBar.prototype.addScrollTweenMask = function (properties) {
     "use strict";
 
@@ -124,6 +126,9 @@ uiWidgets.QuantityBar.prototype.addScrollTweenMask = function (properties) {
     );
 };
 
+/** Adjusts the bar by a given value.
+ * @param {number} newValue - The value to adjust the bar by.
+ */
 uiWidgets.QuantityBar.prototype.adjustBar = function (newValue) {
     "use strict";
     this.valueRange.currentValue += newValue;
