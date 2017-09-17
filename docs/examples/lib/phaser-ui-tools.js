@@ -1431,9 +1431,6 @@ uiWidgets.Wheel3D.prototype = {
     /** Project every item in the wheel to it's physical location. */
     project: function () {
 		"use strict";
-		// Sort wheelItems in order to apply correct effects
-        this.group.sort("wheelPosition", Phaser.Group.SORT_DESCENDING);
-
 		var transformed, newTween;
 
         // Create a list with the axes, then remove the projected axis.
@@ -1461,15 +1458,15 @@ uiWidgets.Wheel3D.prototype = {
                 this.zoom
             );
 
+            transformed = this.wheelItems[i].sprite;
+            transformed.lz = p.z;
+
             // Ensure active sprite has no scale/alpha changes.
             if (this.wheelItems[i].position === this.firstPlace) {
-                transformed = this.wheelItems[i].sprite;
                 transformed.alpha = 1.0;
 				this.active = this.wheelItems[i].sprite;
 
             } else {
-                transformed = this.wheelItems[i].sprite;
-
                 if (this.visibleRange !== null) {
                     var includes = _.includes(
                         this.visiblePositions,
@@ -1494,8 +1491,10 @@ uiWidgets.Wheel3D.prototype = {
             );
 
             newTween.onComplete.add(this.enableMoving, this);
-
 		}
+
+        // Sort wheelItems by the projection's z axis for correct z-order when drawing.
+        this.group.sort("lz", Phaser.Group.SORT_ASCENDING);
 
         // Only run this.onComplete when the last movement is done.
         newTween.onComplete.add(this.onComplete, this);
