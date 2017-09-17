@@ -18,6 +18,8 @@ https://jsfehler.github.io/phaser-ui-tools/examples/valuebar.html
 ##### QuantityBar
 https://jsfehler.github.io/phaser-ui-tools/examples/quantitybar.html
 
+##### Wheel3D
+https://jsfehler.github.io/phaser-ui-tools/examples/wheel3D.html
 
 ### Documentation
 https://jsfehler.github.io/phaser-ui-tools/
@@ -132,6 +134,18 @@ var quantitybar = new uiWidgets.QuantityBar(
 );
 ```
 
+##### Wheel3D
+```
+var wheel = new uiWidgets.Wheel3D(
+    game,
+    {"x": game.world.centerX - 100, "y": game.world.centerY},
+    [sprite1, sprite2, sprite3, sprite4],
+    0,
+    90,
+    "y",
+    {"x":0, "y": 0, "z": 0}
+);
+```
 
 ### References
 Scrollbar math:
