@@ -6,10 +6,13 @@ var uiWidgets = uiWidgets || {};
  * @param {Object} game - Current game instance.
  * @param {Object} context - The context this object is called in.
  */
-uiWidgets.Column = function (game, context) {
+uiWidgets.Column = function (game, x, y, context) {
     "use strict";
     Phaser.Group.call(this, game);
     game.add.existing(this);
+
+    this.x = x;
+    this.y = y;
 
     this.game = game;
     this.context = context;
