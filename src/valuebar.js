@@ -69,6 +69,20 @@ uiWidgets.ValueBar = function (game, xy, values, draggable, vertical, keyboard, 
 
     this.add(this.bar);
 
+    this.minY = this.track.y - (this.bar.height / 2);
+    this.maxY = this.track.y + this.track.height - (this.bar.height / 2);
+    this.minX = this.track.x - (this.bar.width / 2);
+    this.maxX = this.track.x + this.track.width - (this.bar.width / 2);
+
+    this.create();
+};
+
+uiWidgets.ValueBar.prototype = Object.create(uiWidgets.Scrollbar.prototype);
+uiWidgets.ValueBar.constructor = uiWidgets.ValueBar;
+
+/** Sets the draggable area of the bar. */
+uiWidgets.ValueBar.prototype.setDraggableArea = function () {
+    "use strict";
     this.verticalDraggableArea = {
         "x": this.track.x - ((this.bar.width - this.track.width) / 2),
         "y": this.track.y - (this.bar.height / 2),
@@ -82,17 +96,7 @@ uiWidgets.ValueBar = function (game, xy, values, draggable, vertical, keyboard, 
         "w": this.track.width + this.bar.width,
         "h": this.bar.height
     };
-
-    this.minY = this.track.y - (this.bar.height / 2);
-    this.maxY = this.track.y + this.track.height - (this.bar.height / 2);
-    this.minX = this.track.x - (this.bar.width / 2);
-    this.maxX = this.track.x + this.track.width - (this.bar.width / 2);
-
-    this.create();
 };
-
-uiWidgets.ValueBar.prototype = Object.create(uiWidgets.Scrollbar.prototype);
-uiWidgets.ValueBar.constructor = uiWidgets.ValueBar;
 
 /** Determine the distance the bar can scroll over */
 uiWidgets.ValueBar.prototype.setTrackScrollAreaSize = function () {

@@ -68,6 +68,20 @@ uiWidgets.Scrollbar = function (game, content, draggable, vertical, keyboard, tr
 
     this.resizeBar();
 
+    this.minY = this.track.y;
+    this.maxY = this.track.y + this.track.height - this.bar.height;
+    this.minX = this.track.x;
+    this.maxX = this.track.x + this.track.width - this.bar.width;
+
+    this.create();
+};
+
+uiWidgets.Scrollbar.prototype = Object.create(uiWidgets.DraggableBar.prototype);
+uiWidgets.Scrollbar.constructor = uiWidgets.Scrollbar;
+
+/** Sets the draggable area of the bar. */
+uiWidgets.Scrollbar.prototype.setDraggableArea = function () {
+    "use strict";
     this.verticalDraggableArea = {
         "x": this.track.x - ((this.bar.width - this.track.width) / 2),
         "y": this.track.y,
@@ -81,17 +95,7 @@ uiWidgets.Scrollbar = function (game, content, draggable, vertical, keyboard, tr
         "w": this.track.width,
         "h": this.bar.height
     };
-
-    this.minY = this.track.y;
-    this.maxY = this.track.y + this.track.height - this.bar.height;
-    this.minX = this.track.x;
-    this.maxX = this.track.x + this.track.width - this.bar.width;
-
-    this.create();
 };
-
-uiWidgets.Scrollbar.prototype = Object.create(uiWidgets.DraggableBar.prototype);
-uiWidgets.Scrollbar.constructor = uiWidgets.Scrollbar;
 
 /** Given a ration between total content size and viewport size,
  * resize the bar sprite to the appropriate percentage of the track.
@@ -275,9 +279,9 @@ uiWidgets.Scrollbar.prototype.clickTrack = function (sprite, pointer) {
         }
     } else {
         // Don't register mouse clicks on the bar itself.
-        if (this.game.input.mousePointer.x > this.bar.x + this.bar.width + this.x) {
+        if (this.game.input.mousePointer.x > this.bar.x + this.bar.width + this.worldPosition.x) {
             this.scrollRight();
-        } else if (this.game.input.mousePointer.x < (this.bar.x + this.x)) {
+        } else if (this.game.input.mousePointer.x < (this.bar.x + this.worldPosition.x)) {
             this.scrollLeft();
         }
     }
@@ -327,9 +331,9 @@ uiWidgets.Scrollbar.prototype.getMouseDelta = function () {
 
     // Maximum value for the mouse position. Only update when the new position is inside the track.
     if (this.vertical) {
-        maxValue = this.track.height + this.y;
+        maxValue = this.track.height + this.worldPosition.y;
     } else {
-        maxValue = this.track.width + this.x;
+        maxValue = this.track.width + this.worldPosition.x;
     }
 
     if (newMousePosition < maxValue) {

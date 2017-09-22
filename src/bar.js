@@ -72,6 +72,8 @@ uiWidgets.DraggableBar.prototype.enableBarInput = function () {
 /** Enables clicking and dragging on the bar. */
 uiWidgets.DraggableBar.prototype.enableBarDrag = function () {
     "use strict";
+    this.setDraggableArea();
+
     this.bar.inputEnabled = true;
     this.bar.input.enableDrag();
     if (this.snapping) {

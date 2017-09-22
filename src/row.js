@@ -35,4 +35,10 @@ uiWidgets.Row.prototype.addNode = function (node, alignment) {
     if (previousNode !== undefined) {
         node.alignTo(previousNode, alignment);
     }
+
+    // Reset the positions for the bar's draggable area.
+    if (node.constructor.name === "ValueBar" || node.constructor.name === "Scrollbar") {
+        node.enableBarDrag();
+    }
+
 };
