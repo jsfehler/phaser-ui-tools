@@ -11,7 +11,7 @@ uiWidgets.Column = function (game, x, y, bg) {
     uiWidgets.Frame.apply(this, arguments);
 };
 
-uiWidgets.Column.prototype = Object.create(Phaser.Group.prototype);
+uiWidgets.Column.prototype = Object.create(uiWidgets.Frame.prototype);
 uiWidgets.Column.constructor = uiWidgets.Column;
 
 /** Adds a new object into the Column, then aligns it under the previous object.
