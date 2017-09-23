@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>DocStrap Class: QuantityBar</title>
+	<title>DocStrap Class: Frame</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -72,13 +72,13 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: QuantityBar</h1>
+	<h1 class="page-title">Class: Frame</h1>
 <section>
 
 <header>
     
         <h2>
-        QuantityBar
+        Frame
         </h2>
         
     
@@ -91,7 +91,7 @@
         
 <hr>
 <dt>
-    <h4 class="name" id="QuantityBar"><span class="type-signature"></span>new QuantityBar(game, xy, values, vertical, reverse, trackImage, barImage, tweenParams)</h4>
+    <h4 class="name" id="Frame"><span class="type-signature"></span>new Frame(game, context, bg)</h4>
     
     
 </dt>
@@ -99,7 +99,7 @@
 
     
     <div class="description">
-        <p>Bar that adjusts the size of a static sprite based on a value.<br>This is done by masking the sprite and then resizing the mask.</p>
+        <p>Group with a dedicated background image.<br>Children added to the group will always be above the background image.</p>
     </div>
     
 
@@ -158,7 +158,7 @@
 
         <tr>
             
-                <td class="name"><code>xy</code></td>
+                <td class="name"><code>context</code></td>
             
 
             <td class="type">
@@ -175,86 +175,14 @@
 
             
 
-            <td class="description last"><p>Dictionary with the values for the bar's x and y position.</p></td>
+            <td class="description last"><p>The context this object is called in.</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>values</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The numerical values for the bar.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>vertical</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Determines if the bar should be vertical or horizontal.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>reverse</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Determines the direction the bar moves when adjusted.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>trackImage</code></td>
+                <td class="name"><code>bg</code></td>
             
 
             <td class="type">
@@ -271,55 +199,7 @@
 
             
 
-            <td class="description last"><p>The image key to use for the track.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>barImage</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The image key to use for the bar. Will be automatically resized to fit.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>tweenParams</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Dictionary with the duration and easing function for the scrolling tween.</p></td>
+            <td class="description last"><p>The background image to use.</p></td>
         </tr>
 
     
@@ -363,8 +243,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="quantitybar.js.html">quantitybar.js</a>,
-				 <a href="quantitybar.js.html#sunlight-1-line-16">line 16</a>
+				<a href="frame.js.html">frame.js</a>,
+				 <a href="frame.js.html#sunlight-1-line-11">line 11</a>
 			</li>
 		</ul>
 	</dd>
@@ -415,7 +295,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="addScrollTweenMask"><span class="type-signature"></span>addScrollTweenMask(properties)</h4>
+    <h4 class="name" id="addNode"><span class="type-signature"></span>addNode(node)</h4>
     
     
 </dt>
@@ -423,7 +303,7 @@
 
     
     <div class="description">
-        <p>Creates the tween for adjusting the size of the mask.</p>
+        <p>Adds a new object to the Frame.</p>
     </div>
     
 
@@ -458,7 +338,7 @@
 
         <tr>
             
-                <td class="name"><code>properties</code></td>
+                <td class="name"><code>node</code></td>
             
 
             <td class="type">
@@ -475,7 +355,7 @@
 
             
 
-            <td class="description last"><p>Values for the tween's movement.</p></td>
+            <td class="description last"><p>The sprite to add to the Frame.</p></td>
         </tr>
 
     
@@ -519,322 +399,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="quantitybar.js.html">quantitybar.js</a>,
-				 <a href="quantitybar.js.html#sunlight-1-line-117">line 117</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="adjustBar"><span class="type-signature"></span>adjustBar(newValue)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Adjusts the bar by a given value.</p>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>newValue</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The value to adjust the bar by.</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="quantitybar.js.html">quantitybar.js</a>,
-				 <a href="quantitybar.js.html#sunlight-1-line-132">line 132</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="getBarSize"><span class="type-signature"></span>getBarSize()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Given a ratio between total content size and viewport size,<br>return an appropriate percentage of the track.</p>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="quantitybar.js.html">quantitybar.js</a>,
-				 <a href="quantitybar.js.html#sunlight-1-line-172">line 172</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="setMask"><span class="type-signature"></span>setMask()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Sets the bar's mask.</p>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="quantitybar.js.html">quantitybar.js</a>,
-				 <a href="quantitybar.js.html#sunlight-1-line-58">line 58</a>
+				<a href="frame.js.html">frame.js</a>,
+				 <a href="frame.js.html#sunlight-1-line-36">line 36</a>
 			</li>
 		</ul>
 	</dd>
