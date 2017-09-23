@@ -15,6 +15,9 @@ https://jsfehler.github.io/phaser-ui-tools/examples/hscrollbar.html
 ##### ValueBar
 https://jsfehler.github.io/phaser-ui-tools/examples/valuebar.html
 
+###### ValueBars inside a Column
+https://jsfehler.github.io/phaser-ui-tools/examples/valuebar_column.html
+
 ##### QuantityBar
 https://jsfehler.github.io/phaser-ui-tools/examples/quantitybar.html
 

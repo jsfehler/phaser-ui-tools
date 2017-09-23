@@ -54,7 +54,7 @@ function create() {
         align: "center"
     });
 
-    column = new uiWidgets.Column(game, 150, 150, this, "bg");
+    column = new uiWidgets.Column(game, 150, 150, "bg");
     column.addNode(bar);
     column.addNode(barText);
     column.addNode(bar2);
