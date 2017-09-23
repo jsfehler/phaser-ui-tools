@@ -1,31 +1,17 @@
 var uiWidgets = uiWidgets || {};
 
 /**
- * Group that places new child nodes directly next to the previous child.
+ * Frame that places new child nodes directly next to the previous child.
  * @constructor
  * @param {Object} game - Current game instance.
  * @param {Object} context - The context this object is called in.
  */
-uiWidgets.Row = function (game, x, y, context, bg) {
+uiWidgets.Row = function (game, x, y, bg) {
     "use strict";
-    Phaser.Group.call(this, game);
-    game.add.existing(this);
-
-    this.x = x;
-    this.y = y;
-
-    this.game = game;
-    this.context = context;
-    this.bg = bg || null;
-
-    if (bg !== null) {
-        var bgSprite = game.add.sprite(0, 0, bg);
-        bgSprite.sendToBack();
-        bgSprite.alignIn(this, Phaser.TOP_LEFT);
-    }
+    uiWidgets.Frame.apply(this, arguments);
 };
 
-uiWidgets.Row.prototype = Object.create(Phaser.Group.prototype);
+uiWidgets.Row.prototype = Object.create(uiWidgets.Frame.prototype);
 uiWidgets.Row.constructor = uiWidgets.Row;
 
 /** Adds a new object into the Row, then aligns it next to the previous object.
@@ -44,7 +30,7 @@ uiWidgets.Row.prototype.addNode = function (node, alignment) {
     }
 
     // Reset the positions for the bar's draggable area.
-    if (node.constructor.name === "ValueBar" || node.constructor.name === "Scrollbar") {
+    if ("enableBarDrag" in node) {
         node.enableBarDrag();
     }
 
