@@ -23,7 +23,7 @@ module.exports = function (grunt) {
 			}
 		},
 		jshint: {
-			files: ['Gruntfile.js', 'src/**/*.js']
+			files: ['Gruntfile.js', 'src/**/*.js', 'tests/*.js']
 		},
 		jsdoc: {
 			dist: {
@@ -34,7 +34,20 @@ module.exports = function (grunt) {
               		configure : "node_modules/ink-docstrap/template/jsdoc.conf.json"
 				}
 			}
-		}
+		},
+        mocha: {
+            all: {
+                src: ['tests/testrunner.html']
+            },
+            options: {
+                run: false,
+                page: {
+                    settings: {
+                        webSecurityEnabled: false,
+                    }
+                }
+            }
+        }
 	});
 
 	grunt.loadNpmTasks('grunt-contrib-concat');
@@ -42,6 +55,7 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-jsdoc');
+	grunt.loadNpmTasks('grunt-mocha');
 
-	grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'jsdoc', 'copy']);
+	grunt.registerTask('default', ['jshint', 'mocha', 'concat', 'uglify', 'jsdoc', 'copy']);
 };
