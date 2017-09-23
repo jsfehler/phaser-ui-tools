@@ -6,7 +6,7 @@ var uiWidgets = uiWidgets || {};
  * @param {Object} game - Current game instance.
  * @param {Object} context - The context this object is called in.
  */
-uiWidgets.Column = function (game, x, y, context) {
+uiWidgets.Column = function (game, x, y, context, bg) {
     "use strict";
     Phaser.Group.call(this, game);
     game.add.existing(this);
@@ -16,6 +16,13 @@ uiWidgets.Column = function (game, x, y, context) {
 
     this.game = game;
     this.context = context;
+    this.bg = bg || null;
+
+    if (bg !== null) {
+        var bgSprite = game.add.sprite(0, 0, bg);
+        bgSprite.sendToBack();
+        bgSprite.alignIn(this, Phaser.TOP_LEFT);
+    }
 };
 
 uiWidgets.Column.prototype = Object.create(Phaser.Group.prototype);
