@@ -894,9 +894,9 @@ uiWidgets.Scrollbar.prototype.getMouseDelta = function () {
 
     // Maximum value for the mouse position. Only update when the new position is inside the track.
     if (this.vertical) {
-        maxValue = this.track.height + this.y;
+        maxValue = this.track.height + this.worldPosition.y;
     } else {
-        maxValue = this.track.width + this.x;
+        maxValue = this.track.width + this.worldPosition.x;
     }
 
     if (newMousePosition < maxValue) {
