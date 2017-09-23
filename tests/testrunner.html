@@ -1,0 +1,53 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Mocha Tests</title>
+  <link rel="stylesheet" href="../node_modules/mocha/mocha.css" />
+</head>
+<body>
+  <div id="mocha"></div>
+  <script src="../node_modules/mocha/mocha.js"></script>
+  <script src="../node_modules/chai/chai.js"></script>
+
+  <script>
+    mocha.setup('bdd')
+    mocha.reporter('html');
+  </script>
+
+  <!-- Phaser -->
+  <script src="../docs/examples/lib/phaser.min.js"></script>
+  <script>
+    // Create game to test the uiWidgets.
+    // Run mocha inside the game to ensure assets are loaded before the tests run.
+    var game = new Phaser.Game(600, 300, Phaser.AUTO, 'unitTest', { preload: preload, create: create });
+    function preload() {
+        game.load.crossOrigin = 'anonymous';
+        game.load.image(
+            "dummySprite",
+            "https://raw.githubusercontent.com/jsfehler/phaser-ui-tools/master/docs/examples/assets/vertical/sprite.png");
+    };
+    function create() {
+        // When running tests via Grunt, phantomJS is used.
+        // .run() command must be here, after the assets are loaded.
+        if (window.mochaPhantomJS) {
+          mochaPhantomJS.run();
+        }
+        else {
+          mocha.run();
+        }
+    };
+  </script>
+
+  <!-- uiWidgets -->
+  <script src="../src/frame.js"></script>
+  <script src="../src/column.js"></script>
+  <script src="../src/row.js"></script>
+
+  <!-- Tests -->
+  <script src="frame.spec.js"></script>
+  <script src="column.spec.js"></script>
+  <script src="row.spec.js"></script>
+
+  <div id="unitTest"></div>
+</body>
+</html>
