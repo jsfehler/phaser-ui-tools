@@ -9,10 +9,10 @@ function preload() {
 function create() {
 	// Create a viewport. A "window" with a limited area of view.
 	var viewport = new uiWidgets.Viewport(game, 75, 75, 260, 128);
-	
+
 	// Create a row. Anything added to a row is placed next to the previous thing added.
 	var row = new uiWidgets.Row(game);
-	
+
 	// Put the row inside the viewport.
 	viewport.addNode(row);
 
@@ -26,7 +26,7 @@ function create() {
 	var dummy_sprite_g = this.game.add.sprite(0, 0, "dummyButton");
 	var dummy_sprite_h = this.game.add.sprite(0, 0, "dummyButton");
 	var dummy_sprite_i = this.game.add.sprite(0, 0, "dummyButton");
-	
+
 	row.addNode(dummy_sprite_a);
 	row.addNode(dummy_sprite_b);
 	row.addNode(dummy_sprite_c);
@@ -43,12 +43,11 @@ function create() {
 		viewport,
 		true,
 		false,
-		true,
 		"track",
 		"bar",
 		{'duration': 300, 'ease': Phaser.Easing.Quadratic.Out}
 	);
-	
+
 	// Place scrollbar below viewport.
 	scrollbar.alignTo(viewport, Phaser.BOTTOM_LEFT, 0, 10);
 }

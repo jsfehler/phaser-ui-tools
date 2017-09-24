@@ -9,12 +9,11 @@ var uiWidgets = uiWidgets || {};
  * @param {Object} values - The numerical values for the bar.
  * @param {boolean} draggable - Determines if the scrollbar responds to mouse clicks.
  * @param {boolean} vertical - Determines if the bar should be vertical or horizontal.
- * @param {boolean} keyboard - Determines if the scrollbar responds to keyboard input.
  * @param {string} trackImage - The image key to use for the track.
  * @param {string} barImage - The image key to use for the bar. Will be automatically resized to fit.
  * @param {Object} tweenParams - Dictionary with the duration and easing function for the scrolling tween.
  */
-uiWidgets.ValueBar = function (game, xy, values, draggable, vertical, keyboard, trackImage, barImage, tweenParams) {
+uiWidgets.ValueBar = function (game, xy, values, draggable, vertical, trackImage, barImage, tweenParams) {
     "use strict";
     Phaser.Group.call(this, game);
     game.add.existing(this);
@@ -27,11 +26,6 @@ uiWidgets.ValueBar = function (game, xy, values, draggable, vertical, keyboard, 
 
     this.vertical = vertical || false;
     this.draggable = draggable || false;
-    keyboard = keyboard || false;
-
-    if (keyboard) {
-        this.enableKeyboard();
-    }
 
     this.trackImage = trackImage;
     this.barImage = barImage;

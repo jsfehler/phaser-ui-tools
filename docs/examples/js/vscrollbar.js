@@ -31,12 +31,11 @@ function create() {
 	column.addNode(dummy_sprite_d);
 	column.addNode(dummy_sprite_e);
 	column.addNode(dummy_sprite_f);
-	
+
 	// Create a scrollbar for the viewport.
 	var scrollbar = new uiWidgets.Scrollbar(
 		game,
 		viewport,
-		true,
 		true,
 		true,
 		"track",

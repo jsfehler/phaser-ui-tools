@@ -1,5 +1,50 @@
 var uiWidgets = uiWidgets || {};
 
+/**
+ * Group with a dedicated background image.
+ * Children added to the group will always be above the background image.
+ * @constructor
+ * @param {Object} game - Current game instance.
+ * @param {Object} context - The context this object is called in.
+ * @param {string} bg - The background image to use.
+ */
+uiWidgets.Frame = function (game, x, y, bg) {
+    "use strict";
+    Phaser.Group.call(this, game);
+    game.add.existing(this);
+
+    this.x = x || 0;
+    this.y = y || 0;
+
+    this.game = game;
+    this.bg = bg || null;
+
+    // Add background to Frame.
+    if (bg !== null) {
+        var bgSprite = game.add.sprite(0, 0, bg);
+        bgSprite.sendToBack();
+        bgSprite.alignIn(this, Phaser.TOP_LEFT);
+    }
+};
+
+uiWidgets.Frame.prototype = Object.create(Phaser.Group.prototype);
+uiWidgets.Frame.constructor = uiWidgets.Frame;
+
+/** Adds a new object to the Frame.
+ * @param {Object} node - The sprite to add to the Frame.
+ */
+uiWidgets.Frame.prototype.addNode = function (node) {
+    "use strict";
+    this.add(node);
+
+    // Reset the positions for the bar's draggable area.
+    if ("enableBarDrag" in node) {
+        node.enableBarDrag();
+    }
+
+};
+;var uiWidgets = uiWidgets || {};
+
 
 /** Base object for all Bars. */
 uiWidgets.Bar = function () {};
@@ -32,27 +77,6 @@ uiWidgets.Bar.prototype.centerStaticAxis = function () {
 uiWidgets.DraggableBar = function () {};
 uiWidgets.DraggableBar.prototype = Object.create(uiWidgets.Bar.prototype);
 uiWidgets.DraggableBar.constructor = uiWidgets.DraggableBar;
-
-/** Enables keyboard input for the scrollbar */
-uiWidgets.DraggableBar.prototype.enableKeyboard = function () {
-    "use strict";
-    this.upKey = this.game.input.keyboard.addKey(Phaser.Keyboard.UP);
-    this.downKey = this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
-    this.leftKey = this.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
-    this.rightKey = this.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
-
-    if (this.vertical) {
-        this.upKey.onDown.add(this.scrollUp, this);
-        this.downKey.onDown.add(this.scrollDown, this);
-        this.leftKey.onDown.add(this.scrollUp, this);
-        this.rightKey.onDown.add(this.scrollDown, this);
-    } else {
-        this.upKey.onDown.add(this.scrollLeft, this);
-        this.downKey.onDown.add(this.scrollRight, this);
-        this.leftKey.onDown.add(this.scrollLeft, this);
-        this.rightKey.onDown.add(this.scrollRight, this);
-    }
-};
 
 /** Allows the bar to scroll when the track is clicked. */
 uiWidgets.DraggableBar.prototype.enableTrackClick = function () {
@@ -165,7 +189,7 @@ uiWidgets.Column = function (game, x, y, bg) {
     uiWidgets.Frame.apply(this, arguments);
 };
 
-uiWidgets.Column.prototype = Object.create(Phaser.Group.prototype);
+uiWidgets.Column.prototype = Object.create(uiWidgets.Frame.prototype);
 uiWidgets.Column.constructor = uiWidgets.Column;
 
 /** Adds a new object into the Column, then aligns it under the previous object.
@@ -184,55 +208,131 @@ uiWidgets.Column.prototype.addNode = function (node, alignment) {
     }
 
     // Reset the positions for the bar's draggable area.
-    if (node.constructor.name === "ValueBar" || node.constructor.name === "Scrollbar") {
+    if ("enableBarDrag" in node) {
         node.enableBarDrag();
     }
 
 };
 ;var uiWidgets = uiWidgets || {};
 
-/**
- * Group with a dedicated background image.
- * Children added to the group will always be above the background image.
- * @constructor
- * @param {Object} game - Current game instance.
- * @param {Object} context - The context this object is called in.
- * @param {string} bg - The background image to use.
- */
-uiWidgets.Frame = function (game, x, y, bg) {
+/** Collection of sprites that can be selected with the keyboard.
+  * When the select key is hit, the sprite that was selected is now connected to the keyboard.
+  * @constructor
+  * @param {Object} game - Current game instance.
+  * @param {Object} prevItemCallback - Called when selecting the previous child.
+  * @param {Object} nextItemCallback - Called when selecting the next child.
+  */
+uiWidgets.KeyboardGroup = function (game, prevItemCallback, nextItemCallback) {
     "use strict";
-    Phaser.Group.call(this, game);
-    game.add.existing(this);
-
-    this.x = x || 0;
-    this.y = y || 0;
-
     this.game = game;
-    this.bg = bg || null;
 
-    // Add background to Frame.
-    if (bg !== null) {
-        var bgSprite = game.add.sprite(0, 0, bg);
-        bgSprite.sendToBack();
-        bgSprite.alignIn(this, Phaser.TOP_LEFT);
+    this.children = [];
+
+    this.selected = null;
+    this.idx = 0;
+    this.onBar = false;
+
+    this.prevItemCallback = prevItemCallback;
+    this.nextItemCallback = nextItemCallback;
+
+    this.upKey = this.game.input.keyboard.addKey(Phaser.Keyboard.UP);
+    this.downKey = this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
+    this.leftKey = this.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
+    this.rightKey = this.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
+    this.selectKey = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
+
+    this.selectKey.onDown.add(this.selectBar, this);
+
+    this.activateGroup();
+};
+
+uiWidgets.KeyboardGroup.constructor = uiWidgets.KeyboardGroup;
+
+/** Add a new child to the group */
+uiWidgets.KeyboardGroup.prototype.addNode = function (newNode) {
+    "use strict";
+    this.children.push(newNode);
+};
+
+/** Selects the previous child. */
+uiWidgets.KeyboardGroup.prototype.prevItem = function () {
+    "use strict";
+    this.idx = this.idx - 1;
+
+    if (this.idx < 0) {
+        this.idx = this.children.length - 1;
+    }
+
+    this.selected = this.children[this.idx];
+
+    return this.prevItemCallback();
+};
+
+/** Selects the next child. */
+uiWidgets.KeyboardGroup.prototype.nextItem = function () {
+    "use strict";
+    this.idx = (this.idx + 1) % (this.children.length);
+    this.selected = this.children[this.idx];
+
+    return this.nextItemCallback();
+};
+
+/** Adds or removes focus from the selected child. */
+uiWidgets.KeyboardGroup.prototype.selectBar = function () {
+    "use strict";
+    this.removeKeyboardEventListeners();
+
+    if (this.onBar === false) {
+        this.activateBar();
+        this.onBar = true;
+    } else {
+        this.activateGroup();
+        this.onBar = false;
     }
 };
 
-uiWidgets.Frame.prototype = Object.create(Phaser.Group.prototype);
-uiWidgets.Frame.constructor = uiWidgets.Frame;
-
-/** Adds a new object to the Frame.
- * @param {Object} node - The sprite to add to the Frame.
- */
-uiWidgets.Frame.prototype.addNode = function (node) {
+/** Used when switching from group selection to Bar manipulation. */
+uiWidgets.KeyboardGroup.prototype.removeKeyboardEventListeners = function () {
     "use strict";
-    this.add(node);
+    this.upKey.onDown.removeAll();
+    this.downKey.onDown.removeAll();
+    this.leftKey.onDown.removeAll();
+    this.rightKey.onDown.removeAll();
+};
 
-    // Reset the positions for the bar's draggable area.
-    if ("enableBarDrag" in node) {
-        node.enableBarDrag();
+/** Enables keyboard input for the group. */
+uiWidgets.KeyboardGroup.prototype.activateGroup = function () {
+    "use strict";
+    this.upEvent = this.prevItem;
+    this.upKey.onDown.add(this.upEvent, this);
+
+    this.downEvent = this.nextItem;
+    this.downKey.onDown.add(this.downEvent, this);
+
+    this.leftEvent = this.leftKey.onDown.add(this.upEvent, this);
+    this.rightEvent = this.rightKey.onDown.add(this.downEvent, this);
+
+};
+
+/** Enables keyboard input on a Bar. */
+uiWidgets.KeyboardGroup.prototype.activateBar = function () {
+    "use strict";
+    if (this.selected.vertical) {
+        this.upEvent = this.selected.scrollUp;
+        this.downEvent = this.selected.scrollDown;
+        this.leftEvent = this.selected.scrollUp;
+        this.rightEvent = this.selected.scrollDown;
+    } else {
+        this.upEvent = this.selected.scrollLeft;
+        this.downEvent = this.selected.scrollRight;
+        this.leftEvent = this.selected.scrollLeft;
+        this.rightEvent = this.selected.scrollRight;
     }
 
+    this.upKey.onDown.add(this.upEvent, this.selected);
+    this.downKey.onDown.add(this.downEvent, this.selected);
+    this.leftKey.onDown.add(this.leftEvent, this.selected);
+    this.rightKey.onDown.add(this.rightEvent, this.selected);
 };
 ;var uiWidgets = uiWidgets || {};
 
@@ -587,7 +687,7 @@ uiWidgets.Row.prototype.addNode = function (node, alignment) {
     }
 
     // Reset the positions for the bar's draggable area.
-    if (node.constructor.name === "ValueBar" || node.constructor.name === "Scrollbar") {
+    if ("enableBarDrag" in node) {
         node.enableBarDrag();
     }
 
@@ -601,12 +701,11 @@ uiWidgets.Row.prototype.addNode = function (node, alignment) {
  * @param {Object} content - Anything that you want to move via the scrollbar.
  * @param {boolean} draggable - Determines if the scrollbar responds to mouse clicks.
  * @param {boolean} vertical - Determines if the scrollbar should be vertical or horizontal.
- * @param {boolean} keyboard - Determines if the scrollbar responds to keyboard input.
  * @param {string} trackImage - The image key to use for the track.
  * @param {string} barImage - The image key to use for the bar. Will be automatically resized to fit.
  * @param {Object} tweenParams - Dictionary with the duration and easing function for the scrolling tween.
  */
-uiWidgets.Scrollbar = function (game, content, draggable, vertical, keyboard, trackImage, barImage, tweenParams) {
+uiWidgets.Scrollbar = function (game, content, draggable, vertical, trackImage, barImage, tweenParams) {
     "use strict";
     Phaser.Group.call(this, game);
     game.add.existing(this);
@@ -618,11 +717,6 @@ uiWidgets.Scrollbar = function (game, content, draggable, vertical, keyboard, tr
 
     this.vertical = vertical || false;
     this.draggable = draggable || false;
-    keyboard = keyboard || false;
-
-    if (keyboard) {
-        this.enableKeyboard();
-    }
 
     this.trackImage = trackImage;
     this.barImage = barImage;
@@ -1001,12 +1095,11 @@ uiWidgets.Scrollbar.prototype.moveContent = function () {
  * @param {Object} values - The numerical values for the bar.
  * @param {boolean} draggable - Determines if the scrollbar responds to mouse clicks.
  * @param {boolean} vertical - Determines if the bar should be vertical or horizontal.
- * @param {boolean} keyboard - Determines if the scrollbar responds to keyboard input.
  * @param {string} trackImage - The image key to use for the track.
  * @param {string} barImage - The image key to use for the bar. Will be automatically resized to fit.
  * @param {Object} tweenParams - Dictionary with the duration and easing function for the scrolling tween.
  */
-uiWidgets.ValueBar = function (game, xy, values, draggable, vertical, keyboard, trackImage, barImage, tweenParams) {
+uiWidgets.ValueBar = function (game, xy, values, draggable, vertical, trackImage, barImage, tweenParams) {
     "use strict";
     Phaser.Group.call(this, game);
     game.add.existing(this);
@@ -1019,11 +1112,6 @@ uiWidgets.ValueBar = function (game, xy, values, draggable, vertical, keyboard, 
 
     this.vertical = vertical || false;
     this.draggable = draggable || false;
-    keyboard = keyboard || false;
-
-    if (keyboard) {
-        this.enableKeyboard();
-    }
 
     this.trackImage = trackImage;
     this.barImage = barImage;

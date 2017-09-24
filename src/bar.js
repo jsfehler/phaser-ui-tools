@@ -33,27 +33,6 @@ uiWidgets.DraggableBar = function () {};
 uiWidgets.DraggableBar.prototype = Object.create(uiWidgets.Bar.prototype);
 uiWidgets.DraggableBar.constructor = uiWidgets.DraggableBar;
 
-/** Enables keyboard input for the scrollbar */
-uiWidgets.DraggableBar.prototype.enableKeyboard = function () {
-    "use strict";
-    this.upKey = this.game.input.keyboard.addKey(Phaser.Keyboard.UP);
-    this.downKey = this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
-    this.leftKey = this.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
-    this.rightKey = this.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
-
-    if (this.vertical) {
-        this.upKey.onDown.add(this.scrollUp, this);
-        this.downKey.onDown.add(this.scrollDown, this);
-        this.leftKey.onDown.add(this.scrollUp, this);
-        this.rightKey.onDown.add(this.scrollDown, this);
-    } else {
-        this.upKey.onDown.add(this.scrollLeft, this);
-        this.downKey.onDown.add(this.scrollRight, this);
-        this.leftKey.onDown.add(this.scrollLeft, this);
-        this.rightKey.onDown.add(this.scrollRight, this);
-    }
-};
-
 /** Allows the bar to scroll when the track is clicked. */
 uiWidgets.DraggableBar.prototype.enableTrackClick = function () {
     "use strict";

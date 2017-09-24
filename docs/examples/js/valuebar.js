@@ -24,7 +24,6 @@ function create() {
 		{"step": 1, "startValue": 0, maxValue: 100},
 		true,
 		false,
-		true,
 		"track",
 		"bar",
 		{'duration': 100, 'ease': Phaser.Easing.Quadratic.Out}
@@ -43,7 +42,6 @@ function create() {
 		{"step": 25, "startValue": 50, maxValue: 100},
 		true,
 		false,
-		true,
 		"track",
 		"bar",
 		{'duration': 100, 'ease': Phaser.Easing.Quadratic.Out}
@@ -60,7 +58,6 @@ function create() {
 		game,
 		{"x": 350, "y": 50},
 		{"step": 25, "startValue": 50, maxValue: 100},
-		true,
 		true,
 		true,
 		"vtrack",

@@ -16,6 +16,10 @@ https://jsfehler.github.io/phaser-ui-tools/examples/hscrollbar.html
 https://jsfehler.github.io/phaser-ui-tools/examples/valuebar.html
 
 ###### ValueBars inside a Column
+A Column with:
+- A background
+- Two ValueBars connected to Keyboard events.
+
 https://jsfehler.github.io/phaser-ui-tools/examples/valuebar_column.html
 
 ##### QuantityBar

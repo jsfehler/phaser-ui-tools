@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>DocStrap Class: VectorPoint</title>
+	<title>DocStrap Class: KeyboardGroup</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -72,13 +72,13 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: VectorPoint</h1>
+	<h1 class="page-title">Class: KeyboardGroup</h1>
 <section>
 
 <header>
     
         <h2>
-        VectorPoint
+        KeyboardGroup
         </h2>
         
     
@@ -91,7 +91,7 @@
         
 <hr>
 <dt>
-    <h4 class="name" id="VectorPoint"><span class="type-signature"></span>new VectorPoint(x, y, z, sprite, position)</h4>
+    <h4 class="name" id="KeyboardGroup"><span class="type-signature"></span>new KeyboardGroup(game, prevItemCallback, nextItemCallback)</h4>
     
     
 </dt>
@@ -99,7 +99,7 @@
 
     
     <div class="description">
-        <p>Represents a single point in a Wheel3D.</p>
+        <p>Collection of sprites that can be selected with the keyboard.<br>When the select key is hit, the sprite that was selected is now connected to the keyboard.</p>
     </div>
     
 
@@ -134,79 +134,7 @@
 
         <tr>
             
-                <td class="name"><code>x</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The point's virtual x location.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>y</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The point's virtual y location.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>z</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The point's virtual z location.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>sprite</code></td>
+                <td class="name"><code>game</code></td>
             
 
             <td class="type">
@@ -223,20 +151,20 @@
 
             
 
-            <td class="description last"><p>The sprite associated with this point.</p></td>
+            <td class="description last"><p>Current game instance.</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>position</code></td>
+                <td class="name"><code>prevItemCallback</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">number</span>
+<span class="param-type">Object</span>
 
 
 
@@ -247,7 +175,31 @@
 
             
 
-            <td class="description last"><p>The point's position on the Wheel3D.</p></td>
+            <td class="description last"><p>Called when selecting the previous child.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>nextItemCallback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Called when selecting the next child.</p></td>
         </tr>
 
     
@@ -291,8 +243,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="wheel3D.js.html">wheel3D.js</a>,
-				 <a href="wheel3D.js.html#sunlight-1-line-27">line 27</a>
+				<a href="keyboard_group.js.html">keyboard_group.js</a>,
+				 <a href="keyboard_group.js.html#sunlight-1-line-10">line 10</a>
 			</li>
 		</ul>
 	</dd>
@@ -343,7 +295,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="project"><span class="type-signature"></span>project()</h4>
+    <h4 class="name" id="activateBar"><span class="type-signature"></span>activateBar()</h4>
     
     
 </dt>
@@ -351,7 +303,7 @@
 
     
     <div class="description">
-        <p>Project the point to the correct physical location on screen.<br>z axis is not projected, because screens are 2D.</p>
+        <p>Enables keyboard input on a Bar.</p>
     </div>
     
 
@@ -397,8 +349,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="wheel3D.js.html">wheel3D.js</a>,
-				 <a href="wheel3D.js.html#sunlight-1-line-87">line 87</a>
+				<a href="keyboard_group.js.html">keyboard_group.js</a>,
+				 <a href="keyboard_group.js.html#sunlight-1-line-103">line 103</a>
 			</li>
 		</ul>
 	</dd>
@@ -431,7 +383,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="rotate"><span class="type-signature"></span>rotate(axis, angle)</h4>
+    <h4 class="name" id="activateGroup"><span class="type-signature"></span>activateGroup()</h4>
     
     
 </dt>
@@ -439,7 +391,7 @@
 
     
     <div class="description">
-        <p>Rotate the point along the given axis by the given angle.</p>
+        <p>Enables keyboard input for the group.</p>
     </div>
     
 
@@ -448,80 +400,6 @@
     
 
     
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>axis</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The axis to rotate.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>angle</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The angle to rotate by.</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
     
 
     
@@ -559,8 +437,448 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="wheel3D.js.html">wheel3D.js</a>,
-				 <a href="wheel3D.js.html#sunlight-1-line-74">line 74</a>
+				<a href="keyboard_group.js.html">keyboard_group.js</a>,
+				 <a href="keyboard_group.js.html#sunlight-1-line-89">line 89</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="addNode"><span class="type-signature"></span>addNode()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Add a new child to the group</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="keyboard_group.js.html">keyboard_group.js</a>,
+				 <a href="keyboard_group.js.html#sunlight-1-line-37">line 37</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="nextItem"><span class="type-signature"></span>nextItem()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Selects the next child.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="keyboard_group.js.html">keyboard_group.js</a>,
+				 <a href="keyboard_group.js.html#sunlight-1-line-57">line 57</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="prevItem"><span class="type-signature"></span>prevItem()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Selects the previous child.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="keyboard_group.js.html">keyboard_group.js</a>,
+				 <a href="keyboard_group.js.html#sunlight-1-line-43">line 43</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="removeKeyboardEventListeners"><span class="type-signature"></span>removeKeyboardEventListeners()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Used when switching from group selection to Bar manipulation.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="keyboard_group.js.html">keyboard_group.js</a>,
+				 <a href="keyboard_group.js.html#sunlight-1-line-80">line 80</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="selectBar"><span class="type-signature"></span>selectBar()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Adds or removes focus from the selected child.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="keyboard_group.js.html">keyboard_group.js</a>,
+				 <a href="keyboard_group.js.html#sunlight-1-line-66">line 66</a>
 			</li>
 		</ul>
 	</dd>
