@@ -4,10 +4,16 @@ module.exports = function (grunt) {
 		concat: {
 			options: {separator: ';'},
 			dist: {
-				src: ['src/**/*.js'],
+				src: ['src/frame.js', 'src/**/*.js'],
 				dest: 'dist/<%= pkg.name %>.js'
 			}
 		},
+        copy: {
+            main: {
+                src: 'dist/phaser-ui-tools.js',
+                dest: 'docs/examples/lib/phaser-ui-tools.js'
+            }
+        },
 		uglify: {
 			options: {
 				banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
@@ -30,11 +36,12 @@ module.exports = function (grunt) {
 			}
 		}
 	});
-	
+
 	grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-jsdoc');
-	
-	grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'jsdoc']);
+
+	grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'jsdoc', 'copy']);
 };
