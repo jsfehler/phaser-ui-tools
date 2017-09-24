@@ -1,4 +1,7 @@
 # Phaser UI Tools
+
+[![Build Status](https://travis-ci.org/jsfehler/phaser-ui-tools.svg?branch=master)](https://travis-ci.org/jsfehler/phaser-ui-tools)
+
 I really wanted a viewport with a scrollbar. Things escalated.
 
 ![scrollbar](https://raw.githubusercontent.com/jsfehler/phaser-ui-tools/master/diagram.png)

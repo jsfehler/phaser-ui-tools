@@ -1,0 +1,10 @@
+language: node_js
+node_js:
+  - "node"
+  - "7"
+
+script:
+  - "grunt travis"
+
+before_script:
+  - npm install grunt-cli -g

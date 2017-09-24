@@ -58,4 +58,5 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-mocha');
 
 	grunt.registerTask('default', ['jshint', 'mocha', 'concat', 'uglify', 'jsdoc', 'copy']);
+    grunt.registerTask('travis', ['jshint', 'mocha']);
 };
