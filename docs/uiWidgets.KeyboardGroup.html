@@ -91,7 +91,7 @@
         
 <hr>
 <dt>
-    <h4 class="name" id="KeyboardGroup"><span class="type-signature"></span>new KeyboardGroup(game, prevItemCallback, nextItemCallback)</h4>
+    <h4 class="name" id="KeyboardGroup"><span class="type-signature"></span>new KeyboardGroup(game, vertical, prevItemCallback, nextItemCallback)</h4>
     
     
 </dt>
@@ -152,6 +152,30 @@
             
 
             <td class="description last"><p>Current game instance.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>vertical</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>If the selection should be controlled with up/down or left/right.</p></td>
         </tr>
 
     
@@ -244,7 +268,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="keyboard_group.js.html">keyboard_group.js</a>,
-				 <a href="keyboard_group.js.html#sunlight-1-line-10">line 10</a>
+				 <a href="keyboard_group.js.html#sunlight-1-line-11">line 11</a>
 			</li>
 		</ul>
 	</dd>
@@ -292,94 +316,6 @@
         <h3 class="subsection-title">Methods</h3>
 
         <dl>
-            
-<hr>
-<dt>
-    <h4 class="name" id="activateBar"><span class="type-signature"></span>activateBar()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Enables keyboard input on a Bar.</p>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="keyboard_group.js.html">keyboard_group.js</a>,
-				 <a href="keyboard_group.js.html#sunlight-1-line-103">line 103</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
             
 <hr>
 <dt>
@@ -438,7 +374,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="keyboard_group.js.html">keyboard_group.js</a>,
-				 <a href="keyboard_group.js.html#sunlight-1-line-89">line 89</a>
+				 <a href="keyboard_group.js.html#sunlight-1-line-77">line 77</a>
 			</li>
 		</ul>
 	</dd>
@@ -471,7 +407,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="addNode"><span class="type-signature"></span>addNode()</h4>
+    <h4 class="name" id="addNode"><span class="type-signature"></span>addNode(newNode)</h4>
     
     
 </dt>
@@ -488,6 +424,56 @@
     
 
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>newNode</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The sprite to add to the group.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
     
 
     
@@ -526,7 +512,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="keyboard_group.js.html">keyboard_group.js</a>,
-				 <a href="keyboard_group.js.html#sunlight-1-line-37">line 37</a>
+				 <a href="keyboard_group.js.html#sunlight-1-line-40">line 40</a>
 			</li>
 		</ul>
 	</dd>
@@ -614,7 +600,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="keyboard_group.js.html">keyboard_group.js</a>,
-				 <a href="keyboard_group.js.html#sunlight-1-line-57">line 57</a>
+				 <a href="keyboard_group.js.html#sunlight-1-line-66">line 66</a>
 			</li>
 		</ul>
 	</dd>
@@ -702,7 +688,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="keyboard_group.js.html">keyboard_group.js</a>,
-				 <a href="keyboard_group.js.html#sunlight-1-line-43">line 43</a>
+				 <a href="keyboard_group.js.html#sunlight-1-line-50">line 50</a>
 			</li>
 		</ul>
 	</dd>
@@ -735,7 +721,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="removeKeyboardEventListeners"><span class="type-signature"></span>removeKeyboardEventListeners()</h4>
+    <h4 class="name" id="useBar"><span class="type-signature"></span>useBar()</h4>
     
     
 </dt>
@@ -743,7 +729,7 @@
 
     
     <div class="description">
-        <p>Used when switching from group selection to Bar manipulation.</p>
+        <p>Enables keyboard input on a child.</p>
     </div>
     
 
@@ -790,95 +776,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="keyboard_group.js.html">keyboard_group.js</a>,
-				 <a href="keyboard_group.js.html#sunlight-1-line-80">line 80</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="selectBar"><span class="type-signature"></span>selectBar()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Adds or removes focus from the selected child.</p>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="keyboard_group.js.html">keyboard_group.js</a>,
-				 <a href="keyboard_group.js.html#sunlight-1-line-66">line 66</a>
+				 <a href="keyboard_group.js.html#sunlight-1-line-89">line 89</a>
 			</li>
 		</ul>
 	</dd>
@@ -961,7 +859,7 @@
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a>
 	
-		on Sun Sep 24th 2017
+		on Mon Sep 25th 2017
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

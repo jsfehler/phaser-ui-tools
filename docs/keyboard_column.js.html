@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>DocStrap Source: frame.js</title>
+	<title>DocStrap Source: keyboard_column.js</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -72,55 +72,79 @@
 		<div id="main">
 			
 
-		<h1 class="page-title">Source: frame.js</h1>
+		<h1 class="page-title">Source: keyboard_column.js</h1>
     
 <section>
     <article>
         <pre
-            class="sunlight-highlight-javascript linenums">var uiWidgets = uiWidgets || {};
-
-/**
- * Group with a dedicated background image.
- * Children added to the group will always be above the background image.
- * @constructor
- * @param {Object} game - Current game instance.
- * @param {Object} context - The context this object is called in.
- * @param {string} bg - The background image to use.
- */
-uiWidgets.Frame = function (game, x, y, bg) {
+            class="sunlight-highlight-javascript linenums">uiWidgets.KeyboardColumn = function (game, x, y, bg, prevItemCallback, nextItemCallback) {
     "use strict";
-    Phaser.Group.call(this, game);
-    game.add.existing(this);
+    uiWidgets.Column.apply(this, arguments);
 
-    this.x = x || 0;
-    this.y = y || 0;
+    this.prevItemCallback = prevItemCallback;
+    this.nextItemCallback = nextItemCallback;
 
-    this.game = game;
-    this.bg = bg || null;
+    this.selected = null;
+    this.idx = 0;
 
-    // Add background to Frame.
-    if (bg !== null) {
-        var bgSprite = game.add.sprite(0, 0, bg);
-        bgSprite.sendToBack();
-        bgSprite.alignIn(this, Phaser.TOP_LEFT);
-    }
+    this.upKey = this.game.input.keyboard.addKey(Phaser.Keyboard.UP);
+    this.downKey = this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
+    this.leftKey = this.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
+    this.rightKey = this.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
+
+    this.upEvent = this.prevItem;
+    this.downEvent = this.nextItem;
+
+    this.activateGroup();
 };
 
-uiWidgets.Frame.prototype = Object.create(Phaser.Group.prototype);
-uiWidgets.Frame.constructor = uiWidgets.Frame;
+uiWidgets.KeyboardColumn.prototype = Object.create(uiWidgets.Column.prototype);
+uiWidgets.KeyboardColumn.constructor = uiWidgets.KeyboardColumn;
 
-/** Adds a new object to the Frame.
- * @param {Object} node - The sprite to add to the Frame.
- */
-uiWidgets.Frame.prototype.addNode = function (node) {
+
+/** Selects the previous child. */
+uiWidgets.KeyboardColumn.prototype.prevItem = function () {
     "use strict";
-    this.add(node);
+    this.idx = this.idx - 1;
 
-    // Reset the positions for the bar's draggable area.
-    if ("enableBarDrag" in node) {
-        node.enableBarDrag();
+    if (this.idx &lt; 0) {
+        this.idx = this.children.length - 1;
     }
 
+    this.selected = this.children[this.idx];
+
+    this.useBar();
+
+    return this.prevItemCallback();
+};
+
+/** Selects the next child. */
+uiWidgets.KeyboardColumn.prototype.nextItem = function () {
+    "use strict";
+    this.idx = (this.idx + 1) % (this.children.length);
+    this.selected = this.children[this.idx];
+
+    this.useBar();
+
+    return this.nextItemCallback();
+};
+
+/** Enables keyboard input for the group. */
+uiWidgets.KeyboardColumn.prototype.activateGroup = function () {
+    "use strict";
+    this.upKey.onDown.add(this.upEvent, this);
+    this.downKey.onDown.add(this.downEvent, this);
+
+};
+
+/** Enables keyboard input on a child. */
+uiWidgets.KeyboardColumn.prototype.useBar = function () {
+    "use strict";
+    this.leftKey.onDown.removeAll();
+    this.rightKey.onDown.removeAll();
+
+    this.leftKey.onDown.add(this.selected.upEvent, this.selected);
+    this.rightKey.onDown.add(this.selected.downEvent, this.selected);
 };
 </pre>
     </article>
