@@ -5,6 +5,8 @@ function preload() {
     game.load.image("track", "assets/valuebar/track.png");
     game.load.spritesheet('bar', 'assets/valuebar/bar.png', 32, 32);
     game.load.image("pointer", "assets/valuebar/pointer.png");
+
+    game.load.image("vtrack", "assets/valuebar/vtrack.png");
 }
 
 var bar;
@@ -54,16 +56,6 @@ function create() {
         align: "center"
     });
 
-    column = new uiWidgets.Column(game, 150, 150, "bg");
-    column.addNode(bar);
-    column.addNode(barText);
-    column.addNode(bar2);
-    column.addNode(barText2);
-
-    // Example of using prev/nextItem callback.
-    // Create a cursor and move to the selected child's position.
-    cursor = game.add.sprite(100, 144, 'pointer');
-
     var prevItemCallback = function () {
         cursor.y = keyboardGroup.selected.worldPosition.y - (keyboardGroup.selected.height/4);
     };
@@ -72,10 +64,21 @@ function create() {
         cursor.y = keyboardGroup.selected.worldPosition.y - (keyboardGroup.selected.height/4);
     };
 
+    column = new uiWidgets.Column(game, 150, 50, "bg");
+    column.addNode(bar);
+    column.addNode(barText);
+    column.addNode(bar2);
+    column.addNode(barText2);
+
+    // Example of using prev/nextItem callback.
+    // Create a cursor and move to the selected child's position.
+    cursor = game.add.sprite(100, 42, 'pointer');
+
     // Create a KeyboardGroup and add the Bars to it.
-    keyboardGroup = new uiWidgets.KeyboardGroup(game, prevItemCallback, nextItemCallback);
+    keyboardGroup = new uiWidgets.KeyboardGroup(game, true, prevItemCallback, nextItemCallback, false);
     keyboardGroup.addNode(bar);
     keyboardGroup.addNode(bar2);
+
 }
 
 function update() {

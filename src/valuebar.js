@@ -69,6 +69,14 @@ uiWidgets.ValueBar = function (game, xy, values, draggable, vertical, trackImage
     this.maxX = this.track.x + this.track.width - (this.bar.width / 2);
 
     this.create();
+
+    if (this.vertical) {
+        this.upEvent = this.scrollUp;
+        this.downEvent = this.scrollDown;
+    } else {
+        this.upEvent = this.scrollLeft;
+        this.downEvent = this.scrollRight;
+    }
 };
 
 uiWidgets.ValueBar.prototype = Object.create(uiWidgets.Scrollbar.prototype);
