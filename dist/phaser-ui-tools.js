@@ -125,200 +125,6 @@ uiWidgets.DraggableBar.prototype.enableBarDrag = function () {
 };
 ;var uiWidgets = uiWidgets || {};
 
-
-/**
- * Sprite with text added as a child.
- * @constructor
- * @param {Object} game - Current game instance.
- * @param {string} image - The image to create a sprite with.
- * @param {string} label - The text to place on top of the sprite.
- * @param {Object} style - The style properties to be set on the Text.
- * @param {number} x - The x coordinate on screen where the textSprite will be placed.
- * @param {number} y - The y coordinate on screen where the textSprite will be placed.
- */
-uiWidgets.textSprite = function (game, image, label, style, x, y) {
-    "use strict";
-    Phaser.Sprite.call(this, game, x, y, image);
-    game.add.existing(this);
-
-    this.text = this.game.add.text(0, 0, label, style);
-    this.text.anchor.set(0.5, 0.5);
-
-    this.addChild(this.text);
-};
-
-uiWidgets.textSprite.prototype = Object.create(Phaser.Sprite.prototype);
-uiWidgets.textSprite.constructor = uiWidgets.textSprite;
-
-
-/**
- * Phaser Button with text added as a child.
- * @constructor
- * @param {Object} game - Current game instance.
- * @param {string} image - The image to create a sprite with.
- * @param {string} label - The text to place on top of the sprite.
- * @param {Object} style - The style properties to be set on the Text.
- * @param {number} x - The x coordinate on screen where the textSprite will be placed.
- * @param {number} y - The y coordinate on screen where the textSprite will be placed.
- * @param {Object} callback - Callback to use when the button is clicked.
- * @param {Object} callbackContext - The context the callback is called in.
- */
-uiWidgets.textButton = function (game, image, label, style, x, y, callback, callbackContext) {
-    "use strict";
-    Phaser.Button.call(this, game, x, y, image, callback, callbackContext);
-    game.add.existing(this);
-
-    this.text = this.game.add.text(0, 0, label, style);
-    this.text.anchor.set(0.5, 0.5);
-
-    this.addChild(this.text);
-};
-
-uiWidgets.textButton.prototype = Object.create(Phaser.Button.prototype);
-uiWidgets.textButton.constructor = uiWidgets.textButton;
-;var uiWidgets = uiWidgets || {};
-
-/**
- * Frame that places new child nodes directly under the previous child.
- * @constructor
- * @param {Object} game - Current game instance.
- * @param {Object} context - The context this object is called in.
- */
-uiWidgets.Column = function (game, x, y, bg) {
-    "use strict";
-    uiWidgets.Frame.apply(this, arguments);
-};
-
-uiWidgets.Column.prototype = Object.create(uiWidgets.Frame.prototype);
-uiWidgets.Column.constructor = uiWidgets.Column;
-
-/** Adds a new object into the Column, then aligns it under the previous object.
- * @param {Object} node - The sprite to add to the Column.
- * @param {Number} alignment - The alignment relative to the previous child.
- */
-uiWidgets.Column.prototype.addNode = function (node, alignment) {
-    "use strict";
-    alignment = alignment || Phaser.BOTTOM_CENTER;
-
-    this.add(node);
-    var previousNode = this.children[this.children.length - 2];
-
-    if (previousNode !== undefined) {
-        node.alignTo(previousNode, alignment);
-    }
-
-    // Reset the positions for the bar's draggable area.
-    if ("enableBarDrag" in node) {
-        node.enableBarDrag();
-    }
-
-};
-;var uiWidgets = uiWidgets || {};
-
-/** Collection of sprites that can be selected with the keyboard.
-  * When the select key is hit, the sprite that was selected is now connected to the keyboard.
-  * @constructor
-  * @param {Object} game - Current game instance.
-  * @param {Boolean} vertical - If the selection should be controlled with up/down or left/right.
-  * @param {Object} prevItemCallback - Called when selecting the previous child.
-  * @param {Object} nextItemCallback - Called when selecting the next child.
-  */
-uiWidgets.KeyboardGroup = function (game, vertical, prevItemCallback, nextItemCallback) {
-    "use strict";
-    this.game = game;
-    this.vertical = vertical || false;
-    this.prevItemCallback = prevItemCallback;
-    this.nextItemCallback = nextItemCallback;
-
-    this.children = [];
-
-    this.selected = null;
-    this.idx = 0;
-
-    this.upKey = this.game.input.keyboard.addKey(Phaser.Keyboard.UP);
-    this.downKey = this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
-    this.leftKey = this.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
-    this.rightKey = this.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
-
-    this.upEvent = this.prevItem;
-    this.downEvent = this.nextItem;
-
-    this.activateGroup();
-
-};
-
-uiWidgets.KeyboardGroup.constructor = uiWidgets.KeyboardGroup;
-
-/** Add a new child to the group
-  * @param {Object} newNode - The sprite to add to the group.
-  */
-uiWidgets.KeyboardGroup.prototype.addNode = function (newNode) {
-    "use strict";
-    this.children.push(newNode);
-
-    // Ensure the first child is already selected  when the game loads.
-    this.selected = this.children[0];
-    this.useBar();
-};
-
-/** Selects the previous child. */
-uiWidgets.KeyboardGroup.prototype.prevItem = function () {
-    "use strict";
-    this.idx = this.idx - 1;
-
-    if (this.idx < 0) {
-        this.idx = this.children.length - 1;
-    }
-
-    this.selected = this.children[this.idx];
-
-    this.useBar();
-
-    return this.prevItemCallback();
-};
-
-/** Selects the next child. */
-uiWidgets.KeyboardGroup.prototype.nextItem = function () {
-    "use strict";
-    this.idx = (this.idx + 1) % (this.children.length);
-    this.selected = this.children[this.idx];
-
-    this.useBar();
-
-    return this.nextItemCallback();
-};
-
-/** Enables keyboard input for the group. */
-uiWidgets.KeyboardGroup.prototype.activateGroup = function () {
-    "use strict";
-    if (this.vertical) {
-        this.upKey.onDown.add(this.upEvent, this);
-        this.downKey.onDown.add(this.downEvent, this);
-    } else {
-        this.leftKey.onDown.add(this.upEvent, this);
-        this.rightKey.onDown.add(this.downEvent, this);
-    }
-};
-
-/** Enables keyboard input on a child. */
-uiWidgets.KeyboardGroup.prototype.useBar = function () {
-    "use strict";
-    if (this.vertical) {
-        this.leftKey.onDown.removeAll();
-        this.rightKey.onDown.removeAll();
-
-        this.leftKey.onDown.add(this.selected.upEvent, this.selected);
-        this.rightKey.onDown.add(this.selected.downEvent, this.selected);
-    } else {
-        this.upKey.onDown.removeAll();
-        this.downKey.onDown.removeAll();
-
-        this.upKey.onDown.add(this.selected.upEvent, this.selected);
-        this.downKey.onDown.add(this.selected.downEvent, this.selected);
-    }
-};
-;var uiWidgets = uiWidgets || {};
-
 /**
  * Bar that adjusts the size of a static sprite based on a value.
  * This is done by masking the sprite and then resizing the mask.
@@ -637,43 +443,6 @@ uiWidgets.ViewportRange.prototype.getCurrentValue = function () {
 	}
 
 	return currentValue;
-};
-;var uiWidgets = uiWidgets || {};
-
-/**
- * Frame that places new child nodes directly next to the previous child.
- * @constructor
- * @param {Object} game - Current game instance.
- * @param {Object} context - The context this object is called in.
- */
-uiWidgets.Row = function (game, x, y, bg) {
-    "use strict";
-    uiWidgets.Frame.apply(this, arguments);
-};
-
-uiWidgets.Row.prototype = Object.create(uiWidgets.Frame.prototype);
-uiWidgets.Row.constructor = uiWidgets.Row;
-
-/** Adds a new object into the Row, then aligns it next to the previous object.
- * @param {Object} node - The sprite to add to the row.
- * @param {Number} alignment - The alignment relative to the previous child.
- */
-uiWidgets.Row.prototype.addNode = function (node, alignment) {
-    "use strict";
-    alignment = alignment || Phaser.RIGHT_CENTER;
-
-    this.add(node);
-    var previousNode = this.children[this.children.length - 2];
-
-    if (previousNode !== undefined) {
-        node.alignTo(previousNode, alignment);
-    }
-
-    // Reset the positions for the bar's draggable area.
-    if ("enableBarDrag" in node) {
-        node.enableBarDrag();
-    }
-
 };
 ;var uiWidgets = uiWidgets || {};
 
@@ -1271,6 +1040,133 @@ uiWidgets.ValueBar.prototype.getGripPositionRatio = function () {
 };
 ;var uiWidgets = uiWidgets || {};
 
+
+/**
+ * Sprite with text added as a child.
+ * @constructor
+ * @param {Object} game - Current game instance.
+ * @param {string} image - The image to create a sprite with.
+ * @param {string} label - The text to place on top of the sprite.
+ * @param {Object} style - The style properties to be set on the Text.
+ * @param {number} x - The x coordinate on screen where the textSprite will be placed.
+ * @param {number} y - The y coordinate on screen where the textSprite will be placed.
+ */
+uiWidgets.textSprite = function (game, image, label, style, x, y) {
+    "use strict";
+    Phaser.Sprite.call(this, game, x, y, image);
+    game.add.existing(this);
+
+    this.text = this.game.add.text(0, 0, label, style);
+    this.text.anchor.set(0.5, 0.5);
+
+    this.addChild(this.text);
+};
+
+uiWidgets.textSprite.prototype = Object.create(Phaser.Sprite.prototype);
+uiWidgets.textSprite.constructor = uiWidgets.textSprite;
+
+
+/**
+ * Phaser Button with text added as a child.
+ * @constructor
+ * @param {Object} game - Current game instance.
+ * @param {string} image - The image to create a sprite with.
+ * @param {string} label - The text to place on top of the sprite.
+ * @param {Object} style - The style properties to be set on the Text.
+ * @param {number} x - The x coordinate on screen where the textSprite will be placed.
+ * @param {number} y - The y coordinate on screen where the textSprite will be placed.
+ * @param {Object} callback - Callback to use when the button is clicked.
+ * @param {Object} callbackContext - The context the callback is called in.
+ */
+uiWidgets.textButton = function (game, image, label, style, x, y, callback, callbackContext) {
+    "use strict";
+    Phaser.Button.call(this, game, x, y, image, callback, callbackContext);
+    game.add.existing(this);
+
+    this.text = this.game.add.text(0, 0, label, style);
+    this.text.anchor.set(0.5, 0.5);
+
+    this.addChild(this.text);
+};
+
+uiWidgets.textButton.prototype = Object.create(Phaser.Button.prototype);
+uiWidgets.textButton.constructor = uiWidgets.textButton;
+;var uiWidgets = uiWidgets || {};
+
+/**
+ * Frame that places new child nodes directly under the previous child.
+ * @constructor
+ * @param {Object} game - Current game instance.
+ * @param {Object} context - The context this object is called in.
+ */
+uiWidgets.Column = function (game, x, y, bg) {
+    "use strict";
+    uiWidgets.Frame.apply(this, arguments);
+};
+
+uiWidgets.Column.prototype = Object.create(uiWidgets.Frame.prototype);
+uiWidgets.Column.constructor = uiWidgets.Column;
+
+/** Adds a new object into the Column, then aligns it under the previous object.
+ * @param {Object} node - The sprite to add to the Column.
+ * @param {Number} alignment - The alignment relative to the previous child.
+ */
+uiWidgets.Column.prototype.addNode = function (node, alignment) {
+    "use strict";
+    alignment = alignment || Phaser.BOTTOM_CENTER;
+
+    this.add(node);
+    var previousNode = this.children[this.children.length - 2];
+
+    if (previousNode !== undefined) {
+        node.alignTo(previousNode, alignment);
+    }
+
+    // Reset the positions for the bar's draggable area.
+    if ("enableBarDrag" in node) {
+        node.enableBarDrag();
+    }
+
+};
+;var uiWidgets = uiWidgets || {};
+
+/**
+ * Frame that places new child nodes directly next to the previous child.
+ * @constructor
+ * @param {Object} game - Current game instance.
+ * @param {Object} context - The context this object is called in.
+ */
+uiWidgets.Row = function (game, x, y, bg) {
+    "use strict";
+    uiWidgets.Frame.apply(this, arguments);
+};
+
+uiWidgets.Row.prototype = Object.create(uiWidgets.Frame.prototype);
+uiWidgets.Row.constructor = uiWidgets.Row;
+
+/** Adds a new object into the Row, then aligns it next to the previous object.
+ * @param {Object} node - The sprite to add to the row.
+ * @param {Number} alignment - The alignment relative to the previous child.
+ */
+uiWidgets.Row.prototype.addNode = function (node, alignment) {
+    "use strict";
+    alignment = alignment || Phaser.RIGHT_CENTER;
+
+    this.add(node);
+    var previousNode = this.children[this.children.length - 2];
+
+    if (previousNode !== undefined) {
+        node.alignTo(previousNode, alignment);
+    }
+
+    // Reset the positions for the bar's draggable area.
+    if ("enableBarDrag" in node) {
+        node.enableBarDrag();
+    }
+
+};
+;var uiWidgets = uiWidgets || {};
+
 /**
  * A container with a limited viewable area. Uses a mask to hide children outside of the specified x/y/width/height area.
  * Content outside the viewport has their input disabled.
@@ -1343,6 +1239,110 @@ uiWidgets.Viewport.prototype.disableOutOfBounds = function (children, context, v
 
             this.disableOutOfBounds(child.children, context, vertical);
         }
+    }
+};
+;var uiWidgets = uiWidgets || {};
+
+/** Collection of sprites that can be selected with the keyboard.
+  * When the select key is hit, the sprite that was selected is now connected to the keyboard.
+  * @constructor
+  * @param {Object} game - Current game instance.
+  * @param {Boolean} vertical - If the selection should be controlled with up/down or left/right.
+  * @param {Object} prevItemCallback - Called when selecting the previous child.
+  * @param {Object} nextItemCallback - Called when selecting the next child.
+  */
+uiWidgets.KeyboardGroup = function (game, vertical, prevItemCallback, nextItemCallback) {
+    "use strict";
+    this.game = game;
+    this.vertical = vertical || false;
+    this.prevItemCallback = prevItemCallback;
+    this.nextItemCallback = nextItemCallback;
+
+    this.children = [];
+
+    this.selected = null;
+    this.idx = 0;
+
+    this.upKey = this.game.input.keyboard.addKey(Phaser.Keyboard.UP);
+    this.downKey = this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
+    this.leftKey = this.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
+    this.rightKey = this.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
+
+    this.upEvent = this.prevItem;
+    this.downEvent = this.nextItem;
+
+    this.activateGroup();
+
+};
+
+uiWidgets.KeyboardGroup.constructor = uiWidgets.KeyboardGroup;
+
+/** Add a new child to the group
+  * @param {Object} newNode - The sprite to add to the group.
+  */
+uiWidgets.KeyboardGroup.prototype.addNode = function (newNode) {
+    "use strict";
+    this.children.push(newNode);
+
+    // Ensure the first child is already selected  when the game loads.
+    this.selected = this.children[0];
+    this.useBar();
+};
+
+/** Selects the previous child. */
+uiWidgets.KeyboardGroup.prototype.prevItem = function () {
+    "use strict";
+    this.idx = this.idx - 1;
+
+    if (this.idx < 0) {
+        this.idx = this.children.length - 1;
+    }
+
+    this.selected = this.children[this.idx];
+
+    this.useBar();
+
+    return this.prevItemCallback();
+};
+
+/** Selects the next child. */
+uiWidgets.KeyboardGroup.prototype.nextItem = function () {
+    "use strict";
+    this.idx = (this.idx + 1) % (this.children.length);
+    this.selected = this.children[this.idx];
+
+    this.useBar();
+
+    return this.nextItemCallback();
+};
+
+/** Enables keyboard input for the group. */
+uiWidgets.KeyboardGroup.prototype.activateGroup = function () {
+    "use strict";
+    if (this.vertical) {
+        this.upKey.onDown.add(this.upEvent, this);
+        this.downKey.onDown.add(this.downEvent, this);
+    } else {
+        this.leftKey.onDown.add(this.upEvent, this);
+        this.rightKey.onDown.add(this.downEvent, this);
+    }
+};
+
+/** Enables keyboard input on a child. */
+uiWidgets.KeyboardGroup.prototype.useBar = function () {
+    "use strict";
+    if (this.vertical) {
+        this.leftKey.onDown.removeAll();
+        this.rightKey.onDown.removeAll();
+
+        this.leftKey.onDown.add(this.selected.upEvent, this.selected);
+        this.rightKey.onDown.add(this.selected.downEvent, this.selected);
+    } else {
+        this.upKey.onDown.removeAll();
+        this.downKey.onDown.removeAll();
+
+        this.upKey.onDown.add(this.selected.upEvent, this.selected);
+        this.downKey.onDown.add(this.selected.downEvent, this.selected);
     }
 };
 ;var uiWidgets = uiWidgets || {};

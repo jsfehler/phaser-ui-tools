@@ -75,7 +75,7 @@ function create() {
     cursor = game.add.sprite(100, 42, 'pointer');
 
     // Create a KeyboardGroup and add the Bars to it.
-    keyboardGroup = new uiWidgets.KeyboardGroup(game, true, prevItemCallback, nextItemCallback, false);
+    keyboardGroup = new uiWidgets.KeyboardGroup(game, true, prevItemCallback, nextItemCallback);
     keyboardGroup.addNode(bar);
     keyboardGroup.addNode(bar2);
 

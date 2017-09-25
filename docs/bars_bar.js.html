@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>DocStrap Source: keyboard_column.js</title>
+	<title>DocStrap Source: bars/bar.js</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -72,79 +72,90 @@
 		<div id="main">
 			
 
-		<h1 class="page-title">Source: keyboard_column.js</h1>
+		<h1 class="page-title">Source: bars/bar.js</h1>
     
 <section>
     <article>
         <pre
-            class="sunlight-highlight-javascript linenums">uiWidgets.KeyboardColumn = function (game, x, y, bg, prevItemCallback, nextItemCallback) {
+            class="sunlight-highlight-javascript linenums">var uiWidgets = uiWidgets || {};
+
+
+/** Base object for all Bars. */
+uiWidgets.Bar = function () {};
+uiWidgets.Bar.prototype = Object.create(Phaser.Group.prototype);
+uiWidgets.Bar.constructor = uiWidgets.Bar;
+
+/** Determine the distance the bar can scroll over. */
+uiWidgets.Bar.prototype.setTrackScrollAreaSize = function () {
     "use strict";
-    uiWidgets.Column.apply(this, arguments);
 
-    this.prevItemCallback = prevItemCallback;
-    this.nextItemCallback = nextItemCallback;
-
-    this.selected = null;
-    this.idx = 0;
-
-    this.upKey = this.game.input.keyboard.addKey(Phaser.Keyboard.UP);
-    this.downKey = this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
-    this.leftKey = this.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
-    this.rightKey = this.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
-
-    this.upEvent = this.prevItem;
-    this.downEvent = this.nextItem;
-
-    this.activateGroup();
+    if (this.vertical) {
+        this.trackScrollAreaSize = this.track.height - this.vslice;
+    } else {
+        this.trackScrollAreaSize = this.track.width - this.hslice;
+    }
 };
 
-uiWidgets.KeyboardColumn.prototype = Object.create(uiWidgets.Column.prototype);
-uiWidgets.KeyboardColumn.constructor = uiWidgets.KeyboardColumn;
-
-
-/** Selects the previous child. */
-uiWidgets.KeyboardColumn.prototype.prevItem = function () {
+/** Sets position for the bar's non-moving axis. Centers it inside the track. */
+uiWidgets.Bar.prototype.centerStaticAxis = function () {
     "use strict";
-    this.idx = this.idx - 1;
+    if (this.vertical) {
+        this.bar.x = this.track.x + (this.track.width / 2) - (this.bar.width / 2);
+    } else {
+        this.bar.y = this.track.y + (this.track.height / 2) - (this.bar.height / 2);
+    }
+};
 
-    if (this.idx &lt; 0) {
-        this.idx = this.children.length - 1;
+
+/** Base object for Bars that can be dragged with a mouse. */
+uiWidgets.DraggableBar = function () {};
+uiWidgets.DraggableBar.prototype = Object.create(uiWidgets.Bar.prototype);
+uiWidgets.DraggableBar.constructor = uiWidgets.DraggableBar;
+
+/** Allows the bar to scroll when the track is clicked. */
+uiWidgets.DraggableBar.prototype.enableTrackClick = function () {
+    "use strict";
+    this.track.inputEnabled = true;
+    this.track.events.onInputDown.add(this.clickTrack, this);
+};
+
+/** When called, ensures the bar can be moved. Must be called once the bar has finished scrolling. */
+uiWidgets.DraggableBar.prototype.enableBarInput = function () {
+    "use strict";
+    this.trackClicked = false;
+    this.barMoving = false;
+    this.bar.inputEnabled = true;
+};
+
+/** Enables clicking and dragging on the bar. */
+uiWidgets.DraggableBar.prototype.enableBarDrag = function () {
+    "use strict";
+    this.setDraggableArea();
+
+    this.bar.inputEnabled = true;
+    this.bar.input.enableDrag();
+    if (this.snapping) {
+        this.bar.events.onInputUp.add(this.snapToClosestPosition, this);
+    }
+    this.bar.events.onInputDown.add(this.saveMousePosition, this);
+    this.bar.events.onDragUpdate.add(this.moveContent, this);
+
+    var draggableArea;
+
+    if (this.vertical) {
+        this.bar.input.allowHorizontalDrag = false;
+        draggableArea = this.verticalDraggableArea;
+    } else {
+        this.bar.input.allowVerticalDrag = false;
+        draggableArea = this.horizontalDraggableArea;
     }
 
-    this.selected = this.children[this.idx];
-
-    this.useBar();
-
-    return this.prevItemCallback();
-};
-
-/** Selects the next child. */
-uiWidgets.KeyboardColumn.prototype.nextItem = function () {
-    "use strict";
-    this.idx = (this.idx + 1) % (this.children.length);
-    this.selected = this.children[this.idx];
-
-    this.useBar();
-
-    return this.nextItemCallback();
-};
-
-/** Enables keyboard input for the group. */
-uiWidgets.KeyboardColumn.prototype.activateGroup = function () {
-    "use strict";
-    this.upKey.onDown.add(this.upEvent, this);
-    this.downKey.onDown.add(this.downEvent, this);
-
-};
-
-/** Enables keyboard input on a child. */
-uiWidgets.KeyboardColumn.prototype.useBar = function () {
-    "use strict";
-    this.leftKey.onDown.removeAll();
-    this.rightKey.onDown.removeAll();
-
-    this.leftKey.onDown.add(this.selected.upEvent, this.selected);
-    this.rightKey.onDown.add(this.selected.downEvent, this.selected);
+    this.bar.input.boundsRect = new Phaser.Rectangle(
+        draggableArea.x,
+        draggableArea.y,
+        draggableArea.w,
+        draggableArea.h)
+    ;
 };
 </pre>
     </article>
