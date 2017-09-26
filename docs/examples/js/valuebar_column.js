@@ -56,12 +56,12 @@ function create() {
         align: "center"
     });
 
-    var prevItemCallback = function () {
-        cursor.y = keyboardGroup.selected.worldPosition.y - (keyboardGroup.selected.height/4);
+    var prevItemCallback = function (group, context) {
+        cursor.y = group.selected.worldPosition.y - (group.selected.height/4);
     };
 
-    var nextItemCallback = function () {
-        cursor.y = keyboardGroup.selected.worldPosition.y - (keyboardGroup.selected.height/4);
+    var nextItemCallback = function (group, context) {
+        cursor.y = group.selected.worldPosition.y - (group.selected.height/4);
     };
 
     column = new uiWidgets.Column(game, 150, 50, "bg");
@@ -75,10 +75,12 @@ function create() {
     cursor = game.add.sprite(100, 42, 'pointer');
 
     // Create a KeyboardGroup and add the Bars to it.
-    keyboardGroup = new uiWidgets.KeyboardGroup(game, true, prevItemCallback, nextItemCallback);
+    keyboardGroup = new uiWidgets.KeyboardGroup(game, true, this);
     keyboardGroup.addNode(bar);
     keyboardGroup.addNode(bar2);
 
+    keyboardGroup.onPrevious.add(prevItemCallback);
+    keyboardGroup.onNext.add(nextItemCallback);
 }
 
 function update() {

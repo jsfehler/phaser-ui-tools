@@ -5,15 +5,13 @@ var uiWidgets = uiWidgets || {};
   * @constructor
   * @param {Object} game - Current game instance.
   * @param {Boolean} vertical - If the selection should be controlled with up/down or left/right.
-  * @param {Object} prevItemCallback - Called when selecting the previous child.
-  * @param {Object} nextItemCallback - Called when selecting the next child.
+  * @param {Object} callbackContext - The context for the onPrevious and onNext Signals.
   */
-uiWidgets.KeyboardGroup = function (game, vertical, prevItemCallback, nextItemCallback) {
+uiWidgets.KeyboardGroup = function (game, vertical, callbackContext) {
     "use strict";
     this.game = game;
     this.vertical = vertical || false;
-    this.prevItemCallback = prevItemCallback;
-    this.nextItemCallback = nextItemCallback;
+    this.callbackContext = callbackContext;
 
     this.children = [];
 
@@ -28,8 +26,10 @@ uiWidgets.KeyboardGroup = function (game, vertical, prevItemCallback, nextItemCa
     this.upEvent = this.prevItem;
     this.downEvent = this.nextItem;
 
-    this.activateGroup();
+    this.onPrevious = new Phaser.Signal();
+    this.onNext = new Phaser.Signal();
 
+    this.activateGroup();
 };
 
 uiWidgets.KeyboardGroup.constructor = uiWidgets.KeyboardGroup;
@@ -59,7 +59,7 @@ uiWidgets.KeyboardGroup.prototype.prevItem = function () {
 
     this.useBar();
 
-    return this.prevItemCallback();
+    this.onPrevious.dispatch(this, this.callbackContext);
 };
 
 /** Selects the next child. */
@@ -70,7 +70,7 @@ uiWidgets.KeyboardGroup.prototype.nextItem = function () {
 
     this.useBar();
 
-    return this.nextItemCallback();
+    this.onNext.dispatch(this, this.callbackContext);
 };
 
 /** Enables keyboard input for the group. */
