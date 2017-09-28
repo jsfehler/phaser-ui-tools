@@ -78,11 +78,43 @@ uiWidgets.DraggableBar = function () {};
 uiWidgets.DraggableBar.prototype = Object.create(uiWidgets.Bar.prototype);
 uiWidgets.DraggableBar.constructor = uiWidgets.DraggableBar;
 
-/** Allows the bar to scroll when the track is clicked. */
+
+/** If the vertical scrollbar is draggable, this function is called when the track is clicked. */
+uiWidgets.DraggableBar.prototype.verticalTrackClick = function () {
+    "use strict";
+    // Don't register mouse clicks on the bar itself.
+    if (this.game.input.mousePointer.y > this.bar.y + this.bar.height + this.worldPosition.y) {
+        this.scrollDown();
+    } else if (this.game.input.mousePointer.y < this.bar.y + this.worldPosition.y) {
+        this.scrollUp();
+    }
+};
+
+/** If the horizontal scrollbar is draggable, this function is called when the track is clicked. */
+uiWidgets.DraggableBar.prototype.horizontalTrackClick = function () {
+    "use strict";
+    // Don't register mouse clicks on the bar itself.
+    if (this.game.input.mousePointer.x > this.bar.x + this.bar.width + this.worldPosition.x) {
+        this.scrollRight();
+    } else if (this.game.input.mousePointer.x < (this.bar.x + this.worldPosition.x)) {
+        this.scrollLeft();
+    }
+};
+
+/** Allows the bar to scroll when the track is clicked directly. */
 uiWidgets.DraggableBar.prototype.enableTrackClick = function () {
     "use strict";
+    var event;
+
     this.track.inputEnabled = true;
-    this.track.events.onInputDown.add(this.clickTrack, this);
+
+    if (this.vertical) {
+        event = this.verticalTrackClick;
+    } else {
+        event = this.horizontalTrackClick;
+    }
+
+    this.track.events.onInputDown.add(event, this);
 };
 
 /** When called, ensures the bar can be moved. Must be called once the bar has finished scrolling. */
@@ -703,27 +735,6 @@ uiWidgets.Scrollbar.prototype.scrollRight = function () {
         }
 
         this.addScrollTween({x: moveToX});
-    }
-};
-
-/** If the scrollbar is draggable, this function is called when the track is clicked. */
-uiWidgets.Scrollbar.prototype.clickTrack = function (sprite, pointer) {
-    "use strict";
-
-    if (this.vertical) {
-        // Don't register mouse clicks on the bar itself.
-        if (this.game.input.mousePointer.y > this.bar.y + this.bar.height + this.y) {
-            this.scrollDown();
-        } else if (this.game.input.mousePointer.y < this.bar.y + this.y) {
-            this.scrollUp();
-        }
-    } else {
-        // Don't register mouse clicks on the bar itself.
-        if (this.game.input.mousePointer.x > this.bar.x + this.bar.width + this.worldPosition.x) {
-            this.scrollRight();
-        } else if (this.game.input.mousePointer.x < (this.bar.x + this.worldPosition.x)) {
-            this.scrollLeft();
-        }
     }
 };
 
