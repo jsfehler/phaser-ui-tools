@@ -1,4 +1,4 @@
-var game = new Phaser.Game(600, 400, Phaser.AUTO, 'quantitybar', { preload: preload, create: create, update: update });
+var game = new Phaser.Game(600, 400, Phaser.AUTO, 'quantitybar', { preload: preload, create: create});
 
 function preload() {
     game.load.image("track", "assets/quantitybar/horizontal/track.png");
@@ -26,9 +26,16 @@ var healthbar,
     rdecreaseHealth,
     rincreaseHealth,
     rvdecreaseHealth,
-    rvincreaseHealth;
+    rvincreaseHealth,
+    textStyle;
 
 function create() {
+
+    textStyle = {
+        font: "65px Arial",
+        fill: "#ff0044",
+        align: "center"
+    };
 
     // Create a quantitybar starting at 50.
     healthbar = new uiWidgets.QuantityBar(
@@ -42,12 +49,10 @@ function create() {
         {'duration': 400, 'ease': Phaser.Easing.Quadratic.Out}
     );
 
-	healthbarText = game.add.text(50, 50, healthbar.valueRange.minValue, {
-        font: "65px Arial",
-        fill: "#ff0044",
-        align: "center"
-    });
+    // Display the quantitybar's value.
+	healthbarText = game.add.text(50, 50, healthbar.valueRange.startValue, textStyle);
 
+    // Add buttons to modify the value.
     var lessHealth = game.add.button(150, 10, 'subtract', decreaseHealth, this);
     var moreHealth = game.add.button(200, 10, 'add', increaseHealth, this);
 
@@ -63,11 +68,7 @@ function create() {
         {'duration': 400, 'ease': Phaser.Easing.Quadratic.Out}
     );
 
-	rhealthbarText = game.add.text(350, 50, healthbar.valueRange.minValue, {
-        font: "65px Arial",
-        fill: "#ff0044",
-        align: "center"
-    });
+	rhealthbarText = game.add.text(350, 50, healthbar.valueRange.startValue, textStyle);
 
     var rlessHealth = game.add.button(450, 10, 'subtract', rdecreaseHealth, this);
     var rmoreHealth = game.add.button(500, 10, 'add', rincreaseHealth, this);
@@ -84,11 +85,7 @@ function create() {
         {'duration': 400, 'ease': Phaser.Easing.Quadratic.Out}
     );
 
-	vhealthbarText = game.add.text(100, 150, vhealthbar.valueRange.minValue, {
-        font: "65px Arial",
-        fill: "#ff0044",
-        align: "center"
-    });
+	vhealthbarText = game.add.text(100, 150, vhealthbar.valueRange.startValue, textStyle);
 
     var vlessHealth = game.add.button(100, 250, 'subtract', vdecreaseHealth, this);
     var vmoreHealth = game.add.button(150, 250, 'add', vincreaseHealth, this);
@@ -105,52 +102,49 @@ function create() {
         {'duration': 400, 'ease': Phaser.Easing.Quadratic.Out}
     );
 
-	rvhealthbarText = game.add.text(300, 150, rvhealthbar.valueRange.minValue, {
-        font: "65px Arial",
-        fill: "#ff0044",
-        align: "center"
-    });
+	rvhealthbarText = game.add.text(300, 150, rvhealthbar.valueRange.startValue, textStyle);
 
     var vlessHealth = game.add.button(300, 250, 'subtract', rvdecreaseHealth, this);
     var vmoreHealth = game.add.button(350, 250, 'add', rvincreaseHealth, this);
 
 }
 
-function update() {
-    healthbarText.setText(healthbar.valueRange.getCurrentValue());
-    vhealthbarText.setText(vhealthbar.valueRange.getCurrentValue());
-    rhealthbarText.setText(rhealthbar.valueRange.getCurrentValue());
-    rvhealthbarText.setText(rvhealthbar.valueRange.getCurrentValue());
-}
-
 function increaseHealth() {
     healthbar.adjustBar(10);
+    healthbarText.setText(healthbar.valueRange.getCurrentValue());
 }
 
 function decreaseHealth() {
     healthbar.adjustBar(-10);
+    healthbarText.setText(healthbar.valueRange.getCurrentValue());
 }
 
 function vincreaseHealth() {
     vhealthbar.adjustBar(1);
+    vhealthbarText.setText(vhealthbar.valueRange.getCurrentValue());
 }
 
 function vdecreaseHealth() {
     vhealthbar.adjustBar(-1);
+    vhealthbarText.setText(vhealthbar.valueRange.getCurrentValue());
 }
 
 function rincreaseHealth() {
     rhealthbar.adjustBar(10);
+    rhealthbarText.setText(rhealthbar.valueRange.getCurrentValue());
 }
 
 function rdecreaseHealth() {
     rhealthbar.adjustBar(-10);
+    rhealthbarText.setText(rhealthbar.valueRange.getCurrentValue());
 }
 
 function rvincreaseHealth() {
     rvhealthbar.adjustBar(10);
+    rvhealthbarText.setText(rvhealthbar.valueRange.getCurrentValue());
 }
 
 function rvdecreaseHealth() {
     rvhealthbar.adjustBar(-10);
+    rvhealthbarText.setText(rvhealthbar.valueRange.getCurrentValue());
 }
