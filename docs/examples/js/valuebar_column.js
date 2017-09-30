@@ -1,4 +1,4 @@
-var game = new Phaser.Game(600, 400, Phaser.AUTO, 'valuebar_column', { preload: preload, create: create, update: update });
+var game = new Phaser.Game(600, 400, Phaser.AUTO, 'valuebar_column', { preload: preload, create: create });
 
 function preload() {
     game.load.image("bg", "assets/valuebar/background.png");
@@ -32,11 +32,14 @@ function create() {
 		{'duration': 100, 'ease': Phaser.Easing.Quadratic.Out}
     );
 
-    barText = game.add.text(50, 50, bar.valueRange.minValue, {
+    barText = game.add.text(50, 50, bar.valueRange.startValue, {
         font: "24px Arial",
         fill: "#ff0044",
         align: "center"
     });
+
+    bar.valueDisplay = barText;
+    bar.onMovement.add(updateValueDisplay);
 
     // Create a quantitybar starting at 50.
     bar2 = new uiWidgets.ValueBar(
@@ -50,11 +53,14 @@ function create() {
 		{'duration': 100, 'ease': Phaser.Easing.Quadratic.Out}
     );
 
-    barText2 = game.add.text(50, 50, bar2.valueRange.minValue, {
+    barText2 = game.add.text(50, 50, bar2.valueRange.startValue, {
         font: "24px Arial",
         fill: "#ff0044",
         align: "center"
     });
+
+    bar2.valueDisplay = barText2;
+    bar2.onMovement.add(updateValueDisplay);
 
     var prevItemCallback = function (group, context) {
         cursor.y = group.selected.worldPosition.y - (group.selected.height/4);
@@ -83,7 +89,6 @@ function create() {
     keyboardGroup.onNext.add(nextItemCallback);
 }
 
-function update() {
-    barText.setText(bar.valueRange.getCurrentValue());
-    barText2.setText(bar2.valueRange.getCurrentValue());
+function updateValueDisplay(bar) {
+    bar.valueDisplay.setText(bar.valueRange.getCurrentValue());
 }
