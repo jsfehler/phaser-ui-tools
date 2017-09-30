@@ -122,7 +122,12 @@ uiWidgets.Viewport.prototype.addNode = function (node) {
 };
 
 
-/** Disable input for all objets outside the viewport's visible area. */
+/** Disable input for all objets outside the viewport's visible area.
+ * Recursively checks all the object's children.
+ * @param {Object} children - The objects to disable, if they're outside the viewport.
+ * @param {Object} context - The context the function is run in.
+ * @param {boolean} vertical - If the bounds should be checked horizontally or vertically.
+ */
 uiWidgets.Viewport.prototype.disableOutOfBounds = function (children, context, vertical) {
     "use strict";
     var child, location, contentLocation, trueCoords;

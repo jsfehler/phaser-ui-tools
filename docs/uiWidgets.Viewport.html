@@ -431,7 +431,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="disableOutOfBounds"><span class="type-signature"></span>disableOutOfBounds()</h4>
+    <h4 class="name" id="disableOutOfBounds"><span class="type-signature"></span>disableOutOfBounds(children, context, vertical)</h4>
     
     
 </dt>
@@ -439,7 +439,7 @@
 
     
     <div class="description">
-        <p>Disable input for all objets outside the viewport's visible area.</p>
+        <p>Disable input for all objets outside the viewport's visible area.<br>Recursively checks all the object's children.</p>
     </div>
     
 
@@ -448,6 +448,104 @@
     
 
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>children</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The objects to disable, if they're outside the viewport.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>context</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The context the function is run in.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>vertical</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>If the bounds should be checked horizontally or vertically.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
     
 
     
@@ -486,7 +584,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="containers_viewport.js.html">containers/viewport.js</a>,
-				 <a href="containers_viewport.js.html#sunlight-1-line-47">line 47</a>
+				 <a href="containers_viewport.js.html#sunlight-1-line-52">line 52</a>
 			</li>
 		</ul>
 	</dd>
