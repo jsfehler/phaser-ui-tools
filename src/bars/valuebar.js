@@ -77,6 +77,8 @@ uiWidgets.ValueBar = function (game, xy, values, draggable, vertical, trackImage
         this.upEvent = this.scrollLeft;
         this.downEvent = this.scrollRight;
     }
+
+    this.onMovement = new Phaser.Signal();
 };
 
 uiWidgets.ValueBar.prototype = Object.create(uiWidgets.Scrollbar.prototype);

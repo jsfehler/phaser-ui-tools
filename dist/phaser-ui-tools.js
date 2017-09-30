@@ -546,6 +546,8 @@ uiWidgets.Scrollbar = function (game, content, draggable, vertical, trackImage, 
     this.maxX = this.track.x + this.track.width - this.bar.width;
 
     this.create();
+
+    this.onMovement = new Phaser.Signal();
 };
 
 uiWidgets.Scrollbar.prototype = Object.create(uiWidgets.DraggableBar.prototype);
@@ -846,6 +848,8 @@ uiWidgets.Scrollbar.prototype.moveContent = function () {
     var newContentPosition = newGripPositionRatio * this.windowScrollAreaSize;
 
     this.valueRange.adjustValue(newContentPosition);
+
+    this.onMovement.dispatch(this);
 };
 ;var uiWidgets = uiWidgets || {};
 
@@ -926,6 +930,8 @@ uiWidgets.ValueBar = function (game, xy, values, draggable, vertical, trackImage
         this.upEvent = this.scrollLeft;
         this.downEvent = this.scrollRight;
     }
+
+    this.onMovement = new Phaser.Signal();
 };
 
 uiWidgets.ValueBar.prototype = Object.create(uiWidgets.Scrollbar.prototype);

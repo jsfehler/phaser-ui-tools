@@ -68,6 +68,8 @@ uiWidgets.Scrollbar = function (game, content, draggable, vertical, trackImage, 
     this.maxX = this.track.x + this.track.width - this.bar.width;
 
     this.create();
+
+    this.onMovement = new Phaser.Signal();
 };
 
 uiWidgets.Scrollbar.prototype = Object.create(uiWidgets.DraggableBar.prototype);
@@ -368,4 +370,6 @@ uiWidgets.Scrollbar.prototype.moveContent = function () {
     var newContentPosition = newGripPositionRatio * this.windowScrollAreaSize;
 
     this.valueRange.adjustValue(newContentPosition);
+
+    this.onMovement.dispatch(this);
 };
