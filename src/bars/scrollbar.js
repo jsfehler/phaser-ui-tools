@@ -69,6 +69,10 @@ uiWidgets.Scrollbar = function (game, content, draggable, vertical, trackImage, 
 
     this.create();
 
+    /**
+     * Dispatched when the bar is moved.
+     * @property {Phaser.Signal}
+     */
     this.onMovement = new Phaser.Signal();
 };
 

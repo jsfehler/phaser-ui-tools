@@ -78,6 +78,10 @@ uiWidgets.ValueBar = function (game, xy, values, draggable, vertical, trackImage
         this.downEvent = this.scrollRight;
     }
 
+    /**
+     * Dispatched when the bar is moved.
+     * @property {Phaser.Signal}
+     */
     this.onMovement = new Phaser.Signal();
 };
 

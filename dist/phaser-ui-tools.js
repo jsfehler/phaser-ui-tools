@@ -547,6 +547,10 @@ uiWidgets.Scrollbar = function (game, content, draggable, vertical, trackImage, 
 
     this.create();
 
+    /**
+     * Dispatched when the bar is moved.
+     * @property {Phaser.Signal}
+     */
     this.onMovement = new Phaser.Signal();
 };
 
@@ -931,6 +935,10 @@ uiWidgets.ValueBar = function (game, xy, values, draggable, vertical, trackImage
         this.downEvent = this.scrollRight;
     }
 
+    /**
+     * Dispatched when the bar is moved.
+     * @property {Phaser.Signal}
+     */
     this.onMovement = new Phaser.Signal();
 };
 
@@ -1269,7 +1277,7 @@ uiWidgets.Viewport.prototype.disableOutOfBounds = function (children, context, v
   * When the select key is hit, the sprite that was selected is now connected to the keyboard.
   * @constructor
   * @param {Object} game - Current game instance.
-  * @param {Boolean} vertical - If the selection should be controlled with up/down or left/right.
+  * @param {Boolean} vertical - If the selection should be controlled with up/down or left/right arrow keys.
   * @param {Object} callbackContext - The context for the onPrevious and onNext Signals.
   */
 uiWidgets.KeyboardGroup = function (game, vertical, callbackContext) {
@@ -1291,7 +1299,16 @@ uiWidgets.KeyboardGroup = function (game, vertical, callbackContext) {
     this.upEvent = this.prevItem;
     this.downEvent = this.nextItem;
 
+    /**
+     * Dispatched when the selected child is set from the current child to the previous child.
+     * @property {Phaser.Signal}
+     */
     this.onPrevious = new Phaser.Signal();
+
+    /**
+     * Dispatched when the selected child is set from the current child to the next child.
+     * @property {Phaser.Signal}
+     */
     this.onNext = new Phaser.Signal();
 
     this.activateGroup();
@@ -1338,7 +1355,10 @@ uiWidgets.KeyboardGroup.prototype.nextItem = function () {
     this.onNext.dispatch(this, this.callbackContext);
 };
 
-/** Enables keyboard input for the group. */
+/**
+ * Enables keyboard input for the group.
+ * @private
+ */
 uiWidgets.KeyboardGroup.prototype.activateGroup = function () {
     "use strict";
     if (this.vertical) {
@@ -1350,7 +1370,10 @@ uiWidgets.KeyboardGroup.prototype.activateGroup = function () {
     }
 };
 
-/** Enables keyboard input on a child. */
+/**
+ * Enables keyboard input on a child.
+ * @private
+ */
 uiWidgets.KeyboardGroup.prototype.useBar = function () {
     "use strict";
     if (this.vertical) {
