@@ -17,21 +17,22 @@ uiWidgets.Row.constructor = uiWidgets.Row;
 /** Adds a new object into the Row, then aligns it next to the previous object.
  * @param {Object} node - The sprite to add to the row.
  * @param {Number} alignment - The alignment relative to the previous child.
+ * @param {Number} padding - The amount of space between objects.
  */
-uiWidgets.Row.prototype.addNode = function (node, alignment) {
+uiWidgets.Row.prototype.addNode = function (node, alignment, padding) {
     "use strict";
     alignment = alignment || Phaser.RIGHT_CENTER;
+    padding = padding || 0;
 
     this.add(node);
     var previousNode = this.children[this.children.length - 2];
 
     if (previousNode !== undefined) {
-        node.alignTo(previousNode, alignment);
+        node.alignTo(previousNode, alignment, padding);
     }
 
     // Reset the positions for the bar's draggable area.
     if ("enableBarDrag" in node) {
         node.enableBarDrag();
     }
-
 };
