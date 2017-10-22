@@ -59,10 +59,22 @@ uiWidgets.ValueBar = function (game, xy, values, draggable, vertical, trackImage
         0
     );
 
+    // Add an invisible background. This ensures the bar can always be entered correctly, no matter where the grip is.
+    this.bg = this.game.add.graphics(0, 0);
+    this.add(this.bg);
+    this.sendToBack(this.bg);
+    this.bg.beginFill(0xff0000, 0);
+
+    if (this.vertical) {
+        this.bg.drawRect(0, 0 - (this.bar.height / 2), 1, this.track.height + this.bar.height);
+    } else {
+        this.bg.drawRect(0 - (this.bar.width / 2), 0, this.track.width + this.bar.width, 1);
+    }
+    this.bg.endFill();
+
     this.snapping = true;
 
     this.add(this.bar);
-
     this.minY = this.track.y - (this.bar.height / 2);
     this.maxY = this.track.y + this.track.height - (this.bar.height / 2);
     this.minX = this.track.x - (this.bar.width / 2);
