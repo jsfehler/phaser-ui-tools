@@ -916,10 +916,22 @@ uiWidgets.ValueBar = function (game, xy, values, draggable, vertical, trackImage
         0
     );
 
+    // Add an invisible background. This ensures the bar can always be entered correctly, no matter where the grip is.
+    this.bg = this.game.add.graphics(0, 0);
+    this.add(this.bg);
+    this.sendToBack(this.bg);
+    this.bg.beginFill(0xff0000, 0);
+
+    if (this.vertical) {
+        this.bg.drawRect(0, 0 - (this.bar.height / 2), 1, this.track.height + this.bar.height);
+    } else {
+        this.bg.drawRect(0 - (this.bar.width / 2), 0, this.track.width + this.bar.width, 1);
+    }
+    this.bg.endFill();
+
     this.snapping = true;
 
     this.add(this.bar);
-
     this.minY = this.track.y - (this.bar.height / 2);
     this.maxY = this.track.y + this.track.height - (this.bar.height / 2);
     this.minX = this.track.x - (this.bar.width / 2);
@@ -1135,23 +1147,24 @@ uiWidgets.Column.constructor = uiWidgets.Column;
 /** Adds a new object into the Column, then aligns it under the previous object.
  * @param {Object} node - The sprite to add to the Column.
  * @param {Number} alignment - The alignment relative to the previous child.
+ * @param {Number} padding - The amount of space between objects.
  */
-uiWidgets.Column.prototype.addNode = function (node, alignment) {
+uiWidgets.Column.prototype.addNode = function (node, alignment, padding) {
     "use strict";
     alignment = alignment || Phaser.BOTTOM_CENTER;
+    padding = padding || 0;
 
     this.add(node);
     var previousNode = this.children[this.children.length - 2];
 
     if (previousNode !== undefined) {
-        node.alignTo(previousNode, alignment);
+        node.alignTo(previousNode, alignment, 0, padding);
     }
 
     // Reset the positions for the bar's draggable area.
     if ("enableBarDrag" in node) {
         node.enableBarDrag();
     }
-
 };
 ;var uiWidgets = uiWidgets || {};
 
@@ -1172,23 +1185,24 @@ uiWidgets.Row.constructor = uiWidgets.Row;
 /** Adds a new object into the Row, then aligns it next to the previous object.
  * @param {Object} node - The sprite to add to the row.
  * @param {Number} alignment - The alignment relative to the previous child.
+ * @param {Number} padding - The amount of space between objects.
  */
-uiWidgets.Row.prototype.addNode = function (node, alignment) {
+uiWidgets.Row.prototype.addNode = function (node, alignment, padding) {
     "use strict";
     alignment = alignment || Phaser.RIGHT_CENTER;
+    padding = padding || 0;
 
     this.add(node);
     var previousNode = this.children[this.children.length - 2];
 
     if (previousNode !== undefined) {
-        node.alignTo(previousNode, alignment);
+        node.alignTo(previousNode, alignment, padding);
     }
 
     // Reset the positions for the bar's draggable area.
     if ("enableBarDrag" in node) {
         node.enableBarDrag();
     }
-
 };
 ;var uiWidgets = uiWidgets || {};
 
