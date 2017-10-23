@@ -56,7 +56,7 @@ function create() {
     var lessHealth = game.add.button(150, 10, 'subtract', decreaseHealth, this);
     var moreHealth = game.add.button(200, 10, 'add', increaseHealth, this);
 
-    // Create a reverse quantitybar starting at 50.
+    // Create a reverse quantitybar starting at 30.
     rhealthbar = new uiWidgets.QuantityBar(
         game,
         {"x": 350, "y": 10},
@@ -68,7 +68,7 @@ function create() {
         {'duration': 400, 'ease': Phaser.Easing.Quadratic.Out}
     );
 
-	rhealthbarText = game.add.text(350, 50, healthbar.valueRange.startValue, textStyle);
+	rhealthbarText = game.add.text(350, 50, rhealthbar.valueRange.startValue, textStyle);
 
     var rlessHealth = game.add.button(450, 10, 'subtract', rdecreaseHealth, this);
     var rmoreHealth = game.add.button(500, 10, 'add', rincreaseHealth, this);
