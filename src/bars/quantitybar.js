@@ -61,10 +61,15 @@ uiWidgets.QuantityBar.prototype.setMask = function () {
         this.bar.mask.destroy();
         this.bar.mask = null;
     }
-    this.bar.mask = this.game.add.graphics(this.maskX, this.maskY);
-    this.bar.mask.beginFill(0x0000ff);
-    this.bar.mask.drawRect(0, 0, this.maskW, this.maskH);
-    this.bar.mask.endFill();
+
+    var mask = this.game.add.graphics(this.maskX, this.maskY);
+    mask.beginFill(0x0000ff);
+    mask.drawRect(0, 0, this.maskW, this.maskH);
+    //mask.endFill();
+
+    this.bar.mask = mask;
+
+    this.add(mask);
 };
 
 uiWidgets.QuantityBar.prototype.getBarPosition = function () {
@@ -81,8 +86,8 @@ uiWidgets.QuantityBar.prototype.create = function () {
     // Values for the bar's mask.
     this.maskW = this.bar.width;
     this.maskH = this.bar.height;
-    this.maskX = this.bar.x + this.x;
-    this.maskY = this.bar.y + this.y;
+    this.maskX = this.bar.x;
+    this.maskY = this.bar.y;
 
     // Resizes the bar.
     if (this.vertical) {
@@ -91,15 +96,15 @@ uiWidgets.QuantityBar.prototype.create = function () {
         this.maskW = this.getBarSize();
     }
 
-    this.setMask();
-
     if (this.reverse) {
         if (this.vertical) {
-            this.bar.mask.y = this.bar.y + this.y + this.getBarFraction();
+            this.maskY = this.getBarFraction();
         } else {
-            this.bar.mask.x = this.bar.x + this.x + this.getBarFraction();
+            this.maskX = this.getBarFraction();
         }
     }
+
+    this.setMask();
 
     // Determine the distance the window can scroll over
     this.windowScrollAreaSize = this.valueRange.maxValue;
@@ -139,9 +144,9 @@ uiWidgets.QuantityBar.prototype.adjustBar = function (newValue) {
 
     if (this.reverse) {
         if (this.vertical) {
-            tween = {height: barSize, y: this.bar.y + this.y + this.getBarFraction()};
+            tween = {height: barSize, y: this.getBarFraction()};
         } else {
-            tween = {width: barSize, x: this.bar.x + this.x + this.getBarFraction()};
+            tween = {width: barSize, x: this.getBarFraction()};
         }
     } else {
         if (this.vertical) {
