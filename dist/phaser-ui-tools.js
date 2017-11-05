@@ -1,5 +1,25 @@
 var uiWidgets = uiWidgets || {};
 
+uiWidgets.utils = {};
+
+/**
+ * A modulo operator that doesn't allow negative numbers.
+ * @param divdend
+ * @param divisor
+ */
+uiWidgets.utils.modulo = function(dividend, divisor) {
+    "use strict";
+    return ((((dividend) % divisor) + divisor) % divisor);
+};
+
+/**
+ * Select an operator action using a string value */
+uiWidgets.utils.operators = {
+    '+': function (a, b) { return a + b; },
+	'-': function (a, b) { return a - b; }
+};
+;var uiWidgets = uiWidgets || {};
+
 /**
  * Group with a dedicated background image.
  * Children added to the group will always be above the background image.
@@ -1411,23 +1431,9 @@ uiWidgets.KeyboardGroup.prototype.useBar = function () {
 };
 ;var uiWidgets = uiWidgets || {};
 
-
-/** A modulo operator that doesn't allow negative numbers. */
-function modulo(dividend, divisor) {
-    "use strict";
-    return ((((dividend) % divisor) + divisor) % divisor);
-}
-
-
-/** Dynamic operators. */
-var operators = {
-    '+': function (a, b) { return a + b; },
-	'-': function (a, b) { return a - b; }
-};
-
-
 /**
  * Represents a single point in a Wheel3D.
+ * @ignore
  * @constructor
  * @param {number} x - The point's virtual x location.
  * @param {number} y - The point's virtual y location.
@@ -1437,71 +1443,71 @@ var operators = {
  */
 var VectorPoint = function (x, y, z, sprite, position) {
     "use strict";
-	this.x = x || 0;
-	this.y = y || 0;
-	this.z = z || 0;
+    this.x = x || 0;
+    this.y = y || 0;
+    this.z = z || 0;
 
     this.sprite = sprite || null;
     this.position = position || 0;
 };
 
 VectorPoint.prototype = {
-	getSinCosOfAngle: function (angle) {
-		"use strict";
-		var rad = angle * Math.PI / 180,
-		    cosAngle = Math.cos(rad),
-		    sinAngle = Math.sin(rad);
+    getSinCosOfAngle: function (angle) {
+        "use strict";
+        var rad = angle * Math.PI / 180,
+        cosAngle = Math.cos(rad),
+        sinAngle = Math.sin(rad);
 
-		return {cosine: cosAngle, sine: sinAngle};
-	},
-	rotateY: function (angle) {
-		"use strict";
-		var angles = this.getSinCosOfAngle(angle),
-		    z = this.z * angles.cosine - this.x * angles.sine,
-		    x = this.z * angles.sine + this.x * angles.cosine;
+        return {cosine: cosAngle, sine: sinAngle};
+    },
+    rotateY: function (angle) {
+        "use strict";
+        var angles = this.getSinCosOfAngle(angle),
+            z = this.z * angles.cosine - this.x * angles.sine,
+            x = this.z * angles.sine + this.x * angles.cosine;
 
-		return new VectorPoint(x, this.y, z);
-	},
-	rotateX: function (angle) {
-		"use strict";
-		var angles = this.getSinCosOfAngle(angle),
-		    y = this.y * angles.cosine - this.z * angles.sine,
-		    z = this.y * angles.sine + this.z * angles.cosine;
+        return new VectorPoint(x, this.y, z);
+    },
+    rotateX: function (angle) {
+        "use strict";
+        var angles = this.getSinCosOfAngle(angle),
+            y = this.y * angles.cosine - this.z * angles.sine,
+            z = this.y * angles.sine + this.z * angles.cosine;
 
-		return new VectorPoint(this.x, y, z);
-	},
-	rotateZ: function (angle) {
-		"use strict";
-		var angles = this.getSinCosOfAngle(angle),
-		    x = this.x * angles.cosine - this.y * angles.sine,
-		    y = this.x * angles.sine + this.y * angles.cosine;
+        return new VectorPoint(this.x, y, z);
+    },
+    rotateZ: function (angle) {
+        "use strict";
+        var angles = this.getSinCosOfAngle(angle),
+            x = this.x * angles.cosine - this.y * angles.sine,
+            y = this.x * angles.sine + this.y * angles.cosine;
 
-		return new VectorPoint(x, y, this.z);
-	},
-	/** Rotate the point along the given axis by the given angle.
-	* @param {string} axis - The axis to rotate.
-	* @param {number} angle - The angle to rotate by.
-	*/
-	rotate: function (axis, angle) {
-		"use strict";
-		if (axis === 'x') {
-			return this.rotateX(angle);
-		} else if (axis === 'y') {
-			return this.rotateY(angle);
-		} else if (axis === 'z') {
-			return this.rotateZ(angle);
-		}
-	},
+        return new VectorPoint(x, y, this.z);
+    },
+    /** Rotate the point along the given axis by the given angle.
+    * @param {string} axis - The axis to rotate.
+    * @param {number} angle - The angle to rotate by.
+    */
+    rotate: function (axis, angle) {
+        "use strict";
+        if (axis === 'x') {
+            return this.rotateX(angle);
+        } else if (axis === 'y') {
+            return this.rotateY(angle);
+        } else if (axis === 'z') {
+            return this.rotateZ(angle);
+        }
+    },
     /** Project the point to the correct physical location on screen.
      * z axis is not projected, because screens are 2D.
      */
-	project: function (width, height, factor) {
-		"use strict";
-		var x = (this.x * factor) + width,
-		    y = (-this.y * factor) + height;
+     project: function (width, height, factor) {
+        "use strict";
+        var x = (this.x * factor) + width,
+            y = (-this.y * factor) + height;
 
-		return new VectorPoint(x, y, this.z);
-	}
+            return new VectorPoint(x, y, this.z);
+    }
 };
 
 
@@ -1564,38 +1570,38 @@ uiWidgets.Wheel3D.prototype = {
         }
 
         // Prevents slamming down the move keys
-		this.moving = false;
+        this.moving = false;
 
         // Set point positions on logical circle
-		this.wheelItems = [];
+        this.wheelItems = [];
         radius = 1;
         slice = (2 * Math.PI) / this.pointsAmount;
 
 		// For a vertical wheel, the X axis is -1. Points are laid out on the Y axis (height) and Z axis (depth). The wheel rotates around the X axis.
 		// For a horizontal wheel, the Y Axis is -1. Points are laid out on the X axis (width) and Z axis (depth). The wheel rotates around the Y axis.
         // For flat circular wheel, the Z Axis is -1. Points are laid out on the X axis (width) and Y axis (height). The wheel rotates around the Z axis.
-		for (i = 0; i < this.pointsAmount; i++) {
+        for (i = 0; i < this.pointsAmount; i++) {
             // Add sprite to group.
             this.sprites[i].wheelPosition = i;
             this.group.add(this.sprites[i]);
 
             angle = slice * i;
             radCos = radius * Math.cos(angle);
-			radSin = radius * Math.sin(angle);
+            radSin = radius * Math.sin(angle);
 
-			if (this.axis === 'x') {
-				nx = -1;
-            	ny = radCos;
-				nz = radSin;
-			} else if (this.axis === 'y') {
-				nx = radCos;
-            	ny = -1;
-				nz = radSin;
-			} else if (this.axis === 'z') {
-				nx = radCos;
-            	ny = radSin;
-				nz = -1;
-			}
+            if (this.axis === 'x') {
+                nx = -1;
+                ny = radCos;
+                nz = radSin;
+            } else if (this.axis === 'y') {
+                nx = radCos;
+                ny = -1;
+                nz = radSin;
+            } else if (this.axis === 'z') {
+                nx = radCos;
+                ny = radSin;
+                nz = -1;
+            }
 
             this.wheelItems.push(new VectorPoint(nx, ny, nz, this.sprites[i], i));
         }
@@ -1603,14 +1609,14 @@ uiWidgets.Wheel3D.prototype = {
 		// Active Point
         this.active = this.wheelItems[this.firstPlace].sprite;
 
-		this.project();
+        this.project();
     },
 
     /** Move the wheel backwards. */
     moveBack: function () {
         "use strict";
-		if (this.moving === false) {
-			this.moving = true;
+        if (this.moving === false) {
+            this.moving = true;
 
             if (this.axis === 'x' || this.axis === 'z') {
                 this.rotationAxis[this.axis] += this.rotationAmount;
@@ -1620,16 +1626,16 @@ uiWidgets.Wheel3D.prototype = {
 
             this.updatePosition('+');
 
-			this.project();
-			this.resetAngle();
+            this.project();
+            this.resetAngle();
 		}
     },
 
     /** Move the wheel forward. */
     moveForward: function () {
         "use strict";
-		if (this.moving === false) {
-			this.moving = true;
+        if (this.moving === false) {
+            this.moving = true;
 
             if (this.axis === 'x' || this.axis === 'z') {
                 this.rotationAxis[this.axis] -= this.rotationAmount;
@@ -1639,15 +1645,15 @@ uiWidgets.Wheel3D.prototype = {
 
             this.updatePosition('-');
 
-			this.project();
-			this.resetAngle();
+            this.project();
+            this.resetAngle();
 		}
     },
 
     /** Project every item in the wheel to it's physical location. */
     project: function () {
-		"use strict";
-		var transformed, newTween;
+        "use strict";
+        var transformed, newTween;
 
         // Create a list with the axes, then remove the projected axis.
         var arr = ["x", "y", "z"];
@@ -1726,23 +1732,23 @@ uiWidgets.Wheel3D.prototype = {
     /** Once the buttons have finished their move animation, allow them to move again. */
 	enableMoving: function () {
         "use strict";
-		this.moving = false;
-	},
+        this.moving = false;
+    },
 
 	/** Move all the WheelItem's position by 1. */
-	updatePosition: function (operator) {
-		"use strict";
-		var m;
+    updatePosition: function (operator) {
+        "use strict";
+        var m;
 
-		for (var i = 0; i < this.wheelItems.length; i++) {
-			var position = this.wheelItems[i].position;
-			this.wheelItems[i].position = operators[operator](position, 1);
+        for (var i = 0; i < this.wheelItems.length; i++) {
+            var position = this.wheelItems[i].position;
+            this.wheelItems[i].position = uiWidgets.utils.operators[operator](position, 1);
 
-			m = modulo(this.wheelItems[i].position, this.pointsAmount);
-			this.wheelItems[i].position = m;
+            m = uiWidgets.utils.modulo(this.wheelItems[i].position, this.pointsAmount);
+            this.wheelItems[i].position = m;
             this.wheelItems[i].sprite.wheelPosition = m;
-		}
-	},
+        }
+    },
 
     /** Make sure rotation can't go past 360 in either direction. */
     resetAngle: function () {
