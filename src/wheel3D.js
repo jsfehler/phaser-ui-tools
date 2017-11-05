@@ -86,13 +86,14 @@ VectorPoint.prototype = {
  * @constructor
  * @param {Object} game - Reference to current game instance.
  * @param {array} sprites - List of sprites to use in the wheel.
- * @param {number} firstPlace - Determines which position on the wheel is the active one.
- * @param {number} zoom - Determines how far to project the points.
- * @param {string} axis - The axis the wheel3D places items around.
- * @param {array} rotations - Axis and angle to rotate the entire wheel after the initial projection.
- * @param {array} visibleRange - Determines which items on the wheel should be visible. If none provided, assumes all items should be visible.
+ * @param {Number} firstPlace - Determines which position on the wheel is the active one.
+ * @param {Number} zoom - Determines how far to project the points.
+ * @param {String} axis - The axis the wheel3D places items around.
+ * @param {Object} rotations - Axis and angle to rotate the entire wheel after the initial projection.
+ * @param {Object} visibleRange - Determines which items on the wheel should be visible. If none provided, assumes all items should be visible.
+ * @param {Object} tweenParams - Array with the duration and easing function for the movement tween.
  */
-uiWidgets.Wheel3D = function (game, xy, sprites, firstPlace, zoom, axis, rotations, visibleRange) {
+uiWidgets.Wheel3D = function (game, xy, sprites, firstPlace, zoom, axis, rotations, visibleRange, tweenParams) {
     "use strict";
     this.game = game;
     this.xy = xy;
@@ -102,6 +103,7 @@ uiWidgets.Wheel3D = function (game, xy, sprites, firstPlace, zoom, axis, rotatio
 	this.axis = axis;
     this.rotationAxis = rotations;
     this.visibleRange = visibleRange || null;
+    this.tweenParams = tweenParams || {'duration': 300, 'ease': Phaser.Easing.Quadratic.Out};
 
     // Group to store wheel sprites in, used for zindex sorting.
     this.group = this.game.add.group();
@@ -276,8 +278,8 @@ uiWidgets.Wheel3D.prototype = {
             // Tween to new position
             newTween = this.game.add.tween(transformed).to(
                 {x: p.x, y: p.y},
-                200,
-                Phaser.Easing.Quadratic.Out,
+                this.tweenparams.duration,
+                this.tweenParams.ease,
                 true
             );
 
