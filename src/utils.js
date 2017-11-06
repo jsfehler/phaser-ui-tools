@@ -16,5 +16,5 @@ uiWidgets.utils.modulo = function(dividend, divisor) {
  * Select an operator action using a string value */
 uiWidgets.utils.operators = {
     '+': function (a, b) { return a + b; },
-	'-': function (a, b) { return a - b; }
+    '-': function (a, b) { return a - b; }
 };
