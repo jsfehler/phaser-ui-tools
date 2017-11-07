@@ -1581,7 +1581,7 @@ uiWidgets.Wheel3D.prototype = {
         this.moving = false;
 
         // Stores the direction the wheel is moving in.
-        this.direction = 0;
+        this.direction = null;
 
         // Set point positions on logical circle.
         this.wheelItems = [];
