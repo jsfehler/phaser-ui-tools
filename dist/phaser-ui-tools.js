@@ -1539,6 +1539,8 @@ uiWidgets.Wheel3D = function (game, xy, sprites, firstPlace, zoom, axis, rotatio
     // Signals
     this.onStart = new Phaser.Signal();
     this.onComplete = new Phaser.Signal();
+    this.onBackComplete = new Phaser.Signal();
+    this.onForwardComplete = new Phaser.Signal();
 
     // Group to store wheel sprites in, used for zindex sorting.
     this.group = this.game.add.group();
@@ -1575,10 +1577,13 @@ uiWidgets.Wheel3D.prototype = {
             this.visiblePositions = maxV.concat(minV);
         }
 
-        // Prevents slamming down the move keys
+        // Prevents slamming down the move keys.
         this.moving = false;
 
-        // Set point positions on logical circle
+        // Stores the direction the wheel is moving in.
+        this.direction = 0;
+
+        // Set point positions on logical circle.
         this.wheelItems = [];
         radius = 1;
         slice = (2 * Math.PI) / this.pointsAmount;
@@ -1623,6 +1628,7 @@ uiWidgets.Wheel3D.prototype = {
         "use strict";
         if (this.moving === false) {
             this.moving = true;
+            this.direction = 0;
 
             if (this.axis === 'x' || this.axis === 'z') {
                 this.rotationAxis[this.axis] += this.rotationAmount;
@@ -1642,6 +1648,7 @@ uiWidgets.Wheel3D.prototype = {
         "use strict";
         if (this.moving === false) {
             this.moving = true;
+            this.direction = 1;
 
             if (this.axis === 'x' || this.axis === 'z') {
                 this.rotationAxis[this.axis] -= this.rotationAmount;
@@ -1738,6 +1745,12 @@ uiWidgets.Wheel3D.prototype = {
     /** Called after movement is finished. */
     dispatchOnComplete: function () {
         "use strict";
+        if (this.direction === 0) {
+            this.onBackComplete.dispatch(this);
+        } else if (this.direction === 1) {
+            this.onForwardComplete.dispatch(this);
+        }
+
         this.onComplete.dispatch(this);
     },
 
