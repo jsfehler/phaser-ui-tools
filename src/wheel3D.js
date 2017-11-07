@@ -105,6 +105,10 @@ uiWidgets.Wheel3D = function (game, xy, sprites, firstPlace, zoom, axis, rotatio
     this.visibleRange = visibleRange || null;
     this.tweenParams = tweenParams || {'duration': 300, 'ease': Phaser.Easing.Quadratic.Out};
 
+    // Signals
+    this.onStart = new Phaser.Signal();
+    this.onComplete = new Phaser.Signal();
+
     // Group to store wheel sprites in, used for zindex sorting.
     this.group = this.game.add.group();
 };
@@ -289,15 +293,21 @@ uiWidgets.Wheel3D.prototype = {
         // Sort wheelItems by the projection's z axis for correct z-order when drawing.
         this.group.sort("lz", Phaser.Group.SORT_ASCENDING);
 
-        // Only run this.onComplete when the last movement is done.
-        newTween.onComplete.add(this.onComplete, this);
+        // Wheel's signals are dispatched by the tween's.
+        newTween.onStart.add(this.dispatchOnStart, this);
+        newTween.onComplete.add(this.dispatchOnComplete, this);
 	},
 
-    /** Called after movement is finished.
-     * Override with behaviour of your choice.
-     */
-    onComplete: function () {
+    /** Called after movement starts. */
+    dispatchOnStart: function () {
         "use strict";
+        this.onStart.dispatch(this);
+    },
+
+    /** Called after movement is finished. */
+    dispatchOnComplete: function () {
+        "use strict";
+        this.onComplete.dispatch(this);
     },
 
     /** Once the buttons have finished their move animation, allow them to move again. */

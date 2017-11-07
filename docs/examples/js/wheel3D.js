@@ -1,6 +1,4 @@
-var menuWheel;
-
-var game = new Phaser.Game(600, 400, Phaser.AUTO, 'wheel3D', { preload: preload, create: create, update: update });
+var game = new Phaser.Game(600, 400, Phaser.AUTO, 'wheel3D', { preload: preload, create: create });
 
 function preload() {
 	game.load.image("icon", "assets/wheel3D/icon.png");
@@ -29,6 +27,16 @@ function create() {
         90,
         "y",
         {"x":0, "y": -90, "z": 0}
+    );
+
+    // Tint the active item, just for show.
+    menuWheelY.onComplete.add(
+        function(wheel) {
+            for (var i = 0; i < 12; i++) {
+                wheel.sprites[i].tint = 0xFFFFFF;
+            }
+            wheel.active.tint = 0xdc21ff;
+        }
     );
 
     menuWheelY.activate();
@@ -71,6 +79,15 @@ function create() {
         {"x": 90, "y": 0, "z": 0}
     );
 
+    menuWheelX.onComplete.add(
+        function(wheel) {
+            for (var i = 0; i < 12; i++) {
+                wheel.sprites[i].tint = 0xFFFFFF;
+            }
+            wheel.active.tint = 0xdc21ff;
+        }
+    );
+
     menuWheelX.activate();
 
     // Scroll Buttons
@@ -111,6 +128,15 @@ function create() {
         {"x": 0, "y": 0, "z": 90}
     );
 
+    menuWheelZ.onStart.add(
+        function(wheel) {
+            for (var i = 0; i < 12; i++) {
+                wheel.sprites[i].tint = 0xFFFFFF;
+            }
+            wheel.active.tint = 0xdc21ff;
+        }
+    );
+
     menuWheelZ.activate();
 
     // Scroll Buttons
@@ -131,8 +157,6 @@ function create() {
         this);
     scrollRightButtonZ.wheel = menuWheelZ;
     scrollRightButtonZ.dir = 1;
-
-
 }
 
 var scrollTheWheel = function (item) {
@@ -143,16 +167,3 @@ var scrollTheWheel = function (item) {
         item.wheel.moveForward();
     }
 };
-
-function update () {
-    // Tint the active item, just for show.
-    for (var i=0; i < 12; i++) {
-        menuWheelY.sprites[i].tint = 0xFFFFFF;
-        menuWheelX.sprites[i].tint = 0xFFFFFF;
-        menuWheelZ.sprites[i].tint = 0xFFFFFF;
-    }
-
-    menuWheelY.active.tint = 0xdc21ff;
-    menuWheelX.active.tint = 0xdc21ff;
-    menuWheelZ.active.tint = 0xdc21ff;
-}
