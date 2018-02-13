@@ -1,5 +1,7 @@
 # Phaser UI Tools
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/jsfehler/phaser-ui-tools.svg)](https://greenkeeper.io/)
+
 [![Build Status](https://travis-ci.org/jsfehler/phaser-ui-tools.svg?branch=master)](https://travis-ci.org/jsfehler/phaser-ui-tools)
 
 I really wanted a viewport with a scrollbar. Things escalated.
