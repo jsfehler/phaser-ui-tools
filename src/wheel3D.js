@@ -1,4 +1,5 @@
-var uiWidgets = uiWidgets || {};
+var uiWidgets;
+uiWidgets = uiWidgets || {};
 
 /**
  * Represents a single point in a Wheel3D.

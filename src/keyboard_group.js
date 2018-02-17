@@ -1,4 +1,5 @@
-var uiWidgets = uiWidgets || {};
+var uiWidgets;
+uiWidgets = uiWidgets || {};
 
 /** Collection of sprites that can be selected with the keyboard.
   * When the select key is hit, the sprite that was selected is now connected to the keyboard.

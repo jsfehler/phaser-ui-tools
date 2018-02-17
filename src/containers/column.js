@@ -1,4 +1,5 @@
-var uiWidgets = uiWidgets || {};
+var uiWidgets;
+uiWidgets = uiWidgets || {};
 
 /**
  * Frame that places new child nodes directly under the previous child.

@@ -1,4 +1,5 @@
-var uiWidgets = uiWidgets || {};
+var uiWidgets;
+uiWidgets = uiWidgets || {};
 
 
 /** Base object for all Bars. */

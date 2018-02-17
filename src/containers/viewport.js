@@ -1,4 +1,5 @@
-var uiWidgets = uiWidgets || {};
+var uiWidgets;
+uiWidgets = uiWidgets || {};
 
 /**
  * A container with a limited viewable area. Uses a mask to hide children outside of the specified x/y/width/height area.

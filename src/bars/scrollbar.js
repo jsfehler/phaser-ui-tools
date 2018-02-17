@@ -1,4 +1,5 @@
-var uiWidgets = uiWidgets || {};
+var uiWidgets;
+uiWidgets = uiWidgets || {};
 
 /**
  * A bar that moves along a track. The bar is resized relative to the size of the track and size of the content to be scrolled.

@@ -1,4 +1,5 @@
-var uiWidgets = uiWidgets || {};
+var uiWidgets;
+uiWidgets = uiWidgets || {};
 
 /**
  * Bar that adjusts a number.
@@ -135,9 +136,9 @@ uiWidgets.ValueBar.prototype.setInitialBarPosition = function () {
 
     // The bar should always be in centered on it's current position.
     if (this.vertical) {
-	       this.bar.y = gripPositionOnTrack + this.track.y - (this.bar.height / 2);
+            this.bar.y = gripPositionOnTrack + this.track.y - (this.bar.height / 2);
     } else {
-	       this.bar.x = gripPositionOnTrack + this.track.x - (this.bar.width / 2);
+            this.bar.x = gripPositionOnTrack + this.track.x - (this.bar.width / 2);
     }
 
 };
