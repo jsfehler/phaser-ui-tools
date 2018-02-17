@@ -1,6 +1,6 @@
-describe('Frame', function(){
-    describe('When I create a new Frame', function(){
-        it('Then the x, y attributes should be set correctly', function(){
+describe("Frame", function(){
+    describe("When I create a new Frame", function(){
+        it("Then the x, y attributes should be set correctly", function(){
             var frame = new uiWidgets.Frame(game, 12, 37);
 
             chai.expect(frame.x).to.equal(12);
@@ -8,8 +8,8 @@ describe('Frame', function(){
 
         });
     });
-    describe('When I create a new Frame with no x, y attributes', function(){
-        it('Then the x, y attributes should be 0', function(){
+    describe("When I create a new Frame with no x, y attributes", function(){
+        it("Then the x, y attributes should be 0", function(){
             var frame = new uiWidgets.Frame(game);
 
             chai.expect(frame.x).to.equal(0);
@@ -17,8 +17,8 @@ describe('Frame', function(){
 
         });
     });
-    describe('When I add a new node to a Frame', function(){
-        it('Then it should be added as a child of the Frame', function(){
+    describe("When I add a new node to a Frame", function(){
+        it("Then it should be added as a child of the Frame", function(){
             var frame = new uiWidgets.Frame(game);
             var dummySprite = game.add.sprite(0, 0);
             frame.addNode(dummySprite);

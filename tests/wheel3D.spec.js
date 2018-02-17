@@ -1,10 +1,10 @@
-describe('Wheel3D', function(){
-    describe('When I create a new Wheel3D', function(){
-        describe('And I move the wheel backwards', function(){
-            it('Then the active sprite should be the previous one', function(){
+describe("Wheel3D", function(){
+    describe("When I create a new Wheel3D", function(){
+        describe("And I move the wheel backwards", function(){
+            it("Then the active sprite should be the previous one", function(){
                 var menuList = [];
                 for (var i = 0; i < 4; i++) {
-                    var dummySprite = game.add.sprite(0, 0, 'dummySprite');
+                    var dummySprite = game.add.sprite(0, 0, "dummySprite");
                     menuList.push(dummySprite);
                 }
 
@@ -26,11 +26,11 @@ describe('Wheel3D', function(){
                 wheel.moveBack();
             });
         });
-        describe('And I move the wheel forward', function(){
-            it('Then the active sprite should be the next one', function(){
+        describe("And I move the wheel forward", function(){
+            it("Then the active sprite should be the next one", function(){
                 var menuList = [];
                 for (var i = 0; i < 4; i++) {
-                    var dummySprite = game.add.sprite(0, 0, 'dummySprite');
+                    var dummySprite = game.add.sprite(0, 0, "dummySprite");
                     menuList.push(dummySprite);
                 }
 

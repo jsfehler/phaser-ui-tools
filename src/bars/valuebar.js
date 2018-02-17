@@ -30,7 +30,7 @@ uiWidgets.ValueBar = function (game, xy, values, draggable, vertical, trackImage
     this.trackImage = trackImage;
     this.barImage = barImage;
 
-    this.tweenParams = tweenParams || {'duration': 300, 'ease': Phaser.Easing.Quadratic.Out};
+    this.tweenParams = tweenParams || {"duration": 300, "ease": Phaser.Easing.Quadratic.Out};
 
     // Flag switched on when the track is clicked, switched off after the bar movement is finished.
     this.trackClicked = false;
