@@ -15,8 +15,8 @@ uiWidgets.utils.modulo = function(dividend, divisor) {
 /**
  * Select an operator action using a string value */
 uiWidgets.utils.operators = {
-    '+': function (a, b) { return a + b; },
-    '-': function (a, b) { return a - b; }
+    "+": function (a, b) { return a + b; },
+    "-": function (a, b) { return a - b; }
 };
 ;var uiWidgets = uiWidgets || {};
 
@@ -207,7 +207,7 @@ uiWidgets.QuantityBar = function (game, xy, values, vertical, reverse, trackImag
     this.trackImage = trackImage;
     this.barImage = barImage;
 
-    this.tweenParams = tweenParams || {'duration': 300, 'ease': Phaser.Easing.Quadratic.Out};
+    this.tweenParams = tweenParams || {"duration": 300, "ease": Phaser.Easing.Quadratic.Out};
 
     // The track is the static area the bar will move along.
     this.track = this.game.add.sprite(0, 0, this.trackImage);
@@ -912,7 +912,7 @@ uiWidgets.ValueBar = function (game, xy, values, draggable, vertical, trackImage
     this.trackImage = trackImage;
     this.barImage = barImage;
 
-    this.tweenParams = tweenParams || {'duration': 300, 'ease': Phaser.Easing.Quadratic.Out};
+    this.tweenParams = tweenParams || {"duration": 300, "ease": Phaser.Easing.Quadratic.Out};
 
     // Flag switched on when the track is clicked, switched off after the bar movement is finished.
     this.trackClicked = false;
@@ -1490,11 +1490,11 @@ VectorPoint.prototype = {
     */
     rotate: function (axis, angle) {
         "use strict";
-        if (axis === 'x') {
+        if (axis === "x") {
             return this.rotateX(angle);
-        } else if (axis === 'y') {
+        } else if (axis === "y") {
             return this.rotateY(angle);
-        } else if (axis === 'z') {
+        } else if (axis === "z") {
             return this.rotateZ(angle);
         }
     },
@@ -1534,7 +1534,7 @@ uiWidgets.Wheel3D = function (game, xy, sprites, firstPlace, zoom, axis, rotatio
 	this.axis = axis;
     this.rotationAxis = rotations;
     this.visibleRange = visibleRange || null;
-    this.tweenParams = tweenParams || {'duration': 300, 'ease': Phaser.Easing.Quadratic.Out};
+    this.tweenParams = tweenParams || {"duration": 300, "ease": Phaser.Easing.Quadratic.Out};
 
     // Signals
     this.onStart = new Phaser.Signal();
@@ -1600,15 +1600,15 @@ uiWidgets.Wheel3D.prototype = {
             radCos = radius * Math.cos(angle);
             radSin = radius * Math.sin(angle);
 
-            if (this.axis === 'x') {
+            if (this.axis === "x") {
                 nx = -1;
                 ny = radCos;
                 nz = radSin;
-            } else if (this.axis === 'y') {
+            } else if (this.axis === "y") {
                 nx = radCos;
                 ny = -1;
                 nz = radSin;
-            } else if (this.axis === 'z') {
+            } else if (this.axis === "z") {
                 nx = radCos;
                 ny = radSin;
                 nz = -1;
@@ -1630,13 +1630,13 @@ uiWidgets.Wheel3D.prototype = {
             this.moving = true;
             this.direction = 0;
 
-            if (this.axis === 'x' || this.axis === 'z') {
+            if (this.axis === "x" || this.axis === "z") {
                 this.rotationAxis[this.axis] += this.rotationAmount;
             } else { // y axis needs to go in the opposite direction.
                 this.rotationAxis[this.axis] -= this.rotationAmount;
             }
 
-            this.updatePosition('+');
+            this.updatePosition("+");
 
             this.project();
             this.resetAngle();
@@ -1650,13 +1650,13 @@ uiWidgets.Wheel3D.prototype = {
             this.moving = true;
             this.direction = 1;
 
-            if (this.axis === 'x' || this.axis === 'z') {
+            if (this.axis === "x" || this.axis === "z") {
                 this.rotationAxis[this.axis] -= this.rotationAmount;
             } else { // y axis needs to go in the opposite direction.
                 this.rotationAxis[this.axis] += this.rotationAmount;
             }
 
-            this.updatePosition('-');
+            this.updatePosition("-");
 
             this.project();
             this.resetAngle();
