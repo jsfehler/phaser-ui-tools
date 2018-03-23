@@ -1,4 +1,5 @@
-var uiWidgets = uiWidgets || {};
+var uiWidgets;
+uiWidgets = uiWidgets || {};
 
 uiWidgets.utils = {};
 
@@ -18,14 +19,16 @@ uiWidgets.utils.operators = {
     "+": function (a, b) { return a + b; },
     "-": function (a, b) { return a - b; }
 };
-;var uiWidgets = uiWidgets || {};
+;var uiWidgets;
+uiWidgets = uiWidgets || {};
 
 /**
  * Group with a dedicated background image.
  * Children added to the group will always be above the background image.
  * @constructor
  * @param {Object} game - Current game instance.
- * @param {Object} context - The context this object is called in.
+ * @param {Number} x - The x position of the Frame.
+ * @param {Number} y - The y position of the Frame.
  * @param {string} bg - The background image to use.
  */
 uiWidgets.Frame = function (game, x, y, bg) {
@@ -50,20 +53,32 @@ uiWidgets.Frame = function (game, x, y, bg) {
 uiWidgets.Frame.prototype = Object.create(Phaser.Group.prototype);
 uiWidgets.Frame.constructor = uiWidgets.Frame;
 
-/** Adds a new object to the Frame.
- * @param {Object} node - The sprite to add to the Frame.
+/** Adds a new object into the Column, then aligns it under the previous object.
+ * @param {Object} node - The sprite to add to the Column.
+ * @param {Number} alignment - The alignment relative to the previous child.
+ * @param {Number} padding_x - The amount of horizontal space between objects.
+ * @param {Number} padding_y - The amount of vertical space between objects.
  */
-uiWidgets.Frame.prototype.addNode = function (node) {
+uiWidgets.Frame.prototype.addNode = function (node, alignment, padding_x, padding_y) {
     "use strict";
+    alignment = alignment || this.alignment;
+    padding_x = padding_x || 0;
+    padding_y = padding_y || 0;
+
     this.add(node);
+    var previousNode = this.children[this.children.length - 2];
+
+    if (previousNode !== undefined) {
+        node.alignTo(previousNode, alignment, padding_x, padding_y);
+    }
 
     // Reset the positions for the bar's draggable area.
     if ("enableBarDrag" in node) {
         node.enableBarDrag();
     }
-
 };
-;var uiWidgets = uiWidgets || {};
+;var uiWidgets;
+uiWidgets = uiWidgets || {};
 
 
 /** Base object for all Bars. */
@@ -175,7 +190,8 @@ uiWidgets.DraggableBar.prototype.enableBarDrag = function () {
         draggableArea.h)
     ;
 };
-;var uiWidgets = uiWidgets || {};
+;var uiWidgets;
+uiWidgets = uiWidgets || {};
 
 /**
  * Bar that adjusts the size of a static sprite based on a value.
@@ -367,7 +383,8 @@ uiWidgets.QuantityBar.prototype.getBarSize = function () {
 
     return barSize;
 };
-;var uiWidgets = uiWidgets || {};
+;var uiWidgets;
+uiWidgets = uiWidgets || {};
 
 
 /** Used by a QuantityBar to hold the bar's values.
@@ -501,7 +518,8 @@ uiWidgets.ViewportRange.prototype.getCurrentValue = function () {
 
     return currentValue;
 };
-;var uiWidgets = uiWidgets || {};
+;var uiWidgets;
+uiWidgets = uiWidgets || {};
 
 /**
  * A bar that moves along a track. The bar is resized relative to the size of the track and size of the content to be scrolled.
@@ -533,7 +551,7 @@ uiWidgets.Scrollbar = function (game, content, draggable, vertical, trackImage, 
     // The smallest pixel size allowed for the bar.
     this.minBarSize = 44;
 
-    this.tweenParams = tweenParams || {'duration': 300, 'ease': Phaser.Easing.Quadratic.Out};
+    this.tweenParams = tweenParams || {"duration": 300, "ease": Phaser.Easing.Quadratic.Out};
 
     // Flag switched on when the track is clicked, switched off after the bar movement is finished.
     this.trackClicked = false;
@@ -880,7 +898,8 @@ uiWidgets.Scrollbar.prototype.moveContent = function () {
 
     this.onMovement.dispatch(this);
 };
-;var uiWidgets = uiWidgets || {};
+;var uiWidgets;
+uiWidgets = uiWidgets || {};
 
 /**
  * Bar that adjusts a number.
@@ -1017,9 +1036,9 @@ uiWidgets.ValueBar.prototype.setInitialBarPosition = function () {
 
     // The bar should always be in centered on it's current position.
     if (this.vertical) {
-	       this.bar.y = gripPositionOnTrack + this.track.y - (this.bar.height / 2);
+            this.bar.y = gripPositionOnTrack + this.track.y - (this.bar.height / 2);
     } else {
-	       this.bar.x = gripPositionOnTrack + this.track.x - (this.bar.width / 2);
+            this.bar.x = gripPositionOnTrack + this.track.x - (this.bar.width / 2);
     }
 
 };
@@ -1100,7 +1119,8 @@ uiWidgets.ValueBar.prototype.getGripPositionRatio = function () {
 
     return newGripPositionRatio;
 };
-;var uiWidgets = uiWidgets || {};
+;var uiWidgets;
+uiWidgets = uiWidgets || {};
 
 
 /**
@@ -1153,13 +1173,16 @@ uiWidgets.textButton = function (game, image, label, style, x, y, callback, call
 
 uiWidgets.textButton.prototype = Object.create(Phaser.Button.prototype);
 uiWidgets.textButton.constructor = uiWidgets.textButton;
-;var uiWidgets = uiWidgets || {};
+;var uiWidgets;
+uiWidgets = uiWidgets || {};
 
 /**
  * Frame that places new child nodes directly under the previous child.
  * @constructor
  * @param {Object} game - Current game instance.
- * @param {Object} context - The context this object is called in.
+ * @param {Number} x - The x position of the Frame.
+ * @param {Number} y - The y position of the Frame.
+ * @param {string} bg - The background image to use.
  */
 uiWidgets.Column = function (game, x, y, bg) {
     "use strict";
@@ -1169,35 +1192,17 @@ uiWidgets.Column = function (game, x, y, bg) {
 uiWidgets.Column.prototype = Object.create(uiWidgets.Frame.prototype);
 uiWidgets.Column.constructor = uiWidgets.Column;
 
-/** Adds a new object into the Column, then aligns it under the previous object.
- * @param {Object} node - The sprite to add to the Column.
- * @param {Number} alignment - The alignment relative to the previous child.
- * @param {Number} padding - The amount of space between objects.
- */
-uiWidgets.Column.prototype.addNode = function (node, alignment, padding) {
-    "use strict";
-    alignment = alignment || Phaser.BOTTOM_CENTER;
-    padding = padding || 0;
-
-    this.add(node);
-    var previousNode = this.children[this.children.length - 2];
-
-    if (previousNode !== undefined) {
-        node.alignTo(previousNode, alignment, 0, padding);
-    }
-
-    // Reset the positions for the bar's draggable area.
-    if ("enableBarDrag" in node) {
-        node.enableBarDrag();
-    }
-};
-;var uiWidgets = uiWidgets || {};
+uiWidgets.Column.prototype.alignment = Phaser.BOTTOM_CENTER;
+;var uiWidgets;
+uiWidgets = uiWidgets || {};
 
 /**
  * Frame that places new child nodes directly next to the previous child.
  * @constructor
  * @param {Object} game - Current game instance.
- * @param {Object} context - The context this object is called in.
+ * @param {Number} x - The x position of the Frame.
+ * @param {Number} y - The y position of the Frame.
+ * @param {string} bg - The background image to use.
  */
 uiWidgets.Row = function (game, x, y, bg) {
     "use strict";
@@ -1207,29 +1212,9 @@ uiWidgets.Row = function (game, x, y, bg) {
 uiWidgets.Row.prototype = Object.create(uiWidgets.Frame.prototype);
 uiWidgets.Row.constructor = uiWidgets.Row;
 
-/** Adds a new object into the Row, then aligns it next to the previous object.
- * @param {Object} node - The sprite to add to the row.
- * @param {Number} alignment - The alignment relative to the previous child.
- * @param {Number} padding - The amount of space between objects.
- */
-uiWidgets.Row.prototype.addNode = function (node, alignment, padding) {
-    "use strict";
-    alignment = alignment || Phaser.RIGHT_CENTER;
-    padding = padding || 0;
-
-    this.add(node);
-    var previousNode = this.children[this.children.length - 2];
-
-    if (previousNode !== undefined) {
-        node.alignTo(previousNode, alignment, padding);
-    }
-
-    // Reset the positions for the bar's draggable area.
-    if ("enableBarDrag" in node) {
-        node.enableBarDrag();
-    }
-};
-;var uiWidgets = uiWidgets || {};
+uiWidgets.Row.prototype.alignment = Phaser.RIGHT_CENTER;
+;var uiWidgets;
+uiWidgets = uiWidgets || {};
 
 /**
  * A container with a limited viewable area. Uses a mask to hide children outside of the specified x/y/width/height area.
@@ -1310,7 +1295,8 @@ uiWidgets.Viewport.prototype.disableOutOfBounds = function (children, context, v
         }
     }
 };
-;var uiWidgets = uiWidgets || {};
+;var uiWidgets;
+uiWidgets = uiWidgets || {};
 
 /** Collection of sprites that can be selected with the keyboard.
   * When the select key is hit, the sprite that was selected is now connected to the keyboard.
@@ -1429,7 +1415,8 @@ uiWidgets.KeyboardGroup.prototype.useBar = function () {
         this.downKey.onDown.add(this.selected.downEvent, this.selected);
     }
 };
-;var uiWidgets = uiWidgets || {};
+;var uiWidgets;
+uiWidgets = uiWidgets || {};
 
 /**
  * Represents a single point in a Wheel3D.
