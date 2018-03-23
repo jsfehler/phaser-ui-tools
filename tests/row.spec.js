@@ -19,7 +19,7 @@ describe("Row", function(){
             var dummySprite2 = game.add.sprite(0, 0, "dummySprite");
             row = new uiWidgets.Row(game);
             row.addNode(dummySprite);
-            row.addNode(dummySprite2, null, 17);
+            row.addNode(dummySprite2, null, 17, 0);
 
             chai.expect(row.children[1].x).to.equal(317);
         });

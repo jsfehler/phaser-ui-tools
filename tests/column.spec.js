@@ -19,7 +19,7 @@ describe("Column", function(){
             var dummySprite2 = game.add.sprite(0, 0, "dummySprite");
             column = new uiWidgets.Column(game);
             column.addNode(dummySprite);
-            column.addNode(dummySprite2, null, 23);
+            column.addNode(dummySprite2, null, 0, 23);
 
             chai.expect(column.children[1].y).to.equal(101);
         });
