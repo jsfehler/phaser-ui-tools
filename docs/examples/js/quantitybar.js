@@ -68,7 +68,7 @@ function create() {
         {'duration': 400, 'ease': Phaser.Easing.Quadratic.Out}
     );
 
-	rhealthbarText = game.add.text(350, 50, rhealthbar.valueRange.startValue, textStyle);
+    rhealthbarText = game.add.text(350, 50, rhealthbar.valueRange.startValue, textStyle);
 
     var rlessHealth = game.add.button(450, 10, 'subtract', rdecreaseHealth, this);
     var rmoreHealth = game.add.button(500, 10, 'add', rincreaseHealth, this);
@@ -85,7 +85,7 @@ function create() {
         {'duration': 400, 'ease': Phaser.Easing.Quadratic.Out}
     );
 
-	vhealthbarText = game.add.text(100, 150, vhealthbar.valueRange.startValue, textStyle);
+    vhealthbarText = game.add.text(100, 150, vhealthbar.valueRange.startValue, textStyle);
 
     var vlessHealth = game.add.button(100, 250, 'subtract', vdecreaseHealth, this);
     var vmoreHealth = game.add.button(150, 250, 'add', vincreaseHealth, this);
@@ -102,7 +102,7 @@ function create() {
         {'duration': 400, 'ease': Phaser.Easing.Quadratic.Out}
     );
 
-	rvhealthbarText = game.add.text(300, 150, rvhealthbar.valueRange.startValue, textStyle);
+    rvhealthbarText = game.add.text(300, 150, rvhealthbar.valueRange.startValue, textStyle);
 
     var vlessHealth = game.add.button(300, 250, 'subtract', rvdecreaseHealth, this);
     var vmoreHealth = game.add.button(350, 250, 'add', rvincreaseHealth, this);

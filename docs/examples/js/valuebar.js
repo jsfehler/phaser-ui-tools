@@ -1,8 +1,8 @@
 var game = new Phaser.Game(600, 400, Phaser.AUTO, 'valuebar', { preload: preload, create: create });
 
 function preload() {
-	game.load.image("track", "assets/valuebar/track.png");
-	game.load.spritesheet('bar', 'assets/valuebar/bar.png', 32, 32);
+    game.load.image("track", "assets/valuebar/track.png");
+    game.load.spritesheet('bar', 'assets/valuebar/bar.png', 32, 32);
     game.load.image("vtrack", "assets/valuebar/vtrack.png");
     game.load.image("alphaImage", "assets/valuebar/alpha.png");
 }
@@ -17,19 +17,19 @@ var alphaImage;
 
 function create() {
 
-	// Create a valuebar starting at 0.
-	valuebar0 = new uiWidgets.ValueBar(
-		game,
-		{"x": 50, "y": 10},
-		{"step": 1, "startValue": 0, maxValue: 100},
-		true,
-		false,
-		"track",
-		"bar",
-		{'duration': 100, 'ease': Phaser.Easing.Quadratic.Out}
-	);
+    // Create a valuebar starting at 0.
+    valuebar0 = new uiWidgets.ValueBar(
+        game,
+        {"x": 50, "y": 10},
+        {"step": 1, "startValue": 0, maxValue: 100},
+        true,
+        false,
+        "track",
+        "bar",
+        {'duration': 100, 'ease': Phaser.Easing.Quadratic.Out}
+    );
 
-	valuebar0_text = game.add.text(50, 50, valuebar0.valueRange.startValue, {
+    valuebar0_text = game.add.text(50, 50, valuebar0.valueRange.startValue, {
         font: "65px Arial",
         fill: "#ff0044",
         align: "center"
@@ -40,19 +40,19 @@ function create() {
     // Use the onMovement signal to update the display of text when the bar is moved.
     valuebar0.onMovement.add(updateValueDisplay);
 
-	// Create a valuebar starting at 50.
-	valuebar50 = new uiWidgets.ValueBar(
-		game,
-		{"x": 50, "y": 150},
-		{"step": 25, "startValue": 50, maxValue: 100},
-		true,
-		false,
-		"track",
-		"bar",
-		{'duration': 100, 'ease': Phaser.Easing.Quadratic.Out}
-	);
+    // Create a valuebar starting at 50.
+    valuebar50 = new uiWidgets.ValueBar(
+        game,
+        {"x": 50, "y": 150},
+        {"step": 25, "startValue": 50, maxValue: 100},
+        true,
+        false,
+        "track",
+        "bar",
+        {'duration': 100, 'ease': Phaser.Easing.Quadratic.Out}
+    );
 
-	valuebar50_text = game.add.text(50, 200, valuebar50.valueRange.startValue, {
+    valuebar50_text = game.add.text(50, 200, valuebar50.valueRange.startValue, {
         font: "65px Arial",
         fill: "#ff0044",
         align: "center"
@@ -62,18 +62,18 @@ function create() {
     valuebar50.onMovement.add(updateValueDisplay);
 
     // Create a vertical valuebar starting at 50.
-	vvaluebar50 = new uiWidgets.ValueBar(
-		game,
-		{"x": 350, "y": 50},
-		{"step": 25, "startValue": 50, maxValue: 100},
-		true,
-		true,
-		"vtrack",
-		"bar",
-		{'duration': 100, 'ease': Phaser.Easing.Quadratic.Out}
-	);
+    vvaluebar50 = new uiWidgets.ValueBar(
+        game,
+        {"x": 350, "y": 50},
+        {"step": 25, "startValue": 50, maxValue: 100},
+        true,
+        true,
+        "vtrack",
+        "bar",
+        {'duration': 100, 'ease': Phaser.Easing.Quadratic.Out}
+    );
 
-	vvaluebar50_text = game.add.text(400, 200, valuebar50.valueRange.startValue, {
+    vvaluebar50_text = game.add.text(400, 200, valuebar50.valueRange.startValue, {
         font: "65px Arial",
         fill: "#ff0044",
         align: "center"

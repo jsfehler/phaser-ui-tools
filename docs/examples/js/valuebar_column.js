@@ -23,13 +23,13 @@ function create() {
     // Create a quantitybar starting at 50.
     bar = new uiWidgets.ValueBar(
         game,
-		{"x": 0, "y": 0},
-		{"step": 25, "startValue": 50, maxValue: 100},
-		true,
-		false,
-		"track",
-		"bar",
-		{'duration': 100, 'ease': Phaser.Easing.Quadratic.Out}
+        {"x": 0, "y": 0},
+        {"step": 25, "startValue": 50, maxValue: 100},
+        true,
+        false,
+        "track",
+        "bar",
+        {'duration': 100, 'ease': Phaser.Easing.Quadratic.Out}
     );
 
     barText = game.add.text(50, 50, bar.valueRange.startValue, {
@@ -44,13 +44,13 @@ function create() {
     // Create a quantitybar starting at 50.
     bar2 = new uiWidgets.ValueBar(
         game,
-		{"x": 0, "y": 0},
-		{"step": 25, "startValue": 50, maxValue: 100},
-		true,
-		false,
-		"track",
-		"bar",
-		{'duration': 100, 'ease': Phaser.Easing.Quadratic.Out}
+        {"x": 0, "y": 0},
+        {"step": 25, "startValue": 50, maxValue: 100},
+        true,
+        false,
+        "track",
+        "bar",
+        {'duration': 100, 'ease': Phaser.Easing.Quadratic.Out}
     );
 
     barText2 = game.add.text(50, 50, bar2.valueRange.startValue, {
