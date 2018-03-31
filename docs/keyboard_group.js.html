@@ -33,7 +33,7 @@
 			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="uiWidgets.Column.html">uiWidgets.Column</a></li><li><a href="uiWidgets.Frame.html">uiWidgets.Frame</a></li><li><a href="uiWidgets.KeyboardGroup.html">uiWidgets.KeyboardGroup</a></li><li><a href="uiWidgets.QuantityBar.html">uiWidgets.QuantityBar</a></li><li><a href="uiWidgets.QuantityRange.html">uiWidgets.QuantityRange</a></li><li><a href="uiWidgets.Row.html">uiWidgets.Row</a></li><li><a href="uiWidgets.Scrollbar.html">uiWidgets.Scrollbar</a></li><li><a href="uiWidgets.textButton.html">uiWidgets.textButton</a></li><li><a href="uiWidgets.textSprite.html">uiWidgets.textSprite</a></li><li><a href="uiWidgets.ValueBar.html">uiWidgets.ValueBar</a></li><li><a href="uiWidgets.ValueRange.html">uiWidgets.ValueRange</a></li><li><a href="uiWidgets.Viewport.html">uiWidgets.Viewport</a></li><li><a href="uiWidgets.ViewportRange.html">uiWidgets.ViewportRange</a></li><li><a href="uiWidgets.Wheel3D.html">uiWidgets.Wheel3D</a></li>
+					<li><a href="Bar.html">Bar</a></li><li><a href="Column.html">Column</a></li><li><a href="DraggableBar.html">DraggableBar</a></li><li><a href="Frame.html">Frame</a></li><li><a href="KeyboardGroup.html">KeyboardGroup</a></li><li><a href="QuantityBar.html">QuantityBar</a></li><li><a href="QuantityRange.html">QuantityRange</a></li><li><a href="Row.html">Row</a></li><li><a href="Scrollbar.html">Scrollbar</a></li><li><a href="textButton.html">textButton</a></li><li><a href="textSprite.html">textSprite</a></li><li><a href="ValueBar.html">ValueBar</a></li><li><a href="ValueRange.html">ValueRange</a></li><li><a href="Viewport.html">Viewport</a></li><li><a href="ViewportRange.html">ViewportRange</a></li><li><a href="Wheel3D.html">Wheel3D</a></li>
 				</ul>
 			</li>
 			
@@ -70,126 +70,113 @@
 <section>
     <article>
         <pre
-            class="sunlight-highlight-javascript linenums">var uiWidgets;
-uiWidgets = uiWidgets || {};
-
-/** Collection of sprites that can be selected with the keyboard.
+            class="sunlight-highlight-javascript linenums">/** Collection of sprites that can be selected with the keyboard.
   * When the select key is hit, the sprite that was selected is now connected to the keyboard.
-  * @constructor
-  * @param {Object} game - Current game instance.
-  * @param {Boolean} vertical - If the selection should be controlled with up/down or left/right arrow keys.
-  * @param {Object} callbackContext - The context for the onPrevious and onNext Signals.
   */
-uiWidgets.KeyboardGroup = function (game, vertical, callbackContext) {
-    "use strict";
-    this.game = game;
-    this.vertical = vertical || false;
-    this.callbackContext = callbackContext;
-
-    this.children = [];
-
-    this.selected = null;
-    this.idx = 0;
-
-    this.upKey = this.game.input.keyboard.addKey(Phaser.Keyboard.UP);
-    this.downKey = this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
-    this.leftKey = this.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
-    this.rightKey = this.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
-
-    this.upEvent = this.prevItem;
-    this.downEvent = this.nextItem;
-
+export class KeyboardGroup {
     /**
-     * Dispatched when the selected child is set from the current child to the previous child.
-     * @property {Phaser.Signal}
-     */
-    this.onPrevious = new Phaser.Signal();
+      * @param {Object} game - Current game instance.
+      * @param {Boolean} vertical - If the selection should be controlled with up/down or left/right arrow keys.
+      * @param {Object} callbackContext - The context for the onPrevious and onNext Signals.
+      */
+    constructor(game, vertical, callbackContext) {
+        this.game = game;
+        this.vertical = vertical || false;
+        this.callbackContext = callbackContext;
 
+        this.children = [];
+
+        this.selected = null;
+        this.idx = 0;
+
+        this.upKey = this.game.input.keyboard.addKey(Phaser.Keyboard.UP);
+        this.downKey = this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
+        this.leftKey = this.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
+        this.rightKey = this.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
+
+        this.upEvent = this.prevItem;
+        this.downEvent = this.nextItem;
+
+        /**
+         * Dispatched when the selected child is set from the current child to the previous child.
+         * @property {Phaser.Signal}
+         */
+        this.onPrevious = new Phaser.Signal();
+
+        /**
+         * Dispatched when the selected child is set from the current child to the next child.
+         * @property {Phaser.Signal}
+         */
+        this.onNext = new Phaser.Signal();
+
+        this.activateGroup();
+    }
+    /** Add a new child to the group
+      * @param {Object} newNode - The sprite to add to the group.
+      */
+    addNode(newNode) {
+        this.children.push(newNode);
+
+        // Ensure the first child is already selected  when the game loads.
+        this.selected = this.children[0]; // eslint-disable-line prefer-destructuring
+        this.useBar();
+    }
+    /** Selects the previous child. */
+    prevItem() {
+        this.idx = this.idx - 1;
+
+        if (this.idx &lt; 0) {
+            this.idx = this.children.length - 1;
+        }
+
+        this.selected = this.children[this.idx];
+
+        this.useBar();
+
+        this.onPrevious.dispatch(this, this.callbackContext);
+    }
+    /** Selects the next child. */
+    nextItem() {
+        this.idx = (this.idx + 1) % (this.children.length);
+        this.selected = this.children[this.idx];
+
+        this.useBar();
+
+        this.onNext.dispatch(this, this.callbackContext);
+    }
     /**
-     * Dispatched when the selected child is set from the current child to the next child.
-     * @property {Phaser.Signal}
+     * Enables keyboard input for the group.
+     * @private
      */
-    this.onNext = new Phaser.Signal();
-
-    this.activateGroup();
-};
-
-uiWidgets.KeyboardGroup.constructor = uiWidgets.KeyboardGroup;
-
-/** Add a new child to the group
-  * @param {Object} newNode - The sprite to add to the group.
-  */
-uiWidgets.KeyboardGroup.prototype.addNode = function (newNode) {
-    "use strict";
-    this.children.push(newNode);
-
-    // Ensure the first child is already selected  when the game loads.
-    this.selected = this.children[0];
-    this.useBar();
-};
-
-/** Selects the previous child. */
-uiWidgets.KeyboardGroup.prototype.prevItem = function () {
-    "use strict";
-    this.idx = this.idx - 1;
-
-    if (this.idx &lt; 0) {
-        this.idx = this.children.length - 1;
+    activateGroup() {
+        if (this.vertical) {
+            this.upKey.onDown.add(this.upEvent, this);
+            this.downKey.onDown.add(this.downEvent, this);
+        } else {
+            this.leftKey.onDown.add(this.upEvent, this);
+            this.rightKey.onDown.add(this.downEvent, this);
+        }
     }
+    /**
+     * Enables keyboard input on a child.
+     * @private
+     */
+    useBar() {
+        if (this.vertical) {
+            this.leftKey.onDown.removeAll();
+            this.rightKey.onDown.removeAll();
 
-    this.selected = this.children[this.idx];
+            this.leftKey.onDown.add(this.selected.upEvent, this.selected);
+            this.rightKey.onDown.add(this.selected.downEvent, this.selected);
+        } else {
+            this.upKey.onDown.removeAll();
+            this.downKey.onDown.removeAll();
 
-    this.useBar();
-
-    this.onPrevious.dispatch(this, this.callbackContext);
-};
-
-/** Selects the next child. */
-uiWidgets.KeyboardGroup.prototype.nextItem = function () {
-    "use strict";
-    this.idx = (this.idx + 1) % (this.children.length);
-    this.selected = this.children[this.idx];
-
-    this.useBar();
-
-    this.onNext.dispatch(this, this.callbackContext);
-};
-
-/**
- * Enables keyboard input for the group.
- * @private
- */
-uiWidgets.KeyboardGroup.prototype.activateGroup = function () {
-    "use strict";
-    if (this.vertical) {
-        this.upKey.onDown.add(this.upEvent, this);
-        this.downKey.onDown.add(this.downEvent, this);
-    } else {
-        this.leftKey.onDown.add(this.upEvent, this);
-        this.rightKey.onDown.add(this.downEvent, this);
+            this.upKey.onDown.add(this.selected.upEvent, this.selected);
+            this.downKey.onDown.add(this.selected.downEvent, this.selected);
+        }
     }
-};
-
-/**
- * Enables keyboard input on a child.
- * @private
- */
-uiWidgets.KeyboardGroup.prototype.useBar = function () {
-    "use strict";
-    if (this.vertical) {
-        this.leftKey.onDown.removeAll();
-        this.rightKey.onDown.removeAll();
-
-        this.leftKey.onDown.add(this.selected.upEvent, this.selected);
-        this.rightKey.onDown.add(this.selected.downEvent, this.selected);
-    } else {
-        this.upKey.onDown.removeAll();
-        this.downKey.onDown.removeAll();
-
-        this.upKey.onDown.add(this.selected.upEvent, this.selected);
-        this.downKey.onDown.add(this.selected.downEvent, this.selected);
-    }
-};
+}
 </pre>
     </article>
 </section>
@@ -235,7 +222,7 @@ uiWidgets.KeyboardGroup.prototype.useBar = function () {
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on Fri Mar 23rd 2018
+		on Sat Mar 31st 2018
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

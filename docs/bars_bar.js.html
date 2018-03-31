@@ -33,7 +33,7 @@
 			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="uiWidgets.Column.html">uiWidgets.Column</a></li><li><a href="uiWidgets.Frame.html">uiWidgets.Frame</a></li><li><a href="uiWidgets.KeyboardGroup.html">uiWidgets.KeyboardGroup</a></li><li><a href="uiWidgets.QuantityBar.html">uiWidgets.QuantityBar</a></li><li><a href="uiWidgets.QuantityRange.html">uiWidgets.QuantityRange</a></li><li><a href="uiWidgets.Row.html">uiWidgets.Row</a></li><li><a href="uiWidgets.Scrollbar.html">uiWidgets.Scrollbar</a></li><li><a href="uiWidgets.textButton.html">uiWidgets.textButton</a></li><li><a href="uiWidgets.textSprite.html">uiWidgets.textSprite</a></li><li><a href="uiWidgets.ValueBar.html">uiWidgets.ValueBar</a></li><li><a href="uiWidgets.ValueRange.html">uiWidgets.ValueRange</a></li><li><a href="uiWidgets.Viewport.html">uiWidgets.Viewport</a></li><li><a href="uiWidgets.ViewportRange.html">uiWidgets.ViewportRange</a></li><li><a href="uiWidgets.Wheel3D.html">uiWidgets.Wheel3D</a></li>
+					<li><a href="Bar.html">Bar</a></li><li><a href="Column.html">Column</a></li><li><a href="DraggableBar.html">DraggableBar</a></li><li><a href="Frame.html">Frame</a></li><li><a href="KeyboardGroup.html">KeyboardGroup</a></li><li><a href="QuantityBar.html">QuantityBar</a></li><li><a href="QuantityRange.html">QuantityRange</a></li><li><a href="Row.html">Row</a></li><li><a href="Scrollbar.html">Scrollbar</a></li><li><a href="textButton.html">textButton</a></li><li><a href="textSprite.html">textSprite</a></li><li><a href="ValueBar.html">ValueBar</a></li><li><a href="ValueRange.html">ValueRange</a></li><li><a href="Viewport.html">Viewport</a></li><li><a href="ViewportRange.html">ViewportRange</a></li><li><a href="Wheel3D.html">Wheel3D</a></li>
 				</ul>
 			</li>
 			
@@ -70,119 +70,43 @@
 <section>
     <article>
         <pre
-            class="sunlight-highlight-javascript linenums">var uiWidgets;
-uiWidgets = uiWidgets || {};
+            class="sunlight-highlight-javascript linenums">/** Base object for all Bar-like Widgets.
+ * @extends Phaser.Group
+ */
+export class Bar extends Phaser.Group {
+    /**
+     * @param {number} x - The Bar's x position.
+     * @param {number} y - The Bar's y position.
+     * @param {boolean} vertical - Sets the Bar's alignment as vertical.
+     */
+    constructor(game, x = 0, y = 0, vertical = false) {
+        super(game);
 
+        this.game = game;
+        this.x = x;
+        this.y = y;
 
-/** Base object for all Bars. */
-uiWidgets.Bar = function () {};
-uiWidgets.Bar.prototype = Object.create(Phaser.Group.prototype);
-uiWidgets.Bar.constructor = uiWidgets.Bar;
-
-/** Determine the distance the bar can scroll over. */
-uiWidgets.Bar.prototype.setTrackScrollAreaSize = function () {
-    "use strict";
-
-    if (this.vertical) {
-        this.trackScrollAreaSize = this.track.height - this.vslice;
-    } else {
-        this.trackScrollAreaSize = this.track.width - this.hslice;
+        this.vertical = vertical;
     }
-};
-
-/** Sets position for the bar's non-moving axis. Centers it inside the track. */
-uiWidgets.Bar.prototype.centerStaticAxis = function () {
-    "use strict";
-    if (this.vertical) {
-        this.bar.x = this.track.x + (this.track.width / 2) - (this.bar.width / 2);
-    } else {
-        this.bar.y = this.track.y + (this.track.height / 2) - (this.bar.height / 2);
+    /** Determine the distance the bar can scroll over. */
+    setTrackScrollAreaSize() {
+        if (this.vertical) {
+            this.trackScrollAreaSize = this.track.height - this.vslice;
+        } else {
+            this.trackScrollAreaSize = this.track.width - this.hslice;
+        }
     }
-};
-
-
-/** Base object for Bars that can be dragged with a mouse. */
-uiWidgets.DraggableBar = function () {};
-uiWidgets.DraggableBar.prototype = Object.create(uiWidgets.Bar.prototype);
-uiWidgets.DraggableBar.constructor = uiWidgets.DraggableBar;
-
-
-/** If the vertical scrollbar is draggable, this function is called when the track is clicked. */
-uiWidgets.DraggableBar.prototype.verticalTrackClick = function () {
-    "use strict";
-    // Don't register mouse clicks on the bar itself.
-    if (this.game.input.mousePointer.y > this.bar.y + this.bar.height + this.worldPosition.y) {
-        this.scrollDown();
-    } else if (this.game.input.mousePointer.y &lt; this.bar.y + this.worldPosition.y) {
-        this.scrollUp();
+    /** Sets position for the bar's non-moving axis. Centers it inside the track. */
+    centerStaticAxis() {
+        if (this.vertical) {
+            this.bar.x = (
+                this.track.x + (this.track.width / 2)) - (this.bar.width / 2);
+        } else {
+            this.bar.y = (
+                this.track.y + (this.track.height / 2)) - (this.bar.height / 2);
+        }
     }
-};
-
-/** If the horizontal scrollbar is draggable, this function is called when the track is clicked. */
-uiWidgets.DraggableBar.prototype.horizontalTrackClick = function () {
-    "use strict";
-    // Don't register mouse clicks on the bar itself.
-    if (this.game.input.mousePointer.x > this.bar.x + this.bar.width + this.worldPosition.x) {
-        this.scrollRight();
-    } else if (this.game.input.mousePointer.x &lt; (this.bar.x + this.worldPosition.x)) {
-        this.scrollLeft();
-    }
-};
-
-/** Allows the bar to scroll when the track is clicked directly. */
-uiWidgets.DraggableBar.prototype.enableTrackClick = function () {
-    "use strict";
-    var event;
-
-    this.track.inputEnabled = true;
-
-    if (this.vertical) {
-        event = this.verticalTrackClick;
-    } else {
-        event = this.horizontalTrackClick;
-    }
-
-    this.track.events.onInputDown.add(event, this);
-};
-
-/** When called, ensures the bar can be moved. Must be called once the bar has finished scrolling. */
-uiWidgets.DraggableBar.prototype.enableBarInput = function () {
-    "use strict";
-    this.trackClicked = false;
-    this.barMoving = false;
-    this.bar.inputEnabled = true;
-};
-
-/** Enables clicking and dragging on the bar. */
-uiWidgets.DraggableBar.prototype.enableBarDrag = function () {
-    "use strict";
-    this.setDraggableArea();
-
-    this.bar.inputEnabled = true;
-    this.bar.input.enableDrag();
-    if (this.snapping) {
-        this.bar.events.onInputUp.add(this.snapToClosestPosition, this);
-    }
-    this.bar.events.onInputDown.add(this.saveMousePosition, this);
-    this.bar.events.onDragUpdate.add(this.moveContent, this);
-
-    var draggableArea;
-
-    if (this.vertical) {
-        this.bar.input.allowHorizontalDrag = false;
-        draggableArea = this.verticalDraggableArea;
-    } else {
-        this.bar.input.allowVerticalDrag = false;
-        draggableArea = this.horizontalDraggableArea;
-    }
-
-    this.bar.input.boundsRect = new Phaser.Rectangle(
-        draggableArea.x,
-        draggableArea.y,
-        draggableArea.w,
-        draggableArea.h)
-    ;
-};
+}
 </pre>
     </article>
 </section>
@@ -228,7 +152,7 @@ uiWidgets.DraggableBar.prototype.enableBarDrag = function () {
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on Fri Mar 23rd 2018
+		on Sat Mar 31st 2018
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

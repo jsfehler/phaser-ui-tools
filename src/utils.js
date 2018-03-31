@@ -1,21 +1,20 @@
-var uiWidgets;
-uiWidgets = uiWidgets || {};
-
-uiWidgets.utils = {};
+const utils = {};
 
 /**
  * A modulo operator that doesn't allow negative numbers.
- * @param divdend
- * @param divisor
+ * @param {number} divdend
+ * @param {number} divisor
  */
-uiWidgets.utils.modulo = function(dividend, divisor) {
-    "use strict";
+utils.modulo = function modulo(dividend, divisor) {
     return ((((dividend) % divisor) + divisor) % divisor);
 };
 
 /**
- * Select an operator action using a string value */
-uiWidgets.utils.operators = {
-    "+": function (a, b) { return a + b; },
-    "-": function (a, b) { return a - b; }
+ * Select an operator action using a string value.
+ */
+utils.operators = {
+    '+': function add(a, b) { return a + b; },
+    '-': function sub(a, b) { return a - b; },
 };
+
+export { utils };

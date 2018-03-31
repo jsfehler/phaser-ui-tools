@@ -33,14 +33,14 @@
 			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="uiWidgets.Column.html">uiWidgets.Column</a></li><li><a href="uiWidgets.Frame.html">uiWidgets.Frame</a></li><li><a href="uiWidgets.KeyboardGroup.html">uiWidgets.KeyboardGroup</a></li><li><a href="uiWidgets.QuantityBar.html">uiWidgets.QuantityBar</a></li><li><a href="uiWidgets.QuantityRange.html">uiWidgets.QuantityRange</a></li><li><a href="uiWidgets.Row.html">uiWidgets.Row</a></li><li><a href="uiWidgets.Scrollbar.html">uiWidgets.Scrollbar</a></li><li><a href="uiWidgets.textButton.html">uiWidgets.textButton</a></li><li><a href="uiWidgets.textSprite.html">uiWidgets.textSprite</a></li><li><a href="uiWidgets.ValueBar.html">uiWidgets.ValueBar</a></li><li><a href="uiWidgets.ValueRange.html">uiWidgets.ValueRange</a></li><li><a href="uiWidgets.Viewport.html">uiWidgets.Viewport</a></li><li><a href="uiWidgets.ViewportRange.html">uiWidgets.ViewportRange</a></li><li><a href="uiWidgets.Wheel3D.html">uiWidgets.Wheel3D</a></li><li><a href="VectorPoint.html">VectorPoint</a></li>
+					<li><a href="Frame.html">Frame</a></li><li><a href="KeyboardGroup.html">KeyboardGroup</a></li><li><a href="module.exports.html">module.exports</a></li><li><a href="QuantityBar.html">QuantityBar</a></li><li><a href="QuantityRange.html">QuantityRange</a></li><li><a href="textButton.html">textButton</a></li><li><a href="textSprite.html">textSprite</a></li><li><a href="ValueBar.html">ValueBar</a></li><li><a href="ValueRange.html">ValueRange</a></li><li><a href="Viewport.html">Viewport</a></li><li><a href="ViewportRange.html">ViewportRange</a></li><li><a href="Wheel3D.html">Wheel3D</a></li>
 				</ul>
 			</li>
 			
 			<li class="dropdown">
 				<a href="global.html" class="dropdown-toggle" data-toggle="dropdown">Global<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="global.html#modulo">modulo</a></li><li><a href="global.html#operators">operators</a></li>
+					<li><a href="global.html#addScrollTween">addScrollTween</a></li><li><a href="global.html#addScrollTweenEvents">addScrollTweenEvents</a></li><li><a href="global.html#centerStaticAxis">centerStaticAxis</a></li><li><a href="global.html#enableBarDrag">enableBarDrag</a></li><li><a href="global.html#enableBarInput">enableBarInput</a></li><li><a href="global.html#enableTrackClick">enableTrackClick</a></li><li><a href="global.html#horizontalTrackClick">horizontalTrackClick</a></li><li><a href="global.html#moveContent">moveContent</a></li><li><a href="global.html#resizeBar">resizeBar</a></li><li><a href="global.html#scrollDown">scrollDown</a></li><li><a href="global.html#scrollLeft">scrollLeft</a></li><li><a href="global.html#scrollRight">scrollRight</a></li><li><a href="global.html#scrollUp">scrollUp</a></li><li><a href="global.html#setDraggableArea">setDraggableArea</a></li><li><a href="global.html#setInitialBarPosition">setInitialBarPosition</a></li><li><a href="global.html#setTrackScrollAreaSize">setTrackScrollAreaSize</a></li><li><a href="global.html#verticalTrackClick">verticalTrackClick</a></li>
 				</ul>
 			</li>
 			
@@ -145,23 +145,31 @@
     
 
     
-        <h3 class="subsection-title">Members</h3>
+
+    
+        <h3 class="subsection-title">Methods</h3>
 
         <dl>
             
 <hr>
-<dt class="name" id="operators">
-    <h4 id="operators"><span class="type-signature"></span>operators<span class="type-signature"></span></h4>
-
+<dt>
+    <h4 class="name" id="addScrollTween"><span class="type-signature"></span>addScrollTween()</h4>
+    
     
 </dt>
 <dd>
+
     
     <div class="description">
-        <p>Dynamic operators.</p>
+        <p>Creates the tween for moving the bar to a new position.</p>
     </div>
     
 
+    
+
+    
+
+    
     
 
     
@@ -199,8 +207,8 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="wheel3D.js.html">wheel3D.js</a>,
-				 <a href="wheel3D.js.html#sunlight-1-line-12">line 12</a>
+				<a href="bars_scrollbar.js.html">bars/scrollbar.js</a>,
+				 <a href="bars_scrollbar.js.html#sunlight-1-line-152">line 152</a>
 			</li>
 		</ul>
 	</dd>
@@ -215,19 +223,25 @@
 
 
     
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
 </dd>
 
-        </dl>
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        <dl>
+        
             
 <hr>
 <dt>
-    <h4 class="name" id="modulo"><span class="type-signature"></span>modulo()</h4>
+    <h4 class="name" id="addScrollTweenEvents"><span class="type-signature"></span>addScrollTweenEvents()</h4>
     
     
 </dt>
@@ -235,7 +249,7 @@
 
     
     <div class="description">
-        <p>A modulo operator that doesn't allow negative numbers.</p>
+        <p>Called after a scroll tween is added. Adds the necessary events to the tween.</p>
     </div>
     
 
@@ -281,8 +295,1328 @@
 	<dd class="tag-source">
 		<ul class="dummy">
 			<li>
-				<a href="wheel3D.js.html">wheel3D.js</a>,
-				 <a href="wheel3D.js.html#sunlight-1-line-5">line 5</a>
+				<a href="bars_scrollbar.js.html">bars/scrollbar.js</a>,
+				 <a href="bars_scrollbar.js.html#sunlight-1-line-167">line 167</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="centerStaticAxis"><span class="type-signature"></span>centerStaticAxis()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Sets position for the bar's non-moving axis. Centers it inside the track.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="bars_bar.js.html">bars/bar.js</a>,
+				 <a href="bars_bar.js.html#sunlight-1-line-15">line 15</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="enableBarDrag"><span class="type-signature"></span>enableBarDrag()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Enables clicking and dragging on the bar.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="bars_draggable_bar.js.html">bars/draggable_bar.js</a>,
+				 <a href="bars_draggable_bar.js.html#sunlight-1-line-51">line 51</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="enableBarInput"><span class="type-signature"></span>enableBarInput()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>When called, ensures the bar can be moved.<br>Must be called once the bar has finished scrolling.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="bars_draggable_bar.js.html">bars/draggable_bar.js</a>,
+				 <a href="bars_draggable_bar.js.html#sunlight-1-line-45">line 45</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="enableTrackClick"><span class="type-signature"></span>enableTrackClick()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Allows the bar to scroll when the track is clicked directly.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="bars_draggable_bar.js.html">bars/draggable_bar.js</a>,
+				 <a href="bars_draggable_bar.js.html#sunlight-1-line-29">line 29</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="horizontalTrackClick"><span class="type-signature"></span>horizontalTrackClick()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>If the horizontal scrollbar is draggable,<br>this function is called when the track is clicked.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="bars_draggable_bar.js.html">bars/draggable_bar.js</a>,
+				 <a href="bars_draggable_bar.js.html#sunlight-1-line-20">line 20</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="moveContent"><span class="type-signature"></span>moveContent()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Called when the scrollbar needs to move the viewport. Causes the content to move relative to the bar's position on the track.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="bars_scrollbar.js.html">bars/scrollbar.js</a>,
+				 <a href="bars_scrollbar.js.html#sunlight-1-line-336">line 336</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="resizeBar"><span class="type-signature"></span>resizeBar()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Given a ratio between total content size and viewport size,<br>resize the bar sprite to the appropriate percentage of the track.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="bars_scrollbar.js.html">bars/scrollbar.js</a>,
+				 <a href="bars_scrollbar.js.html#sunlight-1-line-98">line 98</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="scrollDown"><span class="type-signature"></span>scrollDown()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>For Vertical Scrollbars. Scrolls down by one step.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="bars_scrollbar.js.html">bars/scrollbar.js</a>,
+				 <a href="bars_scrollbar.js.html#sunlight-1-line-191">line 191</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="scrollLeft"><span class="type-signature"></span>scrollLeft()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>For Horizontal Scrollbars. Scrolls left by one step.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="bars_scrollbar.js.html">bars/scrollbar.js</a>,
+				 <a href="bars_scrollbar.js.html#sunlight-1-line-209">line 209</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="scrollRight"><span class="type-signature"></span>scrollRight()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>For Horizontal Scrollbars. Scrolls right by one step.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="bars_scrollbar.js.html">bars/scrollbar.js</a>,
+				 <a href="bars_scrollbar.js.html#sunlight-1-line-227">line 227</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="scrollUp"><span class="type-signature"></span>scrollUp()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>For Vertical Scrollbars. Scrolls up by one step.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="bars_scrollbar.js.html">bars/scrollbar.js</a>,
+				 <a href="bars_scrollbar.js.html#sunlight-1-line-173">line 173</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="setDraggableArea"><span class="type-signature"></span>setDraggableArea()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Sets the draggable area of the bar.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="bars_scrollbar.js.html">bars/scrollbar.js</a>,
+				 <a href="bars_scrollbar.js.html#sunlight-1-line-80">line 80</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="setInitialBarPosition"><span class="type-signature"></span>setInitialBarPosition()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Ensure the bar starts off where it should be, according to the bar's logical position.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="bars_scrollbar.js.html">bars/scrollbar.js</a>,
+				 <a href="bars_scrollbar.js.html#sunlight-1-line-140">line 140</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="setTrackScrollAreaSize"><span class="type-signature"></span>setTrackScrollAreaSize()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Determine the distance the bar can scroll over.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="bars_bar.js.html">bars/bar.js</a>,
+				 <a href="bars_bar.js.html#sunlight-1-line-7">line 7</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="verticalTrackClick"><span class="type-signature"></span>verticalTrackClick()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>If the vertical scrollbar is draggable,<br>this function is called when the track is clicked.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="bars_draggable_bar.js.html">bars/draggable_bar.js</a>,
+				 <a href="bars_draggable_bar.js.html#sunlight-1-line-9">line 9</a>
 			</li>
 		</ul>
 	</dd>
@@ -363,9 +1697,9 @@
 	</span>
 
 <span class="jsdoc-message">
-	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a>
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on Mon Oct 23rd 2017
+		on Sat Mar 31st 2018
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
