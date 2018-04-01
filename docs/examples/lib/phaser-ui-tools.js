@@ -1282,26 +1282,26 @@ var uiWidgets = (function (exports) {
             }
             /** Adds a new object into the Column, then aligns it under the previous object.
              * @param {Object} node - The sprite to add to the Column.
-             * @param {Number} alignment - The alignment relative to the previous child.
              * @param {Number} paddingX - The amount of horizontal space between objects.
              * @param {Number} paddingY - The amount of vertical space between objects.
+             * @param {Number} alignment - The alignment relative to the previous child.
              */
 
 
             createClass(Frame, [{
                 key: 'addNode',
                 value: function addNode(node) {
-                    var align = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-                    var paddingX = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
-                    var paddingY = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
+                    var paddingX = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+                    var paddingY = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+                    var alignment = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
 
-                    var alignment = align || this.alignment;
+                    var align = alignment || this.alignment;
 
                     this.add(node);
                     var previousNode = this.children[this.children.length - 2];
 
                     if (previousNode !== undefined) {
-                        node.alignTo(previousNode, alignment, paddingX, paddingY);
+                        node.alignTo(previousNode, align, paddingX, paddingY);
                     }
 
                     // Reset the positions for the bar's draggable area.
