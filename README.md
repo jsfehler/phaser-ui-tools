@@ -42,7 +42,7 @@ All the tools can be dropped into a game like any other Phaser Object.
 #### TextSprite
 A sprite with text on top.
 ```
-var textSprite = new uiWidgets.TextSprite(
+var textSprite = new uiWidgets.textSprite(
     game,
     image,
     label,
@@ -55,7 +55,7 @@ var textSprite = new uiWidgets.TextSprite(
 #### TextButton
 A button with text on top.
 ```
-var textButton = new uiWidgets.TextButton(
+var textButton = new uiWidgets.textButton(
     game,
     image,
     label,
@@ -162,6 +162,8 @@ var quantitybar = new uiWidgets.QuantityBar(
 ```
 
 #### Wheel3D
+A collection of sprites that are arranged around a three dimensional wheel.
+The wheel can be adjusted and rotated along the x, y, or z axis.
 ```
 var wheel = new uiWidgets.Wheel3D(
     game,
