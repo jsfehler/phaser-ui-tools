@@ -38,7 +38,7 @@ All the tools can be dropped into a game like any other Phaser Object.
 
 ### The Tools
 
-##### TextSprite
+#### TextSprite
 A sprite with text on top.
 ```
 var textSprite = new uiWidgets.TextSprite(
@@ -51,7 +51,7 @@ var textSprite = new uiWidgets.TextSprite(
 );
 ```
 
-##### TextButton
+#### TextButton
 A button with text on top.
 ```
 var textButton = new uiWidgets.TextButton(
@@ -64,29 +64,42 @@ var textButton = new uiWidgets.TextButton(
 );
 ```
 
+#### Containers
+
 ##### Column
+![column](https://raw.githubusercontent.com/jsfehler/phaser-ui-tools/master/diagram_column.png)
 Columns are Phaser Groups where each child added to the group is placed directly under the previous child. If an object can be a child of a Group, it can likewise be in a Column.
-Placing Columns inside a Viewport is a simple way to line up Sprites/Buttons/etc vertically.
 ```
-var column = new uiWidgets.Column(game);
-column.addNode(dummy_sprite_a);
+var column = new uiWidgets.Column(game, 8, 8);
+column.addNode(sprite_a, 8, 8);
+column.addNode(sprite_b, 8, 8);
+column.addNode(sprite_c, 8, 8);
 ```
 
 ##### Row
+![row](https://raw.githubusercontent.com/jsfehler/phaser-ui-tools/master/diagram_row.png)
 Rows are Phaser Groups where each child added to the group is placed directly next to the previous child. If an object can be a child of a Group, it can likewise be in a Row.
-Placing Rows inside a Viewport is a simple way to line up Sprites/Buttons/etc horizontally.
 ```
-var row = new uiWidgets.Row(game);
-row.addNode(dummy_sprite_a);
+var row = new uiWidgets.Row(game, 8, 8);
+row.addNode(sprite_a, 8, 8);
+row.addNode(sprite_b, 8, 8);
+row.addNode(sprite_c, 8, 8);
 ```
 
 ##### Viewport
 Viewports are Phaser Groups where the children in the group are only visible if they're within the viewport's area.
-Groups and/or Sprites must be added to a viewport using addNode();
+If an object can be a child of a Group, it can likewise be in a Viewport.
+
+Viewports can be combined with a Scrollbar to create a scrollable display.
+
+Placing a Column or Row inside a Viewport is a simple way to align content.
+
 ```
 var viewport = new uiWidgets.Viewport(game, 75, 75, 600, 260);
 viewport.addNode(column);
 ```
+
+#### Bars
 
 ##### Scrollbar
 Scrollbars are used to move the objects in a Viewport. They must be used with a Viewport.
@@ -136,7 +149,7 @@ var quantitybar = new uiWidgets.QuantityBar(
 );
 ```
 
-##### Wheel3D
+#### Wheel3D
 ```
 var wheel = new uiWidgets.Wheel3D(
     game,
