@@ -1,10 +1,16 @@
 {
   "name": "phaser-ui-tools",
   "version": "0.1.0",
-  "description": "UI functions for the phaser game engine.",
+  "description": "User Interface objects for the phaser game engine.",
   "author": "Joshua Fehler <jsfehler@gmail.com>",
   "repository": "github:jsfehler/phaser-ui-tools",
   "license": "MIT",
+  "main": "dist/phaser-ui-tools.js",
+  "unpkg": "dist/phaser-ui-tools.min.js",
+  "files": [
+      "dist/phaser-ui-tools.js",
+      "dist/phaser-ui-tools.min.js"
+  ],
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-plugin-external-helpers": "^6.22.0",
@@ -25,7 +31,7 @@
     "rollup-plugin-babel": "^3.0.3",
     "rollup-plugin-multi-entry": "^2.0.2"
   },
-  "dependencies": {
+  "peerDependencies": {
     "phaser-ce": "2.10.3"
   }
 }
