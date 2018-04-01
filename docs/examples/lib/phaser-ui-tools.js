@@ -1,5 +1,8 @@
-var uiWidgets = (function (exports) {
-        'use strict';
+(function (global, factory) {
+        typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
+        typeof define === 'function' && define.amd ? define(['exports'], factory) :
+        (factory((global.uiWidgets = {})));
+}(this, (function (exports) { 'use strict';
 
         var classCallCheck = function (instance, Constructor) {
           if (!(instance instanceof Constructor)) {
@@ -2002,6 +2005,6 @@ var uiWidgets = (function (exports) {
         exports.utils = utils;
         exports.Wheel3D = Wheel3D;
 
-        return exports;
+        Object.defineProperty(exports, '__esModule', { value: true });
 
-}({}));
+})));

@@ -59,7 +59,7 @@ module.exports = function (grunt) {
                     ];
                 },
                 moduleName: "uiWidgets",
-                format: 'iife',
+                format: 'umd',
             },
             files: {
               dest: "dist/phaser-ui-tools.js",
