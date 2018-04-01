@@ -1,5 +1,6 @@
 # Phaser UI Tools
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/aa833f08d69c471c9614f1ffac4f31e2)](https://app.codacy.com/app/joshua-fehler_2/phaser-ui-tools?utm_source=github.com&utm_medium=referral&utm_content=jsfehler/phaser-ui-tools&utm_campaign=badger)
 [![Greenkeeper badge](https://badges.greenkeeper.io/jsfehler/phaser-ui-tools.svg)](https://greenkeeper.io/)
 
 [![Build Status](https://travis-ci.org/jsfehler/phaser-ui-tools.svg?branch=master)](https://travis-ci.org/jsfehler/phaser-ui-tools)
