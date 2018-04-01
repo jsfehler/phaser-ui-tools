@@ -1,13 +1,10 @@
+/* eslint-disable */
+var babel = require('rollup-plugin-babel');
+var multiEntry = require("rollup-plugin-multi-entry");
+
 module.exports = function (grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON("package.json"),
-        concat: {
-            options: {separator: ";"},
-            dist: {
-                src: ["src/utils.js", "src/containers/frame.js", "src/**/*.js"],
-                dest: "dist/<%= pkg.name %>.js"
-            }
-        },
         copy: {
             main: {
                 src: "dist/phaser-ui-tools.js",
@@ -19,11 +16,14 @@ module.exports = function (grunt) {
                 banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
             },
             dist: {
-                files: {"dist/<%= pkg.name %>.min.js": ["<%= concat.dist.dest %>"]}
+                files: {"dist/<%= pkg.name %>.min.js": ["dist/<%= pkg.name %>.js"]}
             }
         },
         jshint: {
-            files: ["Gruntfile.js", "src/**/*.js", "tests/*.js"]
+            files: ["tests/*.js"]
+        },
+        eslint: {
+            target: ["Gruntfile.js", "src/**/*.js"]
         },
         jsdoc: {
             dist: {
@@ -47,16 +47,35 @@ module.exports = function (grunt) {
                     }
                 }
             }
-        }
+        },
+        rollup: {
+            options: {
+                plugins: function() {
+                    return [
+                        babel({
+                          exclude: './node_modules/**'
+                      }),
+                        multiEntry()
+                    ];
+                },
+                moduleName: "uiWidgets",
+                format: 'iife',
+            },
+            files: {
+              dest: "dist/phaser-ui-tools.js",
+              src: "src/**/*.js"
+            },
+          }
     });
 
-    grunt.loadNpmTasks("grunt-contrib-concat");
     grunt.loadNpmTasks("grunt-contrib-copy");
-    grunt.loadNpmTasks("grunt-contrib-uglify");
     grunt.loadNpmTasks("grunt-contrib-jshint");
+    grunt.loadNpmTasks("grunt-contrib-uglify");
+    grunt.loadNpmTasks('grunt-eslint');
     grunt.loadNpmTasks("grunt-jsdoc");
     grunt.loadNpmTasks("grunt-mocha");
+    grunt.loadNpmTasks('grunt-rollup');
 
-    grunt.registerTask("default", ["jshint", "mocha", "concat", "uglify", "jsdoc", "copy"]);
-    grunt.registerTask("travis", ["jshint", "mocha"]);
+    grunt.registerTask("default", ["jshint", "eslint", "rollup", "uglify", "mocha", "jsdoc", "copy"]);
+    grunt.registerTask("travis", ["jshint", "eslint", "mocha"]);
 };
