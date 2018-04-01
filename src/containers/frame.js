@@ -27,18 +27,18 @@ export class Frame extends Phaser.Group {
     }
     /** Adds a new object into the Column, then aligns it under the previous object.
      * @param {Object} node - The sprite to add to the Column.
-     * @param {Number} alignment - The alignment relative to the previous child.
      * @param {Number} paddingX - The amount of horizontal space between objects.
      * @param {Number} paddingY - The amount of vertical space between objects.
+     * @param {Number} alignment - The alignment relative to the previous child.
      */
-    addNode(node, align = null, paddingX = 0, paddingY = 0) {
-        const alignment = align || this.alignment;
+    addNode(node, paddingX = 0, paddingY = 0, alignment = null) {
+        const align = alignment || this.alignment;
 
         this.add(node);
         const previousNode = this.children[this.children.length - 2];
 
         if (previousNode !== undefined) {
-            node.alignTo(previousNode, alignment, paddingX, paddingY);
+            node.alignTo(previousNode, align, paddingX, paddingY);
         }
 
         // Reset the positions for the bar's draggable area.
