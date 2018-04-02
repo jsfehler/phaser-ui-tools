@@ -41,7 +41,7 @@ All the tools can be dropped into a game like any other Phaser Object.
 
 #### TextSprite
 A sprite with text on top.
-```
+```javascript
 var textSprite = new uiWidgets.textSprite(
     game,
     image,
@@ -54,7 +54,7 @@ var textSprite = new uiWidgets.textSprite(
 
 #### TextButton
 A button with text on top.
-```
+```javascript
 var textButton = new uiWidgets.textButton(
     game,
     image,
@@ -72,7 +72,7 @@ var textButton = new uiWidgets.textButton(
 Columns are Phaser Groups where each child added to the group is placed directly under the previous child. If an object can be a child of a Group, it can likewise be in a Column.
 
 ![column](https://raw.githubusercontent.com/jsfehler/phaser-ui-tools/master/diagram_column.png)
-```
+```javascript
 var column = new uiWidgets.Column(game, 8, 8);
 column.addNode(sprite_a, 8, 8);
 column.addNode(sprite_b, 8, 8);
@@ -84,7 +84,7 @@ column.addNode(sprite_c, 8, 8);
 Rows are Phaser Groups where each child added to the group is placed directly next to the previous child. If an object can be a child of a Group, it can likewise be in a Row.
 
 ![row](https://raw.githubusercontent.com/jsfehler/phaser-ui-tools/master/diagram_row.png)
-```
+```javascript
 var row = new uiWidgets.Row(game, 8, 8);
 row.addNode(sprite_a, 8, 8);
 row.addNode(sprite_b, 8, 8);
@@ -99,7 +99,7 @@ Viewports can be combined with a Scrollbar to create a scrollable display.
 
 Placing a Column or Row inside a Viewport is a simple way to align content.
 
-```
+```javascript
 var viewport = new uiWidgets.Viewport(game, 75, 75, 600, 260);
 viewport.addNode(column);
 ```
@@ -109,7 +109,7 @@ viewport.addNode(column);
 ##### Scrollbar
 Scrollbars are used to move the objects in a Viewport. They must be used with a Viewport.
 A tweening duration and easing can be specified. This will be triggered when moving the bar.
-```
+```javascript
 var scrollbar = new uiWidgets.Scrollbar(
     game,
     viewport,
@@ -128,7 +128,7 @@ Valuebars always have a minimum number of 0, but the starting and maximum number
 A tweening duration and easing can be specified. This will be triggered when moving the bar.
 
 ![row](https://raw.githubusercontent.com/jsfehler/phaser-ui-tools/master/diagram_valuebar.png)
-```
+```javascript
 var valuebar = new uiWidgets.ValueBar(
     game,
     {"x": 50, "y": 10},
@@ -148,7 +148,7 @@ They can be used for health bars, stamina bars, etc.
 A tweening duration and easing can be specified. This will be triggered when moving the bar.
 
 ![row](https://raw.githubusercontent.com/jsfehler/phaser-ui-tools/master/diagram_quantitybar.png)
-```
+```javascript
 var quantitybar = new uiWidgets.QuantityBar(
     game,
     {"x": 50, "y": 10},
@@ -164,7 +164,7 @@ var quantitybar = new uiWidgets.QuantityBar(
 #### Wheel3D
 A collection of sprites that are arranged around a three dimensional wheel.
 The wheel can be adjusted and rotated along the x, y, or z axis.
-```
+```javascript
 var wheel = new uiWidgets.Wheel3D(
     game,
     {"x": game.world.centerX - 100, "y": game.world.centerY},
