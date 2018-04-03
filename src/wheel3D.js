@@ -252,7 +252,7 @@ export class Wheel3D {
                 this.active = this.wheelItems[i].sprite;
             } else {
                 if (this.visibleRange !== null) {
-                    const includes = this.visiblePosition.includes(this.wheelItems[i].position);
+                    const includes = this.visiblePositions.includes(this.wheelItems[i].position);
                     // const includes = _.includes(
                     //    this.visiblePositions,
                     //    this.wheelItems[i].position,
