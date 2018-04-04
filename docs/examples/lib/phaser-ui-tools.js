@@ -1903,7 +1903,7 @@
                             this.active = this.wheelItems[i].sprite;
                         } else {
                             if (this.visibleRange !== null) {
-                                var includes = this.visiblePosition.includes(this.wheelItems[i].position);
+                                var includes = this.visiblePositions.includes(this.wheelItems[i].position);
                                 // const includes = _.includes(
                                 //    this.visiblePositions,
                                 //    this.wheelItems[i].position,
