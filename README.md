@@ -127,7 +127,7 @@ Valuebars are like Scrollbars, but instead of moving content, they increase/decr
 Valuebars always have a minimum number of 0, but the starting and maximum number can be set.
 A tweening duration and easing can be specified. This will be triggered when moving the bar.
 
-![row](https://raw.githubusercontent.com/jsfehler/phaser-ui-tools/master/diagram_valuebar.png)
+![valuebar](https://raw.githubusercontent.com/jsfehler/phaser-ui-tools/master/diagram_valuebar.png)
 ```javascript
 var valuebar = new uiWidgets.ValueBar(
     game,
@@ -147,7 +147,7 @@ QuantityBars do not adjust a value, they get adjusted by a value. The bar grows 
 They can be used for health bars, stamina bars, etc.
 A tweening duration and easing can be specified. This will be triggered when moving the bar.
 
-![row](https://raw.githubusercontent.com/jsfehler/phaser-ui-tools/master/diagram_quantitybar.png)
+![quantitybar](https://raw.githubusercontent.com/jsfehler/phaser-ui-tools/master/diagram_quantitybar.png)
 ```javascript
 var quantitybar = new uiWidgets.QuantityBar(
     game,
@@ -164,6 +164,8 @@ var quantitybar = new uiWidgets.QuantityBar(
 #### Wheel3D
 A collection of sprites that are arranged around a three dimensional wheel.
 The wheel can be adjusted and rotated along the x, y, or z axis.
+
+![wheel3D](https://raw.githubusercontent.com/jsfehler/phaser-ui-tools/master/diagram_wheel3D.png)
 ```javascript
 var wheel = new uiWidgets.Wheel3D(
     game,
