@@ -39,6 +39,7 @@ export class KeyboardGroup {
 
         this.activateGroup();
     }
+
     /** Add a new child to the group
       * @param {Object} newNode - The sprite to add to the group.
       */
@@ -49,6 +50,7 @@ export class KeyboardGroup {
         this.selected = this.children[0]; // eslint-disable-line prefer-destructuring
         this.useBar();
     }
+
     /** Selects the previous child. */
     prevItem() {
         this.idx = this.idx - 1;
@@ -63,6 +65,7 @@ export class KeyboardGroup {
 
         this.onPrevious.dispatch(this, this.callbackContext);
     }
+
     /** Selects the next child. */
     nextItem() {
         this.idx = (this.idx + 1) % (this.children.length);
@@ -72,6 +75,7 @@ export class KeyboardGroup {
 
         this.onNext.dispatch(this, this.callbackContext);
     }
+
     /**
      * Enables keyboard input for the group.
      * @private
@@ -85,6 +89,7 @@ export class KeyboardGroup {
             this.rightKey.onDown.add(this.downEvent, this);
         }
     }
+
     /**
      * Enables keyboard input on a child.
      * @private

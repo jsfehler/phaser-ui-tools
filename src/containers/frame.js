@@ -25,6 +25,7 @@ export class Frame extends Phaser.Group {
             bgSprite.alignIn(this, Phaser.TOP_LEFT);
         }
     }
+
     /** Adds a new object into the Column, then aligns it under the previous object.
      * @param {Object} node - The sprite to add to the Column.
      * @param {Number} paddingX - The amount of horizontal space between objects.

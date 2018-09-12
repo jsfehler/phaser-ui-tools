@@ -79,6 +79,7 @@ export class Scrollbar extends DraggableBar {
          */
         this.onMovement = new Phaser.Signal();
     }
+
     /** Given a ratio between total content size and viewport size,
      * resize the bar sprite to the appropriate percentage of the track.
      */
@@ -102,6 +103,7 @@ export class Scrollbar extends DraggableBar {
             this.bar.width = barSize;
         }
     }
+
     create() {
         this.centerStaticAxis();
 
@@ -123,6 +125,7 @@ export class Scrollbar extends DraggableBar {
 
         this.setInitialBarPosition();
     }
+
     /** Sets the draggable area of the bar. */
     setDraggableArea() {
         this.verticalDraggableArea = {
@@ -139,6 +142,7 @@ export class Scrollbar extends DraggableBar {
             h: this.bar.height,
         };
     }
+
     /** Ensure the bar starts off where it should be, according to the bar's logical position. */
     setInitialBarPosition() {
         const gripPositionOnTrack = this.getBarPosition();
@@ -150,6 +154,7 @@ export class Scrollbar extends DraggableBar {
             this.bar.x = gripPositionOnTrack + this.track.x;
         }
     }
+
     getGripPositionRatio() {
         const gripPositionOnTrack = this.getBarPosition();
         const mousePositionDelta = this.getMouseDelta();
