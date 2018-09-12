@@ -18,6 +18,7 @@ export class DraggableBar extends Bar {
             this.scrollUp();
         }
     }
+
     /** If the horizontal scrollbar is draggable,
     * this function is called when the track is clicked.
     */
@@ -30,6 +31,7 @@ export class DraggableBar extends Bar {
             this.scrollLeft();
         }
     }
+
     /** Allows the bar to scroll when the track is clicked directly. */
     enableTrackClick() {
         let event;
@@ -44,6 +46,7 @@ export class DraggableBar extends Bar {
 
         this.track.events.onInputDown.add(event, this);
     }
+
     /** When called, ensures the bar can be moved.
     * Must be called once the bar has finished scrolling.
     */
@@ -52,6 +55,7 @@ export class DraggableBar extends Bar {
         this.barMoving = false;
         this.bar.inputEnabled = true;
     }
+
     /** Enables clicking and dragging on the bar. */
     enableBarDrag() {
         this.setDraggableArea();
@@ -81,15 +85,18 @@ export class DraggableBar extends Bar {
             draggableArea.h,
         );
     }
+
     saveMousePosition(sprite, pointer) {
         // When the bar is dragged, record where the mouse clicked down.
         this.mousePointer = { x: pointer.x, y: pointer.y };
     }
+
     getBarPosition() {
         const currentValue = this.valueRange.getCurrentValue();
         const windowPositionRatio = currentValue / this.windowScrollAreaSize;
         return this.trackScrollAreaSize * windowPositionRatio;
     }
+
     getMouseDelta() {
         let oldMousePosition;
         if (this.vertical) {
@@ -133,6 +140,7 @@ export class DraggableBar extends Bar {
 
         return mousePositionDelta;
     }
+
     /** Creates the tween for moving the bar to a new position. */
     addScrollTween(properties) {
         this.mousePointer = { x: this.bar.x, y: this.bar.y };
@@ -147,12 +155,14 @@ export class DraggableBar extends Bar {
 
         this.addScrollTweenEvents(newTween);
     }
+
     /** Called after a scroll tween is added. Adds the necessary events to the tween. */
     addScrollTweenEvents(tween) {
         // Update the values as the bar moves.
         tween.onUpdateCallback(this.moveContent, this);
         tween.onComplete.add(this.enableBarInput, this);
     }
+
     /** For Vertical Scrollbars. Scrolls up by one step. */
     scrollUp() {
         // Prevents users from moving the bar while it's moving.
@@ -171,6 +181,7 @@ export class DraggableBar extends Bar {
             this.addScrollTween({ y: moveToY });
         }
     }
+
     /** For Vertical Scrollbars. Scrolls down by one step. */
     scrollDown() {
         if (this.bar.y + this.bar.height !== this.track.y + this.track.height && !this.barMoving) {
@@ -189,6 +200,7 @@ export class DraggableBar extends Bar {
             this.addScrollTween({ y: moveToY });
         }
     }
+
     /** For Horizontal Scrollbars. Scrolls left by one step. */
     scrollLeft() {
         if (this.bar.x !== this.track.x && !this.barMoving) {
@@ -207,6 +219,7 @@ export class DraggableBar extends Bar {
             this.addScrollTween({ x: moveToX });
         }
     }
+
     /** For Horizontal Scrollbars. Scrolls right by one step. */
     scrollRight() {
         if (this.bar.x + this.bar.width !== this.track.x + this.track.width && !this.barMoving) {
@@ -225,6 +238,7 @@ export class DraggableBar extends Bar {
             this.addScrollTween({ x: moveToX });
         }
     }
+
     /** Called when the scrollbar needs to move the viewport.
     * Causes the content to move relative to the bar's position on the track.
     */

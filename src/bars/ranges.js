@@ -12,11 +12,13 @@ export class QuantityRange {
 
         this.currentValue = startValue;
     }
+
     /** Returns the current ratio for how large the bar is compared to the track. */
     getRatio() {
         const ratio = this.currentValue / this.maxValue;
         return ratio;
     }
+
     /** Returns the bar's current value. */
     getCurrentValue() {
         return this.currentValue;
@@ -52,12 +54,14 @@ export class ValueRange {
             this.steps.push(i);
         }
     }
+
     /** Adjusts the current value for the bar.
      * @param {number} newValue - The new current value.
      */
     adjustValue(newValue) {
         this.currentValue = newValue;
     }
+
     /** Returns the bar's current value. */
     getCurrentValue() {
         return this.currentValue;
@@ -91,6 +95,7 @@ export class ViewportRange {
             this.ratio = 1;
         }
     }
+
     /** Adjusts the viewport's position. */
     adjustValue(newValue) {
         // Set the content's new position. Uses an offset for where the viewport is on screen.
@@ -106,6 +111,7 @@ export class ViewportRange {
             this.vertical,
         );
     }
+
     getCurrentValue() {
         let currentValue;
         if (this.vertical) {

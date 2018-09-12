@@ -97,6 +97,7 @@ export class ValueBar extends DraggableBar {
          */
         this.onMovement = new Phaser.Signal();
     }
+
     create() {
         this.centerStaticAxis();
 
@@ -118,6 +119,7 @@ export class ValueBar extends DraggableBar {
 
         this.setInitialBarPosition();
     }
+
     /** Sets the draggable area of the bar. */
     setDraggableArea() {
         this.verticalDraggableArea = {
@@ -134,6 +136,7 @@ export class ValueBar extends DraggableBar {
             h: this.bar.height,
         };
     }
+
     /** Determine the distance the bar can scroll over */
     setTrackScrollAreaSize() {
         if (this.vertical) {
@@ -142,6 +145,7 @@ export class ValueBar extends DraggableBar {
             this.trackScrollAreaSize = this.track.width;
         }
     }
+
     /** Ensure the bar starts off where it should be, according to the bar's logical position. */
     setInitialBarPosition() {
         const gripPositionOnTrack = this.getBarPosition();
@@ -153,6 +157,7 @@ export class ValueBar extends DraggableBar {
             this.bar.x = (gripPositionOnTrack + this.track.x) - (this.bar.width / 2);
         }
     }
+
     /** Returns the closest valid value. */
     getClosestPosition() {
         const currentValue = this.valueRange.getCurrentValue();
@@ -170,6 +175,7 @@ export class ValueBar extends DraggableBar {
 
         return closestPosition;
     }
+
     /** On mouse up, forces the value to equal the closest step. */
     snapToClosestPosition() {
         const closestPosition = this.getClosestPosition();
@@ -178,12 +184,14 @@ export class ValueBar extends DraggableBar {
         this.moveContent();
         this.setInitialBarPosition();
     }
+
     /** Called after a scroll tween is added. Adds the necessary events to the tween. */
     addScrollTweenEvents(tween) {
         // Only update the values once the bar has finished moving.
         tween.onComplete.add(this.moveContent, this);
         tween.onComplete.add(this.enableBarInput, this);
     }
+
     getGripPositionRatio() {
         const gripPositionOnTrack = this.getBarPosition();
         const mousePositionDelta = this.getMouseDelta();
