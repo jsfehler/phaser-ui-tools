@@ -32,10 +32,12 @@ export class Viewport extends Phaser.Group {
         this.mask.drawRect(0, 0, width, height);
         this.mask.endFill();
     }
+
     /** Adds a new object into the Viewport. */
     addNode(node) {
         this.add(node);
     }
+
     /** Disable input for all objets outside the viewport's visible area.
      * Recursively checks all the object's children.
      * @param {Object} children - The objects to disable, if they're outside the viewport.

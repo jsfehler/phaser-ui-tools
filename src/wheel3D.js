@@ -20,6 +20,7 @@ class VectorPoint {
         this.sprite = sprite;
         this.position = position;
     }
+
     getSinCosOfAngle(angle) { // eslint-disable-line class-methods-use-this
         const rad = (angle * Math.PI) / 180;
         const cosAngle = Math.cos(rad);
@@ -27,6 +28,7 @@ class VectorPoint {
 
         return { cosine: cosAngle, sine: sinAngle };
     }
+
     rotateY(angle) {
         const angles = this.getSinCosOfAngle(angle);
         const z = (this.z * angles.cosine) - (this.x * angles.sine);
@@ -34,6 +36,7 @@ class VectorPoint {
 
         return new VectorPoint(x, this.y, z);
     }
+
     rotateX(angle) {
         const angles = this.getSinCosOfAngle(angle);
         const y = (this.y * angles.cosine) - (this.z * angles.sine);
@@ -41,6 +44,7 @@ class VectorPoint {
 
         return new VectorPoint(this.x, y, z);
     }
+
     rotateZ(angle) {
         const angles = this.getSinCosOfAngle(angle);
         const x = (this.x * angles.cosine) - (this.y * angles.sine);
@@ -48,6 +52,7 @@ class VectorPoint {
 
         return new VectorPoint(x, y, this.z);
     }
+
     /** Rotate the point along the given axis by the given angle.
     * @param {string} axis - The axis to rotate.
     * @param {number} angle - The angle to rotate by.
@@ -63,6 +68,7 @@ class VectorPoint {
 
         return null;
     }
+
     /** Project the point to the correct physical location on screen.
      * z axis is not projected, because screens are 2D.
      */
@@ -109,6 +115,7 @@ export class Wheel3D {
         // Group to store wheel sprites in, used for zindex sorting.
         this.group = this.game.add.group();
     }
+
     activate() {
         let angle;
         let radCos;
@@ -179,6 +186,7 @@ export class Wheel3D {
 
         this.project();
     }
+
     /** Move the wheel backwards. */
     moveBack() {
         if (this.moving === false) {
@@ -197,6 +205,7 @@ export class Wheel3D {
             this.resetAngle();
         }
     }
+
     /** Move the wheel forward. */
     moveForward() {
         if (this.moving === false) {
@@ -215,6 +224,7 @@ export class Wheel3D {
             this.resetAngle();
         }
     }
+
     /** Project every item in the wheel to it's physical location. */
     project() {
         let newTween;
@@ -284,10 +294,12 @@ export class Wheel3D {
         newTween.onStart.add(this.dispatchOnStart, this);
         newTween.onComplete.add(this.dispatchOnComplete, this);
     }
+
     /** Called after movement starts. */
     dispatchOnStart() {
         this.onStart.dispatch(this);
     }
+
     /** Called after movement is finished. */
     dispatchOnComplete() {
         if (this.direction === 0) {
@@ -298,10 +310,12 @@ export class Wheel3D {
 
         this.onComplete.dispatch(this);
     }
+
     /** Once the buttons have finished their move animation, allow them to move again. */
     enableMoving() {
         this.moving = false;
     }
+
     /** Move all the WheelItem's position by 1. */
     updatePosition(operator) {
         for (let i = 0; i < this.wheelItems.length; i++) {
@@ -313,6 +327,7 @@ export class Wheel3D {
             this.wheelItems[i].sprite.wheelPosition = m;
         }
     }
+
     /** Make sure rotation can't go past 360 in either direction. */
     resetAngle() {
         const angle = this.rotationAxis[this.axis];
