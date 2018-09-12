@@ -24,7 +24,7 @@
     "grunt-contrib-jshint": "^1.1.0",
     "grunt-contrib-uglify": "^4.0.0",
     "grunt-eslint": "^21.0.0",
-    "grunt-jsdoc": "~2.2.1",
+    "grunt-jsdoc": "~2.3.0",
     "grunt-mocha": "^1.0.4",
     "grunt-rollup": "^9.0.0",
     "ink-docstrap": "^1.3.0",
