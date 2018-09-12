@@ -16,6 +16,7 @@ export class Bar extends Phaser.Group {
 
         this.vertical = vertical;
     }
+
     /** Determine the distance the bar can scroll over. */
     setTrackScrollAreaSize() {
         if (this.vertical) {
@@ -24,6 +25,7 @@ export class Bar extends Phaser.Group {
             this.trackScrollAreaSize = this.track.width - this.hslice;
         }
     }
+
     /** Sets position for the bar's non-moving axis. Centers it inside the track. */
     centerStaticAxis() {
         if (this.vertical) {
