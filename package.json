@@ -17,7 +17,7 @@
     "babel-preset-env": "^1.6.1",
     "chai": "^4.1.2",
     "eslint": "^4.9.0",
-    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-config-airbnb-base": "^13.0.0",
     "eslint-plugin-import": "^2.7.0",
     "grunt": "^1.0.1",
     "grunt-contrib-copy": "^1.0.0",
