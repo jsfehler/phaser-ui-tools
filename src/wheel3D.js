@@ -58,15 +58,17 @@ class VectorPoint {
     * @param {number} angle - The angle to rotate by.
     */
     rotate(axis, angle) {
+        let newVector = null;
+
         if (axis === 'x') {
-            return this.rotateX(angle);
+            newVector = this.rotateX(angle);
         } else if (axis === 'y') {
-            return this.rotateY(angle);
+            newVector = this.rotateY(angle);
         } else if (axis === 'z') {
-            return this.rotateZ(angle);
+            newVector = this.rotateZ(angle);
         }
 
-        return null;
+        return newVector;
     }
 
     /** Project the point to the correct physical location on screen.
