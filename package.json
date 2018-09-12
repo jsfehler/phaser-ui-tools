@@ -8,8 +8,8 @@
   "main": "dist/phaser-ui-tools.js",
   "unpkg": "dist/phaser-ui-tools.min.js",
   "files": [
-      "dist/phaser-ui-tools.js",
-      "dist/phaser-ui-tools.min.js"
+    "dist/phaser-ui-tools.js",
+    "dist/phaser-ui-tools.min.js"
   ],
   "devDependencies": {
     "babel-core": "^6.26.0",
