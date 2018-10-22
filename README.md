@@ -7,7 +7,7 @@
 
 I really wanted a viewport with a scrollbar. Things escalated.
 
-![scrollbar](https://raw.githubusercontent.com/jsfehler/phaser-ui-tools/master/diagram.png)
+![scrollbar](https://raw.githubusercontent.com/jsfehler/phaser-ui-tools/master/assets/diagram.png)
 
 
 ### Live Examples
@@ -71,7 +71,7 @@ var textButton = new uiWidgets.textButton(
 
 Columns are Phaser Groups where each child added to the group is placed directly under the previous child. If an object can be a child of a Group, it can likewise be in a Column.
 
-![column](https://raw.githubusercontent.com/jsfehler/phaser-ui-tools/master/diagram_column.png)
+![column](https://raw.githubusercontent.com/jsfehler/phaser-ui-tools/master/assets/diagram_column.png)
 ```javascript
 var column = new uiWidgets.Column(game, 8, 8);
 column.addNode(sprite_a, 8, 8);
@@ -83,7 +83,7 @@ column.addNode(sprite_c, 8, 8);
 
 Rows are Phaser Groups where each child added to the group is placed directly next to the previous child. If an object can be a child of a Group, it can likewise be in a Row.
 
-![row](https://raw.githubusercontent.com/jsfehler/phaser-ui-tools/master/diagram_row.png)
+![row](https://raw.githubusercontent.com/jsfehler/phaser-ui-tools/master/assets/diagram_row.png)
 ```javascript
 var row = new uiWidgets.Row(game, 8, 8);
 row.addNode(sprite_a, 8, 8);
@@ -127,7 +127,7 @@ Valuebars are like Scrollbars, but instead of moving content, they increase/decr
 Valuebars always have a minimum number of 0, but the starting and maximum number can be set.
 A tweening duration and easing can be specified. This will be triggered when moving the bar.
 
-![valuebar](https://raw.githubusercontent.com/jsfehler/phaser-ui-tools/master/diagram_valuebar.png)
+![valuebar](https://raw.githubusercontent.com/jsfehler/phaser-ui-tools/master/assets/diagram_valuebar.png)
 ```javascript
 var valuebar = new uiWidgets.ValueBar(
     game,
@@ -147,7 +147,7 @@ QuantityBars do not adjust a value, they get adjusted by a value. The bar grows 
 They can be used for health bars, stamina bars, etc.
 A tweening duration and easing can be specified. This will be triggered when moving the bar.
 
-![quantitybar](https://raw.githubusercontent.com/jsfehler/phaser-ui-tools/master/diagram_quantitybar.png)
+![quantitybar](https://raw.githubusercontent.com/jsfehler/phaser-ui-tools/master/assets/diagram_quantitybar.png)
 ```javascript
 var quantitybar = new uiWidgets.QuantityBar(
     game,
@@ -165,7 +165,7 @@ var quantitybar = new uiWidgets.QuantityBar(
 A collection of sprites that are arranged around a three dimensional wheel.
 The wheel can be adjusted and rotated along the x, y, or z axis.
 
-![wheel3D](https://raw.githubusercontent.com/jsfehler/phaser-ui-tools/master/diagram_wheel3D.png)
+![wheel3D](https://raw.githubusercontent.com/jsfehler/phaser-ui-tools/master/assets/diagram_wheel3D.png)
 ```javascript
 var wheel = new uiWidgets.Wheel3D(
     game,
