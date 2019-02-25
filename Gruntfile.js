@@ -63,7 +63,7 @@ module.exports = function (grunt) {
             },
             files: {
               dest: "dist/phaser-ui-tools.js",
-              src: ["src/01_group.js", "src/**/*.js"]
+              src: "src/**/*.js"
             },
           }
     });
