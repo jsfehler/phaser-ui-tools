@@ -1,3 +1,4 @@
+import { alignments } from '../const';
 import { Frame } from './frame';
 
 
@@ -13,6 +14,6 @@ export class Column extends Frame {
      */
     constructor(game, x = 0, y = 0, bg = 0) {
         super(game, x, y, bg);
-        this.alignment = Phaser.BOTTOM_CENTER;
+        this.alignment = alignments.BOTTOM_CENTER;
     }
 }

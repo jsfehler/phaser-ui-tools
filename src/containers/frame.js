@@ -1,3 +1,5 @@
+import { alignments } from '../const';
+
 /** Group with a dedicated background image.
  * @extends Phaser.Group
  */
@@ -22,7 +24,7 @@ export class Frame extends Phaser.Group {
         if (bg !== null) {
             const bgSprite = game.add.sprite(0, 0, bg);
             bgSprite.sendToBack();
-            bgSprite.alignIn(this, Phaser.TOP_LEFT);
+            bgSprite.alignIn(this, alignments.TOP_LEFT);
         }
     }
 
