@@ -19,9 +19,6 @@ module.exports = function (grunt) {
                 files: {"dist/<%= pkg.name %>.min.js": ["dist/<%= pkg.name %>.js"]}
             }
         },
-        jshint: {
-            files: ["tests/*.js"]
-        },
         eslint: {
             target: ["Gruntfile.js", "src/**/*.js"]
         },
@@ -69,13 +66,12 @@ module.exports = function (grunt) {
     });
 
     grunt.loadNpmTasks("grunt-contrib-copy");
-    grunt.loadNpmTasks("grunt-contrib-jshint");
     grunt.loadNpmTasks("grunt-contrib-uglify");
     grunt.loadNpmTasks('grunt-eslint');
     grunt.loadNpmTasks("grunt-jsdoc");
     grunt.loadNpmTasks("grunt-mocha");
     grunt.loadNpmTasks('grunt-rollup');
 
-    grunt.registerTask("default", ["jshint", "eslint", "rollup", "uglify", "mocha", "jsdoc", "copy"]);
-    grunt.registerTask("travis", ["jshint", "eslint", "mocha"]);
+    grunt.registerTask("default", ["eslint", "rollup", "uglify", "mocha", "jsdoc", "copy"]);
+    grunt.registerTask("travis", ["eslint", "mocha"]);
 };
