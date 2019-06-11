@@ -38,7 +38,7 @@ describe("Wheel3D", function(){
             });
         });
         describe("And I move the wheel forward", function(){
-            it("Then the active sprite should be the next one", function(){
+            it("Then the active sprite should be the next one", function(done){
                 var menuList = [];
                 for (var i = 0; i < 4; i++) {
                     var dummySprite = game.add.sprite(0, 0, "dummySprite");
