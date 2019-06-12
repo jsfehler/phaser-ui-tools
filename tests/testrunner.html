@@ -27,14 +27,8 @@
             "https://raw.githubusercontent.com/jsfehler/phaser-ui-tools/master/docs/examples/assets/vertical/sprite.png");
     };
     function create() {
-        // When running tests via Grunt, phantomJS is used.
         // .run() command must be here, after the assets are loaded.
-        if (window.mochaPhantomJS) {
-          mochaPhantomJS.run();
-        }
-        else {
-          mocha.run();
-        }
+        mocha.run();
     };
   </script>
 
