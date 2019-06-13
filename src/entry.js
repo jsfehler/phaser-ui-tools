@@ -1,4 +1,5 @@
 import { textSprite, textButton } from './buttons';
+import { KeyboardGroup } from './keyboard_group';
 import { Wheel3D } from './wheel3D';
 
 import { QuantityBar } from './bars/quantitybar';
@@ -14,6 +15,7 @@ import { Viewport } from './containers/viewport';
 export {
     textSprite,
     textButton,
+    KeyboardGroup,
     Wheel3D,
     QuantityBar,
     Scrollbar,
