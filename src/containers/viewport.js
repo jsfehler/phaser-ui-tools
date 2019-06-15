@@ -13,7 +13,6 @@ export class Viewport extends Phaser.Group {
      */
     constructor(game, x, y, width, height) {
         super(game);
-        game.add.existing(this);
 
         this.x = x;
         this.y = y;
@@ -27,7 +26,7 @@ export class Viewport extends Phaser.Group {
         };
 
         // Adding the mask attribute to a group hides objects outside the mask.
-        this.mask = this.game.add.graphics(this.area.x, this.area.y);
+        this.mask = game.add.graphics(this.area.x, this.area.y);
         this.mask.beginFill(0x0000ff);
         this.mask.drawRect(0, 0, width, height);
         this.mask.endFill();

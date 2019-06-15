@@ -20,7 +20,6 @@ export class QuantityBar extends Bar {
      */
     constructor(game, xy, values, vertical, reverse, trackImage, barImage, tweenParams) {
         super(game, xy.x, xy.y);
-        game.add.existing(this);
 
         this.valueRange = new QuantityRange(
             this,
