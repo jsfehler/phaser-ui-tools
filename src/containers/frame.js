@@ -12,12 +12,10 @@ export class Frame extends Phaser.Group {
      */
     constructor(game, x = 0, y = 0, bg = 0) {
         super(game);
-        game.add.existing(this);
 
         this.x = x;
         this.y = y;
 
-        this.game = game;
         this.bg = bg;
 
         // Add background to Frame.

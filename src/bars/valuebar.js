@@ -20,7 +20,6 @@ export class ValueBar extends DraggableBar {
      */
     constructor(game, xy, values, draggable, vertical, trackImage, barImage, tweenParams) {
         super(game, xy.x, xy.y);
-        game.add.existing(this);
 
         this.valueRange = new ValueRange(values.step, values.startValue, values.maxValue);
 
@@ -61,7 +60,7 @@ export class ValueBar extends DraggableBar {
 
         // Add an invisible background.
         // This ensures the bar can always be entered correctly, no matter where the grip is.
-        this.bg = this.game.add.graphics(0, 0);
+        this.bg = game.add.graphics(0, 0);
         this.add(this.bg);
         this.sendToBack(this.bg);
         this.bg.beginFill(0xff0000, 0);

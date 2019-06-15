@@ -19,7 +19,6 @@ export class Scrollbar extends DraggableBar {
      */
     constructor(game, content, draggable, vertical, trackImage, barImage, tweenParams) {
         super(game);
-        game.add.existing(this);
 
         this.content = content;
 
