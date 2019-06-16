@@ -54,7 +54,10 @@ export class QuantityBar extends Bar {
         this.create();
     }
 
-    /** Sets the bar's mask. */
+    /**
+     * @private
+     * Sets the bar's mask.
+     */
     setMask() {
         if (this.bar.mask !== null) {
             this.bar.mask.destroy();
@@ -112,7 +115,9 @@ export class QuantityBar extends Bar {
         this.setTrackScrollAreaSize();
     }
 
-    /** Creates the tween for adjusting the size of the mask.
+    /**
+     * @private
+     * Creates the tween for adjusting the size of the mask.
      * @param {Object} properties - Values for the tween's movement.
      */
     addScrollTweenMask(properties) {
@@ -124,7 +129,9 @@ export class QuantityBar extends Bar {
         );
     }
 
-    /** Adjusts the bar by a given value.
+    /**
+     * @private
+     * Adjusts the bar by a given value.
      * @param {number} newValue - The value to adjust the bar by.
      */
     adjustBar(newValue) {
@@ -161,7 +168,9 @@ export class QuantityBar extends Bar {
         return fraction;
     }
 
-    /** Given a ratio between total content size and viewport size,
+    /**
+     * @private
+     * Given a ratio between total content size and viewport size,
      * return an appropriate percentage of the track.
      */
     getBarSize() {

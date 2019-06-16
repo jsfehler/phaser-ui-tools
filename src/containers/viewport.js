@@ -32,7 +32,9 @@ export class Viewport extends Phaser.Group {
         this.mask.endFill();
     }
 
-    /** Adds a new object into the Viewport. */
+    /** Adds a new object into the Viewport.
+    * @param {Object} node - The object to add to the Viewport.
+    */
     addNode(node) {
         this.add(node);
     }

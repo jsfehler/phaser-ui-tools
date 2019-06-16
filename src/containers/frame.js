@@ -6,8 +6,8 @@ import { alignments } from '../const';
 export class Frame extends Phaser.Group {
     /**
      * @param {Object} game - Current game instance.
-     * @param {Number} x - The x position of the Frame.
-     * @param {Number} y - The y position of the Frame.
+     * @param {number} x - The x position of the Frame.
+     * @param {number} y - The y position of the Frame.
      * @param {string} bg - The background image to use.
      */
     constructor(game, x = 0, y = 0, bg = 0) {
@@ -26,11 +26,11 @@ export class Frame extends Phaser.Group {
         }
     }
 
-    /** Adds a new object into the Column, then aligns it under the previous object.
-     * @param {Object} node - The sprite to add to the Column.
-     * @param {Number} paddingX - The amount of horizontal space between objects.
-     * @param {Number} paddingY - The amount of vertical space between objects.
-     * @param {Number} alignment - The alignment relative to the previous child.
+    /** Adds a new object into the Frame, then aligns it with the previous object.
+     * @param {Object} node - The object to add to the Frame.
+     * @param {number} paddingX - The amount of horizontal space between objects.
+     * @param {number} paddingY - The amount of vertical space between objects.
+     * @param {number} alignment - The alignment relative to the previous child.
      */
     addNode(node, paddingX = 0, paddingY = 0, alignment = null) {
         const align = alignment || this.alignment;

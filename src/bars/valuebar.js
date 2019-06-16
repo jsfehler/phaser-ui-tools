@@ -157,7 +157,7 @@ export class ValueBar extends DraggableBar {
         }
     }
 
-    /** Returns the closest valid value. */
+    /** @returns {number} the closest valid value. */
     getClosestPosition() {
         const currentValue = this.valueRange.getCurrentValue();
 

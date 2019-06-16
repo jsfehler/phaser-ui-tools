@@ -5,9 +5,11 @@ import { Bar } from './bar';
  * @extends Bar
  */
 export class DraggableBar extends Bar {
-    /** If the vertical scrollbar is draggable,
-    * this function is called when the track is clicked.
-    */
+    /**
+     * @private
+     * If the vertical scrollbar is draggable,
+     * this function is called when the track is clicked.
+     */
     verticalTrackClick() {
         // Don't register mouse clicks on the bar itself.
         const mouseY = this.game.input.mousePointer.y;
@@ -19,9 +21,11 @@ export class DraggableBar extends Bar {
         }
     }
 
-    /** If the horizontal scrollbar is draggable,
-    * this function is called when the track is clicked.
-    */
+    /**
+     * @private
+     * If the horizontal scrollbar is draggable,
+     * this function is called when the track is clicked.
+     */
     horizontalTrackClick() {
         const mouseX = this.game.input.mousePointer.x;
         // Don't register mouse clicks on the bar itself.
@@ -32,7 +36,10 @@ export class DraggableBar extends Bar {
         }
     }
 
-    /** Allows the bar to scroll when the track is clicked directly. */
+    /**
+     * @private
+     * Allows the bar to scroll when the track is clicked directly.
+     */
     enableTrackClick() {
         let event;
 
@@ -47,16 +54,21 @@ export class DraggableBar extends Bar {
         this.track.events.onInputDown.add(event, this);
     }
 
-    /** When called, ensures the bar can be moved.
-    * Must be called once the bar has finished scrolling.
-    */
+    /**
+     * @private
+     * When called, ensures the bar can be moved.
+     * Must be called once the bar has finished scrolling.
+     */
     enableBarInput() {
         this.trackClicked = false;
         this.barMoving = false;
         this.bar.inputEnabled = true;
     }
 
-    /** Enables clicking and dragging on the bar. */
+    /**
+     * @private
+     * Enables clicking and dragging on the bar.
+     */
     enableBarDrag() {
         this.setDraggableArea();
 
@@ -141,7 +153,10 @@ export class DraggableBar extends Bar {
         return mousePositionDelta;
     }
 
-    /** Creates the tween for moving the bar to a new position. */
+    /**
+     * @private
+     * Creates the tween for moving the bar to a new position.
+     */
     addScrollTween(properties) {
         this.mousePointer = { x: this.bar.x, y: this.bar.y };
         this.trackClicked = true;
@@ -156,7 +171,10 @@ export class DraggableBar extends Bar {
         this.addScrollTweenEvents(newTween);
     }
 
-    /** Called after a scroll tween is added. Adds the necessary events to the tween. */
+    /**
+     * @private
+     * Called after a scroll tween is added. Adds the necessary events to the tween.
+     */
     addScrollTweenEvents(tween) {
         // Update the values as the bar moves.
         tween.onUpdateCallback(this.moveContent, this);

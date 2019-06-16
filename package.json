@@ -15,7 +15,7 @@
     "build:js": "webpack",
     "test": "mocha-chrome tests/testrunner.html",
     "copyToExamplesLib": "copyfiles -f dist/phaser-ui-tools.js docs/examples/lib/",
-    "build:docs": "jsdoc -r src/ --configure node_modules/ink-docstrap/template/jsdoc.conf.json --template node_modules/ink-docstrap/template"
+    "build:docs": "documentation build src/** -f html -o docs"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
@@ -23,12 +23,11 @@
     "babel-loader": "^8.0.6",
     "chai": "^4.2.0",
     "copyfiles": "^2.1.0",
+    "documentation": "^11.0.1",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-loader": "^2.1.2",
     "eslint-plugin-import": "^2.17.3",
-    "ink-docstrap": "^1.3.0",
-    "jsdoc": "^3.6.2",
     "mocha": "^6.1.4",
     "mocha-chrome": "^2.0.0",
     "webpack": "^4.33.0",
