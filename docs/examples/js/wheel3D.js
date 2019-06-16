@@ -30,7 +30,7 @@ function create() {
     );
 
     // Tint the active item, just for show.
-    menuWheelY.onComplete.add(
+    menuWheelY.emitter.on('complete',
         function(wheel) {
             for (var i = 0; i < 12; i++) {
                 wheel.sprites[i].tint = 0xFFFFFF;
@@ -79,7 +79,7 @@ function create() {
         {"x": 90, "y": 0, "z": 0}
     );
 
-    menuWheelX.onComplete.add(
+    menuWheelX.emitter.on('complete',
         function(wheel) {
             for (var i = 0; i < 12; i++) {
                 wheel.sprites[i].tint = 0xFFFFFF;
@@ -128,7 +128,7 @@ function create() {
         {"x": 0, "y": 0, "z": 90}
     );
 
-    menuWheelZ.onStart.add(
+    menuWheelZ.emitter.on('start',
         function(wheel) {
             for (var i = 0; i < 12; i++) {
                 wheel.sprites[i].tint = 0xFFFFFF;

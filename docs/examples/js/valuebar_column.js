@@ -39,7 +39,7 @@ function create() {
     });
 
     bar.valueDisplay = barText;
-    bar.onMovement.add(updateValueDisplay);
+    bar.emitter.on('movement', updateValueDisplay);
 
     // Create a quantitybar starting at 50.
     bar2 = new uiWidgets.ValueBar(
@@ -60,7 +60,7 @@ function create() {
     });
 
     bar2.valueDisplay = barText2;
-    bar2.onMovement.add(updateValueDisplay);
+    bar2.emitter.on('movement', updateValueDisplay);
 
     var prevItemCallback = function (group, context) {
         cursor.y = group.selected.worldPosition.y - (group.selected.height/4);
@@ -85,8 +85,8 @@ function create() {
     keyboardGroup.addNode(bar);
     keyboardGroup.addNode(bar2);
 
-    keyboardGroup.onPrevious.add(prevItemCallback);
-    keyboardGroup.onNext.add(nextItemCallback);
+    keyboardGroup.emitter.on('previous', prevItemCallback);
+    keyboardGroup.emitter.on('next', nextItemCallback);
 }
 
 function updateValueDisplay(bar) {

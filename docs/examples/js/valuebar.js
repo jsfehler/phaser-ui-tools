@@ -38,7 +38,7 @@ function create() {
     valuebar0.valueDisplay = valuebar0_text;
 
     // Use the onMovement signal to update the display of text when the bar is moved.
-    valuebar0.onMovement.add(updateValueDisplay);
+    valuebar0.emitter.on('movement', updateValueDisplay);
 
     // Create a valuebar starting at 50.
     valuebar50 = new uiWidgets.ValueBar(
@@ -59,7 +59,7 @@ function create() {
     });
 
     valuebar50.valueDisplay = valuebar50_text;
-    valuebar50.onMovement.add(updateValueDisplay);
+    valuebar50.emitter.on('movement', updateValueDisplay);
 
     // Create a vertical valuebar starting at 50.
     vvaluebar50 = new uiWidgets.ValueBar(
@@ -80,13 +80,13 @@ function create() {
     });
 
     vvaluebar50.valueDisplay = vvaluebar50_text;
-    vvaluebar50.onMovement.add(updateValueDisplay);
+    vvaluebar50.emitter.on('movement', updateValueDisplay);
 
     alphaImage = game.add.sprite(500, 100, "alphaImage");
     alphaImage.alpha = vvaluebar50.valueRange.getCurrentValue() / 100;
 
     // Use the onMovement signal to updte the sprite's opacity whenever the bar is moved.
-    vvaluebar50.onMovement.add(updateAlpha);
+    vvaluebar50.emitter.on('movement', updateAlpha);
 }
 
 function updateValueDisplay(bar) {

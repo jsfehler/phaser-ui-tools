@@ -1,3 +1,5 @@
+import * as EventEmitter from 'eventemitter3';
+
 import { utils } from './utils';
 
 /**
@@ -108,11 +110,7 @@ export class Wheel3D {
         this.visibleRange = visibleRange || null;
         this.tweenParams = tweenParams || { duration: 300, ease: Phaser.Easing.Quadratic.Out };
 
-        // Signals
-        this.onStart = new Phaser.Signal();
-        this.onComplete = new Phaser.Signal();
-        this.onBackComplete = new Phaser.Signal();
-        this.onForwardComplete = new Phaser.Signal();
+        this.emitter = new EventEmitter();
 
         // Group to store wheel sprites in, used for zindex sorting.
         this.group = this.game.add.group();
@@ -299,18 +297,18 @@ export class Wheel3D {
 
     /** Called after movement starts. */
     dispatchOnStart() {
-        this.onStart.dispatch(this);
+        this.emitter.emit('start', this);
     }
 
     /** Called after movement is finished. */
     dispatchOnComplete() {
         if (this.direction === 0) {
-            this.onBackComplete.dispatch(this);
+            this.emitter.emit('backComplete', this);
         } else if (this.direction === 1) {
-            this.onForwardComplete.dispatch(this);
+            this.emitter.emit('forwardComplete', this);
         }
 
-        this.onComplete.dispatch(this);
+        this.emitter.emit('complete', this);
     }
 
     /** Once the buttons have finished their move animation, allow them to move again. */
