@@ -89,12 +89,6 @@ export class ValueBar extends DraggableBar {
             this.upEvent = this.scrollLeft;
             this.downEvent = this.scrollRight;
         }
-
-        /**
-         * Dispatched when the bar is moved.
-         * @property {Phaser.Signal}
-         */
-        this.onMovement = new Phaser.Signal();
     }
 
     create() {

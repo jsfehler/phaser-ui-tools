@@ -1,3 +1,4 @@
+import * as EventEmitter from 'eventemitter3';
 import { Bar } from './bar';
 
 /**
@@ -5,6 +6,11 @@ import { Bar } from './bar';
  * @extends Bar
  */
 export class DraggableBar extends Bar {
+    constructor(game, x = 0, y = 0) {
+        super(game, x, y);
+        this.emitter = new EventEmitter();
+    }
+
     /**
      * @private
      * If the vertical scrollbar is draggable,
@@ -267,6 +273,6 @@ export class DraggableBar extends Bar {
 
         this.valueRange.adjustValue(newContentPosition);
 
-        this.onMovement.dispatch(this);
+        this.emitter.emit('movement', this);
     }
 }

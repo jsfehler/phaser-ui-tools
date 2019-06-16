@@ -71,12 +71,6 @@ export class Scrollbar extends DraggableBar {
         this.maxX = (this.track.x + this.track.width) - this.bar.width;
 
         this.create();
-
-        /**
-         * Dispatched when the bar is moved.
-         * @property {Phaser.Signal}
-         */
-        this.onMovement = new Phaser.Signal();
     }
 
     /**

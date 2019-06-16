@@ -20,7 +20,7 @@ describe("Wheel3D", function(){
 
                 var isDone = false;
 
-                wheel.onComplete.add(
+                wheel.emitter.on('complete',
                     function (wheel) {
                         isDone = true;
                 });
@@ -57,7 +57,7 @@ describe("Wheel3D", function(){
 
                 var isDone = false;
 
-                wheel.onComplete.add(
+                wheel.emitter.on('complete',
                     function (wheel) {
                         isDone = true;
                 });

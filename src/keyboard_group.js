@@ -1,3 +1,5 @@
+import * as EventEmitter from 'eventemitter3';
+
 /** Collection of sprites that can be selected with the keyboard.
   * When the select key is hit, the sprite that was selected is now connected to the keyboard.
   */
@@ -5,7 +7,7 @@ export class KeyboardGroup {
     /**
       * @param {Object} game - Current game instance.
       * @param {Boolean} vertical - If the selection should be controlled with up/down or left/right arrow keys.
-      * @param {Object} callbackContext - The context for the onPrevious and onNext Signals.
+      * @param {Object} callbackContext - The context for the previous and next Events.
       */
     constructor(game, vertical, callbackContext) {
         this.game = game;
@@ -25,17 +27,7 @@ export class KeyboardGroup {
         this.upEvent = this.prevItem;
         this.downEvent = this.nextItem;
 
-        /**
-         * Dispatched when the selected child is set from the current child to the previous child.
-         * @property {Phaser.Signal}
-         */
-        this.onPrevious = new Phaser.Signal();
-
-        /**
-         * Dispatched when the selected child is set from the current child to the next child.
-         * @property {Phaser.Signal}
-         */
-        this.onNext = new Phaser.Signal();
+        this.emitter = new EventEmitter();
 
         this.activateGroup();
     }
@@ -63,7 +55,7 @@ export class KeyboardGroup {
 
         this.useBar();
 
-        this.onPrevious.dispatch(this, this.callbackContext);
+        this.emitter.emit('previous', this, this.callbackContext);
     }
 
     /** Selects the next child. */
@@ -73,7 +65,7 @@ export class KeyboardGroup {
 
         this.useBar();
 
-        this.onNext.dispatch(this, this.callbackContext);
+        this.emitter.emit('next', this, this.callbackContext);
     }
 
     /**
