@@ -1,7 +1,6 @@
 import { alignments } from '../const';
 import { Frame } from './frame';
 
-
 /** Frame that places new child nodes directly next to the previous child.
  * @extends Frame
  */

@@ -195,28 +195,10 @@
                 
                 <li><a
                   href='#scrollbar'
-                  class=" toggle-sibling">
+                  class="">
                   Scrollbar
-                  <span class='icon'>▸</span>
+                  
                 </a>
-                
-                <div class='toggle-target display-none'>
-                  
-                  
-                    <ul class='list-reset py1-ul pl1'>
-                      <li class='h5'><span>Instance members</span></li>
-                      
-                      <li><a
-                        href='#scrollbaronmovement'
-                        class='regular pre-open'>
-                        #onMovement
-                      </a></li>
-                      
-                    </ul>
-                  
-                  
-                  
-                </div>
                 
                 </li>
               
@@ -233,12 +215,6 @@
                   
                     <ul class='list-reset py1-ul pl1'>
                       <li class='h5'><span>Instance members</span></li>
-                      
-                      <li><a
-                        href='#valuebaronmovement'
-                        class='regular pre-open'>
-                        #onMovement
-                      </a></li>
                       
                       <li><a
                         href='#valuebarsetdraggablearea'
@@ -401,18 +377,6 @@
                       <li class='h5'><span>Instance members</span></li>
                       
                       <li><a
-                        href='#keyboardgrouponprevious'
-                        class='regular pre-open'>
-                        #onPrevious
-                      </a></li>
-                      
-                      <li><a
-                        href='#keyboardgrouponnext'
-                        class='regular pre-open'>
-                        #onNext
-                      </a></li>
-                      
-                      <li><a
                         href='#keyboardgroupaddnode'
                         class='regular pre-open'>
                         #addNode
@@ -435,6 +399,16 @@
                   
                   
                 </div>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#group'
+                  class="">
+                  Group
+                  
+                </a>
                 
                 </li>
               
@@ -539,7 +513,7 @@
     <p>
       Extends
       
-        Phaser.Group
+        PhaserObjects.Group
       
     </p>
   
@@ -632,7 +606,7 @@
 
   <p>Base object for Bars that can be manipulated with a mouse.</p>
 
-    <div class='pre p1 fill-light mt0'>new DraggableBar()</div>
+    <div class='pre p1 fill-light mt0'>new DraggableBar(game: any, x: any, y: any)</div>
   
   
     <p>
@@ -650,6 +624,37 @@
   
   
 
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>game</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>x</span> <code class='quiet'>(any
+            = <code>0</code>)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>y</span> <code class='quiet'>(any
+            = <code>0</code>)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
   
 
   
@@ -1673,59 +1678,6 @@ The bar is resized relative to the size of the track and size of the content to 
   
 
   
-    <div class='py1 quiet mt1 prose-big'>Instance Members</div>
-    <div class="clearfix">
-  
-    <div class='border-bottom' id='scrollbaronmovement'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>onMovement</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>Dispatched when the bar is moved.</p>
-
-    <div class='pre p1 fill-light mt0'>onMovement</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-</div>
-
-  
 
   
 
@@ -1861,53 +1813,6 @@ This is done by masking the sprite and then resizing the mask.</p>
   
     <div class='py1 quiet mt1 prose-big'>Instance Members</div>
     <div class="clearfix">
-  
-    <div class='border-bottom' id='valuebaronmovement'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>onMovement</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>Dispatched when the bar is moved.</p>
-
-    <div class='pre p1 fill-light mt0'>onMovement</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
   
     <div class='border-bottom' id='valuebarsetdraggablearea'>
       <div class="clearfix small pointer toggle-sibling">
@@ -2885,7 +2790,7 @@ Content outside the viewport has their input disabled.</p>
     <p>
       Extends
       
-        Phaser.Group
+        PhaserObjects.Group
       
     </p>
   
@@ -3168,7 +3073,7 @@ When the select key is hit, the sprite that was selected is now connected to the
         <div class='space-bottom0'>
           <div>
             <span class='code bold'>callbackContext</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
-	    The context for the onPrevious and onNext Signals.
+	    The context for the previous and next Events.
 
           </div>
           
@@ -3190,100 +3095,6 @@ When the select key is hit, the sprite that was selected is now connected to the
   
     <div class='py1 quiet mt1 prose-big'>Instance Members</div>
     <div class="clearfix">
-  
-    <div class='border-bottom' id='keyboardgrouponprevious'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>onPrevious</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>Dispatched when the selected child is set from the current child to the previous child.</p>
-
-    <div class='pre p1 fill-light mt0'>onPrevious</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='keyboardgrouponnext'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>onNext</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>Dispatched when the selected child is set from the current child to the next child.</p>
-
-    <div class='pre p1 fill-light mt0'>onNext</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
   
     <div class='border-bottom' id='keyboardgroupaddnode'>
       <div class="clearfix small pointer toggle-sibling">
@@ -3441,6 +3252,55 @@ When the select key is hit, the sprite that was selected is now connected to the
     </div>
   
 </div>
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='group'>
+      Group
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Collection of shims that provide different objects based on the Phaser
+version used.</p>
+
+    <div class='pre p1 fill-light mt0'>Group</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
   
 

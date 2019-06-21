@@ -1,9 +1,11 @@
+import * as PhaserObjects from '../phaserObjects';
+
 /**
  * A container with a limited viewable area. Uses a mask to hide children outside of the specified x/y/width/height area.
  * Content outside the viewport has their input disabled.
- * @extends Phaser.Group
+ * @extends PhaserObjects.Group
  */
-export class Viewport extends Phaser.Group {
+export class Viewport extends PhaserObjects.Group {
     /**
      * @param {Object} game - Current game instance.
      * @param {number} x - The x coordinate on screen where the viewport will be placed.

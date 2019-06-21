@@ -1,7 +1,9 @@
+import * as PhaserObjects from '../phaserObjects';
+
 /** Base object for all Bar-like Widgets.
- * @extends Phaser.Group
+ * @extends PhaserObjects.Group
  */
-export class Bar extends Phaser.Group {
+export class Bar extends PhaserObjects.Group {
     /**
      * @param {Object} game - Current game instance.
      * @param {number} x - The Bar's x position.

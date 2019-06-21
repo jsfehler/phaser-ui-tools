@@ -1,9 +1,10 @@
 import { alignments } from '../const';
+import * as PhaserObjects from '../phaserObjects';
 
 /** Group with a dedicated background image.
  * @extends Phaser.Group
  */
-export class Frame extends Phaser.Group {
+export class Frame extends PhaserObjects.Group {
     /**
      * @param {Object} game - Current game instance.
      * @param {number} x - The x position of the Frame.
