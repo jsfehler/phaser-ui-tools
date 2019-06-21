@@ -2,6 +2,8 @@ import { DraggableBar } from './draggable_bar';
 
 import { ViewportRange } from './ranges';
 
+import * as PhaserObjects from '../phaserObjects';
+
 /**
  * A bar that moves along a track.
  * The bar is resized relative to the size of the track and size of the content to be scrolled.
@@ -43,7 +45,12 @@ export class Scrollbar extends DraggableBar {
         this.mousePointer = null;
 
         // The track is the static area the bar will move along.
-        this.track = this.game.add.sprite(0, 0, this.trackImage);
+        this.track = new PhaserObjects.Sprite(
+            game,
+            this.x,
+            this.y,
+            this.trackImage,
+        );
         this.add(this.track);
 
         if (this.draggable) {
@@ -52,7 +59,8 @@ export class Scrollbar extends DraggableBar {
         }
 
         // The bar is the part that moves, controlling the value of the scrollbar.
-        this.bar = this.game.add.button(
+        this.bar = new PhaserObjects.Button(
+            game,
             this.x,
             this.y,
             this.barImage,
@@ -66,9 +74,9 @@ export class Scrollbar extends DraggableBar {
         this.resizeBar();
 
         this.minY = this.track.y;
-        this.maxY = (this.track.y + this.track.height) - this.bar.height;
+        this.maxY = (this.track.y + this.track.height) - this.bar.displayHeight;
         this.minX = this.track.x;
-        this.maxX = (this.track.x + this.track.width) - this.bar.width;
+        this.maxX = (this.track.x + this.track.width) - this.bar.displayWidth;
 
         this.create();
     }
@@ -93,9 +101,9 @@ export class Scrollbar extends DraggableBar {
 
         // Resizes the bar.
         if (this.vertical) {
-            this.bar.height = barSize;
+            this.bar.displayHeight = barSize;
         } else {
-            this.bar.width = barSize;
+            this.bar.displayWidth = barSize;
         }
     }
 
@@ -127,17 +135,17 @@ export class Scrollbar extends DraggableBar {
      */
     setDraggableArea() {
         this.verticalDraggableArea = {
-            x: this.track.x - ((this.bar.width - this.track.width) / 2),
+            x: this.track.x - ((this.bar.displayWidth - this.track.width) / 2),
             y: this.track.y,
-            w: this.bar.width,
+            w: this.bar.displayWidth,
             h: this.track.height,
         };
 
         this.horizontalDraggableArea = {
             x: this.track.x,
-            y: this.track.y - ((this.bar.height - this.track.height) / 2),
+            y: this.track.y - ((this.bar.displayHeight - this.track.height) / 2),
             w: this.track.width,
-            h: this.bar.height,
+            h: this.bar.displayHeight,
         };
     }
 
@@ -174,13 +182,13 @@ export class Scrollbar extends DraggableBar {
         if (this.vertical) {
             if (this.bar.y <= this.track.y) {
                 newGripPosition = 0;
-            } else if (this.bar.y + this.bar.height >= this.track.y + this.track.height) {
+            } else if (this.bar.y + this.bar.displayHeight >= this.track.y + this.track.height) {
                 newGripPosition = -this.trackScrollAreaSize;
             }
         } else {
             if (this.bar.x <= this.track.x) {
                 newGripPosition = 0;
-            } else if (this.bar.x + this.bar.width >= this.track.x + this.track.width) {
+            } else if (this.bar.x + this.bar.displayWidth >= this.track.x + this.track.width) {
                 newGripPosition = -this.trackScrollAreaSize;
             }
         }

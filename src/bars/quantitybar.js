@@ -2,6 +2,8 @@ import { Bar } from './bar';
 
 import { QuantityRange } from './ranges';
 
+import * as PhaserObjects from '../phaserObjects';
+
 /**
   * Bar that adjusts the size of a static sprite based on a value.
   * This is done by masking the sprite and then resizing the mask.
@@ -40,7 +42,8 @@ export class QuantityBar extends Bar {
         this.add(this.track);
 
         // The bar is a static image taking up the width of the track.
-        this.bar = this.game.add.button(
+        this.bar = new PhaserObjects.Button(
+            game,
             0,
             0,
             this.barImage,

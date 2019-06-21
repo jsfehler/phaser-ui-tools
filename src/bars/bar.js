@@ -39,10 +39,10 @@ export class Bar extends PhaserObjects.Group {
     centerStaticAxis() {
         if (this.vertical) {
             this.bar.x = (
-                this.track.x + (this.track.width / 2)) - (this.bar.width / 2);
+                this.track.x + (this.track.width / 2)) - (this.bar.displayWidth / 2);
         } else {
             this.bar.y = (
-                this.track.y + (this.track.height / 2)) - (this.bar.height / 2);
+                this.track.y + (this.track.height / 2)) - (this.bar.displayHeight / 2);
         }
     }
 }

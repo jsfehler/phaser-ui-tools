@@ -20,7 +20,7 @@ export class DraggableBar extends Bar {
         // Don't register mouse clicks on the bar itself.
         const mouseY = this.game.input.mousePointer.y;
 
-        if (mouseY > this.bar.y + this.worldPosition.y + this.bar.height) {
+        if (mouseY > this.bar.y + this.worldPosition.y + this.bar.displayHeight) {
             this.scrollDown();
         } else if (mouseY < this.bar.y + this.worldPosition.y) {
             this.scrollUp();
@@ -35,7 +35,7 @@ export class DraggableBar extends Bar {
     horizontalTrackClick() {
         const mouseX = this.game.input.mousePointer.x;
         // Don't register mouse clicks on the bar itself.
-        if (mouseX > this.bar.x + this.bar.width + this.worldPosition.x) {
+        if (mouseX > this.bar.x + this.bar.displayWidth + this.worldPosition.x) {
             this.scrollRight();
         } else if (mouseX < (this.bar.x + this.worldPosition.x)) {
             this.scrollLeft();
@@ -208,7 +208,7 @@ export class DraggableBar extends Bar {
 
     /** For Vertical Scrollbars. Scrolls down by one step. */
     scrollDown() {
-        if (this.bar.y + this.bar.height !== this.track.y + this.track.height && !this.barMoving) {
+        if (this.bar.y + this.bar.displayHeight !== this.track.y + this.track.height && !this.barMoving) {
             const testPosition = this.bar.y + (this.vslice * 2);
             let moveToY = null;
             this.barMoving = true;
@@ -246,7 +246,7 @@ export class DraggableBar extends Bar {
 
     /** For Horizontal Scrollbars. Scrolls right by one step. */
     scrollRight() {
-        if (this.bar.x + this.bar.width !== this.track.x + this.track.width && !this.barMoving) {
+        if (this.bar.x + this.bar.displayWidth !== this.track.x + this.track.width && !this.barMoving) {
             const testPosition = this.bar.x + (this.hslice * 2);
             let moveToX = null;
             this.barMoving = true;

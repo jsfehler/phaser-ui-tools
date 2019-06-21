@@ -2,6 +2,8 @@ import { DraggableBar } from './draggable_bar';
 
 import { ValueRange } from './ranges';
 
+import * as PhaserObjects from '../phaserObjects';
+
 /**
  * Bar that adjusts a number.
  * This is done by masking the sprite and then resizing the mask.
@@ -48,7 +50,8 @@ export class ValueBar extends DraggableBar {
         }
 
         // The bar is the part that moves, controlling the value of the scrollbar.
-        this.bar = this.game.add.button(
+        this.bar = new PhaserObjects.Button(
+            game,
             this.x,
             this.y,
             this.barImage,

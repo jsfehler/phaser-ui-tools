@@ -1,11 +1,11 @@
 let exportObject;
 
-if (Phaser.Sprite === undefined) {
-    class Phaser3Sprite extends Phaser.GameObjects.Sprite {}
+if (Phaser.Button === undefined) {
+    class Phaser3Button extends Phaser.GameObjects.Sprite {}
 
-    exportObject = Phaser3Sprite;
+    exportObject = Phaser3Button;
 } else {
-    class PhaserCESprite extends Phaser.Sprite {
+    class PhaserCEButton extends Phaser.Button {
         /** Immitate the API of Phaser3.
         * The current displayed height of the Object.
         * @type {number}
@@ -33,7 +33,7 @@ if (Phaser.Sprite === undefined) {
         }
     }
 
-    exportObject = PhaserCESprite;
+    exportObject = PhaserCEButton;
 }
 
-export const Sprite = exportObject;
+export const Button = exportObject;
