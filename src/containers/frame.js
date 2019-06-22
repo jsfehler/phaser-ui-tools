@@ -38,11 +38,7 @@ export class Frame extends PhaserObjects.Group {
         const align = alignment || this.alignment;
 
         this.add(node);
-        const previousNode = this.children[this.children.length - 2];
-
-        if (previousNode !== undefined) {
-            node.alignTo(previousNode, align, paddingX, paddingY);
-        }
+        this.alignNodeToPrevious(node, align, paddingX, paddingY);
 
         // Reset the positions for the bar's draggable area.
         if ('enableBarDrag' in node) {
