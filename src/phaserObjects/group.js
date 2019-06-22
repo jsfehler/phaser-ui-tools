@@ -1,6 +1,21 @@
 let exportObject;
 
 if (Phaser.Group === undefined) {
+    // Emulate Phaser CE's worldPosition object
+    class WorldPosition {
+        constructor(parent) {
+            this.parent = parent;
+        }
+
+        get x() {
+            return this.parent.x;
+        }
+
+        get y() {
+            return this.parent.y;
+        }
+    }
+
     class Phaser3Group extends Phaser.GameObjects.Container {
         constructor(game, x = 0, y = 0) {
             super(game, x, y);
@@ -12,6 +27,16 @@ if (Phaser.Group === undefined) {
                 8: Phaser.Display.Align.To.RightCenter,
                 11: Phaser.Display.Align.To.BottomCenter,
             };
+
+            this.worldPosition = new WorldPosition(this);
+        }
+
+        get realHeight() {
+            return this.getBounds().height;
+        }
+
+        get realWidth() {
+            return this.getBounds().width;
         }
 
         getNodes() {
@@ -34,6 +59,14 @@ if (Phaser.Group === undefined) {
     exportObject = Phaser3Group;
 } else {
     class PhaserCEGroup extends Phaser.Group {
+        get realHeight() {
+            return this.height;
+        }
+
+        get realWidth() {
+            return this.width;
+        }
+
         getNodes() {
             return this.children;
         }

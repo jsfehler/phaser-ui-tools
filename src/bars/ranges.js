@@ -81,10 +81,10 @@ export class ViewportRange {
 
         if (vertical) {
             this.step = viewport.area.height;
-            this.maxValue = viewport.height;
+            this.maxValue = viewport.realHeight;
         } else {
             this.step = viewport.area.width;
-            this.maxValue = viewport.width;
+            this.maxValue = viewport.realWidth;
         }
 
         this.ratio = this.step / this.maxValue;
