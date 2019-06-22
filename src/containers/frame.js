@@ -21,7 +21,7 @@ export class Frame extends PhaserObjects.Group {
 
         // Add background to Frame.
         if (bg !== null) {
-            const bgSprite = game.add.sprite(0, 0, bg);
+            const bgSprite = new PhaserObjects.Sprite(game, 0, 0, bg);
             bgSprite.sendToBack();
             bgSprite.alignIn(this, alignments.TOP_LEFT);
         }
