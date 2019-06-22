@@ -57,7 +57,7 @@ export class DraggableBar extends Bar {
             event = this.horizontalTrackClick;
         }
 
-        this.track.events.onInputDown.add(event, this);
+        this.track.addDownEvent(event, this);
     }
 
     /**

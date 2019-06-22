@@ -39,11 +39,27 @@ if (Phaser.Sprite === undefined) {
         alignIn(other, align) {
             this.alignInMapping[align](this, other, other.width);
         }
+
+        /**
+        * @private
+        * Add an callback that is triggered when the object is clicked.
+        */
+        addDownEvent(callback, callbackContext) {
+            this.on('pointerdown', callback, callbackContext);
+        }
     }
 
     exportObject = Phaser3Sprite;
 } else {
     class PhaserCESprite extends Phaser.Sprite {
+        /**
+        * @private
+        * Add an callback that is triggered when the object is clicked.
+        */
+        addDownEvent(callback, callbackContext) {
+            this.events.onInputDown.add(callback, callbackContext);
+        }
+
         /** Immitate the API of Phaser3.
         * The current displayed height of the Object.
         * @type {number}
