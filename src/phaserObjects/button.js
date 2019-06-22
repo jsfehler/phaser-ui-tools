@@ -1,7 +1,33 @@
 let exportObject;
 
 if (Phaser.Button === undefined) {
-    class Phaser3Button extends Phaser.GameObjects.Sprite {}
+    /** Build a button object that immitates Phaser CE's Button
+    * @private
+    */
+    class Phaser3Button extends Phaser.GameObjects.Sprite {
+        constructor(game, x, y, key, callback, callbackContext, overKey, outKey) {
+            super(game, x, y, key);
+
+            this.game = game;
+
+            this.overKey = overKey;
+            this.outKey = outKey;
+
+            this.setInteractive();
+
+            this.on('pointerdown', callback, callbackContext);
+            this.on('pointerover', this.onOver, this);
+            this.on('pointerout', this.onOut, this);
+        }
+
+        onOver() {
+            this.setFrame(this.overKey);
+        }
+
+        onOut() {
+            this.setFrame(this.outKey);
+        }
+    }
 
     exportObject = Phaser3Button;
 } else {
