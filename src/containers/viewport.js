@@ -28,10 +28,8 @@ export class Viewport extends PhaserObjects.Group {
         };
 
         // Adding the mask attribute to a group hides objects outside the mask.
-        this.mask = game.add.graphics(this.area.x, this.area.y);
-        this.mask.beginFill(0x0000ff);
-        this.mask.drawRect(0, 0, width, height);
-        this.mask.endFill();
+        const mask = new PhaserObjects.ViewportMask(game, x, y);
+        this.mask = mask.create(width, height);
     }
 
     /** Adds a new object into the Viewport.
