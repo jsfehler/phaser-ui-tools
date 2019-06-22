@@ -35,7 +35,7 @@ export class QuantityBar extends Bar {
         this.trackImage = trackImage;
         this.barImage = barImage;
 
-        this.tweenParams = tweenParams || { duration: 300, ease: Phaser.Easing.Quadratic.Out };
+        this.tweenParams = tweenParams || { duration: 300, ease: PhaserObjects.Easing.Quadratic.Out };
 
         // The track is the static area the bar will move along.
         this.track = this.game.add.sprite(0, 0, this.trackImage);
