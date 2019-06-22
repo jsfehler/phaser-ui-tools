@@ -15,6 +15,7 @@ export class Viewport extends PhaserObjects.Group {
      */
     constructor(game, x, y, width, height) {
         super(game);
+        game.add.existing(this);
 
         this.x = x;
         this.y = y;

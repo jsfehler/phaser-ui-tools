@@ -12,6 +12,7 @@ export class Bar extends PhaserObjects.Group {
      */
     constructor(game, x = 0, y = 0, vertical = false) {
         super(game);
+        game.add.existing(this);
 
         this.game = game;
         this.x = x;

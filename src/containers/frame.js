@@ -13,6 +13,7 @@ export class Frame extends PhaserObjects.Group {
      */
     constructor(game, x = 0, y = 0, bg = null) {
         super(game);
+        game.add.existing(this);
 
         this.x = x;
         this.y = y;

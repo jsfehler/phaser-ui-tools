@@ -30,17 +30,17 @@ if (Phaser.Button === undefined) {
             this.setFrame(this.outKey);
         }
 
-        updateDrag(pointer, gameObject, x, y) {
-            if (this.vertical) {
-                if ((this.draggableArea.y + this.draggableArea.h) >= y) {
-                    if (this.draggableArea.y <= y) {
+        updateDrag(pointer, gameObject, x, y) { //eslint-disable-line
+            if (gameObject.vertical) {
+                if ((gameObject.draggableArea.y + gameObject.draggableArea.h) >= y) {
+                    if (gameObject.draggableArea.y <= y) {
                         gameObject.y = y; //eslint-disable-line
                     }
                 }
             } else {
                 const fx = (x + gameObject.displayWidth);
-                if ((this.draggableArea.x + this.draggableArea.w) >= fx) {
-                    if (this.draggableArea.x <= x) {
+                if ((gameObject.draggableArea.x + gameObject.draggableArea.w) >= fx) {
+                    if (gameObject.draggableArea.x <= x) {
                         gameObject.x = x; //eslint-disable-line
                     }
                 }
