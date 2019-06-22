@@ -68,7 +68,7 @@ export class DraggableBar extends Bar {
     enableBarInput() {
         this.trackClicked = false;
         this.barMoving = false;
-        this.bar.inputEnabled = true;
+        this.bar.enableDragging(this.vertical);
     }
 
     /**
@@ -78,30 +78,23 @@ export class DraggableBar extends Bar {
     enableBarDrag() {
         this.setDraggableArea();
 
-        this.bar.inputEnabled = true;
-        this.bar.input.enableDrag();
+        this.bar.enableDragging(this.vertical);
+
+        let draggableArea;
+
+        if (this.vertical) {
+            draggableArea = this.verticalDraggableArea;
+        } else {
+            draggableArea = this.horizontalDraggableArea;
+        }
+
+        this.bar.setDragBounds(draggableArea);
+
         if (this.snapping) {
             this.bar.addUpEvent(this.snapToClosestPosition, this);
         }
         this.bar.addDownEvent(this.saveMousePosition, this);
         this.bar.addDragEvent(this.moveContent, this);
-
-        let draggableArea;
-
-        if (this.vertical) {
-            this.bar.input.allowHorizontalDrag = false;
-            draggableArea = this.verticalDraggableArea;
-        } else {
-            this.bar.input.allowVerticalDrag = false;
-            draggableArea = this.horizontalDraggableArea;
-        }
-
-        this.bar.input.boundsRect = new Phaser.Rectangle(
-            draggableArea.x,
-            draggableArea.y,
-            draggableArea.w,
-            draggableArea.h,
-        );
     }
 
     saveMousePosition(sprite, pointer) {

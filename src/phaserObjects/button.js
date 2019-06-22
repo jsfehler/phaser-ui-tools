@@ -29,11 +29,58 @@ if (Phaser.Button === undefined) {
         onOut() {
             this.setFrame(this.outKey);
         }
+
+        updateDrag(pointer, gameObject, x, y) {
+            if (this.vertical) {
+                if ((this.draggableArea.y + this.draggableArea.h) >= y) {
+                    if (this.draggableArea.y <= y) {
+                        gameObject.y = y; //eslint-disable-line
+                    }
+                }
+            } else {
+                const fx = (x + gameObject.displayWidth);
+                if ((this.draggableArea.x + this.draggableArea.w) >= fx) {
+                    if (this.draggableArea.x <= x) {
+                        gameObject.x = x; //eslint-disable-line
+                    }
+                }
+            }
+        }
+
+        setDragBounds(draggableArea) {
+            this.draggableArea = draggableArea;
+        }
+
+        enableDragging(vertical = false) {
+            this.vertical = vertical;
+            this.game.input.setDraggable(this);
+            this.game.input.on('drag', this.updateDrag);
+        }
     }
 
     exportObject = Phaser3Button;
 } else {
     class PhaserCEButton extends Phaser.Button {
+        setDragBounds(draggableArea) {
+            this.input.boundsRect = new Phaser.Rectangle(
+                draggableArea.x,
+                draggableArea.y,
+                draggableArea.w,
+                draggableArea.h,
+            );
+        }
+
+        enableDragging(vertical = false) {
+            this.inputEnabled = true;
+            this.input.enableDrag();
+
+            if (vertical) {
+                this.input.allowHorizontalDrag = false;
+            } else {
+                this.input.allowVerticalDrag = false;
+            }
+        }
+
         /**
         * @private
         * Add a callback that is triggered when the object is unclicked.
