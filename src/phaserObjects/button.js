@@ -50,6 +50,14 @@ if (Phaser.Button === undefined) {
             this.events.onInputDown.add(callback, callbackContext);
         }
 
+        /**
+        * @private
+        * Add a callback that is triggered when the object is dragged.
+        */
+        addDragEvent(callback, callbackContext) {
+            this.events.onDragUpdate.add(callback, callbackContext);
+        }
+
         /** Immitate the API of Phaser3.
         * The current displayed height of the Object.
         * @type {number}

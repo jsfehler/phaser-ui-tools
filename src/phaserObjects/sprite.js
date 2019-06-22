@@ -55,6 +55,14 @@ if (Phaser.Sprite === undefined) {
         addDownEvent(callback, callbackContext) {
             this.on('pointerdown', callback, callbackContext);
         }
+
+        /**
+        * @private
+        * Add a callback that is triggered when the object is dragged.
+        */
+        addDragEvent(callback, callbackContext) {
+            this.on('drag', callback, callbackContext);
+        }
     }
 
     exportObject = Phaser3Sprite;

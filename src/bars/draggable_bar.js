@@ -84,7 +84,7 @@ export class DraggableBar extends Bar {
             this.bar.addUpEvent(this.snapToClosestPosition, this);
         }
         this.bar.addDownEvent(this.saveMousePosition, this);
-        this.bar.events.onDragUpdate.add(this.moveContent, this);
+        this.bar.addDragEvent(this.moveContent, this);
 
         let draggableArea;
 
