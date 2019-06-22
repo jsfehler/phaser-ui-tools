@@ -1,10 +1,12 @@
+import { Sprite } from './sprite';
+
 let exportObject;
 
 if (Phaser.Button === undefined) {
     /** Build a button object that immitates Phaser CE's Button
     * @private
     */
-    class Phaser3Button extends Phaser.GameObjects.Sprite {
+    class Phaser3Button extends Sprite {
         constructor(game, x, y, key, callback, callbackContext, overKey, outKey) {
             super(game, x, y, key);
 
@@ -32,6 +34,22 @@ if (Phaser.Button === undefined) {
     exportObject = Phaser3Button;
 } else {
     class PhaserCEButton extends Phaser.Button {
+        /**
+        * @private
+        * Add a callback that is triggered when the object is unclicked.
+        */
+        addUpEvent(callback, callbackContext) {
+            this.events.onInputUp.add(callback, callbackContext);
+        }
+
+        /**
+        * @private
+        * Add a callback that is triggered when the object is clicked.
+        */
+        addDownEvent(callback, callbackContext) {
+            this.events.onInputDown.add(callback, callbackContext);
+        }
+
         /** Immitate the API of Phaser3.
         * The current displayed height of the Object.
         * @type {number}

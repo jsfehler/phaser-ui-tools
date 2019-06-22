@@ -42,7 +42,15 @@ if (Phaser.Sprite === undefined) {
 
         /**
         * @private
-        * Add an callback that is triggered when the object is clicked.
+        * Add a callback that is triggered when the object is unclicked.
+        */
+        addUpEvent(callback, callbackContext) {
+            this.on('pointerup', callback, callbackContext);
+        }
+
+        /**
+        * @private
+        * Add a callback that is triggered when the object is clicked.
         */
         addDownEvent(callback, callbackContext) {
             this.on('pointerdown', callback, callbackContext);
@@ -54,7 +62,15 @@ if (Phaser.Sprite === undefined) {
     class PhaserCESprite extends Phaser.Sprite {
         /**
         * @private
-        * Add an callback that is triggered when the object is clicked.
+        * Add a callback that is triggered when the object is unclicked.
+        */
+        addUpEvent(callback, callbackContext) {
+            this.events.onInputUp.add(callback, callbackContext);
+        }
+
+        /**
+        * @private
+        * Add a callback that is triggered when the object is clicked.
         */
         addDownEvent(callback, callbackContext) {
             this.events.onInputDown.add(callback, callbackContext);
