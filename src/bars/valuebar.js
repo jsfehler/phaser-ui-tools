@@ -41,7 +41,7 @@ export class ValueBar extends DraggableBar {
         this.mousePointer = null;
 
         // The track is the static area the bar will move along.
-        this.track = this.game.add.sprite(0, 0, this.trackImage);
+        this.track = new PhaserObjects.Sprite(game, 0, 0, this.trackImage);
         this.add(this.track);
 
         // If the bar is draggable, clicking the track will move the bar up or down.

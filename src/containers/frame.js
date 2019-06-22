@@ -11,19 +11,20 @@ export class Frame extends PhaserObjects.Group {
      * @param {number} y - The y position of the Frame.
      * @param {string} bg - The background image to use.
      */
-    constructor(game, x = 0, y = 0, bg = 0) {
+    constructor(game, x = 0, y = 0, bg = null) {
         super(game);
 
         this.x = x;
         this.y = y;
 
-        this.bg = bg;
+        this.background = null;
 
         // Add background to Frame.
         if (bg !== null) {
-            const bgSprite = new PhaserObjects.Sprite(game, 0, 0, bg);
-            bgSprite.sendToBack();
-            bgSprite.alignIn(this, alignments.TOP_LEFT);
+            this.background = new PhaserObjects.Sprite(game, 0, 0, bg);
+            game.add.existing(this.background);
+            this.background.sendToBack();
+            this.background.alignIn(this, alignments.TOP_LEFT);
         }
     }
 
