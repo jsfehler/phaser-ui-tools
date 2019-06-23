@@ -9,27 +9,12 @@ I really wanted a viewport with a scrollbar. Things escalated.
 
 ![scrollbar](https://raw.githubusercontent.com/jsfehler/phaser-ui-tools/master/assets/diagram.png)
 
-
-### Live Examples
-
-[Vertical Scrollbar](https://jsfehler.github.io/phaser-ui-tools/examples/vscrollbar.html)
-
-[Horizontal Scrollbar](https://jsfehler.github.io/phaser-ui-tools/examples/hscrollbar.html)
-
-[ValueBar](https://jsfehler.github.io/phaser-ui-tools/examples/valuebar.html)
-
-[ValueBars inside a Column, with background and keyboard events](https://jsfehler.github.io/phaser-ui-tools/examples/valuebar_column.html)
-
-[QuantityBar](https://jsfehler.github.io/phaser-ui-tools/examples/quantitybar.html)
-
-[Wheel3D](https://jsfehler.github.io/phaser-ui-tools/examples/wheel3D.html)
-
 ### Documentation
 https://jsfehler.github.io/phaser-ui-tools/
 
 
 ### Getting Started
-Get phaser-ui-tools.js or phaser-ui-tools.min.js from the dist directory and add it to your project's index.html.
+Get phaser-ui-tools.js or phaser-ui-tools.min.js from the releases and add it to your project's index.html.
 It should look something like:
 ```
 <script src="lib/phaser-ui-tools.min.js"></script>
@@ -109,6 +94,13 @@ viewport.addNode(column);
 ##### Scrollbar
 Scrollbars are used to move the objects in a Viewport. They must be used with a Viewport.
 A tweening duration and easing can be specified. This will be triggered when moving the bar.
+
+###### Examples:
+
+[Vertical Scrollbar](https://jsfehler.github.io/phaser-ui-tools/examples/html/vscrollbar.html)
+
+[Horizontal Scrollbar](https://jsfehler.github.io/phaser-ui-tools/examples/html/hscrollbar.html)
+
 ```javascript
 var scrollbar = new uiWidgets.Scrollbar(
     game,
@@ -128,11 +120,18 @@ Valuebars always have a minimum number of 0, but the starting and maximum number
 A tweening duration and easing can be specified. This will be triggered when moving the bar.
 
 ![valuebar](https://raw.githubusercontent.com/jsfehler/phaser-ui-tools/master/assets/diagram_valuebar.png)
+
+###### Examples:
+
+[ValueBar](https://jsfehler.github.io/phaser-ui-tools/examples/html/valuebar.html)
+
+[Multiple ValueBar inside a Column, with background image and keyboard events](https://jsfehler.github.io/phaser-ui-tools/examples/html/valuebar_column.html)
+
 ```javascript
 var valuebar = new uiWidgets.ValueBar(
     game,
-    {"x": 50, "y": 10},
-    {"step": 1, "startValue": 0, maxValue: 100},
+    {'x': 50, 'y': 10},
+    {'step': 1, 'startValue': 0, 'maxValue': 100},
     true,
     false,
     true,
@@ -148,11 +147,16 @@ They can be used for health bars, stamina bars, etc.
 A tweening duration and easing can be specified. This will be triggered when moving the bar.
 
 ![quantitybar](https://raw.githubusercontent.com/jsfehler/phaser-ui-tools/master/assets/diagram_quantitybar.png)
+
+###### Examples:
+
+[QuantityBar](https://jsfehler.github.io/phaser-ui-tools/examples/html/quantitybar.html)
+
 ```javascript
 var quantitybar = new uiWidgets.QuantityBar(
     game,
-    {"x": 50, "y": 10},
-    {"startValue": 50, maxValue: 100},
+    {'x': 50, 'y': 10},
+    {'startValue': 50, 'maxValue': 100},
     false,
     false,
     trackImage,
@@ -166,6 +170,12 @@ A collection of sprites that are arranged around a three dimensional wheel.
 The wheel can be adjusted and rotated along the x, y, or z axis.
 
 ![wheel3D](https://raw.githubusercontent.com/jsfehler/phaser-ui-tools/master/assets/diagram_wheel3D.png)
+
+
+###### Examples:
+
+[Wheel3D](https://jsfehler.github.io/phaser-ui-tools/examples/html/wheel3D.html)
+
 ```javascript
 var wheel = new uiWidgets.Wheel3D(
     game,
