@@ -1,11 +1,12 @@
 var game = new Phaser.Game(600, 400, Phaser.AUTO, 'quantitybar_column', { preload: preload, create: create, update: update });
 
 function preload() {
-    game.load.image("track", "assets/quantitybar/horizontal/track.png");
-    game.load.image('bar', 'assets/quantitybar/horizontal/bar.png');
+    var assetRoot = '../assets/quantitybar/horizontal/';
+    game.load.image("track", assetRoot + "track.png");
+    game.load.image('bar', assetRoot + 'bar.png');
 
-    game.load.image("add", "assets/quantitybar/add.png");
-    game.load.image("subtract", "assets/quantitybar/subtract.png");
+    game.load.image("add", assetRoot + "add.png");
+    game.load.image("subtract", assetRoot + "subtract.png");
 }
 
 var healthbar;

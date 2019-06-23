@@ -1,10 +1,11 @@
 var game = new Phaser.Game(600, 400, Phaser.AUTO, 'valuebar', { preload: preload, create: create });
 
 function preload() {
-    game.load.image("track", "assets/valuebar/track.png");
-    game.load.spritesheet('bar', 'assets/valuebar/bar.png', 32, 32);
-    game.load.image("vtrack", "assets/valuebar/vtrack.png");
-    game.load.image("alphaImage", "assets/valuebar/alpha.png");
+    var assetRoot = '../assets/valuebar/';
+    game.load.image("track", assetRoot + "track.png");
+    game.load.spritesheet('bar', assetRoot + 'bar.png', 32, 32);
+    game.load.image("vtrack", assetRoot + "vtrack.png");
+    game.load.image("alphaImage", assetRoot + "alpha.png");
 }
 
 var valuebar0;

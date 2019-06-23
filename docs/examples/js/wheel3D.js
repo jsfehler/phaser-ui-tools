@@ -1,9 +1,10 @@
 var game = new Phaser.Game(600, 400, Phaser.AUTO, 'wheel3D', { preload: preload, create: create });
 
 function preload() {
-	game.load.image("icon", "assets/wheel3D/icon.png");
-    game.load.image("mmUp", "assets/wheel3D/mmUp.png");
-    game.load.image("mmDown", "assets/wheel3D/mmDown.png");
+	  var assetRoot = '../assets/wheel3D/';
+  	game.load.image("icon", assetRoot + "icon.png");
+    game.load.image("mmUp", assetRoot + "mmUp.png");
+    game.load.image("mmDown", assetRoot + "mmDown.png");
 }
 
 function create() {
