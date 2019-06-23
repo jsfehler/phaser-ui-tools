@@ -11,7 +11,7 @@ export class Row extends Frame {
      * @param {Number} y - The y position of the Frame.
      * @param {string} bg - The background image to use.
      */
-    constructor(game, x = 0, y = 0, bg = 0) {
+    constructor(game, x = 0, y = 0, bg = null) {
         super(game, x, y, bg);
         this.alignment = alignments.RIGHT_CENTER;
     }
