@@ -124,6 +124,7 @@ A tweening duration and easing can be specified. This will be triggered when mov
 ###### Examples:
 
 [ValueBar](https://jsfehler.github.io/phaser-ui-tools/examples/html/valuebar.html)
+
 [Multiple ValueBar inside a Column, with background image and keyboard events](https://jsfehler.github.io/phaser-ui-tools/examples/html/valuebar_column.html)
 
 ```javascript
