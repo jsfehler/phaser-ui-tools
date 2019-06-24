@@ -11,10 +11,11 @@ var config = {
 var game = new Phaser.Game(config);
 
 function preload() {
-    this.load.image("track", "assets/valuebar/track.png");
-    this.load.spritesheet('bar', 'assets/valuebar/bar.png', { frameWidth: 32, frameHeight: 32 });
-    this.load.image("vtrack", "assets/valuebar/vtrack.png");
-    this.load.image("alphaImage", "assets/valuebar/alpha.png");
+    var assetRoot = '../../assets/valuebar/';
+    this.load.image("track", assetRoot + "track.png");
+    this.load.spritesheet('bar', assetRoot + 'bar.png', { frameWidth: 32, frameHeight: 32 });
+    this.load.image("vtrack", assetRoot + "vtrack.png");
+    this.load.image("alphaImage", assetRoot + "alpha.png");
 }
 
 var valuebar0;

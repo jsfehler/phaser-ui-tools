@@ -12,9 +12,10 @@ var config = {
 var game = new Phaser.Game(config);
 
 function preload() {
-    this.load.image("dummyButton", "assets/horizontal/sprite.png");
-    this.load.image("track", "assets/horizontal/track.png");
-    this.load.spritesheet('bar', 'assets/horizontal/bar.png', { frameWidth: 44, frameHeight: 22 });
+    var assetRoot = '../../assets/horizontal/';
+    this.load.image("dummyButton", assetRoot + "sprite.png");
+    this.load.image("track", assetRoot + 'track.png');
+    this.load.spritesheet('bar', assetRoot + 'bar.png', { frameWidth: 44, frameHeight: 22 });
 }
 
 function create() {
