@@ -10,6 +10,8 @@ if (Phaser.Button === undefined) {
         constructor(game, x, y, key, callback, callbackContext, overKey, outKey) {
             super(game, x, y, key);
 
+            game.add.existing(this);
+
             this.game = game;
 
             this.overKey = overKey;

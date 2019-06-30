@@ -11,6 +11,8 @@ import { Column } from './containers/column';
 import { Row } from './containers/row';
 import { Viewport } from './containers/viewport';
 
+import { Button } from './phaserObjects/button';
+
 
 export {
     textSprite,
@@ -24,4 +26,5 @@ export {
     Column,
     Row,
     Viewport,
+    Button,
 };
