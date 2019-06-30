@@ -67,12 +67,8 @@ export class QuantityBar extends Bar {
             this.bar.mask = null;
         }
 
-        const mask = this.game.add.graphics(this.maskX, this.maskY);
-        mask.beginFill(0x0000ff);
-        mask.drawRect(0, 0, this.maskW, this.maskH);
-        // mask.endFill();
-
-        this.bar.mask = mask;
+        const mask = new PhaserObjects.ViewportMask(this.game, this.maskX, this.maskY);
+        this.bar.mask = mask.create(0, 0, this.maskW, this.maskH);
 
         this.add(mask);
     }
