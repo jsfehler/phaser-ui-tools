@@ -63,15 +63,15 @@ export class ValueBar extends DraggableBar {
 
         // Add an invisible background.
         // This ensures the bar can always be entered correctly, no matter where the grip is.
-        this.bg = game.add.graphics(0, 0);
+        this.bg = new PhaserObjects.Graphics(game, { x: 0, y: 0 });
         this.add(this.bg);
         this.sendToBack(this.bg);
-        this.bg.beginFill(0xff0000, 0);
+        this.bg.fillStyle(0xff0000, 0);
 
         if (this.vertical) {
-            this.bg.drawRect(0, 0 - (this.bar.height / 2), 1, this.track.height + this.bar.height);
+            this.bg.fillRect(0, 0 - (this.bar.height / 2), 1, this.track.height + this.bar.height);
         } else {
-            this.bg.drawRect(0 - (this.bar.width / 2), 0, this.track.width + this.bar.width, 1);
+            this.bg.fillRect(0 - (this.bar.width / 2), 0, this.track.width + this.bar.width, 1);
         }
         this.bg.endFill();
 
