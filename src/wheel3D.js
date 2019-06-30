@@ -2,6 +2,8 @@ import * as EventEmitter from 'eventemitter3';
 
 import { utils } from './utils';
 
+import * as PhaserObjects from './phaserObjects';
+
 /**
  * Represents a single point in a Wheel3D.
  * @ignore
@@ -108,12 +110,12 @@ export class Wheel3D {
         this.axis = axis;
         this.rotationAxis = rotations;
         this.visibleRange = visibleRange || null;
-        this.tweenParams = tweenParams || { duration: 300, ease: Phaser.Easing.Quadratic.Out };
+        this.tweenParams = tweenParams || { duration: 300, ease: PhaserObjects.Easing.Quadratic.Out };
 
         this.emitter = new EventEmitter();
 
         // Group to store wheel sprites in, used for zindex sorting.
-        this.group = this.game.add.group();
+        this.group = new PhaserObjects.Group(game);
     }
 
     activate() {
