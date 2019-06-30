@@ -38,19 +38,15 @@ export class QuantityBar extends Bar {
         this.tweenParams = tweenParams || { duration: 300, ease: PhaserObjects.Easing.Quadratic.Out };
 
         // The track is the static area the bar will move along.
-        this.track = this.game.add.sprite(0, 0, this.trackImage);
+        this.track = new PhaserObjects.Sprite(game, 0, 0, this.trackImage);
         this.add(this.track);
 
         // The bar is a static image taking up the width of the track.
-        this.bar = new PhaserObjects.Button(
+        this.bar = new PhaserObjects.Sprite(
             game,
             0,
             0,
             this.barImage,
-            this.moveContent,
-            this,
-            1,
-            0,
         );
         this.add(this.bar);
 
