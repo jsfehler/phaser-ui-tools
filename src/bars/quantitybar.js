@@ -125,7 +125,6 @@ export class QuantityBar extends Bar {
     }
 
     /**
-     * @private
      * Adjusts the bar by a given value.
      * @param {number} newValue - The value to adjust the bar by.
      */
