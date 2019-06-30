@@ -38,6 +38,9 @@ export class Frame extends PhaserObjects.Group {
     addNode(node, paddingX = 0, paddingY = 0, alignment = null) {
         const align = alignment || this.alignment;
 
+        node.displayOriginX = 0; //eslint-disable-line
+        node.displayOriginY = 0; //eslint-disable-line
+
         this.add(node);
         this.alignNodeToPrevious(node, align, paddingX, paddingY);
 

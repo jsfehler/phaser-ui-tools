@@ -39,6 +39,12 @@ export class QuantityBar extends Bar {
 
         // The track is the static area the bar will move along.
         this.track = new PhaserObjects.Sprite(game, 0, 0, this.trackImage);
+
+        // Phaser 3:
+        // Anchor the track to 0 instead of 0.5
+        this.track.displayOriginX = 0;
+        this.track.displayOriginY = 0;
+
         this.add(this.track);
 
         // The bar is a static image taking up the width of the track.
@@ -48,6 +54,12 @@ export class QuantityBar extends Bar {
             0,
             this.barImage,
         );
+
+        // Phaser 3:
+        // Anchor the track to 0 instead of 0.5
+        this.bar.displayOriginX = 0;
+        this.bar.displayOriginY = 0;
+
         this.add(this.bar);
 
         this.create();

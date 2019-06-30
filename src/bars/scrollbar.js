@@ -51,6 +51,12 @@ export class Scrollbar extends DraggableBar {
             this.y,
             this.trackImage,
         );
+
+        // Phaser 3:
+        // Anchor the track to 0 instead of 0.5
+        this.track.displayOriginX = 0;
+        this.track.displayOriginY = 0;
+
         this.add(this.track);
 
         if (this.draggable) {
@@ -69,6 +75,12 @@ export class Scrollbar extends DraggableBar {
             1,
             0,
         );
+
+        // Phaser 3:
+        // Anchor the bar to 0 instead of 0.5
+        this.bar.displayOriginX = 0;
+        this.bar.displayOriginY = 0;
+
         this.add(this.bar);
 
         this.resizeBar();

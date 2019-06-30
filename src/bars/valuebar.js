@@ -42,6 +42,12 @@ export class ValueBar extends DraggableBar {
 
         // The track is the static area the bar will move along.
         this.track = new PhaserObjects.Sprite(game, 0, 0, this.trackImage);
+
+        // Phaser 3:
+        // Anchor the track to 0 instead of 0.5
+        this.track.displayOriginX = 0;
+        this.track.displayOriginY = 0;
+
         this.add(this.track);
 
         // If the bar is draggable, clicking the track will move the bar up or down.
@@ -61,6 +67,11 @@ export class ValueBar extends DraggableBar {
             0,
         );
 
+        // Phaser 3:
+        // Anchor the track to 0 instead of 0.5
+        this.bar.displayOriginX = 0;
+        this.bar.displayOriginY = 0;
+
         // Add an invisible background.
         // This ensures the bar can always be entered correctly, no matter where the grip is.
         this.bg = new PhaserObjects.Graphics(game, { x: 0, y: 0 });
@@ -73,7 +84,6 @@ export class ValueBar extends DraggableBar {
         } else {
             this.bg.fillRect(0 - (this.bar.width / 2), 0, this.track.width + this.bar.width, 1);
         }
-        this.bg.endFill();
 
         this.snapping = true;
 
