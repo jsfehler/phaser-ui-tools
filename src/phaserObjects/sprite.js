@@ -68,6 +68,14 @@ if (Phaser.Sprite === undefined) {
     exportObject = Phaser3Sprite;
 } else {
     class PhaserCESprite extends Phaser.Sprite {
+        setInteractive() {
+            this.inputEnabled = true;
+        }
+
+        disableInteractive() {
+            this.inputEnabled = false;
+        }
+
         /**
         * @private
         * Add a callback that is triggered when the object is unclicked.
