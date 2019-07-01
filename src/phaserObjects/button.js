@@ -54,6 +54,7 @@ if (Phaser.Button === undefined) {
         }
 
         enableDragging(vertical = false) {
+            this.setInteractive();
             this.vertical = vertical;
             this.game.input.setDraggable(this);
             this.game.input.on('drag', this.updateDrag);
@@ -63,6 +64,14 @@ if (Phaser.Button === undefined) {
     exportObject = Phaser3Button;
 } else {
     class PhaserCEButton extends Phaser.Button {
+        setInteractive() {
+            this.inputEnabled = true;
+        }
+
+        disableInteractive() {
+            this.inputEnabled = false;
+        }
+
         setDragBounds(draggableArea) {
             this.input.boundsRect = new Phaser.Rectangle(
                 draggableArea.x,
