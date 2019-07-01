@@ -191,11 +191,24 @@ export class ValueBar extends DraggableBar {
         this.setInitialBarPosition();
     }
 
-    /** Called after a scroll tween is added. Adds the necessary events to the tween. */
-    addScrollTweenEvents(tween) {
-        // Only update the values once the bar has finished moving.
-        tween.onComplete.add(this.moveContent, this);
-        tween.onComplete.add(this.enableBarInput, this);
+    /**
+     * @private
+     * Creates the tween for moving the bar to a new position.
+     */
+    addScrollTween(properties) {
+        this.mousePointer = { x: this.bar.x, y: this.bar.y };
+        this.trackClicked = true;
+
+        new PhaserObjects.Tween(this.game).add(
+            this.bar,
+            properties,
+            this.tweenParams.duration,
+            this.tweenParams.ease,
+            () => { this.moveContent(); this.enableBarInput(); },
+            null,
+            this,
+            null,
+        );
     }
 
     getGripPositionRatio() {

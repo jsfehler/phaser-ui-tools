@@ -96,11 +96,6 @@ export class QuantityBar extends Bar {
         this.maskY = this.bar.y;
 
         // Resizes the bar.
-        if (this.vertical) {
-            this.maskH = this.getBarSize();
-        } else {
-            this.maskW = this.getBarSize();
-        }
 
         if (this.reverse) {
             if (this.vertical) {
@@ -111,6 +106,24 @@ export class QuantityBar extends Bar {
         }
 
         this.setMask();
+
+        const barSize = this.getBarSize();
+
+        if (this.reverse) {
+            if (this.vertical) {
+                this.bar.mask.geometryMask.scaleY = barSize;
+                this.bar.mask.geometryMask.y = this.getBarFraction();
+            } else {
+                this.bar.mask.geometryMask.scaleX = barSize;
+                this.bar.mask.geometryMask.x = this.getBarFraction();
+            }
+        } else {
+            if (this.vertical) {
+                this.bar.mask.geometryMask.scaleY = barSize;
+            } else {
+                this.bar.mask.geometryMask.scaleX = barSize;
+            }
+        }
 
         // Determine the distance the window can scroll over
         this.windowScrollAreaSize = this.valueRange.maxValue;
@@ -127,12 +140,12 @@ export class QuantityBar extends Bar {
      * Creates the tween for adjusting the size of the mask.
      * @param {Object} properties - Values for the tween's movement.
      */
-    addScrollTweenMask(properties) {
-        this.game.add.tween(this.bar.mask).to(
+    addScrollTweenMask(properties, duration, ease) {
+        new PhaserObjects.Tween(this.game).add(
+            this.bar.mask.geometryMask,
             properties,
-            this.tweenParams.duration,
-            this.tweenParams.ease,
-            true,
+            duration,
+            ease,
         );
     }
 
@@ -148,19 +161,19 @@ export class QuantityBar extends Bar {
 
         if (this.reverse) {
             if (this.vertical) {
-                tween = { height: barSize, y: this.getBarFraction() };
+                tween = { scaleY: barSize, y: this.getBarFraction() };
             } else {
-                tween = { width: barSize, x: this.getBarFraction() };
+                tween = { scaleX: barSize, x: this.getBarFraction() };
             }
         } else {
             if (this.vertical) {
-                tween = { height: barSize };
+                tween = { scaleY: barSize };
             } else {
-                tween = { width: barSize };
+                tween = { scaleX: barSize };
             }
         }
 
-        this.addScrollTweenMask(tween);
+        this.addScrollTweenMask(tween, this.tweenParams.duration, this.tweenParams.ease);
     }
 
     getBarFraction() {
@@ -183,12 +196,16 @@ export class QuantityBar extends Bar {
         let barSize;
         if (this.reverse) {
             if (this.vertical) {
-                barSize = this.track.height - this.valueRange.getRatio();
+                barSize = 1 - ((this.track.height * this.valueRange.getRatio()) / this.track.height);
             } else {
-                barSize = this.track.width - this.valueRange.getRatio();
+                barSize = 1 - ((this.track.width * this.valueRange.getRatio()) / this.track.width);
             }
         } else {
-            barSize = this.getBarFraction();
+            if (this.vertical) {
+                barSize = ((this.track.height * this.valueRange.getRatio()) / this.track.height);
+            } else {
+                barSize = ((this.track.width * this.valueRange.getRatio()) / this.track.width);
+            }
         }
 
         return barSize;

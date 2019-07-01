@@ -1,4 +1,5 @@
 import * as EventEmitter from 'eventemitter3';
+import * as PhaserObjects from '../phaserObjects';
 import { Bar } from './bar';
 
 /**
@@ -49,7 +50,7 @@ export class DraggableBar extends Bar {
     enableTrackClick() {
         let event;
 
-        this.track.inputEnabled = true;
+        this.track.setInteractive();
 
         if (this.vertical) {
             event = this.verticalTrackClick;
@@ -160,24 +161,16 @@ export class DraggableBar extends Bar {
         this.mousePointer = { x: this.bar.x, y: this.bar.y };
         this.trackClicked = true;
 
-        const newTween = this.game.add.tween(this.bar).to(
+        new PhaserObjects.Tween(this.game).add(
+            this.bar,
             properties,
             this.tweenParams.duration,
             this.tweenParams.ease,
-            true,
+            this.enableBarInput,
+            this.moveContent,
+            this,
+            this,
         );
-
-        this.addScrollTweenEvents(newTween);
-    }
-
-    /**
-     * @private
-     * Called after a scroll tween is added. Adds the necessary events to the tween.
-     */
-    addScrollTweenEvents(tween) {
-        // Update the values as the bar moves.
-        tween.onUpdateCallback(this.moveContent, this);
-        tween.onComplete.add(this.enableBarInput, this);
     }
 
     /** For Vertical Scrollbars. Scrolls up by one step. */
@@ -205,7 +198,7 @@ export class DraggableBar extends Bar {
             const testPosition = this.bar.y + (this.vslice * 2);
             let moveToY = null;
             this.barMoving = true;
-            this.bar.inputEnabled = false;
+            this.bar.disableInteractive();
 
             // Ensure the bar can't move below the track.
             if (testPosition >= this.track.y + this.track.height) {
@@ -224,7 +217,7 @@ export class DraggableBar extends Bar {
             const testPosition = this.bar.x - this.hslice;
             let moveToX = null;
             this.barMoving = true;
-            this.bar.inputEnabled = false;
+            this.bar.disableInteractive();
 
             // Ensure the bar can't move above the track.
             if (testPosition <= this.track.x) {
@@ -243,7 +236,7 @@ export class DraggableBar extends Bar {
             const testPosition = this.bar.x + (this.hslice * 2);
             let moveToX = null;
             this.barMoving = true;
-            this.bar.inputEnabled = false;
+            this.bar.disableInteractive();
 
             // Ensure the bar can't move below the track.
             if (testPosition >= this.track.x + this.track.width) {
