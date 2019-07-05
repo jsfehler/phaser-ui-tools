@@ -11,9 +11,10 @@ if (Phaser.Graphics === undefined) {
         }
 
         create(x, y, width, height) {
-            this.fillStyle(0x0000ff, 1).fillRect(x, y, width, height);
-
-            return new Phaser.Display.Masks.GeometryMask(this.game, this);
+            this.fillStyle(0xffffff);
+            this.beginPath();
+            this.fillRect(x, y, width, height);
+            return this.createGeometryMask();
         }
     }
     exportObject = ViewportMask3;

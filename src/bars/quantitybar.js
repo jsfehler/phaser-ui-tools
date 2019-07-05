@@ -76,9 +76,12 @@ export class QuantityBar extends Bar {
         }
 
         const mask = new PhaserObjects.ViewportMask(this.game, this.maskX, this.maskY);
-        this.bar.mask = mask.create(0, 0, this.maskW, this.maskH);
+        this.bar.mask = mask.create(this.bar.maskX, this.bar.maskY, this.maskW, this.maskH);
 
-        this.add(mask);
+        // Phaser CE: Mask must be added to Group
+        if (this.version === undefined) {
+            this.add(mask);
+        }
     }
 
     getBarPosition() {
@@ -92,16 +95,22 @@ export class QuantityBar extends Bar {
         // Values for the bar's mask.
         this.maskW = this.bar.width;
         this.maskH = this.bar.height;
-        this.maskX = this.bar.x;
-        this.maskY = this.bar.y;
+
+        // Phaser CE: Mask starts at bar xy, Phaser 3: Mask starts at group xy
+        if (this.version === undefined) {
+            this.maskX = this.bar.x;
+            this.maskY = this.bar.y;
+        } else {
+            this.maskX = this.x;
+            this.maskY = this.y;
+        }
 
         // Resizes the bar.
-
         if (this.reverse) {
             if (this.vertical) {
-                this.maskY = this.getBarFraction();
+                this.maskY += this.getBarFraction();
             } else {
-                this.maskX = this.getBarFraction();
+                this.maskX += this.getBarFraction();
             }
         }
 
@@ -112,10 +121,8 @@ export class QuantityBar extends Bar {
         if (this.reverse) {
             if (this.vertical) {
                 this.bar.mask.geometryMask.scaleY = barSize;
-                this.bar.mask.geometryMask.y = this.getBarFraction();
             } else {
                 this.bar.mask.geometryMask.scaleX = barSize;
-                this.bar.mask.geometryMask.x = this.getBarFraction();
             }
         } else {
             if (this.vertical) {
@@ -159,11 +166,23 @@ export class QuantityBar extends Bar {
         let tween;
         const barSize = this.getBarSize();
 
+        let moveToX;
+        let moveToY;
+
+        // Phaser 3 requires an offset
+        if (this.version === undefined) {
+            moveToX = 0;
+            moveToY = 0;
+        } else {
+            moveToX = this.x;
+            moveToY = this.y;
+        }
+
         if (this.reverse) {
             if (this.vertical) {
-                tween = { scaleY: barSize, y: this.getBarFraction() };
+                tween = { scaleY: barSize, y: moveToY + this.getBarFraction() };
             } else {
-                tween = { scaleX: barSize, x: this.getBarFraction() };
+                tween = { scaleX: barSize, x: moveToX + this.getBarFraction() };
             }
         } else {
             if (this.vertical) {
@@ -194,18 +213,11 @@ export class QuantityBar extends Bar {
      */
     getBarSize() {
         let barSize;
+
         if (this.reverse) {
-            if (this.vertical) {
-                barSize = 1 - ((this.track.height * this.valueRange.getRatio()) / this.track.height);
-            } else {
-                barSize = 1 - ((this.track.width * this.valueRange.getRatio()) / this.track.width);
-            }
+            barSize = 1 - this.valueRange.getRatio();
         } else {
-            if (this.vertical) {
-                barSize = ((this.track.height * this.valueRange.getRatio()) / this.track.height);
-            } else {
-                barSize = ((this.track.width * this.valueRange.getRatio()) / this.track.width);
-            }
+            barSize = this.valueRange.getRatio();
         }
 
         return barSize;

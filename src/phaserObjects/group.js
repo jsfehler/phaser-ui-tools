@@ -20,6 +20,8 @@ if (Phaser.Group === undefined) {
         constructor(game, x = 0, y = 0) {
             super(game, x, y);
 
+            this.version = 3;
+
             // Emulate Phaser CE's GameObject.alignTo
             this.alignToMapping = {
                 0: Phaser.Display.Align.To.TopLeft,

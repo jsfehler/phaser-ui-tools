@@ -5,6 +5,8 @@ if (Phaser.Sprite === undefined) {
         constructor(game, x, y, image) {
             super(game, x, y, image);
 
+            game.add.existing(this);
+
             // Map alignment constants to Phaser 3 Align functions
             const alignIn = Phaser.Display.Align.In;
             this.alignInMapping = {
@@ -22,6 +24,14 @@ if (Phaser.Sprite === undefined) {
                 11: alignIn.BottomCenter,
                 12: alignIn.BottomRight,
             };
+        }
+
+        get maskX() {
+            return this.x;
+        }
+
+        get maskY() {
+            return this.y;
         }
 
         /** Immitate the API of PhaserCE.
@@ -68,6 +78,14 @@ if (Phaser.Sprite === undefined) {
     exportObject = Phaser3Sprite;
 } else {
     class PhaserCESprite extends Phaser.Sprite {
+        get maskX() { //eslint-disable-line
+            return 0;
+        }
+
+        get maskY() { //eslint-disable-line
+            return 0;
+        }
+
         setInteractive() {
             this.inputEnabled = true;
         }
