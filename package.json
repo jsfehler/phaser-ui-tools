@@ -30,7 +30,7 @@
     "eslint-plugin-import": "^2.17.3",
     "mocha": "^6.1.4",
     "mocha-chrome": "^2.0.0",
-    "webpack": "^4.33.0",
+    "webpack": "^4.35.2",
     "webpack-cli": "^3.3.3"
   },
   "peerDependencies": {
