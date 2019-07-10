@@ -23,7 +23,7 @@
     "babel-loader": "^8.0.6",
     "chai": "^4.2.0",
     "copyfiles": "^2.1.0",
-    "documentation": "^11.0.1",
+    "documentation": "^12.0.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-loader": "^2.1.2",
