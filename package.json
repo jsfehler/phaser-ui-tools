@@ -18,20 +18,20 @@
     "build:docs": "documentation build src/** -f html -o docs"
   },
   "devDependencies": {
-    "@babel/core": "^7.4.5",
-    "@babel/preset-env": "^7.4.5",
+    "@babel/core": "^7.6.0",
+    "@babel/preset-env": "^7.6.0",
     "babel-loader": "^8.0.6",
     "chai": "^4.2.0",
-    "copyfiles": "^2.1.0",
-    "documentation": "^12.0.0",
-    "eslint": "^5.16.0",
-    "eslint-config-airbnb-base": "^13.1.0",
+    "copyfiles": "^2.1.1",
+    "documentation": "^12.1.2",
+    "eslint": "^6.4.0",
+    "eslint-config-airbnb-base": "^14.0.0",
     "eslint-loader": "^3.0.0",
-    "eslint-plugin-import": "^2.17.3",
-    "mocha": "^6.1.4",
+    "eslint-plugin-import": "^2.18.2",
+    "mocha": "^6.2.0",
     "mocha-chrome": "^2.0.0",
-    "webpack": "^4.36.1",
-    "webpack-cli": "^3.3.3"
+    "webpack": "^4.40.2",
+    "webpack-cli": "^3.3.8"
   },
   "peerDependencies": {
     "phaser-ce": "2.10.3"
