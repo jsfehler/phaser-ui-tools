@@ -6,15 +6,17 @@ if (Phaser.Tween === undefined) {
             this.game = game;
         }
 
-        add(target, properties, duration, ease, onComplete, onUpdate, onCompleteScope, onUpdateScope) {
+        add(target, properties, duration, ease, onComplete, onUpdate, onStart, onCompleteScope, onUpdateScope, onStartScope) {
             const config = {
                 targets: target,
                 duration,
                 ease,
                 onComplete,
                 onUpdate,
+                onStart,
                 onCompleteScope,
                 onUpdateScope,
+                onStartScope,
             };
             const params = Object.assign(config, properties);
             this.game.tweens.add(params);
@@ -28,7 +30,7 @@ if (Phaser.Tween === undefined) {
             this.game = game;
         }
 
-        add(target, properties, duration, ease, onComplete, onUpdate, onCompleteScope, onUpdateScope) {
+        add(target, properties, duration, ease, onComplete, onUpdate, onStart, onCompleteScope, onUpdateScope, onStartScope) {
             const tween = this.game.add.tween(target).to(
                 properties,
                 duration,
@@ -43,6 +45,10 @@ if (Phaser.Tween === undefined) {
 
             if (onComplete) {
                 tween.onComplete.add(onComplete, onCompleteScope);
+            }
+
+            if (onStart) {
+                tween.onStart.add(onStart, onStartScope);
             }
         }
     }

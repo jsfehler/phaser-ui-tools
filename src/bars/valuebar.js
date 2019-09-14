@@ -206,7 +206,9 @@ export class ValueBar extends DraggableBar {
             this.tweenParams.ease,
             () => { this.moveContent(); this.enableBarInput(); },
             null,
+            null,
             this,
+            null,
             null,
         );
     }

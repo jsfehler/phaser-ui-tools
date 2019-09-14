@@ -168,8 +168,10 @@ export class DraggableBar extends Bar {
             this.tweenParams.ease,
             this.enableBarInput,
             this.moveContent,
+            null,
             this,
             this,
+            null,
         );
     }
 
