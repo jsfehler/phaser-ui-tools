@@ -80,6 +80,7 @@ function create() {
         {"x": 90, "y": 0, "z": 0}
     );
 
+    // Tint the active item, just for show.
     menuWheelX.emitter.on('complete',
         function(wheel) {
             for (var i = 0; i < 12; i++) {

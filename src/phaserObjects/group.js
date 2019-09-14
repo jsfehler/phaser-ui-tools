@@ -1,5 +1,14 @@
 let exportObject;
 
+/** Sort handler function */
+function ascendingSortHandler(a, b) {
+    if (a.z < b.z) {
+        return -1;
+    }
+
+    return 1;
+}
+
 if (Phaser.Group === undefined) {
     // Emulate Phaser CE's worldPosition object
     class WorldPosition {
@@ -58,6 +67,19 @@ if (Phaser.Group === undefined) {
             if (previousNode !== undefined) {
                 this.alignToMapping[align](child, previousNode, paddingX, paddingY);
             }
+        }
+
+        /** Implement a sort method that resembles Phaser CE. */
+        sort(key, order = -1) {
+            let handler = null;
+
+            if (order === this.SORT_ASCENDING) {
+                handler = ascendingSortHandler;
+            } else {
+                handler = ascendingSortHandler; // TODO: If needed, descending sort handler
+            }
+
+            super.sort(key, handler);
         }
     }
 

@@ -28,7 +28,7 @@ function create() {
     var menuListY = [];
 
     for (var i = 0; i < 12; i++) {
-        var icon = this.add.sprite(0, 0, 'icon');
+        var icon = this.add.sprite(222, 222 + i, 'icon');
         menuListY.push(icon);
     }
 
@@ -160,7 +160,7 @@ function create() {
     // Scroll Buttons
     var scrollLeftButtonZ = new uiWidgets.Button(
         this,
-        this.world.width - 100,
+        this.cameras.main.width - 100,
         0,
         "mmUp",
         scrollTheWheel,
@@ -170,7 +170,7 @@ function create() {
 
     var scrollRightButtonZ = new uiWidgets.Button(
         this,
-        this.world.width - 100,
+        this.cameras.main.width - 100,
         48,
         "mmDown",
         scrollTheWheel,

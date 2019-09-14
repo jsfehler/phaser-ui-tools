@@ -229,8 +229,6 @@ export class Wheel3D {
 
     /** Project every item in the wheel to it's physical location. */
     project() {
-        let newTween;
-
         // Create a list with the axes, then remove the projected axis.
         const arr = ['x', 'y', 'z'];
         const idx = arr.indexOf(this.axis);
@@ -279,22 +277,34 @@ export class Wheel3D {
             }
 
             // Tween to new position
-            newTween = this.game.add.tween(transformed).to(
-                { x: p.x, y: p.y },
-                this.tweenParams.duration,
-                this.tweenParams.ease,
-                true,
-            );
-
-            newTween.onComplete.add(this.enableMoving, this);
+            if (i !== this.wheelItems.length - 1) {
+                new PhaserObjects.Tween(this.game).add(
+                    transformed,
+                    { x: p.x, y: p.y },
+                    this.tweenParams.duration,
+                    this.tweenParams.ease,
+                );
+            } else {
+                // Wheel's signals are dispatched by the last tween.
+                new PhaserObjects.Tween(this.game).add(
+                    transformed,
+                    { x: p.x, y: p.y },
+                    this.tweenParams.duration,
+                    this.tweenParams.ease,
+                    () => { this.enableMoving(); this.dispatchOnComplete(); this.doSort(); },
+                    null,
+                    () => { this.dispatchOnStart(); },
+                    this,
+                    null,
+                    null,
+                );
+            }
         }
+    }
 
+    doSort() {
         // Sort wheelItems by the projection's z axis for correct z-order when drawing.
         this.group.sort('lz', PhaserObjects.Group.SORT_ASCENDING);
-
-        // Wheel's signals are dispatched by the tween's.
-        newTween.onStart.add(this.dispatchOnStart, this);
-        newTween.onComplete.add(this.dispatchOnComplete, this);
     }
 
     /** Called after movement starts. */
