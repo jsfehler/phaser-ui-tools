@@ -9,6 +9,7 @@ module.exports = {
         "object-curly-newline": ["error", {"ObjectPattern": {"multiline": true}}],
         "no-lonely-if": "off",
         "max-len": "off",
+        "max-classes-per-file": "off",
     },
     "parserOptions": {
         "sourceType": "module",
