@@ -290,7 +290,7 @@ export class Wheel3D {
         }
 
         // Sort wheelItems by the projection's z axis for correct z-order when drawing.
-        this.group.sort('lz', Phaser.Group.SORT_ASCENDING);
+        this.group.sort('lz', PhaserObjects.Group.SORT_ASCENDING);
 
         // Wheel's signals are dispatched by the tween's.
         newTween.onStart.add(this.dispatchOnStart, this);

@@ -20,6 +20,9 @@ if (Phaser.Group === undefined) {
         constructor(game, x = 0, y = 0) {
             super(game, x, y);
 
+            this.SORT_ASCENDING = -1;
+            this.SORT_DESCENDING = 1;
+
             this.version = 3;
 
             // Emulate Phaser CE's GameObject.alignTo
@@ -61,6 +64,13 @@ if (Phaser.Group === undefined) {
     exportObject = Phaser3Group;
 } else {
     class PhaserCEGroup extends Phaser.Group {
+        constructor(game) {
+            super(game);
+
+            this.SORT_ASCENDING = -1;
+            this.SORT_DESCENDING = 1;
+        }
+
         get realHeight() {
             return this.height;
         }
