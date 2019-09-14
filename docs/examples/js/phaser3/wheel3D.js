@@ -19,6 +19,9 @@ function preload() {
 
 function create() {
 
+    var centerX = this.cameras.main.centerX;
+    var centerY = this.cameras.main.centerY;
+
     // Example 1: Rotate around the Y axis
 
     // Build a list of sprites for the wheel.
@@ -32,7 +35,7 @@ function create() {
     // Create the wheel.
     menuWheelY = new uiWidgets.Wheel3D(
         this,
-        {"x": this.centerX - 100, "y": this.centerY},
+        {"x": centerX - 100, "y": centerY},
         menuListY,
         0,
         90,
@@ -56,7 +59,7 @@ function create() {
     var scrollLeftButtonY = new uiWidgets.Button(
         this,
         0,
-        this.centerY,
+        centerY,
         "mmUp",
         scrollTheWheel,
         this);
@@ -66,7 +69,7 @@ function create() {
     var scrollRightButtonY = new uiWidgets.Button(
         this,
         0,
-        this.centerY + 48,
+        centerY + 48,
         "mmDown",
         scrollTheWheel,
         this);
@@ -84,7 +87,7 @@ function create() {
     // Create the wheel.
     menuWheelX = new uiWidgets.Wheel3D(
         this,
-        {"x": this.centerX - 100, "y": 100},
+        {"x": centerX - 100, "y": 100},
         menuListX,
         0,
         90,
@@ -135,7 +138,7 @@ function create() {
     // Create the wheel.
     menuWheelZ = new uiWidgets.Wheel3D(
         this,
-        {"x": this.centerX, "y": 100},
+        {"x": centerX, "y": 100},
         menuListZ,
         0,
         90,
