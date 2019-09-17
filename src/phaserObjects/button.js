@@ -19,7 +19,13 @@ if (Phaser.Button === undefined) {
 
             this.setInteractive();
 
-            this.on('pointerdown', callback, callbackContext);
+            let cbContext = callbackContext;
+
+            if (cbContext === null || (cbContext === undefined)) {
+                cbContext = this;
+            }
+
+            this.on('pointerdown', () => { callback(cbContext); });
             this.on('pointerover', this.onOver, this);
             this.on('pointerout', this.onOut, this);
         }

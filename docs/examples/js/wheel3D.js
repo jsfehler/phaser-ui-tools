@@ -48,7 +48,8 @@ function create() {
         game.world.centerY,
         "mmUp",
         scrollTheWheel,
-        this);
+        this,
+		);
     scrollLeftButtonY.wheel = menuWheelY;
     scrollLeftButtonY.dir = 0;
 
@@ -57,7 +58,8 @@ function create() {
         game.world.centerY + 48,
         "mmDown",
         scrollTheWheel,
-        this);
+        this,
+		);
     scrollRightButtonY.wheel = menuWheelY;
     scrollRightButtonY.dir = 1;
 
@@ -97,7 +99,8 @@ function create() {
         0,
         "mmUp",
         scrollTheWheel,
-        this);
+        this,
+		);
     scrollLeftButtonX.wheel = menuWheelX;
     scrollLeftButtonX.dir = 0;
 
@@ -106,7 +109,8 @@ function create() {
         48,
         "mmDown",
         scrollTheWheel,
-        this);
+        this,
+		);
     scrollRightButtonX.wheel = menuWheelX;
     scrollRightButtonX.dir = 1;
 
@@ -146,7 +150,8 @@ function create() {
         0,
         "mmUp",
         scrollTheWheel,
-        this);
+        this,
+		);
     scrollLeftButtonZ.wheel = menuWheelZ;
     scrollLeftButtonZ.dir = 0;
 
@@ -155,7 +160,8 @@ function create() {
         48,
         "mmDown",
         scrollTheWheel,
-        this);
+        this,
+		);
     scrollRightButtonZ.wheel = menuWheelZ;
     scrollRightButtonZ.dir = 1;
 }

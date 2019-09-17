@@ -20,6 +20,8 @@ if (Phaser.Group === undefined) {
         constructor(game, x = 0, y = 0) {
             super(game, x, y);
 
+            game.add.existing(this);
+
             this.SORT_ASCENDING = -1;
             this.SORT_DESCENDING = 1;
 

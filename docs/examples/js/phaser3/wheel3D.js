@@ -62,7 +62,8 @@ function create() {
         centerY,
         "mmUp",
         scrollTheWheel,
-        this);
+        null,
+    );
     scrollLeftButtonY.wheel = menuWheelY;
     scrollLeftButtonY.dir = 0;
 
@@ -72,7 +73,8 @@ function create() {
         centerY + 48,
         "mmDown",
         scrollTheWheel,
-        this);
+        null,
+    );
     scrollRightButtonY.wheel = menuWheelY;
     scrollRightButtonY.dir = 1;
 
@@ -113,7 +115,8 @@ function create() {
         0,
         "mmUp",
         scrollTheWheel,
-        this);
+        null,
+    );
     scrollLeftButtonX.wheel = menuWheelX;
     scrollLeftButtonX.dir = 0;
 
@@ -123,7 +126,8 @@ function create() {
         48,
         "mmDown",
         scrollTheWheel,
-        this);
+        null,
+    );
     scrollRightButtonX.wheel = menuWheelX;
     scrollRightButtonX.dir = 1;
 
@@ -160,21 +164,23 @@ function create() {
     // Scroll Buttons
     var scrollLeftButtonZ = new uiWidgets.Button(
         this,
-        this.world.width - 100,
+        this.cameras.main.width - 100,
         0,
         "mmUp",
         scrollTheWheel,
-        this);
+        null,
+    );
     scrollLeftButtonZ.wheel = menuWheelZ;
     scrollLeftButtonZ.dir = 0;
 
     var scrollRightButtonZ = new uiWidgets.Button(
         this,
-        this.world.width - 100,
+        this.cameras.main.width - 100,
         48,
         "mmDown",
         scrollTheWheel,
-        this);
+        null,
+    );
     scrollRightButtonZ.wheel = menuWheelZ;
     scrollRightButtonZ.dir = 1;
 }
