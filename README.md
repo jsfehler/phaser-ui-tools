@@ -2,7 +2,6 @@
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/aa833f08d69c471c9614f1ffac4f31e2)](https://app.codacy.com/app/joshua-fehler_2/phaser-ui-tools?utm_source=github.com&utm_medium=referral&utm_content=jsfehler/phaser-ui-tools&utm_campaign=badger)
 [![Greenkeeper badge](https://badges.greenkeeper.io/jsfehler/phaser-ui-tools.svg)](https://greenkeeper.io/)
-
 [![Build Status](https://travis-ci.org/jsfehler/phaser-ui-tools.svg?branch=master)](https://travis-ci.org/jsfehler/phaser-ui-tools)
 
 I really wanted a viewport with a scrollbar. Things escalated.
@@ -97,9 +96,9 @@ A tweening duration and easing can be specified. This will be triggered when mov
 
 ###### Examples:
 
-[Vertical Scrollbar](https://jsfehler.github.io/phaser-ui-tools/examples/html/vscrollbar.html)
+[Vertical Scrollbar](https://jsfehler.github.io/phaser-ui-tools/examples/html/phaserce/vscrollbar.html)
 
-[Horizontal Scrollbar](https://jsfehler.github.io/phaser-ui-tools/examples/html/hscrollbar.html)
+[Horizontal Scrollbar](https://jsfehler.github.io/phaser-ui-tools/examples/html/phaserce/hscrollbar.html)
 
 ```javascript
 var scrollbar = new uiWidgets.Scrollbar(
@@ -123,9 +122,9 @@ A tweening duration and easing can be specified. This will be triggered when mov
 
 ###### Examples:
 
-[ValueBar](https://jsfehler.github.io/phaser-ui-tools/examples/html/valuebar.html)
+[ValueBar](https://jsfehler.github.io/phaser-ui-tools/examples/html/phaserce/valuebar.html)
 
-[Multiple ValueBar inside a Column, with background image and keyboard events](https://jsfehler.github.io/phaser-ui-tools/examples/html/valuebar_column.html)
+[Multiple ValueBar inside a Column, with background image and keyboard events](https://jsfehler.github.io/phaser-ui-tools/examples/html/phaserce/valuebar_column.html)
 
 ```javascript
 var valuebar = new uiWidgets.ValueBar(
@@ -150,7 +149,7 @@ A tweening duration and easing can be specified. This will be triggered when mov
 
 ###### Examples:
 
-[QuantityBar](https://jsfehler.github.io/phaser-ui-tools/examples/html/quantitybar.html)
+[QuantityBar](https://jsfehler.github.io/phaser-ui-tools/examples/html/phaserce/quantitybar.html)
 
 ```javascript
 var quantitybar = new uiWidgets.QuantityBar(
@@ -174,7 +173,7 @@ The wheel can be adjusted and rotated along the x, y, or z axis.
 
 ###### Examples:
 
-[Wheel3D](https://jsfehler.github.io/phaser-ui-tools/examples/html/wheel3D.html)
+[Wheel3D](https://jsfehler.github.io/phaser-ui-tools/examples/html/phaserce/wheel3D.html)
 
 ```javascript
 var wheel = new uiWidgets.Wheel3D(
