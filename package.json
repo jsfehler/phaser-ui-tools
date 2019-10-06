@@ -14,6 +14,7 @@
   "scripts": {
     "build:js": "webpack",
     "test": "mocha-chrome tests/testrunner.html",
+    "test3": "mocha-chrome tests/testrunner_phaser3.html",
     "copyToExamplesLib": "copyfiles -f dist/phaser-ui-tools.js docs/examples/lib/",
     "build:docs": "documentation build src/** -f html -o docs"
   },

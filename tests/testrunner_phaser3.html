@@ -1,0 +1,56 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Mocha Tests</title>
+  <link rel="stylesheet" href="../node_modules/mocha/mocha.css" />
+</head>
+<body>
+  <div id="mocha"></div>
+  <script src="../node_modules/mocha/mocha.js"></script>
+  <script src="../node_modules/chai/chai.js"></script>
+
+  <script>
+    mocha.setup('bdd')
+    mocha.reporter('html');
+  </script>
+
+  <!-- Phaser -->
+  <script src="../docs/examples/lib/phaser3.min.js"></script>
+  <script>
+    // Create game to test the uiWidgets.
+    // Run mocha inside the game to ensure assets are loaded before the tests run.
+    var config = {
+        type: Phaser.AUTO,
+        width: 600,
+        height: 300,
+        parent: 'unitTest',
+        scene: {
+            preload: preload,
+            create: create,
+        }
+    };
+
+    var g = new Phaser.Game(config);
+    var game;
+    function preload() {
+        this.load.crossOrigin = 'anonymous';
+        this.load.image(
+            "dummySprite",
+            "https://raw.githubusercontent.com/jsfehler/phaser-ui-tools/master/docs/examples/assets/vertical/sprite.png");
+    };
+    function create() {
+        // .run() command must be here, after the assets are loaded.
+        game = this;
+        mocha.run();
+    };
+  </script>
+
+  <!-- uiWidgets -->
+  <script src="../dist/phaser-ui-tools.js"></script>
+
+  <!-- Tests -->
+  <script src="wheel3D.spec.js"></script>
+
+  <div id="unitTest"></div>
+</body>
+</html>
