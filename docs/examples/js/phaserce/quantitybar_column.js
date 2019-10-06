@@ -1,7 +1,7 @@
 var game = new Phaser.Game(600, 400, Phaser.AUTO, 'quantitybar_column', { preload: preload, create: create, update: update });
 
 function preload() {
-    var assetRoot = '../assets/quantitybar/horizontal/';
+    var assetRoot = '../../assets/quantitybar/horizontal/';
     game.load.image("track", assetRoot + "track.png");
     game.load.image('bar', assetRoot + 'bar.png');
 

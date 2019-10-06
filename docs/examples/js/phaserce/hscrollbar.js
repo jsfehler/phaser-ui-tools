@@ -1,7 +1,7 @@
 var game = new Phaser.Game(400, 300, Phaser.AUTO, 'hscrollbar', { preload: preload, create: create });
 
 function preload() {
-    var assetRoot = '../assets/horizontal/';
+    var assetRoot = '../../assets/horizontal/';
     game.load.image("dummyButton", assetRoot + "sprite.png");
     game.load.image("track", assetRoot + "track.png");
     game.load.spritesheet('bar', assetRoot + 'bar.png', 44, 22);

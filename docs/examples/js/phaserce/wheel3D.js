@@ -1,7 +1,7 @@
 var game = new Phaser.Game(600, 400, Phaser.AUTO, 'wheel3D', { preload: preload, create: create });
 
 function preload() {
-	  var assetRoot = '../assets/wheel3D/';
+	  var assetRoot = '../../assets/wheel3D/';
   	game.load.image("icon", assetRoot + "icon.png");
     game.load.image("mmUp", assetRoot + "mmUp.png");
     game.load.image("mmDown", assetRoot + "mmDown.png");
