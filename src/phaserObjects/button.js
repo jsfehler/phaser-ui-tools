@@ -25,7 +25,7 @@ if (Phaser.Button === undefined) {
                 cbContext = this;
             }
 
-            this.on('pointerdown', () => { callback(cbContext); });
+            this.on('pointerdown', () => { callback.call(cbContext); });
             this.on('pointerover', this.onOver, this);
             this.on('pointerout', this.onOut, this);
         }
