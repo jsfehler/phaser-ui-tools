@@ -39,11 +39,11 @@ if (Phaser.Group === undefined) {
         }
 
         get realHeight() {
-            return this.getBounds().height;
+            return this.getBounds().height - this.y;
         }
 
         get realWidth() {
-            return this.getBounds().width;
+            return this.getBounds().width - this.x;
         }
 
         getNodes() {
