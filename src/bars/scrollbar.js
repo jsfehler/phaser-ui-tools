@@ -161,11 +161,17 @@ export class Scrollbar extends DraggableBar {
      * Sets the draggable area of the bar.
      */
     setDraggableArea() {
+        let vh = this.track.displayHeight;
+
+        if (this.version === 3) {
+            vh -= this.bar.displayHeight;
+        }
+
         this.verticalDraggableArea = {
             x: this.track.x - ((this.bar.displayWidth - this.track.width) / 2),
             y: this.track.y,
             w: this.bar.displayWidth,
-            h: this.track.height,
+            h: vh,
         };
 
         this.horizontalDraggableArea = {
