@@ -102,6 +102,21 @@ export class ValueBar extends DraggableBar {
             this.upEvent = this.scrollLeft;
             this.downEvent = this.scrollRight;
         }
+
+        // Maximum value for the mouse position.
+        if (this.vertical) {
+            this.maxValue = this.track.displayHeight + this.worldPosition.y;
+
+            if (this.version === undefined) {
+                this.maxValue += this.bar.displayHeight;
+            }
+        } else {
+            this.maxValue = this.track.displayWidth + this.worldPosition.x;
+
+            if (this.version === undefined) {
+                this.maxValue += this.bar.displayWidth;
+            }
+        }
     }
 
     create() {
@@ -115,40 +130,46 @@ export class ValueBar extends DraggableBar {
         this.windowScrollAreaSize = this.valueRange.maxValue - this.valueRange.step;
 
         // Represents one fraction of the track.
-        this.vslice = (this.track.height * this.valueRange.ratio);
-        this.hslice = (this.track.width * this.valueRange.ratio);
+        this.vslice = (this.track.displayHeight * this.valueRange.ratio);
+        this.hslice = (this.track.displayWidth * this.valueRange.ratio);
 
         this.setTrackScrollAreaSize();
 
+        this.setInitialBarPosition();
+
         // Initial position for the bar.
         this.mousePointer = { x: this.bar.x, y: this.bar.y };
-
-        this.setInitialBarPosition();
     }
 
     /** Sets the draggable area of the bar. */
     setDraggableArea() {
+        let vh = this.track.displayHeight;
+
+        if (this.version === undefined) {
+            vh += this.bar.displayHeight;
+        }
+
         this.verticalDraggableArea = {
-            x: this.track.x - ((this.bar.width - this.track.width) / 2),
-            y: this.track.y - (this.bar.height / 2),
-            w: this.bar.width,
-            h: this.track.height + this.bar.height,
+            x: this.track.x - ((this.bar.displayWidth - this.track.displayWidth) / 2),
+            y: this.track.y - (this.bar.displayHeight / 2),
+            w: this.bar.displayWidth,
+            h: vh,
         };
 
         this.horizontalDraggableArea = {
-            x: this.track.x - (this.bar.width / 2),
-            y: this.track.y - ((this.bar.height - this.track.height) / 2),
-            w: this.track.width + this.bar.width,
-            h: this.bar.height,
+            x: this.track.x - (this.bar.displayWidth / 2),
+            y: this.track.y - ((this.bar.displayHeight - this.track.displayHeight) / 2),
+            w: this.track.displayWidth + this.bar.displayWidth,
+            h: this.bar.displayHeight,
         };
     }
 
     /** Determine the distance the bar can scroll over */
     setTrackScrollAreaSize() {
         if (this.vertical) {
-            this.trackScrollAreaSize = this.track.height;
+            this.trackScrollAreaSize = this.track.displayHeight;
         } else {
-            this.trackScrollAreaSize = this.track.width;
+            this.trackScrollAreaSize = this.track.displayWidth;
         }
     }
 
@@ -158,9 +179,9 @@ export class ValueBar extends DraggableBar {
 
         // The bar should always be in centered on it's current position.
         if (this.vertical) {
-            this.bar.y = (gripPositionOnTrack + this.track.y) - (this.bar.height / 2);
+            this.bar.y = (gripPositionOnTrack + this.track.y) - (this.bar.displayHeight / 2);
         } else {
-            this.bar.x = (gripPositionOnTrack + this.track.x) - (this.bar.width / 2);
+            this.bar.x = (gripPositionOnTrack + this.track.x) - (this.bar.displayWidth / 2);
         }
     }
 
@@ -230,13 +251,13 @@ export class ValueBar extends DraggableBar {
         if (this.vertical) {
             if (this.bar.y <= this.track.y) {
                 newGripPosition = 0;
-            } else if (this.bar.y + this.bar.height >= this.track.y + this.track.height) {
+            } else if (this.bar.y + this.bar.displayHeight >= this.track.y + this.track.displayHeight) {
                 newGripPosition = this.trackScrollAreaSize;
             }
         } else {
             if (this.bar.x <= this.track.x) {
                 newGripPosition = 0;
-            } else if (this.bar.x + this.bar.width >= this.track.x + this.track.width) {
+            } else if (this.bar.x + this.bar.displayWidth >= this.track.x + this.track.displayWidth) {
                 newGripPosition = this.trackScrollAreaSize;
             }
         }

@@ -34,9 +34,10 @@ export class DraggableBar extends Bar {
      * this function is called when the track is clicked.
      */
     horizontalTrackClick() {
-        const mouseX = this.game.input.mousePointer.x;
         // Don't register mouse clicks on the bar itself.
-        if (mouseX > this.bar.x + this.bar.displayWidth + this.worldPosition.x) {
+        const mouseX = this.game.input.mousePointer.x;
+
+        if (mouseX > this.bar.x + this.worldPosition.x + this.bar.displayWidth) {
             this.scrollRight();
         } else if (mouseX < (this.bar.x + this.worldPosition.x)) {
             this.scrollLeft();
@@ -98,9 +99,12 @@ export class DraggableBar extends Bar {
         this.bar.addDragEvent(this.moveContent, this);
     }
 
-    saveMousePosition(sprite, pointer) {
+    saveMousePosition(pointer) {
         // When the bar is dragged, record where the mouse clicked down.
-        this.mousePointer = { x: pointer.x, y: pointer.y };
+        this.mousePointer = {
+            x: pointer.x - (pointer.x - this.bar.x),
+            y: pointer.y - (pointer.y - this.bar.y),
+        };
     }
 
     getBarPosition() {
@@ -110,41 +114,33 @@ export class DraggableBar extends Bar {
     }
 
     getMouseDelta() {
-        let oldMousePosition;
-        if (this.vertical) {
-            oldMousePosition = this.mousePointer.y;
-        } else {
-            oldMousePosition = this.mousePointer.x;
-        }
-
         // Only difference between clicking the track/using the keyboard vs mouse drag.
         let newMousePointer;
         if (this.trackClicked) {
             newMousePointer = { x: this.bar.x, y: this.bar.y };
         } else {
             const { mousePointer } = this.game.input;
-            newMousePointer = { x: mousePointer.x, y: mousePointer.y };
+            newMousePointer = {
+                x: mousePointer.x - (mousePointer.x - this.bar.x),
+                y: mousePointer.y - (mousePointer.y - this.bar.y),
+            };
         }
 
+        let oldMousePosition;
         let newMousePosition;
         if (this.vertical) {
+            oldMousePosition = this.mousePointer.y;
             newMousePosition = newMousePointer.y;
         } else {
+            oldMousePosition = this.mousePointer.x;
             newMousePosition = newMousePointer.x;
         }
 
         this.mousePointer = newMousePointer;
 
-        // Maximum value for the mouse position. Only update when the new position is inside the track.
-        let maxValue;
-        if (this.vertical) {
-            maxValue = this.track.height + this.worldPosition.y;
-        } else {
-            maxValue = this.track.width + this.worldPosition.x;
-        }
-
+        // Only update when the new position is inside the track.
         let mousePositionDelta;
-        if (newMousePosition < maxValue) {
+        if (newMousePosition < this.maxValue) {
             mousePositionDelta = oldMousePosition - newMousePosition;
         } else {
             mousePositionDelta = 0;
