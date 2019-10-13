@@ -91,6 +91,21 @@ export class Scrollbar extends DraggableBar {
         this.maxX = (this.track.x + this.track.width) - this.bar.displayWidth;
 
         this.create();
+
+        // Maximum value for the mouse position.
+        if (this.vertical) {
+            this.maxValue = this.track.displayHeight + this.worldPosition.y;
+
+            if (this.version === undefined) {
+                this.maxValue += this.bar.displayHeight;
+            }
+        } else {
+            this.maxValue = this.track.displayWidth + this.worldPosition.x;
+
+            if (this.version === undefined) {
+                this.maxValue += this.bar.displayWidth;
+            }
+        }
     }
 
     /**
@@ -130,8 +145,8 @@ export class Scrollbar extends DraggableBar {
         this.windowScrollAreaSize = this.valueRange.maxValue - this.valueRange.step;
 
         // Represents one fraction of the track.
-        this.vslice = (this.track.height * this.valueRange.ratio);
-        this.hslice = (this.track.width * this.valueRange.ratio);
+        this.vslice = (this.track.displayHeight * this.valueRange.ratio);
+        this.hslice = (this.track.displayWidth * this.valueRange.ratio);
 
         this.setTrackScrollAreaSize();
 
@@ -194,13 +209,13 @@ export class Scrollbar extends DraggableBar {
         if (this.vertical) {
             if (this.bar.y <= this.track.y) {
                 newGripPosition = 0;
-            } else if (this.bar.y + this.bar.displayHeight >= this.track.y + this.track.height) {
+            } else if (this.bar.y + this.bar.displayHeight >= this.track.y + this.track.displayHeight) {
                 newGripPosition = -this.trackScrollAreaSize;
             }
         } else {
             if (this.bar.x <= this.track.x) {
                 newGripPosition = 0;
-            } else if (this.bar.x + this.bar.displayWidth >= this.track.x + this.track.width) {
+            } else if (this.bar.x + this.bar.displayWidth >= this.track.x + this.track.displayWidth) {
                 newGripPosition = -this.trackScrollAreaSize;
             }
         }
