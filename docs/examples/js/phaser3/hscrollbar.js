@@ -24,7 +24,6 @@ function create() {
 
     viewport.addNode(row);
 
-
     // Add things to the row.
     var dummy_sprite_a = this.add.image(0, 0, "dummyButton");
     var dummy_sprite_b = this.add.image(0, 0, "dummyButton");
