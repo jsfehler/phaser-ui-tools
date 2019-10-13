@@ -55,7 +55,9 @@ if (Phaser.Sprite === undefined) {
         * Add a callback that is triggered when the object is unclicked.
         */
         addUpEvent(callback, callbackContext) {
-            this.on('pointerup', () => { callback.call(callbackContext); });
+            this.on('pointerup', (pointer) => {
+                callback.call(callbackContext, pointer);
+            });
         }
 
         /**
@@ -63,7 +65,9 @@ if (Phaser.Sprite === undefined) {
         * Add a callback that is triggered when the object is clicked.
         */
         addDownEvent(callback, callbackContext) {
-            this.on('pointerdown', () => { callback.call(callbackContext); });
+            this.on('pointerdown', (pointer) => {
+                callback.call(callbackContext, pointer);
+            });
         }
 
         /**
