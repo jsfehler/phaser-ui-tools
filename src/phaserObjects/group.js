@@ -38,6 +38,11 @@ if (Phaser.Group === undefined) {
             this.worldPosition = new WorldPosition(this);
         }
 
+        /** Alias to match Phaser CE */
+        get children() {
+            return this.list;
+        }
+
         get realHeight() {
             return this.getBounds().height - this.y;
         }
