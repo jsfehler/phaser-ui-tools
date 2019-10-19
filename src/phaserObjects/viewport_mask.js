@@ -14,7 +14,14 @@ if (Phaser.Graphics === undefined) {
             this.fillStyle(0xffffff);
             this.beginPath();
             this.fillRect(x, y, width, height);
-            return this.createGeometryMask();
+
+            const m = this.createGeometryMask();
+            m.x = m.geometryMask.x;
+            m.y = m.geometryMask.y;
+            m.width = width;
+            m.height = height;
+
+            return m;
         }
     }
     exportObject = ViewportMask3;
