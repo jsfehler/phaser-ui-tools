@@ -82,6 +82,12 @@ if (Phaser.Sprite === undefined) {
     exportObject = Phaser3Sprite;
 } else {
     class PhaserCESprite extends Phaser.Sprite {
+        constructor(game, x, y, key) {
+            super(game, x, y, key);
+
+            game.add.existing(this);
+        }
+
         get maskX() { //eslint-disable-line
             return 0;
         }

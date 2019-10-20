@@ -7,7 +7,7 @@ if (Phaser.Button === undefined) {
     * @private
     */
     class Phaser3Button extends Sprite {
-        constructor(game, x, y, key, callback, callbackContext, overKey, outKey) {
+        constructor(game, x, y, key, callback, callbackContext, overKey, outKey, downKey, upKey) {
             super(game, x, y, key);
 
             game.add.existing(this);
@@ -16,6 +16,8 @@ if (Phaser.Button === undefined) {
 
             this.overKey = overKey;
             this.outKey = outKey;
+            this.downKey = downKey;
+            this.upKey = upKey;
 
             this.setInteractive();
 
@@ -30,6 +32,8 @@ if (Phaser.Button === undefined) {
             });
             this.on('pointerover', this.onOver, this);
             this.on('pointerout', this.onOut, this);
+            this.on('pointerdown', this.onDown, this);
+            this.on('pointerup', this.onUp, this);
         }
 
         onOver() {
@@ -38,6 +42,14 @@ if (Phaser.Button === undefined) {
 
         onOut() {
             this.setFrame(this.outKey);
+        }
+
+        onDown() {
+            this.setFrame(this.downKey);
+        }
+
+        onUp() {
+            this.setFrame(this.upKey);
         }
 
         updateDrag(pointer, gameObject, x, y) { //eslint-disable-line
@@ -72,6 +84,12 @@ if (Phaser.Button === undefined) {
     exportObject = Phaser3Button;
 } else {
     class PhaserCEButton extends Phaser.Button {
+        constructor(game, x, y, key, callback, callbackContext, overKey, outKey, downKey, upKey) {
+            super(game, x, y, key, callback, callbackContext, overKey, outKey, downKey, upKey);
+
+            game.add.existing(this);
+        }
+
         setInteractive() {
             this.inputEnabled = true;
         }
