@@ -1,4 +1,4 @@
-import { textSprite, textButton } from './buttons';
+import { TextSprite, TextButton } from './buttons';
 import { KeyboardGroup } from './keyboard_group';
 import { Wheel3D } from './wheel3D';
 
@@ -15,8 +15,8 @@ import { Button } from './phaserObjects/button';
 
 
 export {
-    textSprite,
-    textButton,
+    TextSprite,
+    TextButton,
     KeyboardGroup,
     Wheel3D,
     QuantityBar,

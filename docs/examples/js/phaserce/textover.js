@@ -17,15 +17,15 @@ function preload() {
 }
 
 function create() {
-    this.header = new uiWidgets.textSprite(this, 0, 0, "header").setText('Header', textStyle);
+    this.header = new uiWidgets.TextSprite(this, 0, 0, "header").setText('Header', textStyle);
 
-    var buttonOne = new uiWidgets.textButton(game, 0, 0, "button", newGameCallback, this, 1, 0, 2, 1)
+    var buttonOne = new uiWidgets.TextButton(game, 0, 0, "button", newGameCallback, this, 1, 0, 2, 1)
       .setText("New Game", textStyle)
       .eventTextYAdjustment(3);
-    var buttonTwo = new uiWidgets.textButton(game, 0, 0, "button", continueCallback, this, 1, 0, 2, 1)
+    var buttonTwo = new uiWidgets.TextButton(game, 0, 0, "button", continueCallback, this, 1, 0, 2, 1)
       .setText("Continue", textStyle)
       .eventTextYAdjustment(3);
-    var buttonThree = new uiWidgets.textButton(game, 0, 0, "button", optionsCallback, this, 1, 0, 2, 1)
+    var buttonThree = new uiWidgets.TextButton(game, 0, 0, "button", optionsCallback, this, 1, 0, 2, 1)
       .setText("Options", textStyle)
       .eventTextYAdjustment(3);
 
