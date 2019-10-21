@@ -1,4 +1,10 @@
-var game = new Phaser.Game(600, 400, Phaser.AUTO, 'wheel3D', { preload: preload, create: create });
+var game = new Phaser.Game(
+    600,
+    400,
+    Phaser.AUTO,
+    'wheel3D',
+    { preload: preload, create: create },
+);
 
 function preload() {
 	  var assetRoot = '../../assets/wheel3D/';
@@ -30,7 +36,7 @@ function create() {
         {"x":0, "y": -90, "z": 0}
     );
 
-    // Tint the active item, just for show.
+    // Tint the active item after each movement.
     menuWheelY.emitter.on('complete',
         function(wheel) {
             for (var i = 0; i < 12; i++) {
@@ -82,6 +88,7 @@ function create() {
         {"x": 90, "y": 0, "z": 0}
     );
 
+    // Tint the active item after each movement.
     menuWheelX.emitter.on('complete',
         function(wheel) {
             for (var i = 0; i < 12; i++) {
