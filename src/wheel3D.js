@@ -116,6 +116,13 @@ export class Wheel3D {
 
         // Group to store wheel sprites in, used for zindex sorting.
         this.group = new PhaserObjects.Group(game);
+
+        // Record sprite starting position
+        for (let i = 0; i < this.sprites.length; i++) {
+            const sprite = this.sprites[i];
+            sprite.wheel3DoriginalX = sprite.x;
+            sprite.wheel3DoriginalY = sprite.y;
+        }
     }
 
     activate() {
