@@ -120,6 +120,14 @@ if (Phaser.Button === undefined) {
 
         /**
         * @private
+        * Add a callback that is triggered when the pointer moves out of the object.
+        */
+        addOutEvent(callback, callbackContext) {
+            this.events.onInputOut.add(callback, callbackContext);
+        }
+
+        /**
+        * @private
         * Add a callback that is triggered when the object is unclicked.
         */
         addUpEvent(callback, callbackContext) {

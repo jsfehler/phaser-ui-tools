@@ -52,6 +52,16 @@ if (Phaser.Sprite === undefined) {
 
         /**
         * @private
+        * Add a callback that is triggered when the pointer moves out of the object.
+        */
+        addOutEvent(callback, callbackContext) {
+            this.on('pointerout', (pointer) => {
+                callback.call(callbackContext, pointer);
+            });
+        }
+
+        /**
+        * @private
         * Add a callback that is triggered when the object is unclicked.
         */
         addUpEvent(callback, callbackContext) {
@@ -103,6 +113,15 @@ if (Phaser.Sprite === undefined) {
         disableInteractive() {
             this.inputEnabled = false;
         }
+
+        /**
+        * @private
+        * Add a callback that is triggered when the pointer moves out of the object.
+        */
+        addOutEvent(callback, callbackContext) {
+            this.events.onInputOut.add(callback, callbackContext);
+        }
+
 
         /**
         * @private
