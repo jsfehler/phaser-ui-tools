@@ -1,6 +1,6 @@
 {
   "name": "phaser-ui-tools",
-  "version": "0.1.0",
+  "version": "2.0.0-beta",
   "description": "User Interface objects for the phaser game engine.",
   "author": "Joshua Fehler <jsfehler@gmail.com>",
   "repository": "github:jsfehler/phaser-ui-tools",
