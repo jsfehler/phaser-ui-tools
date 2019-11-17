@@ -19,7 +19,7 @@ if (Phaser.Button === undefined) {
             this.downKey = downKey;
             this.upKey = upKey;
 
-            this.setInteractive();
+            this.setInteractive({ useHandCursor: true });
 
             let cbContext = callbackContext;
 
@@ -74,7 +74,7 @@ if (Phaser.Button === undefined) {
         }
 
         enableDragging(vertical = false) {
-            this.setInteractive();
+            this.setInteractive({ useHandCursor: true });
             this.vertical = vertical;
             this.game.input.setDraggable(this);
             this.game.input.on('drag', this.updateDrag);
@@ -92,6 +92,7 @@ if (Phaser.Button === undefined) {
 
         setInteractive() {
             this.inputEnabled = true;
+            this.input.useHandCursor = true;
         }
 
         disableInteractive() {
