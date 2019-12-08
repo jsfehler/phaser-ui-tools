@@ -43,6 +43,14 @@ if (Phaser.Sprite === undefined) {
         }
 
         /** Immitate the API of PhaserCE.
+        * Move this object down the depth order by 1.
+        * @private
+        */
+        moveDown() {
+            this.depth -= 1;
+        }
+
+        /** Immitate the API of PhaserCE.
         * Align this object in another.
         * @private
         */
