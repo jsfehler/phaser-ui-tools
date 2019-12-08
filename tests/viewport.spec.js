@@ -20,8 +20,6 @@ describe("Viewport", function(){
             viewport = new uiWidgets.Viewport(game, 17, 102, 103, 104);
             chai.expect(viewport.mask.x).to.equal(17);
             chai.expect(viewport.mask.y).to.equal(102);
-            chai.expect(viewport.mask.width).to.equal(103);
-            chai.expect(viewport.mask.height).to.equal(104);
         });
     });
 
