@@ -17,7 +17,7 @@ function preload() {
 }
 
 function create() {
-    this.header = new uiWidgets.TextSprite(this, 0, 0, "header").setText('Header', textStyle);
+    this.header = new uiWidgets.TextSprite(game, 0, 0, "header").setText('Header', textStyle);
 
     var buttonOne = new uiWidgets.TextButton(game, 0, 0, "button", newGameCallback, this, 1, 0, 2, 1)
       .setText("New Game", textStyle)
