@@ -98,6 +98,10 @@ if (Phaser.Sprite === undefined) {
             game.add.existing(this);
         }
 
+        setOrigin(x, y) {
+            this.anchor = new Phaser.Point(x, y);
+        }
+
         get maskX() { //eslint-disable-line
             return 0;
         }
