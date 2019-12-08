@@ -69,7 +69,7 @@ export class Frame extends PhaserObjects.Group {
             this.back.destroy();
         }
 
-        if (this.background !== undefined) {
+        if (this.background !== null) {
             this.background.destroy();
         }
 
