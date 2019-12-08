@@ -10,23 +10,70 @@ export class Frame extends PhaserObjects.Group {
      * @param {number} x - The x position of the Frame.
      * @param {number} y - The y position of the Frame.
      * @param {string} bg - The background image to use.
+     * @param {boolean} modal - If the Frame should block external interaction until killed.
      */
-    constructor(game, x = 0, y = 0, bg = null) {
+    constructor(game, x = 0, y = 0, bg = null, modal = false) {
         super(game);
         game.add.existing(this);
 
         this.x = x;
         this.y = y;
 
-        this.background = null;
+        this.modal = modal;
 
-        // Add background to Frame.
+        this.background = null;
+        this.back = null;
+
+        if (modal) {
+            // Create a sprite to use as the modal back.
+            const texture = new PhaserObjects.Graphics(game, { x: 0, y: 0 });
+            texture.fillStyle(0xffffff, 1);
+            texture.fillRect(0, 0, game.scale.width, game.scale.height);
+
+            let modalBack;
+            if (this.version === 3) {
+                texture.generateTexture('modalBack');
+                modalBack = 'modalBack';
+            } else {
+                modalBack = texture.generateTexture();
+            }
+
+            this.back = new PhaserObjects.Sprite(game, 0, 0, modalBack);
+            this.back.setInteractive();
+            this.back.setOrigin(0, 0);
+            // CE requirement
+            this.back.moveDown();
+
+            // Mask the back, causing it to be invisible.
+            const backMask = new PhaserObjects.ViewportMask(game, 0, 0);
+            this.back.mask = backMask.create(0, 0, 0, 0);
+
+            game.add.existing(this.back);
+
+            // Ensure the modal doesn't hide the Frame's content.
+            this.depth = 9999;
+            this.back.depth = 9998;
+        }
+
         if (bg !== null) {
             this.background = new PhaserObjects.Sprite(game, 0, 0, bg);
             game.add.existing(this.background);
             this.background.sendToBack();
             this.background.alignIn(this, alignments.TOP_LEFT);
         }
+    }
+
+    /** Destroy the Frame, along with any background or modal effect. */
+    dismiss() {
+        if (this.modal) {
+            this.back.destroy();
+        }
+
+        if (this.background !== undefined) {
+            this.background.destroy();
+        }
+
+        this.destroy();
     }
 
     /** Adds a new object into the Frame, then aligns it with the previous object.
