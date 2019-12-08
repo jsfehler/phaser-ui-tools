@@ -48,12 +48,12 @@ export class TextSprite extends TextGroup {
      * @param {number} y - The y coordinate on screen where the textSprite will be placed.
      */
     constructor(game, x, y, key) {
-        super(game);
+        super(game, x, y);
 
         this.game = game;
         game.add.existing(this);
 
-        this.sprite = new PhaserObjects.Sprite(game, x, y, key);
+        this.sprite = new PhaserObjects.Sprite(game, 0, 0, key);
         this.add(this.sprite);
 
         this.width = this.sprite.width;
@@ -79,15 +79,15 @@ export class TextButton extends TextGroup {
      * @param {number} upKey - The frame to switch to when an up event is triggered.
      */
     constructor(game, x, y, key, callback, callbackContext, overKey, outKey, downKey, upKey) {
-        super(game);
+        super(game, x, y);
 
         this.game = game;
         game.add.existing(this);
 
         this.button = new PhaserObjects.Button(
             game,
-            x,
-            y,
+            0,
+            0,
             key,
             callback,
             callbackContext,
