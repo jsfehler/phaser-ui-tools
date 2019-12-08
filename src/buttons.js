@@ -51,6 +51,9 @@ export class TextSprite extends TextGroup {
         super(game, x, y);
 
         this.game = game;
+        this.x = x;
+        this.y = y;
+
         game.add.existing(this);
 
         this.sprite = new PhaserObjects.Sprite(game, 0, 0, key);
@@ -82,6 +85,9 @@ export class TextButton extends TextGroup {
         super(game, x, y);
 
         this.game = game;
+        this.x = x;
+        this.y = y;
+
         game.add.existing(this);
 
         this.button = new PhaserObjects.Button(
