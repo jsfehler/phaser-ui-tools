@@ -6,6 +6,21 @@ import * as PhaserObjects from './phaserObjects';
  */
 class TextGroup extends PhaserObjects.Group {
     /**
+     * @param {Object} game - Current game instance.
+     * @param {number} x - The x coordinate on screen where the sprite will be placed.
+     * @param {number} y - The y coordinate on screen where the sprite will be placed.
+     */
+    constructor(game, x, y) {
+        super(game, x, y);
+
+        this.game = game;
+        this.x = x;
+        this.y = y;
+
+        game.add.existing(this);
+    }
+
+    /**
      * @param {string} label - The text to place on top of the sprite.
      * @param {Object} style - The style properties to be set on the Text.
      */
@@ -23,6 +38,9 @@ class TextGroup extends PhaserObjects.Group {
         }
 
         this.add(this.text);
+
+        this.text.wordWrap = true;
+        this.text.wordWrapWidth = this.width;
 
         return this;
     }
@@ -43,18 +61,12 @@ class TextGroup extends PhaserObjects.Group {
 export class TextSprite extends TextGroup {
     /**
      * @param {Object} game - Current game instance.
-     * @param {string} key - The image to create a sprite with.
      * @param {number} x - The x coordinate on screen where the textSprite will be placed.
      * @param {number} y - The y coordinate on screen where the textSprite will be placed.
+     * @param {string} key - The image to create a sprite with.
      */
     constructor(game, x, y, key) {
         super(game, x, y);
-
-        this.game = game;
-        this.x = x;
-        this.y = y;
-
-        game.add.existing(this);
 
         this.sprite = new PhaserObjects.Sprite(game, 0, 0, key);
         this.add(this.sprite);
@@ -83,12 +95,6 @@ export class TextButton extends TextGroup {
      */
     constructor(game, x, y, key, callback, callbackContext, overKey, outKey, downKey, upKey) {
         super(game, x, y);
-
-        this.game = game;
-        this.x = x;
-        this.y = y;
-
-        game.add.existing(this);
 
         this.button = new PhaserObjects.Button(
             game,
