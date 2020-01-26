@@ -29,7 +29,7 @@
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-loader": "^3.0.2",
     "eslint-plugin-import": "^2.18.2",
-    "mocha": "^6.2.2",
+    "mocha": "^7.0.1",
     "mocha-chrome": "^2.2.0",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.9"
