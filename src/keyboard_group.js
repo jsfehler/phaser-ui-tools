@@ -1,5 +1,7 @@
 import * as EventEmitter from 'eventemitter3';
 
+import { utils } from './utils';
+
 /** Collection of sprites that can be selected with the keyboard.
   * When the select key is hit, the sprite that was selected is now connected to the keyboard.
   */
@@ -45,11 +47,7 @@ export class KeyboardGroup {
 
     /** Selects the previous child. */
     prevItem() {
-        this.idx = this.idx - 1;
-
-        if (this.idx < 0) {
-            this.idx = this.children.length - 1;
-        }
+        this.idx = utils.modulo(this.idx - 1, this.children.length);
 
         this.selected = this.children[this.idx];
 
@@ -60,7 +58,8 @@ export class KeyboardGroup {
 
     /** Selects the next child. */
     nextItem() {
-        this.idx = (this.idx + 1) % (this.children.length);
+        this.idx = utils.modulo(this.idx + 1, this.children.length);
+
         this.selected = this.children[this.idx];
 
         this.useBar();
