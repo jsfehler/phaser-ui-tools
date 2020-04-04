@@ -123,6 +123,9 @@ export class Wheel3D {
             sprite.wheel3DoriginalX = sprite.x;
             sprite.wheel3DoriginalY = sprite.y;
         }
+
+        this.upEvent = this.moveBack;
+        this.downEvent = this.moveForward;
     }
 
     activate() {
@@ -194,6 +197,24 @@ export class Wheel3D {
         this.active = this.wheelItems[this.firstPlace].sprite;
 
         this.project();
+    }
+
+    close() {
+        for (let i = 0; i < this.wheelItems.length; i++) {
+            const newTween = new PhaserObjects.Tween(this.game);
+            const sprite = this.sprites[i];
+            newTween.add(
+                sprite,
+                {
+                    x: sprite.wheel3DoriginalX,
+                    y: sprite.wheel3DoriginalY,
+                },
+                this.tweenParams.duration,
+                this.tweenParams.ease,
+            );
+        }
+
+        this.emitter.emit('close', this);
     }
 
     /** Move the wheel backwards. */
