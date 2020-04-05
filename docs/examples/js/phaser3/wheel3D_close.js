@@ -33,36 +33,6 @@ function preload() {
     this.load.spritesheet('zou', assetRoot + 'zou.png', frameSize);
 
     this.load.spritesheet('toggle', assetRoot + 'checkbox.png', frameSize);
-    this.load.image("left", assetRoot + "left.png");
-    this.load.image("right", assetRoot + "right.png");
-}
-
-function getLeftWheelButton(context, x, y, wheel) {
-    var button = new uiWidgets.Button(
-        context,
-        x,
-        y,
-        "left",
-        scrollTheWheel,
-        null,
-    );
-    button.wheel = wheel;
-    button.dir = 0;
-    return button;
-}
-
-function getRightWheelButton(context, x, y, wheel) {
-    var button = new uiWidgets.Button(
-        context,
-        x,
-        y,
-        "right",
-        scrollTheWheel,
-        null,
-    );
-    button.wheel = wheel;
-    button.dir = 1;
-    return button;
 }
 
 function getAnimConfig(anims, key) {
@@ -98,45 +68,20 @@ function wheelOnClose(wheel) {
 var open = false;
 
 function toggleWheels() {
-      if (open === false) {
-          headWheel.activate();
-          torsoWheel.activate();
-          legsWheel.activate();
-          open = true;
-      } else {
-          headWheel.close();
-          torsoWheel.close();
-          legsWheel.close();
-          open = false;
-      }
+    if (open === false) {
+        headWheel.activate();
+        torsoWheel.activate();
+        legsWheel.activate();
+        open = true;
+    } else {
+
+
+        headWheel.close();
+        torsoWheel.close();
+        legsWheel.close();
+        open = false;
+    }
 }
-
-close() {
-    for (let i = 0; i < this.wheelItems.length; i++) {
-        const newTween = new PhaserObjects.Tween(this.game);
-        const sprite = this.sprites[i];
-        newTween.add(
-            sprite,
-            {
-                x: sprite.wheel3DoriginalX,
-                y: sprite.wheel3DoriginalY,
-            },
-            this.tweenParams.duration,
-            this.tweenParams.ease,
-        );
-    }
-
-    this.emitter.emit('close', this);
-}
-
-var scrollTheWheel = function () {
-    if (this.dir === 0){
-        this.wheel.moveBack();
-    }
-    if (this.dir === 1){
-        this.wheel.moveForward();
-    }
-};
 
 function create() {
     var centerX = this.cameras.main.centerX;
@@ -178,9 +123,6 @@ function create() {
     headWheel.emitter.on('start', wheelOnComplete);
     headWheel.emitter.on('close', wheelOnClose);
 
-    // Scroll Buttons
-    var scrollLeftButtonY = getLeftWheelButton(this, centerX - 125, 150, headWheel);
-    var scrollRightButtonY = getRightWheelButton(this, centerX + 125, 150, headWheel);
 
     // Torso
     var torsoMedalNames = ['kujaku', 'kamakiri', 'tora', 'unagi', 'gorilla'];
@@ -208,10 +150,6 @@ function create() {
     // Reduce alpha and stop animations on non-active items.
     torsoWheel.emitter.on('start', wheelOnComplete);
     torsoWheel.emitter.on('close', wheelOnClose);
-
-    // Scroll Buttons
-    var scrollLeftButtonY = getLeftWheelButton(this, centerX - 125, 200, torsoWheel);
-    var scrollRightButtonY = getRightWheelButton(this, centerX + 125, 200, torsoWheel);
 
 
     // Legs
@@ -241,7 +179,22 @@ function create() {
     legsWheel.emitter.on('start', wheelOnComplete);
     legsWheel.emitter.on('close', wheelOnClose);
 
-    // Scroll Buttons
-    var scrollLeftButtonY = getLeftWheelButton(this, centerX - 125, 250, legsWheel);
-    var scrollRightButtonY = getRightWheelButton(this, centerX + 125, 250, legsWheel);
+    var prevItemCallback = function (group, context) {
+        cursor.y = group.selected.xy.y;
+    };
+
+    var nextItemCallback = function (group, context) {
+        cursor.y = group.selected.xy.y;
+    };
+
+    cursor = this.add.sprite(100, 42, 'pointer');
+
+    // Create a KeyboardGroup and add the Bars to it.
+    keyboardGroup = new uiWidgets.KeyboardGroup(this, true, this);
+    keyboardGroup.addNode(headWheel);
+    keyboardGroup.addNode(torsoWheel);
+    keyboardGroup.addNode(legsWheel);
+
+    keyboardGroup.emitter.on('previous', prevItemCallback);
+    keyboardGroup.emitter.on('next', nextItemCallback);
 }
