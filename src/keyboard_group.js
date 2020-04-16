@@ -1,4 +1,5 @@
 import * as EventEmitter from 'eventemitter3';
+import * as PhaserObjects from './phaserObjects';
 
 import { utils } from './utils';
 
@@ -21,10 +22,10 @@ export class KeyboardGroup {
         this.selected = null;
         this.idx = 0;
 
-        this.upKey = this.game.input.keyboard.addKey(Phaser.Keyboard.UP);
-        this.downKey = this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
-        this.leftKey = this.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
-        this.rightKey = this.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
+        this.upKey = this.game.input.keyboard.addKey(PhaserObjects.KeyCodes.UP);
+        this.downKey = this.game.input.keyboard.addKey(PhaserObjects.KeyCodes.DOWN);
+        this.leftKey = this.game.input.keyboard.addKey(PhaserObjects.KeyCodes.LEFT);
+        this.rightKey = this.game.input.keyboard.addKey(PhaserObjects.KeyCodes.RIGHT);
 
         this.upEvent = this.prevItem;
         this.downEvent = this.nextItem;
@@ -72,12 +73,14 @@ export class KeyboardGroup {
      * @private
      */
     activateGroup() {
+        const keyboard = new PhaserObjects.Keyboard();
+
         if (this.vertical) {
-            this.upKey.onDown.add(this.upEvent, this);
-            this.downKey.onDown.add(this.downEvent, this);
+            keyboard.addDownEvent(this.upKey, this.upEvent, this);
+            keyboard.addDownEvent(this.downKey, this.downEvent, this);
         } else {
-            this.leftKey.onDown.add(this.upEvent, this);
-            this.rightKey.onDown.add(this.downEvent, this);
+            keyboard.addDownEvent(this.leftKey, this.upEvent, this);
+            keyboard.addDownEvent(this.rightKey, this.downEvent, this);
         }
     }
 
@@ -86,18 +89,20 @@ export class KeyboardGroup {
      * @private
      */
     useBar() {
+        const keyboard = new PhaserObjects.Keyboard();
+
         if (this.vertical) {
-            this.leftKey.onDown.removeAll();
-            this.rightKey.onDown.removeAll();
+            keyboard.removeDownEvent(this.leftKey);
+            keyboard.removeDownEvent(this.rightKey);
 
-            this.leftKey.onDown.add(this.selected.upEvent, this.selected);
-            this.rightKey.onDown.add(this.selected.downEvent, this.selected);
+            keyboard.addDownEvent(this.leftKey, this.selected.upEvent, this.selected);
+            keyboard.addDownEvent(this.rightKey, this.selected.downEvent, this.selected);
         } else {
-            this.upKey.onDown.removeAll();
-            this.downKey.onDown.removeAll();
+            keyboard.removeDownEvent(this.upKey);
+            keyboard.removeDownEvent(this.downKey);
 
-            this.upKey.onDown.add(this.selected.upEvent, this.selected);
-            this.downKey.onDown.add(this.selected.downEvent, this.selected);
+            keyboard.addDownEvent(this.upKey, this.selected.upEvent, this.selected);
+            keyboard.addDownEvent(this.downKey, this.selected.downEvent, this.selected);
         }
     }
 }
