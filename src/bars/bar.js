@@ -19,6 +19,8 @@ export class Bar extends PhaserObjects.Group {
         this.y = y;
 
         this.vertical = vertical;
+
+        this.parentContainer = null;
     }
 
     /**

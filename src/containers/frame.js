@@ -86,12 +86,13 @@ export class Frame extends PhaserObjects.Group {
         const align = alignment || this.alignment;
 
         if (!(node instanceof PhaserObjects.Group)) {
-            node.displayOriginX = 0; //eslint-disable-line
-            node.displayOriginY = 0; //eslint-disable-line
+            node.displayOriginX = 0; // eslint-disable-line
+            node.displayOriginY = 0; // eslint-disable-line
         }
 
         this.add(node);
         this.alignNodeToPrevious(node, align, paddingX, paddingY);
+        node.parentContainer = this;  // eslint-disable-line
 
         // Reset the positions for the bar's draggable area.
         if ('enableBarDrag' in node) {

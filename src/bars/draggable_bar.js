@@ -21,9 +21,15 @@ export class DraggableBar extends Bar {
         // Don't register mouse clicks on the bar itself.
         const mouseY = this.game.input.mousePointer.y;
 
-        if (mouseY > this.bar.y + this.worldPosition.y + this.bar.displayHeight) {
+        let barY = this.bar.y + this.worldPosition.y;
+
+        if (this.parentContainer) {
+            barY += this.parentContainer.y;
+        }
+
+        if (mouseY > barY + this.bar.displayHeight) {
             this.scrollDown();
-        } else if (mouseY < this.bar.y + this.worldPosition.y) {
+        } else if (mouseY < barY) {
             this.scrollUp();
         }
     }
@@ -37,9 +43,15 @@ export class DraggableBar extends Bar {
         // Don't register mouse clicks on the bar itself.
         const mouseX = this.game.input.mousePointer.x;
 
-        if (mouseX > this.bar.x + this.worldPosition.x + this.bar.displayWidth) {
+        let barX = this.bar.x + this.worldPosition.x;
+
+        if (this.parentContainer) {
+            barX += this.parentContainer.x;
+        }
+
+        if (mouseX > barX + this.bar.displayWidth) {
             this.scrollRight();
-        } else if (mouseX < (this.bar.x + this.worldPosition.x)) {
+        } else if (mouseX < barX) {
             this.scrollLeft();
         }
     }
