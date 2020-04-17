@@ -55,6 +55,25 @@ if (Phaser.Group === undefined) {
             return this.getAll();
         }
 
+        // Can't align to Containers automatically
+        alignToContainerBottom(previousNode, child) {
+            // realWidth changes inside a Container
+            const centerX = (previousNode.getBounds().width - this.worldPosition.x) * 0.5;
+            const bottomY = (previousNode.getBounds().height - this.worldPosition.y);
+
+            child.x = centerX - (child.width * 0.5); // eslint-disable-line
+            child.y = previousNode.getBounds().y + bottomY; // eslint-disable-line
+        }
+
+        // Containers can't be aligned automatically
+        alignContainerToBottom(previousNode, child) {
+            const centerX = previousNode.x + (previousNode.getBounds().width * 0.5);
+            const bottomY = (previousNode.getBounds().height - this.worldPosition.y);
+
+            child.x = centerX - ((child.getBounds().width - this.worldPosition.x) * 0.5); // eslint-disable-line
+            child.y = previousNode.getBounds().y + bottomY; //eslint-disable-line
+        }
+
         /** Aligns child to the last object in the group.
         * @private
         */
@@ -62,7 +81,11 @@ if (Phaser.Group === undefined) {
             const nodes = this.getNodes();
             const previousNode = nodes[nodes.length - 2];
 
-            if (previousNode !== undefined) {
+            if (previousNode instanceof Phaser3Group) {
+                this.alignToContainerBottom(previousNode, child);
+            } else if (child instanceof Phaser3Group && (previousNode !== undefined)) {
+                this.alignContainerToBottom(previousNode, child);
+            } else if (previousNode !== undefined) {
                 this.alignToMapping[align](child, previousNode, paddingX, paddingY);
             }
         }
