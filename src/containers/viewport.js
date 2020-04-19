@@ -20,6 +20,8 @@ export class Viewport extends PhaserObjects.Group {
         this.x = x;
         this.y = y;
 
+        this.uiWidgetsObjectRole = 'layout';
+
         // Viewport size and position, distinct from the total window size.
         this.area = {
             x,

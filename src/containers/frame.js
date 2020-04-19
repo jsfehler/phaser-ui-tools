@@ -19,6 +19,8 @@ export class Frame extends PhaserObjects.Group {
         this.x = x;
         this.y = y;
 
+        this.uiWidgetsObjectRole = 'layout';
+
         this.modal = modal;
 
         this.background = null;

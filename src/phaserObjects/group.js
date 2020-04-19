@@ -64,11 +64,22 @@ if (Phaser.Group === undefined) {
                 parentOffset = this.parentContainer.y;
             }
 
-            const centerX = ((previousNode.getBounds().width - this.worldPosition.x) * 0.5);
-            const bottomY = (previousNode.getBounds().height - this.worldPosition.y);
+            let previousNodeWidth;
+            let previousNodeHeight;
+            if (child.uiWidgetsObjectRole === 'layout') {
+                const bounds = previousNode.getBounds();
+                previousNodeWidth = bounds.width - this.worldPosition.x;
+                previousNodeHeight = bounds.height - this.worldPosition.y;
+            } else {
+                previousNodeWidth = previousNode.width;
+                previousNodeHeight = previousNode.height;
+            }
+
+            const centerX = (previousNodeWidth * 0.5);
+            const bottomY = previousNodeHeight;
 
             let w = child.width;
-            if (child instanceof Phaser3Group) {
+            if (child.uiWidgetsObjectRole === 'layout') {
                 w = child.getBounds().width;
             }
 
@@ -78,11 +89,12 @@ if (Phaser.Group === undefined) {
 
         // Containers can't be aligned automatically
         alignContainerToBottom(previousNode, child) {
-            const centerX = previousNode.x + (previousNode.getBounds().width * 0.5);
-            const bottomY = (previousNode.getBounds().height - this.worldPosition.y);
+            const bounds = previousNode.getBounds();
+            const centerX = previousNode.x + (bounds.width * 0.5);
+            const bottomY = (bounds.height - this.worldPosition.y);
 
             child.x = centerX - ((child.getBounds().width - this.worldPosition.x) * 0.5); // eslint-disable-line
-            child.y = previousNode.getBounds().y + bottomY; //eslint-disable-line
+            child.y = bounds.y + bottomY; //eslint-disable-line
         }
 
         /** Aligns child to the last object in the group.
