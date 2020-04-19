@@ -58,11 +58,22 @@ if (Phaser.Group === undefined) {
         // Can't align to Containers automatically
         alignToContainerBottom(previousNode, child) {
             // realWidth changes inside a Container
-            const centerX = (previousNode.getBounds().width - this.worldPosition.x) * 0.5;
+
+            let parentOffset = 0;
+            if (this.parentContainer) {
+                parentOffset = this.parentContainer.y;
+            }
+
+            const centerX = ((previousNode.getBounds().width - this.worldPosition.x) * 0.5);
             const bottomY = (previousNode.getBounds().height - this.worldPosition.y);
 
-            child.x = centerX - (child.width * 0.5); // eslint-disable-line
-            child.y = previousNode.getBounds().y + bottomY; // eslint-disable-line
+            let w = child.width;
+            if (child instanceof Phaser3Group) {
+                w = child.getBounds().width;
+            }
+
+            child.x = centerX - (w * 0.5); // eslint-disable-line
+            child.y = previousNode.getBounds().y + bottomY - parentOffset; // eslint-disable-line
         }
 
         // Containers can't be aligned automatically

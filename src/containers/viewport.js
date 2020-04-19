@@ -43,6 +43,7 @@ export class Viewport extends PhaserObjects.Group {
     */
     addNode(node) {
         this.add(node);
+        node.parentContainer = this;  // eslint-disable-line
     }
 
     /** Disable input for all objets outside the viewport's visible area.
