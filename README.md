@@ -13,40 +13,59 @@ https://jsfehler.github.io/phaser-ui-tools/
 
 
 ### Getting Started
-Get phaser-ui-tools.js or phaser-ui-tools.min.js from the releases and add it to your project's index.html.
+
+#### Using NPM
+On the command line, type:
+```
+npm i phaser-ui-tools
+```
+
+The objects are now available via import:
+```
+import { Column } from 'phaser-ui-tools';
+
+var column = new Column(...)
+
+```
+
+####  Adding the file directly to your project
+Get phaser-ui-tools.js from the releases and add it to your project's index.html.
 It should look something like:
 ```
-<script src="lib/phaser-ui-tools.min.js"></script>
+<script src="lib/phaser-ui-tools.js"></script>
 ```
-All the tools can be dropped into a game like any other Phaser Object.
+
+The objects can now be used directly:
+
+```
+var column = new uiWidgets.Column(...)
+```
 
 
 ### The Tools
 
 #### TextSprite
-A sprite with text on top.
+A sprite that can have text on top.
+
+Text is added with the setText() method.
+
 ```javascript
-var textSprite = new uiWidgets.textSprite(
-    game,
-    image,
-    label,
-    style,
-    x,
-    y
+var textSprite = new uiWidgets.TextSprite(
+    game, x, y, key,
 );
+textSprite.setText(label, style);
 ```
 
 #### TextButton
-A button with text on top.
+A button that can have text on top.
+
+Text is added with the setText() method.
+
 ```javascript
-var textButton = new uiWidgets.textButton(
-    game,
-    image,
-    label,
-    style,
-    x,
-    y
+var textButton = new uiWidgets.TextButton(
+    game, x, y, key, callback, callbackContext, overKey, outKey, downKey, upKey,
 );
+textButton.setText(label, style);
 ```
 
 #### Containers
