@@ -1,6 +1,7 @@
 import * as PhaserObjects from '../phaserObjects';
 
 /** Base object for all Bar-like Widgets.
+ * @private
  * @extends PhaserObjects.Group
  */
 export class Bar extends PhaserObjects.Group {

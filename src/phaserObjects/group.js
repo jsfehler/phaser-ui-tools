@@ -38,7 +38,7 @@ if (Phaser.Group === undefined) {
             this.worldPosition = new WorldPosition(this);
         }
 
-        /** Alias to match Phaser CE */
+        /** @private Alias to match Phaser CE */
         get children() {
             return this.list;
         }

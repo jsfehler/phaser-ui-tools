@@ -4,6 +4,7 @@ import { Bar } from './bar';
 
 /**
  * Base object for Bars that can be manipulated with a mouse.
+ * @private
  * @extends Bar
  */
 export class DraggableBar extends Bar {

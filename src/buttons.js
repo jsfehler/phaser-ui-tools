@@ -2,6 +2,7 @@ import * as PhaserObjects from './phaserObjects';
 
 
 /** Group with some added functionality for text overlays.
+ * @private
  * @extends Phaser.Group
  */
 class TextGroup extends PhaserObjects.Group {
@@ -83,9 +84,9 @@ export class TextSprite extends TextGroup {
 export class TextButton extends TextGroup {
     /**
      * @param {Object} game - Current game instance.
-     * @param {string} image - The image to create a sprite with.
      * @param {number} x - The x coordinate on screen where the textSprite will be placed.
      * @param {number} y - The y coordinate on screen where the textSprite will be placed.
+     * @param {string} key - The image to create a sprite with.
      * @param {Object} callback - Callback to use when the button is clicked.
      * @param {Object} callbackContext - The context the callback is called in.
      * @param {number} overKey - The frame to switch to when an over event is triggered.
