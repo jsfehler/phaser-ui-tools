@@ -16,7 +16,9 @@
     "test": "mocha-chrome tests/testrunner.html",
     "test3": "mocha-chrome tests/testrunner_phaser3.html",
     "copyToExamplesLib": "copyfiles -f dist/phaser-ui-tools.js docs/examples/lib/",
-    "build:docs": "documentation build src/** -f html -o docs"
+    "build:docs": "documentation build src/** -f html -o docs",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
@@ -38,6 +40,8 @@
     "phaser-ce": "2.10.3"
   },
   "dependencies": {
-    "eventemitter3": "^4.0.0"
-  }
+    "eventemitter3": "^4.0.0",
+    "snyk": "^1.321.0"
+  },
+  "snyk": true
 }
