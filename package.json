@@ -19,17 +19,17 @@
     "build:docs": "documentation build src/** -f html -o docs"
   },
   "devDependencies": {
-    "@babel/core": "^7.9.0",
-    "@babel/preset-env": "^7.9.0",
+    "@babel/core": "^7.9.6",
+    "@babel/preset-env": "^7.9.6",
     "babel-loader": "^8.1.0",
     "chai": "^4.2.0",
     "copyfiles": "^2.2.0",
     "documentation": "^13.0.0",
-    "eslint": "^6.8.0",
+    "eslint": "^7.0.0",
     "eslint-config-airbnb-base": "^14.1.0",
-    "eslint-loader": "^4.0.0",
+    "eslint-loader": "^4.0.2",
     "eslint-plugin-import": "^2.20.2",
-    "mocha": "^7.1.1",
+    "mocha": "^7.1.2",
     "mocha-chrome": "^2.2.0",
     "webpack": "^4.42.1",
     "webpack-cli": "^3.3.11"
