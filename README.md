@@ -78,6 +78,8 @@ textButton.setText(label, style);
 ###### Phaser CE
 [Header & Buttons](https://jsfehler.github.io/phaser-ui-tools/examples/html/phaserce/textover.html) | [Code](https://jsfehler.github.io/phaser-ui-tools/examples/js/phaserce/textover.js)
 
+###### Phaser 3
+[Header & Buttons](https://jsfehler.github.io/phaser-ui-tools/examples/html/phaser3/textover.html) | [Code](https://jsfehler.github.io/phaser-ui-tools/examples/js/phaser3/textover.js)
 
 #### Containers
 
@@ -145,6 +147,12 @@ var scrollbar = new uiWidgets.Scrollbar(
 
 [Horizontal](https://jsfehler.github.io/phaser-ui-tools/examples/html/phaserce/hscrollbar.html) | [Code](https://jsfehler.github.io/phaser-ui-tools/examples/js/phaserce/hscrollbar.js)
 
+###### Phaser 3
+
+[Vertical](https://jsfehler.github.io/phaser-ui-tools/examples/html/phaser3/vscrollbar.html) | [Code](https://jsfehler.github.io/phaser-ui-tools/examples/js/phaser3/vscrollbar.js)
+
+[Horizontal](https://jsfehler.github.io/phaser-ui-tools/examples/html/phaser3/hscrollbar.html) | [Code](https://jsfehler.github.io/phaser-ui-tools/examples/js/phaser3/hscrollbar.js)
+
 
 ##### ValueBar
 Valuebars are like Scrollbars, but instead of moving content, they increase/decrease a number.
@@ -175,6 +183,10 @@ var valuebar = new uiWidgets.ValueBar(
 
 [Multiple ValueBar inside a Column, with background image and keyboard events](https://jsfehler.github.io/phaser-ui-tools/examples/html/phaserce/valuebar_column.html) | [Code](https://jsfehler.github.io/phaser-ui-tools/examples/js/phaserce/valuebar_column.js)
 
+###### Phaser 3
+
+[ValueBar](https://jsfehler.github.io/phaser-ui-tools/examples/html/phaser3/valuebar.html) | [Code](https://jsfehler.github.io/phaser-ui-tools/examples/js/phaser3/valuebar.js)
+
 
 ##### QuantityBar
 QuantityBars do not adjust a value, they get adjusted by a value. The bar grows and shrinks based on a value.
@@ -202,6 +214,10 @@ var quantitybar = new uiWidgets.QuantityBar(
 
 [QuantityBar](https://jsfehler.github.io/phaser-ui-tools/examples/html/phaserce/quantitybar.html) | [Code](https://jsfehler.github.io/phaser-ui-tools/examples/js/phaserce/quantitybar.js)
 
+###### Phaser 3
+
+[QuantityBar](https://jsfehler.github.io/phaser-ui-tools/examples/html/phaser3/quantitybar.html) | [Code](https://jsfehler.github.io/phaser-ui-tools/examples/js/phaser3/quantitybar.js)
+
 
 #### Wheel3D
 A collection of sprites that are arranged around a three dimensional wheel.
@@ -226,3 +242,7 @@ var wheel = new uiWidgets.Wheel3D(
 ###### Phaser CE
 
 [Wheel3D](https://jsfehler.github.io/phaser-ui-tools/examples/html/phaserce/wheel3D.html) | [Code](https://jsfehler.github.io/phaser-ui-tools/examples/js/phaserce/wheel3D.js)
+
+###### Phaser 3
+
+[Wheel3D](https://jsfehler.github.io/phaser-ui-tools/examples/html/phaser3/wheel3D.html) | [Code](https://jsfehler.github.io/phaser-ui-tools/examples/js/phaser3/wheel3D.js)
