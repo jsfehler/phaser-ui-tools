@@ -1,6 +1,5 @@
 import * as PhaserObjects from './phaserObjects';
 
-
 /** Group with some added functionality for text overlays.
  * @private
  * @extends Phaser.Group
@@ -76,7 +75,6 @@ export class TextSprite extends TextGroup {
         this.height = this.sprite.height;
     }
 }
-
 
 /** Phaser Group containing a button with text anchored in the button's center.
  * @extends Phaser.Group

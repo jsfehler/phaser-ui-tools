@@ -25,7 +25,6 @@ export class QuantityRange {
     }
 }
 
-
 /** Used by a ValueBar to hold the bar's values. */
 export class ValueRange {
     /**
@@ -67,7 +66,6 @@ export class ValueRange {
         return this.currentValue;
     }
 }
-
 
 /** Used by a Scrollbar to hold the values and adjust a viewport's position. */
 export class ViewportRange {

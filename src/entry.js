@@ -13,7 +13,6 @@ import { Viewport } from './containers/viewport';
 
 import { Button } from './phaserObjects/button';
 
-
 export {
     TextSprite,
     TextButton,

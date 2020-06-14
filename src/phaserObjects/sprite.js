@@ -134,7 +134,6 @@ if (Phaser.Sprite === undefined) {
             this.events.onInputOut.add(callback, callbackContext);
         }
 
-
         /**
         * @private
         * Add a callback that is triggered when the object is unclicked.
