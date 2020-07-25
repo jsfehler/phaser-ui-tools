@@ -5,3 +5,4 @@ node_js:
 script:
   - "npm run build:js"
   - "npm run test"
+  - "npm run test3"
