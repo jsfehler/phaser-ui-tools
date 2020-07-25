@@ -186,11 +186,11 @@ function create() {
     scrollRightButtonZ.dir = 1;
 }
 
-var scrollTheWheel = function (item) {
-    if (item.dir === 0){
-        item.wheel.moveBack();
+var scrollTheWheel = function () {
+    if (this.dir === 0){
+        this.wheel.moveBack();
     }
-    if (item.dir === 1){
-        item.wheel.moveForward();
+    if (this.dir === 1){
+        this.wheel.moveForward();
     }
 };
