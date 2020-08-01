@@ -25,7 +25,7 @@
     "chai": "^4.2.0",
     "copyfiles": "^2.3.0",
     "documentation": "^13.0.2",
-    "eslint": "^7.5.0",
+    "eslint": "^7.6.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-loader": "^4.0.2",
     "eslint-plugin-import": "^2.22.0",
