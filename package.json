@@ -31,8 +31,8 @@
     "eslint-plugin-import": "^2.22.1",
     "mocha": "^8.2.0",
     "mocha-chrome": "^2.2.0",
-    "webpack": "^4.44.2",
-    "webpack-cli": "^3.3.12"
+    "webpack": "^5.1.1",
+    "webpack-cli": "^4.0.0"
   },
   "peerDependencies": {
     "phaser-ce": "2.10.3"
