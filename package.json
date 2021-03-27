@@ -19,7 +19,7 @@
     "build:docs": "documentation build src/** -f html -o docs"
   },
   "devDependencies": {
-    "@babel/core": "^7.13.10",
+    "@babel/core": "^7.13.13",
     "@babel/preset-env": "^7.13.12",
     "babel-loader": "^8.2.2",
     "chai": "^4.3.4",
