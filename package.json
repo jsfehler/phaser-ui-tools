@@ -19,8 +19,8 @@
     "build:docs": "documentation build src/** -f html -o docs"
   },
   "devDependencies": {
-    "@babel/core": "^7.15.0",
-    "@babel/preset-env": "^7.15.0",
+    "@babel/core": "^7.15.5",
+    "@babel/preset-env": "^7.15.6",
     "babel-loader": "^8.2.2",
     "chai": "^4.3.4",
     "copyfiles": "^2.4.1",
@@ -28,11 +28,11 @@
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-loader": "^4.0.2",
-    "eslint-plugin-import": "^2.24.0",
-    "mocha": "^9.0.3",
+    "eslint-plugin-import": "^2.24.2",
+    "mocha": "^9.1.2",
     "mocha-chrome": "^2.2.0",
-    "webpack": "^5.38.1",
-    "webpack-cli": "^4.7.0"
+    "webpack": "^5.56.1",
+    "webpack-cli": "^4.8.0"
   },
   "peerDependencies": {
     "phaser-ce": "2.10.3"
