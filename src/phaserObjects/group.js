@@ -51,6 +51,22 @@ if (Phaser.Group === undefined) {
             return this.getBounds().width - this.x;
         }
 
+        /** Set the origin points of every member of the group. */
+        setOrigin(x = 0, y = 0) {
+            let node;
+
+            for (let i = 0; i < this.children.length; i++) {
+                node = this.children[i];
+
+                if (!(node instanceof Phaser3Group)) {
+                    node.displayOriginX = x; // eslint-disable-line
+                    node.displayOriginY = y; // eslint-disable-line
+                } else if (node instanceof Phaser3Group) {
+                    node.setOrigin(x, y);
+                }
+            }
+        }
+
         getNodes() {
             return this.getAll();
         }
@@ -58,11 +74,6 @@ if (Phaser.Group === undefined) {
         // Can't align to Containers automatically
         alignToContainerBottom(previousNode, child) {
             // realWidth changes inside a Container
-
-            let parentOffset = 0;
-            if (this.parentContainer) {
-                parentOffset = this.parentContainer.y;
-            }
 
             let previousNodeWidth;
             let previousNodeHeight;
@@ -84,17 +95,16 @@ if (Phaser.Group === undefined) {
             }
 
             child.x = centerX - (w * 0.5); // eslint-disable-line
-            child.y = previousNode.getBounds().y + bottomY - parentOffset; // eslint-disable-line
+            child.y = previousNode.getBounds().y + bottomY; // eslint-disable-line
         }
 
         // Containers can't be aligned automatically
-        alignContainerToBottom(previousNode, child) {
+        alignContainerToBottom(previousNode, child) {  // eslint-disable-line
             const bounds = previousNode.getBounds();
             const centerX = previousNode.x + (bounds.width * 0.5);
-            const bottomY = (bounds.height - this.worldPosition.y);
 
-            child.x = centerX - ((child.getBounds().width - this.worldPosition.x) * 0.5); // eslint-disable-line
-            child.y = bounds.y + bottomY; //eslint-disable-line
+            child.x = centerX - (child.width * 0.5);  // eslint-disable-line
+            child.y = bounds.y; // eslint-disable-line
         }
 
         /** Aligns child to the last object in the group.

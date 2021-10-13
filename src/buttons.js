@@ -47,7 +47,12 @@ class TextGroup extends PhaserObjects.Group {
 
     /** When setOrigin is called, align the text as well. */
     setOrigin(x, y) {
-        this.sprite.setOrigin(x, y);
+        if (this.version === 3) {
+            this.sprite.setOrigin(x, y);
+        } else {
+            this.sprite.anchor.set(x, y);
+        }
+
         this.text.x = this.sprite.width / 2;
         this.text.y = this.sprite.height / 2;
 

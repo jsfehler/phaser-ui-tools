@@ -90,6 +90,8 @@ export class Frame extends PhaserObjects.Group {
         if (!(node instanceof PhaserObjects.Group)) {
             node.displayOriginX = 0; // eslint-disable-line
             node.displayOriginY = 0; // eslint-disable-line
+        } else if (node instanceof PhaserObjects.Group) {
+            node.setOrigin(0, 0);
         }
 
         this.add(node);
