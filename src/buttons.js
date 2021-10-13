@@ -95,7 +95,7 @@ export class TextButton extends TextGroup {
     constructor(game, x, y, key, callback, callbackContext, overKey, outKey, downKey, upKey) {
         super(game, x, y);
 
-        this.button = new PhaserObjects.Button(
+        this.sprite = new PhaserObjects.Button(
             game,
             0,
             0,
@@ -107,21 +107,21 @@ export class TextButton extends TextGroup {
             downKey,
             upKey,
         );
-        this.add(this.button);
+        this.add(this.sprite);
 
-        this.width = this.button.width;
-        this.height = this.button.height;
+        this.width = this.sprite.width;
+        this.height = this.sprite.height;
     }
 
     /** Adds an adjustment to the text on down/up events. */
     eventTextYAdjustment(number) {
         const startY = this.text.y;
 
-        this.button.addDownEvent(() => { this.text.y += number; });
-        this.button.addUpEvent(() => { this.text.y = startY; });
+        this.sprite.addDownEvent(() => { this.text.y += number; });
+        this.sprite.addUpEvent(() => { this.text.y = startY; });
 
         // A pointerout event should reset the text position too.
-        this.button.addOutEvent(() => { this.text.y = startY; });
+        this.sprite.addOutEvent(() => { this.text.y = startY; });
 
         return this;
     }
