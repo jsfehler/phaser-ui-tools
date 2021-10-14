@@ -55,6 +55,7 @@ class TextGroup extends PhaserObjects.Group {
 
         this.text.x = this.sprite.width / 2;
         this.text.y = this.sprite.height / 2;
+        this.currentTextY = this.sprite.height / 2;
 
         return this;
     }
@@ -116,17 +117,17 @@ export class TextButton extends TextGroup {
 
         this.width = this.sprite.width;
         this.height = this.sprite.height;
+
+        this.currentTextY = 0;
     }
 
     /** Adds an adjustment to the text on down/up events. */
     eventTextYAdjustment(number) {
-        const startY = this.text.y;
-
         this.sprite.addDownEvent(() => { this.text.y += number; });
-        this.sprite.addUpEvent(() => { this.text.y = startY; });
+        this.sprite.addUpEvent(() => { this.text.y = this.currentTextY; });
 
         // A pointerout event should reset the text position too.
-        this.sprite.addOutEvent(() => { this.text.y = startY; });
+        this.sprite.addOutEvent(() => { this.text.y = this.currentTextY; });
 
         return this;
     }
