@@ -1,15 +1,12 @@
 const path = require('path');
 
+const ESLintPlugin = require('eslint-webpack-plugin');
+
 module.exports = {
     mode: 'production',
+    plugins: [new ESLintPlugin()],
     module: {
         rules: [
-            {
-                enforce: 'pre',
-                test: /\.(js)$/,
-                exclude: /node_modules/,
-                loader: 'eslint-loader',
-            },
             {
                 test: /\.(js)$/,
                 exclude: /node_modules/,
