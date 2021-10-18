@@ -22,6 +22,8 @@ export class Scrollbar extends DraggableBar {
     constructor(game, content, draggable, vertical, trackImage, barImage, tweenParams) {
         super(game);
 
+        this.game = game;
+
         this.content = content;
 
         this.valueRange = new ViewportRange(content, vertical);
@@ -33,7 +35,7 @@ export class Scrollbar extends DraggableBar {
         this.barImage = barImage;
 
         // The smallest pixel size allowed for the bar.
-        this.minBarSize = 44;
+        this.minBarSize = 1;
 
         this.tweenParams = tweenParams || { duration: 300, ease: PhaserObjects.Easing.Quadratic.Out };
 
@@ -64,26 +66,8 @@ export class Scrollbar extends DraggableBar {
             this.enableTrackClick();
         }
 
-        // The bar is the part that moves, controlling the value of the scrollbar.
-        this.bar = new PhaserObjects.Button(
-            game,
-            this.x,
-            this.y,
-            this.barImage,
-            this.moveContent,
-            this,
-            1,
-            0,
-        );
-
-        // Phaser 3:
-        // Anchor the bar to 0 instead of 0.5
-        this.bar.displayOriginX = 0;
-        this.bar.displayOriginY = 0;
-
+        this.createBar();
         this.add(this.bar);
-
-        this.resizeBar();
 
         this.minY = this.track.y;
         this.maxY = (this.track.y + this.track.height) - this.bar.displayHeight;
@@ -110,6 +94,34 @@ export class Scrollbar extends DraggableBar {
 
     /**
      * @private
+     * The bar is the part that moves, controlling the value of the scrollbar.
+    */
+    createBar() {
+        const bar = new PhaserObjects.Button(
+            this.game,
+            this.x,
+            this.y,
+            this.barImage,
+            this.moveContent,
+            this,
+            1,
+            0,
+        );
+
+        // Phaser 3:
+        // Anchor the bar to 0 instead of 0.5
+        bar.displayOriginX = 0;
+        bar.displayOriginY = 0;
+
+        this.bar = bar;
+
+        this.resizeBar();
+
+        return bar;
+    }
+
+    /**
+     * @private
      * Given a ratio between total content size and viewport size,
      * resize the bar sprite to the appropriate percentage of the track.
      */
@@ -121,7 +133,7 @@ export class Scrollbar extends DraggableBar {
             barSize = this.track.width * this.valueRange.ratio;
         }
 
-        // Prevents bar from becoming microscopic.
+        // Prevents bar from becoming zero pixels.
         if (barSize < this.minBarSize) {
             barSize = this.minBarSize;
         }
