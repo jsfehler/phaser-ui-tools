@@ -8,8 +8,8 @@ import { Bar } from './bar';
  * @extends Bar
  */
 export class DraggableBar extends Bar {
-    constructor(game, x = 0, y = 0) {
-        super(game, x, y);
+    constructor(game, x = 0, y = 0, vertical = false, trackKey = '', barKey = '') {
+        super(game, x, y, vertical, trackKey, barKey);
         this.emitter = new EventEmitter();
     }
 

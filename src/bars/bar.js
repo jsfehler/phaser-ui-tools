@@ -10,8 +10,10 @@ export class Bar extends PhaserObjects.Group {
      * @param {number} x - The Bar's x position.
      * @param {number} y - The Bar's y position.
      * @param {boolean} vertical - Sets the Bar's alignment as vertical.
+     * @param {string} trackKey - The key to use for the track.
+     * @param {string} barKey - The key to use for the bar.
      */
-    constructor(game, x = 0, y = 0, vertical = false) {
+    constructor(game, x = 0, y = 0, vertical = false, trackKey = '', barKey = '') {
         super(game);
         game.add.existing(this);
 
@@ -20,6 +22,9 @@ export class Bar extends PhaserObjects.Group {
         this.y = y;
 
         this.vertical = vertical;
+
+        this.trackKey = trackKey;
+        this.barKey = barKey;
 
         this.parentContainer = null;
     }

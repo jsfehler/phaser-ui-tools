@@ -15,12 +15,12 @@ export class Scrollbar extends DraggableBar {
      * @param {Object} content - Anything that you want to move via the scrollbar.
      * @param {boolean} draggable - Determines if the scrollbar responds to mouse clicks.
      * @param {boolean} vertical - Determines if the scrollbar should be vertical or horizontal.
-     * @param {string} trackImage - The image key to use for the track.
-     * @param {string} barImage - The image key to use for the bar. Will automatically resize to fit.
+     * @param {string} trackKey - The key to use for the track.
+     * @param {string} barKey - The key to use for the bar.
      * @param {Object} tweenParams - Object with duration and easing function for the scrolling tween.
      */
-    constructor(game, content, draggable, vertical, trackImage, barImage, tweenParams) {
-        super(game);
+    constructor(game, content, draggable, vertical = false, trackKey = '', barKey = '', tweenParams = null) {
+        super(game, 0, 0, vertical, trackKey, barKey);
 
         this.game = game;
 
@@ -28,11 +28,7 @@ export class Scrollbar extends DraggableBar {
 
         this.valueRange = new ViewportRange(content, vertical);
 
-        this.vertical = vertical || false;
         this.draggable = draggable || false;
-
-        this.trackImage = trackImage;
-        this.barImage = barImage;
 
         // The smallest pixel size allowed for the bar.
         this.minBarSize = 1;
@@ -51,7 +47,7 @@ export class Scrollbar extends DraggableBar {
             game,
             this.x,
             this.y,
-            this.trackImage,
+            this.trackKey,
         );
 
         // Phaser 3:
@@ -101,7 +97,7 @@ export class Scrollbar extends DraggableBar {
             this.game,
             this.x,
             this.y,
-            this.barImage,
+            this.barKey,
             this.moveContent,
             this,
             1,

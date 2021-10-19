@@ -16,20 +16,16 @@ export class ValueBar extends DraggableBar {
      * @param {Object} values - The numerical values for the bar.
      * @param {boolean} draggable - Determines if the scrollbar responds to mouse clicks.
      * @param {boolean} vertical - Determines if the bar should be vertical or horizontal.
-     * @param {string} trackImage - The image key to use for the track.
-     * @param {string} barImage - The image key to use for the bar. Will automatically resize to fit.
+     * @param {string} trackKey - The key to use for the track.
+     * @param {string} barKey - The key to use for the bar.
      * @param {Object} tweenParams - Object with duration and easing function for the scrolling tween.
      */
-    constructor(game, xy, values, draggable, vertical, trackImage, barImage, tweenParams) {
-        super(game, xy.x, xy.y);
+    constructor(game, xy, values, draggable, vertical = false, trackKey = '', barKey = '', tweenParams = null) {
+        super(game, xy.x, xy.y, vertical, trackKey, barKey);
 
         this.valueRange = new ValueRange(values.step, values.startValue, values.maxValue);
 
-        this.vertical = vertical || false;
         this.draggable = draggable || false;
-
-        this.trackImage = trackImage;
-        this.barImage = barImage;
 
         this.tweenParams = tweenParams || { duration: 300, ease: PhaserObjects.Easing.Quadratic.Out };
 
@@ -41,7 +37,7 @@ export class ValueBar extends DraggableBar {
         this.mousePointer = null;
 
         // The track is the static area the bar will move along.
-        this.track = new PhaserObjects.Sprite(game, 0, 0, this.trackImage);
+        this.track = new PhaserObjects.Sprite(game, 0, 0, this.trackKey);
 
         // Phaser 3:
         // Anchor the track to 0 instead of 0.5
@@ -60,7 +56,7 @@ export class ValueBar extends DraggableBar {
             game,
             this.x,
             this.y,
-            this.barImage,
+            this.barKey,
             this.moveContent,
             this,
             1,
