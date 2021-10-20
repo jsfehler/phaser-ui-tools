@@ -22,6 +22,8 @@ if (Phaser.Group === undefined) {
 
             game.add.existing(this);
 
+            this.parentContainer = this;
+
             this.SORT_ASCENDING = -1;
             this.SORT_DESCENDING = 1;
 
@@ -129,6 +131,8 @@ if (Phaser.Group === undefined) {
     class PhaserCEGroup extends Phaser.Group {
         constructor(game) {
             super(game);
+
+            this.parentContainer = this;
 
             this.SORT_ASCENDING = -1;
             this.SORT_DESCENDING = 1;
