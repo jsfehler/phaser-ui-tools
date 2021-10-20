@@ -26,6 +26,8 @@ export class QuantityBar extends Bar {
     ) {
         super(game, xy.x, xy.y, vertical, trackKey, barKey);
 
+        this.uiWidgetsObjectRole = 'quantitybar';
+
         this.valueRange = new QuantityRange(
             this,
             values.startValue,
@@ -45,6 +47,9 @@ export class QuantityBar extends Bar {
         this.track.displayOriginY = 0;
 
         this.add(this.track);
+
+        this.width = this.track.width;
+        this.height = this.track.height;
 
         // The bar is a static image taking up the width of the track.
         this.bar = new PhaserObjects.Sprite(
@@ -83,35 +88,49 @@ export class QuantityBar extends Bar {
         }
     }
 
+    getMaskXY(x = 0, y = 0) {
+        // Phaser CE: Mask starts at bar xy, Phaser 3: Mask starts at group xy
+        let maskX;
+        let maskY;
+
+        maskX = x;
+        maskY = y;
+
+        if (this.version === undefined) {
+            maskX += this.bar.x;
+            maskY += this.bar.y;
+        } else {
+            maskX += this.x;
+            maskY += this.y;
+        }
+
+        // Resizes the bar.
+        if (this.reverse) {
+            if (this.vertical) {
+                maskY += this.getBarFraction();
+            } else {
+                maskX += this.getBarFraction();
+            }
+        }
+
+        return [maskX, maskY];
+    }
+
     getBarPosition() {
         const windowPositionRatio = this.valueRange.getRatio() / this.windowScrollAreaSize;
         return this.trackScrollAreaSize * windowPositionRatio;
     }
 
-    create() {
+    create(maskX = 0, maskY = 0) {
         this.centerStaticAxis();
 
         // Values for the bar's mask.
         this.maskW = this.bar.width;
         this.maskH = this.bar.height;
 
-        // Phaser CE: Mask starts at bar xy, Phaser 3: Mask starts at group xy
-        if (this.version === undefined) {
-            this.maskX = this.bar.x;
-            this.maskY = this.bar.y;
-        } else {
-            this.maskX = this.x;
-            this.maskY = this.y;
-        }
-
-        // Resizes the bar.
-        if (this.reverse) {
-            if (this.vertical) {
-                this.maskY += this.getBarFraction();
-            } else {
-                this.maskX += this.getBarFraction();
-            }
-        }
+        const [mx, my] = this.getMaskXY(maskX, maskY);
+        this.maskX = mx;
+        this.maskY = my;
 
         this.setMask();
 

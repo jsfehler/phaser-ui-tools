@@ -98,6 +98,13 @@ export class Frame extends PhaserObjects.Group {
         this.alignNodeToPrevious(node, align, paddingX, paddingY);
         node.parentContainer = this;  // eslint-disable-line
 
+        // Phaser 3: QuantityBar's mask needs a personal touch.
+        if (node.uiWidgetsObjectRole === 'quantitybar') {
+            if (node.version === 3) {
+                node.create(this.parentContainer.x, this.parentContainer.y);
+            }
+        }
+
         // Reset the positions for the bar's draggable area.
         if ('enableBarDrag' in node) {
             node.enableBarDrag();
