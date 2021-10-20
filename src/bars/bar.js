@@ -25,7 +25,6 @@ export class Bar extends PhaserObjects.Group {
 
         this.trackKey = trackKey;
         this.barKey = barKey;
-
     }
 
     /**
