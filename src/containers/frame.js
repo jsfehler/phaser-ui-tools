@@ -101,7 +101,7 @@ export class Frame extends PhaserObjects.Group {
         // Phaser 3: QuantityBar's mask needs a personal touch.
         if (node.uiWidgetsObjectRole === 'quantitybar') {
             if (node.version === 3) {
-                node.create(this.parentContainer.x, this.parentContainer.y);
+                node.create(this.x, this.y);
             }
         }
 

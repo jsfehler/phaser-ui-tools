@@ -22,7 +22,7 @@ if (Phaser.Group === undefined) {
 
             game.add.existing(this);
 
-            this.parentContainer = this;
+            this.parentContainer = null;
 
             this.SORT_ASCENDING = -1;
             this.SORT_DESCENDING = 1;
@@ -132,7 +132,7 @@ if (Phaser.Group === undefined) {
         constructor(game) {
             super(game);
 
-            this.parentContainer = this;
+            this.parentContainer = null;
 
             this.SORT_ASCENDING = -1;
             this.SORT_DESCENDING = 1;
