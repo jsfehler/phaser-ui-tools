@@ -12,7 +12,7 @@ import * as PhaserObjects from '../phaserObjects';
 export class Scrollbar extends DraggableBar {
     /**
      * @param {Object} game - Current game instance.
-     * @param {Object} content - Anything that you want to move via the scrollbar.
+     * @param {Object} content - An object to adjust via the scrollbar.
      * @param {boolean} draggable - Determines if the scrollbar responds to mouse clicks.
      * @param {boolean} vertical - Determines if the scrollbar should be vertical or horizontal.
      * @param {string} trackKey - The key to use for the track.
