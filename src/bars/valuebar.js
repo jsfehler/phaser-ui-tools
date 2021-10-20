@@ -46,6 +46,9 @@ export class ValueBar extends DraggableBar {
 
         this.add(this.track);
 
+        this.width = this.track.width;
+        this.height = this.track.height;
+
         // If the bar is draggable, clicking the track will move the bar up or down.
         if (this.draggable) {
             this.enableTrackClick();
