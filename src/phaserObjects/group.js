@@ -100,13 +100,19 @@ if (Phaser.Group === undefined) {
             child.y = previousNode.getBounds().y + bottomY; // eslint-disable-line
         }
 
-        // Containers can't be aligned automatically
+        /** Containers can't be aligned automatically */
         alignContainerToBottom(previousNode, child) {  // eslint-disable-line
             const bounds = previousNode.getBounds();
             const centerX = previousNode.x + (bounds.width * 0.5);
 
             child.x = centerX - (child.width * 0.5);  // eslint-disable-line
             child.y = bounds.y; // eslint-disable-line
+        }
+
+        alignContainerToRight(previousNode, child) {  // eslint-disable-line
+            const rightX = previousNode.x + previousNode.width;
+
+            child.x = rightX; // eslint-disable-line
         }
 
         /** Aligns child to the last object in the group.
@@ -116,10 +122,17 @@ if (Phaser.Group === undefined) {
             const nodes = this.getNodes();
             const previousNode = nodes[nodes.length - 2];
 
+            const toGroupAlignFuncs = {
+                11: this.alignContainerToBottom, // Column
+                8: this.alignContainerToRight, // Row
+            };
+
+            const toGroupAlignFunc = toGroupAlignFuncs[align];
+
             if (previousNode instanceof Phaser3Group) {
                 this.alignToContainerBottom(previousNode, child);
             } else if (child instanceof Phaser3Group && (previousNode !== undefined)) {
-                this.alignContainerToBottom(previousNode, child);
+                toGroupAlignFunc(previousNode, child);
             } else if (previousNode !== undefined) {
                 this.alignToMapping[align](child, previousNode, paddingX, paddingY);
             }
