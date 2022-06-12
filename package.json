@@ -35,7 +35,16 @@
     "webpack-cli": "^4.9.0"
   },
   "peerDependencies": {
-    "phaser-ce": "2.10.3"
+    "phaser-ce": "2.10.3",
+    "phaser": "^3.55.2"
+  },
+  "peerDependenciesMeta": {
+    "phaser-ce": {
+      "optional": true
+    },
+    "phaser": {
+      "optional": true
+    }
   },
   "dependencies": {
     "eventemitter3": "^4.0.7"
