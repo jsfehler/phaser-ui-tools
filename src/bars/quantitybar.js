@@ -21,8 +21,14 @@ export class QuantityBar extends Bar {
      * @param {Object} tweenParams - Object with duration and easing function for the scrolling tween.
      */
     constructor(
-        game, xy, values, vertical = false, reverse = false,
-        trackKey = '', barKey = '', tweenParams = null,
+        game,
+        xy,
+        values,
+        vertical = false,
+        reverse = false,
+        trackKey = '',
+        barKey = '',
+        tweenParams = null,
     ) {
         super(game, xy.x, xy.y, vertical, trackKey, barKey);
 
