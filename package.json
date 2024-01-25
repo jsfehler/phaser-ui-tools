@@ -36,7 +36,7 @@
   },
   "peerDependencies": {
     "phaser": "^3.55.2",
-    "phaser-ce": "2.10.3"
+    "phaser-ce": "2.20.0"
   },
   "peerDependenciesMeta": {
     "phaser-ce": {
