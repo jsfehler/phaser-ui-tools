@@ -179,8 +179,6 @@ export class DraggableBar extends Bar {
             this.moveContent,
             null,
             this,
-            this,
-            null,
         );
     }
 

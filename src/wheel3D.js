@@ -296,8 +296,6 @@ export class Wheel3D {
                     null,
                     () => { this.dispatchOnStart(); },
                     this,
-                    null,
-                    null,
                 );
             }
         }

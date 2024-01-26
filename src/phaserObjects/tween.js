@@ -6,11 +6,7 @@ if (Phaser.Tween === undefined) {
             this.game = game;
         }
 
-        add(target, properties, duration, ease, onComplete, onUpdate, onStart, onCompleteScope, onUpdateScope, onStartScope) {
-            const completeScope = onCompleteScope || this;
-            const updateScope = onUpdateScope || this;
-            const startScope = onStartScope || this;
-
+        add(target, properties, duration, ease, onComplete, onUpdate, onStart, callbackScope) {
             const config = {
                 targets: target,
                 duration,
@@ -18,9 +14,7 @@ if (Phaser.Tween === undefined) {
                 onComplete,
                 onUpdate,
                 onStart,
-                onCompleteScope: completeScope,
-                onUpdateScope: updateScope,
-                onStartScope: startScope,
+                callbackScope,
             };
             const params = Object.assign(config, properties);
             this.game.tweens.add(params);
